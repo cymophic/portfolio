@@ -8,6 +8,11 @@ terraform {
 }
 
 provider "aws" {
+  alias  = "us_east_1"
+  region = "us-east-1"
+}
+
+provider "aws" {
   region = var.aws_region
 }
 
@@ -50,6 +55,7 @@ resource "aws_cloudfront_origin_access_control" "portfolio" {
 resource "aws_cloudfront_distribution" "portfolio" {
   enabled             = true
   default_root_object = "index.html"
+  aliases             = ["luisabhram.dev"]
 
   origin {
     domain_name              = aws_s3_bucket.portfolio.bucket_regional_domain_name
@@ -78,7 +84,9 @@ resource "aws_cloudfront_distribution" "portfolio" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn      = aws_acm_certificate.portfolio.arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 
   tags = {
@@ -107,4 +115,18 @@ data "aws_iam_policy_document" "portfolio_s3_policy" {
 resource "aws_s3_bucket_policy" "portfolio" {
   bucket = aws_s3_bucket.portfolio.id
   policy = data.aws_iam_policy_document.portfolio_s3_policy.json
+}
+
+resource "aws_acm_certificate" "portfolio" {
+  provider          = aws.us_east_1
+  domain_name       = "luisabhram.dev"
+  validation_method = "DNS"
+
+  tags = {
+    Project = var.project_name
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
