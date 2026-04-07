@@ -1,6 +1,10 @@
-import ContactPage from "@/components/pages/Contact";
+import Overview from "@/components/sections/contact/Overview";
 
-export default function ContactRoute() {
-  return <ContactPage />;
+export default function Contact() {
+  return (
+    <div className="flex flex-1 flex-col font-sans">
+      <Overview />
+    </div>
+  );
 }
 

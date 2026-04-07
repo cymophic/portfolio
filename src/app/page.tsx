@@ -1,5 +1,9 @@
-import Home from "@/components/pages/Home";
+import Hero from "@/components/sections/home/Hero";
 
-export default function Page() {
-  return <Home />;
+export default function Home() {
+  return (
+    <div className="flex flex-1 flex-col font-sans">
+      <Hero />
+    </div>
+  );
 }
