@@ -5,3 +5,13 @@
 @theme {
   --font-sans: var(--font-inter);
 }
+
+@layer base {
+  * {
+    user-select: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
