@@ -27,9 +27,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev).
 - **Framework:** Next.js 16
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4
-- **Font:** Inter
 - **Animations:** GSAP
-- **Theming:** next-themes (dark/light mode)
 
 ### Infrastructure
 - **Hosting:** AWS S3
@@ -73,6 +71,7 @@ luisabhram.dev/
 │   ├── main.tf                           # S3, CloudFront, ACM, and IAM resources
 │   ├── outputs.tf                        # Terraform output values
 │   └── variables.tf                      # Input variables (region, bucket name, etc.)
+├── .env.example                          # Required environment variables
 ├── .gitignore
 ├── eslint.config.mjs
 ├── next.config.ts                        # Next.js configuration (static export)
@@ -181,3 +180,4 @@ Deployments are fully automated via GitHub Actions.
 | `AWS_SECRET_ACCESS_KEY` | Secret | IAM user secret key |
 | `CLOUDFRONT_DISTRIBUTION_ID` | Secret | CloudFront distribution ID |
 | `S3_BUCKET_NAME` | Variable | S3 bucket name |
+| `NEXT_PUBLIC_SITE_MODE` | Variable | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
