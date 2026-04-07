@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import ThemeToggle from "@/components/ui/ThemeToggle";
 import { navLinks } from "@/lib/navigation";
 
 type NavPanelProps = {
@@ -28,7 +27,7 @@ export default function NavPanel({
       ref={panelRef}
       className="fixed top-0 left-0 h-full w-56 z-40 bg-zinc-50 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 flex flex-col justify-between py-4 px-6"
     >
-      <div className="mt-12">
+      <div className="mt-16">
         <nav className="flex flex-col gap-1">
           {navLinks.map((link, i) => (
             <Link
@@ -49,7 +48,6 @@ export default function NavPanel({
           ))}
         </nav>
       </div>
-      <ThemeToggle />
     </div>
   );
 }

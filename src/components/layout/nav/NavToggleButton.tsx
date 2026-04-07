@@ -14,7 +14,7 @@ export default function NavToggleButton({ open, onToggle }: NavToggleButtonProps
     <Button
       variant="icon"
       onClick={onToggle}
-      className="fixed top-0 left-0 z-50 p-4"
+      className="p-2"
     >
       {open ? <MdClose size={18} /> : <MdMenu size={18} />}
     </Button>
