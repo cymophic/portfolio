@@ -22,7 +22,7 @@ export default function SocialLinks({ exclude = [], iconsRef }: SocialLinksProps
   const filtered = socialLinks.filter(({ label }) => !exclude.includes(label));
   return (
     <div className="flex items-center gap-4">
-      {filtered.map(({ label, href }, i) => {
+      {filtered.map(({ label, href, color }, i) => {
         const Icon = iconMap[label];
         return (
           <Link
@@ -34,7 +34,11 @@ export default function SocialLinks({ exclude = [], iconsRef }: SocialLinksProps
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
-            className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
+            style={{
+                ["--brand-light" as string]: color.light,
+                ["--brand-dark" as string]: color.dark,
+              }}
+            className="text-zinc-400 hover:text-(--brand-light) dark:hover:text-(--brand-dark) transition-colors"
           >
             <Icon size={18} />
           </Link>
