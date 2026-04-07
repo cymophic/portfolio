@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import Nav from "@/components/layout/Nav";
+import Nav from "@/components/layout/nav/Nav";
 import ThemeProvider from "@/components/layout/ThemeProvider";
 import ComingSoon from "@/components/pages/ComingSoon";
 import { IS_LIVE } from "@/lib/site";
