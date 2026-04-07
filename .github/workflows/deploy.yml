@@ -23,6 +23,8 @@ jobs:
 
       - name: Build Next.js app
         run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_MODE: ${{ vars.NEXT_PUBLIC_SITE_MODE }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4

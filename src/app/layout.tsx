@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Nav from "@/components/layout/nav/Nav";
 import ThemeProvider from "@/components/layout/ThemeProvider";
 import ComingSoon from "@/components/pages/ComingSoon";
-import { IS_LIVE } from "@/lib/site";
+const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 import "./globals.css";
 
 import { Inter } from "next/font/google";
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   let content: React.ReactNode;
-  if (IS_LIVE) {
+  if (SITE_MODE === "live") {
     content = (
       <>
         <Nav />
