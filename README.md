@@ -26,7 +26,10 @@ The site is live at [luisabhram.dev](https://luisabhram.dev).
 ### Application
 - **Framework:** Next.js 16
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS
+- **Styling:** Tailwind CSS v4
+- **Font:** Inter
+- **Animations:** GSAP
+- **Theming:** next-themes (dark/light mode)
 
 ### Infrastructure
 - **Hosting:** AWS S3
@@ -46,30 +49,36 @@ The site is live at [luisabhram.dev](https://luisabhram.dev).
 luisabhram.dev/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml              # GitHub Actions deployment workflow
-├── public/                         # Static assets served as-is
-│   ├── file.svg
-│   ├── globe.svg
-│   ├── next.svg
-│   ├── vercel.svg
-│   └── window.svg
+│       └── deploy.yml                    # GitHub Actions deployment workflow
+├── public/                               # Static assets served as-is
 ├── src/
-│   └── app/                        # Next.js App Router
-│       ├── favicon.ico             # Site favicon
-│       ├── globals.css             # Global styles and Tailwind imports
-│       ├── layout.tsx              # Root layout component
-│       └── page.tsx                # Home page
-├── terraform/                      # AWS infrastructure as code
-│   ├── .terraform.lock.hcl         # Terraform provider version lock file
-│   ├── main.tf                     # S3, CloudFront, ACM, and IAM resources
-│   ├── outputs.tf                  # Terraform output values
-│   └── variables.tf                # Input variables (region, bucket name, etc.)
-├── .gitignore                      # Files and directories ignored by Git
-├── eslint.config.mjs               # ESLint configuration
-├── next.config.ts                  # Next.js configuration (static export)
-├── package.json                    # Node.js dependencies and scripts
-├── postcss.config.mjs              # PostCSS configuration for Tailwind
-└── tsconfig.json                   # TypeScript configuration
+│   ├── app/                              # Next.js App Router
+│   │   ├── favicon.ico                   # Site favicon
+│   │   ├── globals.css                   # Global styles and Tailwind imports
+│   │   ├── layout.tsx                    # Root layout component
+│   │   └── page.tsx                      # Root page
+│   ├── components/
+│   │   ├── layout/                       # App-wide layout components
+│   │   │   ├── Nav.tsx                   # GSAP-animated hamburger nav
+│   │   │   └── ThemeProvider.tsx         # next-themes provider wrapper
+│   │   ├── pages/                        # Full page-level components
+│   │   │   └── ComingSoon.tsx            # Coming soon placeholder page
+│   │   ├── sections/                     # Page section components
+│   │   └── ui/                           # Small reusable UI components
+│   │       └── ThemeToggle.tsx           # Dark/light mode toggle button
+│   └── lib/
+│       └── navigation.ts                 # Shared nav link definitions
+├── terraform/                            # AWS infrastructure as code
+│   ├── .terraform.lock.hcl               # Terraform provider version lock file
+│   ├── main.tf                           # S3, CloudFront, ACM, and IAM resources
+│   ├── outputs.tf                        # Terraform output values
+│   └── variables.tf                      # Input variables (region, bucket name, etc.)
+├── .gitignore
+├── eslint.config.mjs
+├── next.config.ts                        # Next.js configuration (static export)
+├── package.json
+├── postcss.config.mjs
+└── tsconfig.json
 ```
 
 ---
