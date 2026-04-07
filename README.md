@@ -17,7 +17,7 @@ Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) wi
 
 ## 🌐 Live Deployment
 
-The site is live at [luisabhram.dev](https://luisabhram.dev).
+The site is live at [luisabhram.dev](https://luisabhram.dev)
 
 ---
 
@@ -26,7 +26,8 @@ The site is live at [luisabhram.dev](https://luisabhram.dev).
 ### Application
 - **Framework:** Next.js 16
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS
+- **Styling:** Tailwind CSS v4
+- **Animations:** GSAP
 
 ### Infrastructure
 - **Hosting:** AWS S3
@@ -41,35 +42,40 @@ The site is live at [luisabhram.dev](https://luisabhram.dev).
 ---
 
 ## 📁 Project Structure
-
 ```
 luisabhram.dev/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml              # GitHub Actions deployment workflow
-├── public/                         # Static assets served as-is
-│   ├── file.svg
-│   ├── globe.svg
-│   ├── next.svg
-│   ├── vercel.svg
-│   └── window.svg
+│       └── deploy.yml                    # GitHub Actions deployment workflow
+├── public/                               # Static assets served as-is
 ├── src/
-│   └── app/                        # Next.js App Router
-│       ├── favicon.ico             # Site favicon
-│       ├── globals.css             # Global styles and Tailwind imports
-│       ├── layout.tsx              # Root layout component
-│       └── page.tsx                # Home page
-├── terraform/                      # AWS infrastructure as code
-│   ├── .terraform.lock.hcl         # Terraform provider version lock file
-│   ├── main.tf                     # S3, CloudFront, ACM, and IAM resources
-│   ├── outputs.tf                  # Terraform output values
-│   └── variables.tf                # Input variables (region, bucket name, etc.)
-├── .gitignore                      # Files and directories ignored by Git
-├── eslint.config.mjs               # ESLint configuration
-├── next.config.ts                  # Next.js configuration (static export)
-├── package.json                    # Node.js dependencies and scripts
-├── postcss.config.mjs              # PostCSS configuration for Tailwind
-└── tsconfig.json                   # TypeScript configuration
+│   ├── app/                              # App routes
+│   │   ├── contact/
+│   │   ├── education/
+│   │   ├── projects/
+│   │   ├── work/
+│   │   ├── globals.css                   # Global styles and Tailwind imports
+│   │   ├── layout.tsx                    # Root layout component
+│   │   └── page.tsx                      # Root page
+│   ├── components/
+│   │   ├── layout/                       # App-wide layout components
+│   │   ├── pages/                        # Full page-level components
+│   │   ├── sections/                     # Page section components
+│   │   └── ui/                           # Small reusable UI components
+│   ├── hooks/                            # Custom hooks
+│   └── lib/
+│       └── site.ts                       # Site settings
+├── terraform/                            # AWS infrastructure as code
+│   ├── main.tf                           # S3, CloudFront, ACM, and IAM resources
+│   ├── outputs.tf                        # Terraform output values
+│   └── variables.tf                      # Input variables (region, bucket name, etc.)
+├── .env.example                          # Required environment variables
+├── .gitignore
+├── eslint.config.mjs
+├── next.config.ts                        # Next.js configuration (static export)
+├── package.json
+├── postcss.config.mjs
+└── tsconfig.json
 ```
 
 ---
@@ -172,3 +178,4 @@ Deployments are fully automated via GitHub Actions.
 | `AWS_SECRET_ACCESS_KEY` | Secret | IAM user secret key |
 | `CLOUDFRONT_DISTRIBUTION_ID` | Secret | CloudFront distribution ID |
 | `S3_BUCKET_NAME` | Variable | S3 bucket name |
+| `NEXT_PUBLIC_SITE_MODE` | Variable | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
