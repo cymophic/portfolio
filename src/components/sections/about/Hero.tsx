@@ -31,6 +31,7 @@ export default function Hero() {
             alt="Profile picture"
             width={160}
             height={160}
+            priority
             className="rounded-full object-cover"
           />
         </div>
