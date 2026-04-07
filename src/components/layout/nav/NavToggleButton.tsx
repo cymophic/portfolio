@@ -16,7 +16,13 @@ export default function NavToggleButton({ open, onToggle }: NavToggleButtonProps
       onClick={onToggle}
       className="p-2"
     >
-      {open ? <MdClose size={18} /> : <MdMenu size={18} />}
+      <span
+        className={`inline-flex h-5 w-5 items-center justify-center transform transition-transform duration-300 ease-out ${
+          open ? "rotate-90" : "rotate-0"
+        }`}
+      >
+        {open ? <MdClose size={18} /> : <MdMenu size={18} />}
+      </span>
     </Button>
   );
 }
