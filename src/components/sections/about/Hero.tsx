@@ -13,7 +13,7 @@ export default function Hero() {
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-400">
             {home!.label}
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-zinc-900 dark:text-zinc-50">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-zinc-700 dark:text-zinc-50">
             {profileInfo.name}
           </h1>
           <p className="max-w-xl text-sm sm:text-base text-zinc-600 dark:text-zinc-400">

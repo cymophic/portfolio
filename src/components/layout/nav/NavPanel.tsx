@@ -42,8 +42,8 @@ export default function NavPanel({
               onClick={onLinkClick}
               className={`text-lg py-2 transition-colors font-semibold ${
                 pathname === link.href
-                  ? "text-zinc-900 dark:text-zinc-100"
-                  : "text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                  ? "text-zinc-700 dark:text-zinc-100"
+                  : "text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-100"
               }`}
             >
               {link.label}
