@@ -7,6 +7,9 @@ export const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+// Profile image path
+export const profileImage = "https://github.com/cymophic.png";
+
 // Social media links
 export const socialLinks = [
   { label: "GitHub", href: "https://github.com/cymophic", color: { light: "#333", dark: "#fff" } },
