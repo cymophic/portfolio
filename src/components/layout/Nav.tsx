@@ -48,21 +48,26 @@ export default function Nav() {
 
   return (
     <>
-      {/* Hamburger button */}
-      {!open && (
-        <button
-          onClick={() => { setOpen(true); setVisible(true); }}
-          className="fixed top-0 left-0 z-50 p-4 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-        >
-          <MdMenu size={18} />
-        </button>
-      )}
+      {/* Toggle button (open/close) */}
+      <button
+        onClick={() => {
+          if (open) {
+            handleClose();
+          } else {
+            setOpen(true);
+            setVisible(true);
+          }
+        }}
+        className="fixed top-0 left-0 z-50 p-4 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+      >
+        {open ? <MdClose size={18} /> : <MdMenu size={18} />}
+      </button>
 
       {/* Overlay */}
       {visible && (
         <div
           onClick={handleClose}
-          className="fixed inset-0 z-40 bg-black/20 dark:bg-black/40"
+          className="fixed inset-0 z-30 bg-black/20 dark:bg-black/40"
         />
       )}
 
@@ -70,16 +75,9 @@ export default function Nav() {
       {visible && (
         <div
           ref={panelRef}
-          className="fixed top-0 left-0 h-full w-56 z-50 bg-zinc-50 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 flex flex-col justify-between py-4 px-6"
+          className="fixed top-0 left-0 h-full w-56 z-40 bg-zinc-50 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 flex flex-col justify-between py-4 px-6"
         >
-          {/* X at same position as hamburger */}
-          <div>
-            <button
-              onClick={handleClose}
-              className="p-0 mb-8 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-            >
-              <MdClose size={18} />
-            </button>
+          <div className="mt-12">
             <nav className="flex flex-col gap-1">
               {navLinks.map((link, i) => (
                 <Link
