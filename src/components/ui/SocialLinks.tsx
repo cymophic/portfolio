@@ -22,12 +22,12 @@ export default function SocialLinks({ exclude = [], iconsRef }: SocialLinksProps
   const filtered = socialLinks.filter(({ label }) => !exclude.includes(label));
   return (
     <div className="flex items-center gap-4">
-      {filtered.map(({ label, href, color }, i) => {
+      {filtered.map(({ label, link, color }, i) => {
         const Icon = iconMap[label];
         return (
           <Link
             key={label}
-            href={href}
+            href={link}
             ref={(el) => {
               if (iconsRef) iconsRef.current[i] = el;
             }}

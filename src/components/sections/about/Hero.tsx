@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import SocialLinks from "@/components/ui/SocialLinks";
-import { navLinks, profileImage } from "@/lib/site";
+import { navLinks, profileInfo } from "@/lib/site";
 
 export default function Hero() {
   const home = navLinks.find((link) => link.href === "/");
@@ -14,11 +14,10 @@ export default function Hero() {
             {home!.label}
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-zinc-900 dark:text-zinc-50">
-            Luis Abhram Mata
+            {profileInfo.name}
           </h1>
           <p className="max-w-xl text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
-            Software engineer focused on building performant, animation-rich web
-            experiences with Next.js, TypeScript, and modern tooling.
+            {profileInfo.bio}
           </p>
 
           <div className="mt-2">
@@ -28,8 +27,8 @@ export default function Hero() {
 
         <div className="shrink-0">
           <Image
-            src={profileImage}
-            alt="Luis Abhram Mata"
+            src={profileInfo.image}
+            alt="Profile picture"
             width={160}
             height={160}
             className="rounded-full object-cover"
