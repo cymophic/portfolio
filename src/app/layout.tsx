@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import Nav from "@/components/layout/Nav";
 import ThemeProvider from "@/components/layout/ThemeProvider";
+import ComingSoon from "@/components/pages/ComingSoon";
+import { IS_LIVE } from "@/lib/site";
 import "./globals.css";
 
 import { Inter } from "next/font/google";
@@ -13,14 +15,26 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Luis Abhram",
-  description: "Personal portfolio of Luis Abhram",
+  description: "Personal portfolio of Luis Abhram Mata",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
+  let content: React.ReactNode;
+  if (IS_LIVE) {
+    content = (
+      <>
+        <Nav />
+        <main className="flex flex-1 flex-col">{children}</main>
+      </>
+    );
+  } else {
+    content = (
+      <main className="flex flex-1 flex-col">
+        <ComingSoon />
+      </main>
+    );
+  }
+
   return (
     <html
       lang="en"
@@ -28,10 +42,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950" suppressHydrationWarning>
-        <ThemeProvider>
-          <Nav />
-          <main className="flex flex-1 flex-col">{children}</main>
-        </ThemeProvider>
+        <ThemeProvider>{content}</ThemeProvider>
       </body>
     </html>
   );
