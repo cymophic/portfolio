@@ -17,7 +17,7 @@ Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) wi
 
 ## 🌐 Live Deployment
 
-The site is live at [luisabhram.dev](https://luisabhram.dev).
+The site is live at [luisabhram.dev](https://luisabhram.dev)
 
 ---
 
