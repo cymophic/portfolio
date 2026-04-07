@@ -1,36 +1,174 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Portfolio
 
-## Getting Started
+Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) with infrastructure provisioned via Terraform and CI/CD through GitHub Actions.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📚 Table of Contents
+
+1. 🌐 [Live Deployment](#-live-deployment)
+2. ⚙️ [Architecture & Tech Stack](#-architecture--tech-stack)
+3. 📁 [Project Structure](#-project-structure)
+4. 🚀 [Local Development](#-local-development)
+5. 🏗️ [Infrastructure Setup](#-infrastructure-setup)
+6. 🔄 [Deployment Process](#-deployment-process)
+
+---
+
+## 🌐 Live Deployment
+
+The site is live at [luisabhram.dev](https://luisabhram.dev).
+
+---
+
+## ⚙️ Architecture & Tech Stack
+
+### Application
+- **Framework:** Next.js 16
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+
+### Infrastructure
+- **Hosting:** AWS S3
+- **CDN:** AWS CloudFront
+- **SSL:** AWS Certificate Manager
+- **DNS:** Cloudflare
+- **IaC:** Terraform
+
+### CI/CD
+- **Pipeline:** GitHub Actions
+
+---
+
+## 📁 Project Structure
+
+```
+luisabhram.dev/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml              # GitHub Actions deployment workflow
+├── public/                         # Static assets served as-is
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── src/
+│   └── app/                        # Next.js App Router
+│       ├── favicon.ico             # Site favicon
+│       ├── globals.css             # Global styles and Tailwind imports
+│       ├── layout.tsx              # Root layout component
+│       └── page.tsx                # Home page
+├── terraform/                      # AWS infrastructure as code
+│   ├── .terraform.lock.hcl         # Terraform provider version lock file
+│   ├── main.tf                     # S3, CloudFront, ACM, and IAM resources
+│   ├── outputs.tf                  # Terraform output values
+│   └── variables.tf                # Input variables (region, bucket name, etc.)
+├── .gitignore                      # Files and directories ignored by Git
+├── eslint.config.mjs               # ESLint configuration
+├── next.config.ts                  # Next.js configuration (static export)
+├── package.json                    # Node.js dependencies and scripts
+├── postcss.config.mjs              # PostCSS configuration for Tailwind
+└── tsconfig.json                   # TypeScript configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Local Development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
 
-## Learn More
+- **Node.js** v20+
+- **npm** v10+
 
-To learn more about Next.js, take a look at the following resources:
+### Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```bash
+    git clone https://github.com/cymophic/portfolio.git
+    cd portfolio
+    ```
 
-## Deploy on Vercel
+2. **Install dependencies:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Start the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Available Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start local development server |
+| `npm run build` | Build static export to `/out` |
+| `npm run lint` | Run ESLint |
+
+---
+
+## 🏗️ Infrastructure Setup
+
+### Prerequisites
+
+- **Terraform** v1.14+
+- **AWS CLI** configured with valid credentials (`aws configure`)
+- An AWS IAM user with S3, CloudFront, ACM, and IAM permissions
+
+### Provision AWS Resources
+
+```bash
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
+
+This provisions:
+- S3 bucket for static file hosting
+- CloudFront distribution with HTTPS
+- ACM SSL certificate for the custom domain
+- S3 bucket policy scoped to CloudFront only
+
+### DNS Setup
+
+After provisioning, add these records in Cloudflare:
+
+| Type | Name | Value |
+|---|---|---|
+| `CNAME` | `@` | Your CloudFront domain (from `terraform output cloudfront_domain`) |
+| `CNAME` | ACM validation name | ACM validation value (from `terraform output acm_validation_records`) |
+
+> ⚠️ Set both records to **DNS only** (grey cloud) — not proxied.
+
+---
+
+## 🔄 Deployment Process
+
+Deployments are fully automated via GitHub Actions.
+
+### How it works
+
+1. Merge a PR into `main`
+2. GitHub Actions runs automatically:
+   - Installs dependencies
+   - Builds the Next.js static export
+   - Syncs `/out` to S3
+   - Invalidates the CloudFront cache
+3. Changes are live at [luisabhram.dev](https://luisabhram.dev)
+
+### GitHub Secrets & Variables
+
+| Name | Type | Description |
+|---|---|---|
+| `AWS_ACCESS_KEY_ID` | Secret | IAM user access key |
+| `AWS_SECRET_ACCESS_KEY` | Secret | IAM user secret key |
+| `CLOUDFRONT_DISTRIBUTION_ID` | Secret | CloudFront distribution ID |
+| `S3_BUCKET_NAME` | Variable | S3 bucket name |
