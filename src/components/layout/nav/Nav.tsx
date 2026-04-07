@@ -2,7 +2,7 @@
 
 import { MouseEvent } from "react";
 
-import NavToggleButton from "@/components/ui/NavToggleButton";
+import NavToggleButton from "@/components/layout/nav/NavToggleButton";
 import NavOverlay from "@/components/layout/nav/NavOverlay";
 import NavPanel from "@/components/layout/nav/NavPanel";
 import { useNavPanel } from "@/hooks/navigation/useNavPanel";
