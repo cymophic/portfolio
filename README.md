@@ -67,7 +67,7 @@ luisabhram.dev/
 │   │   └── ui/                           # Small reusable UI components
 │   │       └── ThemeToggle.tsx           # Dark/light mode toggle button
 │   └── lib/
-│       └── navigation.ts                 # Shared nav link definitions
+│       └── site.ts                       # Site settings
 ├── terraform/                            # AWS infrastructure as code
 │   ├── .terraform.lock.hcl               # Terraform provider version lock file
 │   ├── main.tf                           # S3, CloudFront, ACM, and IAM resources

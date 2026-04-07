@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { navLinks } from "@/lib/navigation";
+import { navLinks } from "@/lib/site";
 
 type NavPanelProps = {
   visible: boolean;
