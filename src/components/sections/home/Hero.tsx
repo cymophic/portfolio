@@ -1,3 +1,4 @@
+import SocialLinks from "@/components/ui/SocialLinks";
 import { navLinks } from "@/lib/site";
 
 export default function Hero() {
@@ -16,6 +17,10 @@ export default function Hero() {
           Software engineer focused on building performant, animation-rich web
           experiences with Next.js, TypeScript, and modern tooling.
         </p>
+
+        <div className="mt-2">
+          <SocialLinks />
+        </div>
       </div>
     </section>
   );

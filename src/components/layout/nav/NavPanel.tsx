@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { navLinks } from "@/lib/site";
+import SocialLinks from "@/components/ui/SocialLinks";
 
 type NavPanelProps = {
   visible: boolean;
@@ -47,6 +48,10 @@ export default function NavPanel({
             </Link>
           ))}
         </nav>
+      </div>
+
+      <div className="py-16">
+        <SocialLinks exclude={["Email"]} />
       </div>
     </div>
   );
