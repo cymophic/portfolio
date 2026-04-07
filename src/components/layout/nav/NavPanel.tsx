@@ -28,7 +28,7 @@ export default function NavPanel({
       className="fixed top-0 left-0 h-full w-56 z-40 bg-zinc-50 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 flex flex-col justify-between py-4 px-6"
     >
       <div className="mt-16">
-        <nav className="flex flex-col gap-1">
+        <nav className="flex flex-col gap-1.5">
           {navLinks.map((link, i) => (
             <Link
               key={link.href}
@@ -37,7 +37,7 @@ export default function NavPanel({
                 if (el) linksRef.current[i] = el;
               }}
               onClick={onLinkClick}
-              className={`text-md py-1.5 transition-colors font-semibold ${
+              className={`text-lg py-2 transition-colors font-semibold ${
                 pathname === link.href
                   ? "text-zinc-900 dark:text-zinc-100"
                   : "text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
