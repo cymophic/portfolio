@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
@@ -13,18 +15,22 @@ const iconMap: Record<string, IconType> = {
 
 type SocialLinksProps = {
   exclude?: string[];
+  iconsRef?: React.RefObject<(HTMLAnchorElement | null)[]>;
 };
 
-export default function SocialLinks({ exclude = [] }: SocialLinksProps) {
+export default function SocialLinks({ exclude = [], iconsRef }: SocialLinksProps) {
+  const filtered = socialLinks.filter(({ label }) => !exclude.includes(label));
   return (
     <div className="flex items-center gap-4">
-      {socialLinks.map(({ label, href }) => {
-        if (exclude.includes(label)) return null;
+      {filtered.map(({ label, href }, i) => {
         const Icon = iconMap[label];
         return (
           <Link
             key={label}
             href={href}
+            ref={(el) => {
+              if (iconsRef) iconsRef.current[i] = el;
+            }}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}

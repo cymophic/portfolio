@@ -6,10 +6,10 @@ import NavToggleButton from "@/components/layout/nav/NavToggleButton";
 import NavOverlay from "@/components/layout/nav/NavOverlay";
 import NavPanel from "@/components/layout/nav/NavPanel";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-import { useNavPanel } from "@/hooks/navigation/useNavPanel";
+import { useNavPanel } from "@/hooks/animations/navigation/useNavPanel";
 
 export default function Nav() {
-  const { open, visible, toggle, close, panelRef, linksRef } = useNavPanel();
+  const { open, visible, toggle, close, panelRef, linksRef, iconsRef } = useNavPanel();
 
   const handleToggle = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -32,6 +32,7 @@ export default function Nav() {
         visible={visible}
         panelRef={panelRef}
         linksRef={linksRef}
+        iconsRef={iconsRef}
         onLinkClick={close}
       />
     </>

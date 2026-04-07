@@ -10,6 +10,7 @@ type UseNavPanelResult = {
   close: () => void;
   panelRef: React.RefObject<HTMLDivElement | null>;
   linksRef: React.RefObject<(HTMLAnchorElement | null)[]>;
+  iconsRef: React.RefObject<(HTMLAnchorElement | null)[]>;
 };
 
 export function useNavPanel(): UseNavPanelResult {
@@ -17,6 +18,7 @@ export function useNavPanel(): UseNavPanelResult {
   const [visible, setVisible] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
+  const iconsRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     if (!panelRef.current) return;
@@ -37,6 +39,18 @@ export function useNavPanel(): UseNavPanelResult {
           stagger: 0.06,
           ease: "power2.out",
           delay: 0.15,
+        }
+      );
+      gsap.fromTo(
+        iconsRef.current,
+        { opacity: 0, x: -10 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.3,
+          stagger: 0.06,
+          ease: "power2.out",
+          delay: 0.35,
         }
       );
     }
@@ -69,6 +83,6 @@ export function useNavPanel(): UseNavPanelResult {
     }
   };
 
-  return { open, visible, toggle, close, panelRef, linksRef };
+  return { open, visible, toggle, close, panelRef, linksRef, iconsRef };
 }
 

@@ -10,6 +10,7 @@ type NavPanelProps = {
   visible: boolean;
   panelRef: React.RefObject<HTMLDivElement | null>;
   linksRef: React.RefObject<(HTMLAnchorElement | null)[]>;
+  iconsRef: React.RefObject<(HTMLAnchorElement | null)[]>;
   onLinkClick: () => void;
 };
 
@@ -17,6 +18,7 @@ export default function NavPanel({
   visible,
   panelRef,
   linksRef,
+  iconsRef,
   onLinkClick,
 }: NavPanelProps) {
   const pathname = usePathname();
@@ -48,10 +50,10 @@ export default function NavPanel({
             </Link>
           ))}
         </nav>
-      </div>
 
-      <div className="py-16">
-        <SocialLinks exclude={["Email"]} />
+        <div className="mt-16">
+          <SocialLinks exclude={["Email"]} iconsRef={iconsRef} />
+        </div>
       </div>
     </div>
   );
