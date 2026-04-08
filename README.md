@@ -179,3 +179,4 @@ Deployments are fully automated via GitHub Actions.
 | `CLOUDFRONT_DISTRIBUTION_ID` | Secret | CloudFront distribution ID |
 | `S3_BUCKET_NAME` | Variable | S3 bucket name |
 | `NEXT_PUBLIC_SITE_MODE` | Variable | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
+| `NEXT_PUBLIC_GA_ID` | Variable | Google Analytics Measurement ID |
