@@ -22,6 +22,11 @@ export function useNavPanel(): UseNavPanelResult {
 
   useEffect(() => {
     if (!panelRef.current) return;
+    gsap.set(panelRef.current, { x: "-100%", opacity: 0 });
+  }, []);
+
+  useEffect(() => {
+    if (!panelRef.current) return;
 
     if (open) {
       gsap.fromTo(

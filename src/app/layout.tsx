@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import Nav from "@/components/layout/nav/Nav";
 import ThemeProvider from "@/components/layout/ThemeProvider";
@@ -44,6 +45,8 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
       <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950" suppressHydrationWarning>
         <ThemeProvider>{content}</ThemeProvider>
       </body>
+      
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </html>
   );
 }
