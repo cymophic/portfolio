@@ -63,9 +63,10 @@ luisabhram.dev/
 │   │       └── common/                   # Child components used within sections
 │   ├── hooks/
 │   │   └── animations/                   # GSAP animation hooks
-│   └── lib/
-│       ├── utils/                        # Utility functions
-│       └── site.ts                       # Global site settings
+│   ├── lib/
+│   │   ├── utils/
+│   │   └── site.ts
+│   └── types/                            # Type definitions
 ├── terraform/                            # AWS infrastructure as code
 │   ├── main.tf                           # S3, CloudFront, ACM, and IAM resources
 │   ├── outputs.tf                        # Terraform output values
