@@ -5,7 +5,7 @@ export const navLinks = [
 // Profile information
 export const profileInfo = {
   name: "Luis Abhram Mata",
-  title: "DevOps Engineer",
+  title: "DevOps Engineer / Full-Stack Developer",
   location: "Pasig City, Philippines",
   bio: "DevOps Engineer who can provide end-to-end ownership. I build, deploy, and scale resilient systems that stay running.",
   image: "https://github.com/cymophic.png",
@@ -36,21 +36,22 @@ export const workExperience = [
     start: "Nov 2024",
     end: "Present",
     lines: [
-      "Built enterprise CRM in 2 weeks serving 1-2K users with RBAC, REST APIs, and self-hosted deployment.",
-      "Deployed B2B lead platform with async processing (Celery/Redis) and CI/CD pipeline.",
-      "Migrated customer-facing landing page from Shopify to Django with admin CMS.",
-      "Developed 8-module SuiteCRM system for 15-person sales team.",
-      "Collaborated with Product Managers using Agile methodology.",
+      "Deployed a full-stack Django app on bare-metal Linux serving 1-2K daily users, owning backend, infrastructure, and CI/CD.",
+      "Built a 3-environment CI/CD pipeline with GitHub Actions, self-hosted runners, and zero manual deployments.",
+      "Provisioned Linux servers with Docker, Nginx w/ SSL, Gunicorn, and permission hardening via Ansible.",
+      "Set up structured logging, Sentry error tracking, and a full observability stack (Grafana, Prometheus, Loki).",
+      "Automated PostgreSQL backups via Celery Beat with tiered retention and a scheduled weekly usage report by email.",
+      "Collaborated with PMs, QA, and cybersecurity teams, producing enterprise-level documentation in an Agile environment.",
     ],
   },
   {
     company: "Third Generation Holdings Corporation",
     role: "Software Developer Intern",
-    start: "March 2024",
-    end: "June 2024",
+    start: "Mar 2024",
+    end: "Jun 2024",
     lines: [
-      "Spearheaded development of forms/reporting application, reducing costs by 35% and increasing efficiency by 25%.",
-      "Assisted in development of the company's internal messaging application.",
+      "Spearheaded development of the company's forms and reporting application, automating data collection and reducing costs by 35% while increasing operational efficiency by 25% through interactive dashboards and real-time reporting.",
+      "Contributed to the development of the company's internal messaging application and evaluated project requirements to propose cost-effective technical solutions.",
     ],
   },
 ];
@@ -60,7 +61,7 @@ export const education = [
   {
     school: "STI College Ortigas-Cainta",
     degree: "B.S. in Computer Engineering",
-    end: "July 2024",
+    end: "Jul 2024",
     honors: ["Magna Cum Laude", "Consistent President's Lister", "Best Capstone Research"],
   },
 ];
@@ -78,14 +79,14 @@ export const certifications = [
 export const projects = [
   {
     title: "L2C Portal (Lead-to-Cash CRM)",
-    description: "Enterprise CRM serving 1-2K users with 3-tier location hierarchy, RBAC, 2FA, async PDF generation, and full observability stack.",
+    description: "Enterprise CRM built with Django and Django Ninja, serving 1-2K users across a 3-tier location hierarchy with 4 permission levels controlling dashboard views and data access.",
     tags: ["Django", "PostgreSQL", "Docker", "Celery", "Grafana", "Ansible"],
     url: null,
     repo: null,
   },
   {
     title: "PMC Business Landing Page",
-    description: "B2B lead generation platform with async email processing, CI/CD pipeline, and rate limiting. Live in production.",
+    description: "B2B lead generation platform deployed on bare-metal Linux with Nginx and Gunicorn - intentionally kept lightweight for a single-service deployment.",
     tags: ["Django", "Celery", "Redis", "Nginx", "GitHub Actions"],
     url: "https://business.powermaccenter.com",
     repo: null,
