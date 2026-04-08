@@ -6,7 +6,7 @@ import AccordionItem from "@/components/ui/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 
 export default function Education() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section className="w-full">

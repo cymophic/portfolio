@@ -6,7 +6,7 @@ import AccordionItem from "../ui/Accordion";
 import SectionTitle from "./common/SectionTitle";
 
 export default function WorkOverviewSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section className="w-full">
