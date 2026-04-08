@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import { useAccordion } from "@/hooks/animations/useAccordion";
 
@@ -14,6 +16,10 @@ type Props = {
 
 export default function AccordionItem({ title, subtitle, meta, isOpen, onToggle, children }: Props) {
   const { contentRef, animate } = useAccordion();
+
+  useEffect(() => {
+    animate(isOpen);
+  }, [isOpen, animate]);
 
   const handleToggle = () => {
     animate(!isOpen);
