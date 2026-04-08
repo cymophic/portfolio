@@ -6,7 +6,7 @@ import AccordionItem from "../ui/Accordion";
 import SectionTitle from "./common/SectionTitle";
 
 export default function WorkOverviewSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section className="w-full">
@@ -22,6 +22,7 @@ export default function WorkOverviewSection() {
               title={work.role}
               subtitle={work.company}
               meta={`${work.start} - ${work.end}`}
+              disabled={work.lines.length === 0}
               isOpen={openIndex === i}
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
             >

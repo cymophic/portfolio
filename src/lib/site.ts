@@ -35,24 +35,14 @@ export const workExperience = [
     role: "DevOps Engineer",
     start: "Nov 2024",
     end: "Present",
-    lines: [
-      "Deployed a full-stack Django app on bare-metal Linux serving 1-2K daily users, owning backend, infrastructure, and CI/CD.",
-      "Built a 3-environment CI/CD pipeline with GitHub Actions, self-hosted runners, and zero manual deployments.",
-      "Provisioned Linux servers with Docker, Nginx w/ SSL, Gunicorn, and permission hardening via Ansible.",
-      "Set up structured logging, Sentry error tracking, and a full observability stack (Grafana, Prometheus, Loki).",
-      "Automated PostgreSQL backups via Celery Beat with tiered retention and a scheduled weekly usage report by email.",
-      "Collaborated with PMs, QA, and cybersecurity teams, producing enterprise-level documentation in an Agile environment.",
-    ],
+    lines: [],
   },
   {
     company: "Third Generation Holdings Corporation",
     role: "Software Developer Intern",
     start: "Mar 2024",
     end: "Jun 2024",
-    lines: [
-      "Spearheaded development of the company's forms and reporting application, automating data collection and reducing costs by 35% while increasing operational efficiency by 25% through interactive dashboards and real-time reporting.",
-      "Contributed to the development of the company's internal messaging application and evaluated project requirements to propose cost-effective technical solutions.",
-    ],
+    lines: [],
   },
 ];
 
@@ -62,7 +52,7 @@ export const education = [
     school: "STI College Ortigas-Cainta",
     degree: "B.S. in Computer Engineering",
     end: "Jul 2024",
-    honors: ["Magna Cum Laude", "Consistent President's Lister", "Best Capstone Research"],
+    honors: [],
   },
 ];
 
