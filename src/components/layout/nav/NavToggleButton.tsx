@@ -2,7 +2,7 @@
 
 import type { MouseEventHandler } from "react";
 import { MdMenu, MdClose } from "react-icons/md";
-import Button from "@/components/ui/button/Button";
+import Button from "@/components/ui/Button";
 
 type NavToggleButtonProps = {
   open: boolean;

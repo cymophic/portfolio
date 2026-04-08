@@ -3,12 +3,12 @@
 import { useRef, useCallback } from "react";
 import { gsap } from "gsap";
 
-type UseWorkAccordionResult = {
+type UseAccordionResult = {
   contentRef: React.RefObject<HTMLUListElement | null>;
   animate: (isOpen: boolean) => void;
 };
 
-export function useWorkAccordion(): UseWorkAccordionResult {
+export function useAccordion(): UseAccordionResult {
   const contentRef = useRef<HTMLUListElement | null>(null);
 
   const animate = useCallback((isOpen: boolean) => {
