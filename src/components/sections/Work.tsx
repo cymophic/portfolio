@@ -15,9 +15,6 @@ export default function WorkOverviewSection() {
         <SectionTitle title="Work" />
 
         <div className="relative flex flex-col">
-          {/* Timeline Line */}
-          <div className="absolute left-1.75 top-2 bottom-2 w-px bg-zinc-200 dark:bg-zinc-800" />
-
           {/* Experience List */}
           {workExperience.map((work, i) => (
             <AccordionItem
@@ -29,8 +26,8 @@ export default function WorkOverviewSection() {
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
             >
               {work.lines.map((bulletItem, j) => (
-                <li key={j} className="flex gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-                  <span className="mt-1.5 w-1 h-1 rounded-full bg-zinc-400 shrink-0" />
+                <li key={j} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                  <span className="w-1 h-1 rounded-full bg-zinc-400 shrink-0" />
                   {bulletItem}
                 </li>
               ))}
