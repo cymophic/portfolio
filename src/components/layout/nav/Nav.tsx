@@ -19,7 +19,7 @@ export default function Nav() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 pointer-events-none">
-        <div className="pointer-events-auto">
+        <div className="pointer-events-auto -ml-1">
           <NavToggleButton open={open} onToggle={handleToggle} />
         </div>
         <div className="pointer-events-auto">
