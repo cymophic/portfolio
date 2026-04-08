@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import Nav from "@/components/layout/nav/Nav";
-import ThemeProvider from "@/components/layout/ThemeProvider";
+import ThemeProvider from "@/components/layout/theme/ThemeProvider";
 import ComingSoon from "@/components/pages/ComingSoon";
 const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 import "./globals.css";
@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Luis Abhram",
+  title: "Luis Abhram | DevOps Engineer",
   description: "Personal portfolio of Luis Abhram Mata",
 };
 
@@ -37,12 +37,8 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
   }
 
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} h-full antialiased font-sans`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} h-full antialiased font-sans`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950">
         <ThemeProvider>{content}</ThemeProvider>
       </body>
       

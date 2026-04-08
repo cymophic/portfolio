@@ -35,6 +35,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **SSL:** AWS Certificate Manager
 - **DNS:** Cloudflare
 - **IaC:** Terraform
+- **Analytics:** Google Analytics
 
 ### CI/CD
 - **Pipeline:** GitHub Actions
@@ -47,24 +48,24 @@ luisabhram.dev/
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml                    # GitHub Actions deployment workflow
-├── public/                               # Static assets served as-is
+├── public/                               # Static assets
+├── scripts/                              # Build-time scripts
 ├── src/
 │   ├── app/                              # App routes
-│   │   ├── contact/
-│   │   ├── education/
-│   │   ├── projects/
-│   │   ├── work/
 │   │   ├── globals.css                   # Global styles and Tailwind imports
 │   │   ├── layout.tsx                    # Root layout component
 │   │   └── page.tsx                      # Root page
 │   ├── components/
 │   │   ├── layout/                       # App-wide layout components
 │   │   ├── pages/                        # Full page-level components
-│   │   ├── sections/                     # Page section components
-│   │   └── ui/                           # Small reusable UI components
-│   ├── hooks/                            # Custom hooks
+│   │   ├── ui/                           # Small reusable UI components
+│   │   └── sections/                     # Page section components
+│   │       └── common/                   # Child components used within sections
+│   ├── hooks/
+│   │   └── animations/                   # GSAP animation hooks
 │   └── lib/
-│       └── site.ts                       # Site settings
+│       ├── utils/                        # Utility functions
+│       └── site.ts                       # Global site settings
 ├── terraform/                            # AWS infrastructure as code
 │   ├── main.tf                           # S3, CloudFront, ACM, and IAM resources
 │   ├── outputs.tf                        # Terraform output values

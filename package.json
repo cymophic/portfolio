@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "tsx scripts/fetch-favicon.ts",
+    "prebuild": "tsx scripts/generate-favicon.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

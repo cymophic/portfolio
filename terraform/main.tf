@@ -75,6 +75,11 @@ resource "aws_cloudfront_distribution" "portfolio" {
         forward = "none"
       }
     }
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.rewrite_uri.arn
+    }
   }
 
   restrictions {
@@ -129,4 +134,25 @@ resource "aws_acm_certificate" "portfolio" {
   lifecycle {
     create_before_destroy = true
   }
+}
+
+resource "aws_cloudfront_function" "rewrite_uri" {
+  name    = "${var.project_name}-rewrite-uri"
+  runtime = "cloudfront-js-2.0"
+  publish = true
+
+  code = <<-EOT
+    function handler(event) {
+      var request = event.request;
+      var uri = request.uri;
+
+      if (uri.endsWith('/')) {
+        request.uri += 'index.html';
+      } else if (!uri.includes('.')) {
+        request.uri += '/index.html';
+      }
+
+      return request;
+    }
+  EOT
 }
