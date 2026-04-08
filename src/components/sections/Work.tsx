@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Breadcrumb from "@/components/ui/BreadCrumb";
 import { workExperience } from "@/lib/site";
-import WorkAccordionItem from "@/components/sections/work/WorkAccordionItem";
+import WorkAccordionItem from "@/components/sections/common/WorkItem";
 
 export default function WorkOverviewSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
