@@ -13,6 +13,7 @@ export function useAccordion(): UseAccordionResult {
 
   useEffect(() => {
     if (contentRef.current) {
+      contentRef.current.classList.remove("invisible");
       gsap.set(contentRef.current, { opacity: 0, height: 0, overflow: "hidden", marginTop: 0 });
     }
   }, []);

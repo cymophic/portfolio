@@ -1,6 +1,5 @@
 // Navigation links for the website
 export const navLinks = [
-  { href: "/", label: "About" },
 ];
 
 // Profile information

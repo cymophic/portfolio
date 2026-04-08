@@ -49,7 +49,7 @@ export default function AccordionItem({ title, subtitle, meta, isOpen, onToggle,
         )}
       </button>
 
-      <ul ref={contentRef} className="flex flex-col gap-2">
+      <ul ref={contentRef} className="flex flex-col gap-2 invisible h-0 overflow-hidden">
         {children}
       </ul>
     </div>
