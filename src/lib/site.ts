@@ -1,5 +1,5 @@
 // Navigation links for the website
-export const navLinks = [
+export const navLinks: { href: string; label: string }[] = [
 ];
 
 // Profile information
