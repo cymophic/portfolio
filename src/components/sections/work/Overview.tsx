@@ -1,20 +1,33 @@
+"use client";
+
+import { useState } from "react";
 import Breadcrumb from "@/components/ui/BreadCrumb";
+import { workExperience } from "@/lib/site";
+import WorkAccordionItem from "@/components/sections/work/WorkAccordionItem";
 
 export default function WorkOverviewSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
     <section className="w-full">
-      <div className="mx-auto flex max-w-4xl flex-col gap-6 px-6 py-20 sm:px-10 sm:py-28">
-        <Breadcrumb />
-                
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-zinc-700 dark:text-zinc-50">
-          Professional experience
-        </h1>
-        <p className="max-w-xl text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
-          This page will list roles, responsibilities, and selected highlights
-          from your work history.
-        </p>
+      <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 py-20 sm:px-10 sm:py-28">
+        <div className="flex flex-col gap-6">
+          <Breadcrumb />
+        </div>
+
+        <div className="relative flex flex-col">
+          <div className="absolute left-1.75 top-2 bottom-2 w-px bg-zinc-200 dark:bg-zinc-800" />
+
+          {workExperience.map((job, i) => (
+            <WorkAccordionItem
+              key={i}
+              job={job}
+              isOpen={openIndex === i}
+              onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
-
