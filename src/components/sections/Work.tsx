@@ -26,8 +26,8 @@ export default function WorkOverviewSection() {
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
             >
               {work.lines.map((bulletItem, j) => (
-                <li key={j} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-                  <span className="w-1 h-1 rounded-full bg-zinc-400 shrink-0" />
+                <li key={j} className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                  <span className="mt-2 sm:mt-2.5 w-1 h-1 rounded-full bg-zinc-400 shrink-0" />
                   {bulletItem}
                 </li>
               ))}
