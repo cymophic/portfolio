@@ -23,11 +23,10 @@ export default function NavPanel({
 }: NavPanelProps) {
   const pathname = usePathname();
 
-  if (!visible) return null;
-
   return (
     <div
       ref={panelRef}
+      aria-hidden={!visible}
       className="fixed top-0 left-0 h-full w-full md:w-64 z-40 bg-zinc-50 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 flex flex-col justify-between py-4 px-6"
     >
       <div className="mt-16">
