@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { workExperience } from "@/lib/site";
 import AccordionItem from "../ui/Accordion";
+import SectionTitle from "./common/SectionTitle";
 
 export default function WorkOverviewSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -10,11 +11,8 @@ export default function WorkOverviewSection() {
   return (
     <section className="w-full">
       <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-10">
-        <div className="flex flex-col gap-6">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-400">
-            Work
-          </p>
-        </div>
+        {/* Title */}
+        <SectionTitle title="Work" />
 
         <div className="relative flex flex-col">
           {/* Timeline Line */}

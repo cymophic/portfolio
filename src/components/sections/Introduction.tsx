@@ -1,20 +1,17 @@
 import { profileInfo } from "@/lib/site";
 import SocialLinks from "@/components/ui/SocialLinks";
 import ProfileImage from "@/components/sections/common/ProfileImage";
+import SectionTitle from "./common/SectionTitle";
 
-export default function Hero() {
+export default function Intro() {
   return (
     <section className="w-full">
       <div className="mx-auto flex max-w-4xl flex-col md:flex-row md:items-center md:justify-between md:gap-12 px-6 sm:px-10">
         <div className="flex flex-col gap-4 md:gap-6">
           {/* Title */}
-          <div className="flex flex-col gap-6">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-400">
-              About Me
-            </p>
-          </div>
+          <SectionTitle title="About Me" />
 
-          {/* Image - Small Screens */}
+          {/* Profile Image - Small Screens */}
           <div className="shrink-0 md:hidden -ml-1">
             <ProfileImage width={64} height={64} />
           </div>
@@ -33,7 +30,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Image - Large Screens */}
+        {/* Profile Image - Large Screens */}
         <div className="shrink-0 hidden md:block">
           <ProfileImage width={160} height={160} />
         </div>
