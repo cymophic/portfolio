@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import { gsap } from "gsap";
 
 type UseAccordionResult = {
@@ -11,21 +11,23 @@ type UseAccordionResult = {
 export function useAccordion(): UseAccordionResult {
   const contentRef = useRef<HTMLUListElement | null>(null);
 
+  useEffect(() => {
+    if (contentRef.current) {
+      gsap.set(contentRef.current, { opacity: 0, height: 0, overflow: "hidden", marginTop: 0 });
+    }
+  }, []);
+
   const animate = useCallback((isOpen: boolean) => {
     if (!contentRef.current) return;
 
     if (isOpen) {
-      gsap.fromTo(
-        contentRef.current,
-        { opacity: 0, y: -6 },
-        { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }
-      );
+      const height = contentRef.current.scrollHeight;
+      gsap.to(contentRef.current, {
+        height, opacity: 1, marginTop: 16, duration: 0.3, ease: "power2.out"
+      });
     } else {
       gsap.to(contentRef.current, {
-        opacity: 0,
-        y: -6,
-        duration: 0.15,
-        ease: "power2.in",
+        height: 0, opacity: 0, marginTop: 0, duration: 0.2, ease: "power2.in"
       });
     }
   }, []);

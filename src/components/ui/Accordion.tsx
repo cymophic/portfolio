@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import { useAccordion } from "@/hooks/animations/useAccordion";
 
@@ -16,13 +15,9 @@ type Props = {
 export default function AccordionItem({ title, subtitle, meta, isOpen, onToggle, children }: Props) {
   const { contentRef, animate } = useAccordion();
 
-  useEffect(() => {
-    if (isOpen) animate(true);
-  }, [animate, isOpen]);
-
   const handleToggle = () => {
-    if (isOpen) animate(false);
-    setTimeout(() => onToggle(), isOpen ? 150 : 0);
+    animate(!isOpen);
+    onToggle();
   };
 
   return (
@@ -48,11 +43,9 @@ export default function AccordionItem({ title, subtitle, meta, isOpen, onToggle,
         )}
       </button>
 
-      {isOpen && (
-        <ul ref={contentRef} className="mt-4 flex flex-col gap-2">
-          {children}
-        </ul>
-      )}
+      <ul ref={contentRef} className="flex flex-col gap-2">
+        {children}
+      </ul>
     </div>
   );
 }

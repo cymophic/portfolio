@@ -8,6 +8,7 @@
 
 @layer base {
   * {
+    scrollbar-gutter: stable;
     user-select: none;
   }
 
