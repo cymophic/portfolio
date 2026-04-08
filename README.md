@@ -35,6 +35,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **SSL:** AWS Certificate Manager
 - **DNS:** Cloudflare
 - **IaC:** Terraform
+- **Analytics:** Google Analytics
 
 ### CI/CD
 - **Pipeline:** GitHub Actions
