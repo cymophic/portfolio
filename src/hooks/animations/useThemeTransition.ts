@@ -2,6 +2,7 @@
 
 import { useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
+import { flushSync } from "react-dom";
 
 type UseThemeTransitionResult = {
   buttonRef: React.RefObject<HTMLButtonElement | null>;
@@ -30,13 +31,17 @@ export function useThemeTransition(isDark: boolean): UseThemeTransitionResult {
       return;
     }
 
-    const transition = document.startViewTransition(() => setTheme(nextTheme));
+    const transition = document.startViewTransition(() => {
+      flushSync(() => setTheme(nextTheme));
+    });
 
     transition.ready.then(() => {
-      document.documentElement.animate(
-        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`] },
-        { duration: 500, easing: "ease-in-out", pseudoElement: "::view-transition-new(root)" }
-      );
+      requestAnimationFrame(() => {
+        document.documentElement.animate(
+          { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`] },
+          { duration: 500, easing: "ease-in-out", pseudoElement: "::view-transition-new(root)", fill: "both", }
+        );
+      });
     });
   }, [isDark, setTheme]);
 
