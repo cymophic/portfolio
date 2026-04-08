@@ -21,4 +21,14 @@
     animation: none;
     mix-blend-mode: normal;
   }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+    animation: none;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 2;
+    animation: none;
+  }
 }
