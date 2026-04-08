@@ -6,7 +6,7 @@ import AccordionItem from "@/components/ui/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 
 export default function Education() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section className="w-full">
@@ -22,6 +22,7 @@ export default function Education() {
               title={edu.degree}
               subtitle={edu.school}
               meta={edu.end}
+              disabled={edu.honors.length === 0}
               isOpen={openIndex === i}
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
             >

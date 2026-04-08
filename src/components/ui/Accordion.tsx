@@ -12,9 +12,10 @@ type Props = {
   isOpen: boolean;
   onToggle: () => void;
   children?: React.ReactNode;
+  disabled?: boolean;
 };
 
-export default function AccordionItem({ title, subtitle, meta, isOpen, onToggle, children }: Props) {
+export default function AccordionItem({ title, subtitle, meta, disabled, isOpen, onToggle, children }: Props) {
   const { contentRef, animate } = useAccordion();
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function AccordionItem({ title, subtitle, meta, isOpen, onToggle,
   }, [isOpen, animate]);
 
   const handleToggle = () => {
+    if (disabled) return;
     animate(!isOpen);
     onToggle();
   };
@@ -36,9 +38,11 @@ export default function AccordionItem({ title, subtitle, meta, isOpen, onToggle,
           <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100 group-hover/btn:text-zinc-900 dark:group-hover/btn:text-white transition-colors">
             {title}
           </span>
-          <span className="text-zinc-400 shrink-0">
-            {isOpen ? <MdExpandLess size={18} /> : <MdExpandMore size={18} />}
-          </span>
+          {!disabled && (
+            <span className="text-zinc-400 shrink-0">
+              {isOpen ? <MdExpandLess size={18} /> : <MdExpandMore size={18} />}
+            </span>
+          )}
         </div>
         {(subtitle || meta) && (
           <div className="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-xs text-zinc-400">
