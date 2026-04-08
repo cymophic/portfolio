@@ -25,6 +25,7 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_MODE: ${{ vars.NEXT_PUBLIC_SITE_MODE }}
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
