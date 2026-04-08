@@ -1,11 +1,13 @@
-import Intro from "@/components/sections/Introduction";
-import WorkTimeline from "@/components/sections/Work";
+import Intro from "@/components/sections/Intro";
+import Work from "@/components/sections/Work";
+import Education from "@/components/sections/Education";
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col font-sans pt-20 pb-20 sm:pt-28 sm:pb-28 gap-36">
+    <div className="flex flex-1 flex-col font-sans pt-20 pb-20 sm:pt-28 sm:pb-28 gap-20">
       <Intro />
-      <WorkTimeline />
+      <Work />
+      <Education />
     </div>
   );
 }
