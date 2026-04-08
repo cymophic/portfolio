@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Breadcrumb from "@/components/ui/BreadCrumb";
 import { workExperience } from "@/lib/site";
 import WorkAccordionItem from "@/components/sections/common/WorkItem";
 
@@ -10,9 +9,11 @@ export default function WorkOverviewSection() {
 
   return (
     <section className="w-full">
-      <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 py-20 sm:px-10 sm:py-28">
+      <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-10">
         <div className="flex flex-col gap-6">
-          <Breadcrumb />
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-400">
+            Work
+          </p>
         </div>
 
         <div className="relative flex flex-col">
