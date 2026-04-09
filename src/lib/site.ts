@@ -31,14 +31,14 @@ export const techStack = {
 // Work experience
 export const workExperience = [
   {
-    company: "Power Mac Center",
+    company: "Power Mac Center Inc.",
     role: "DevOps Engineer",
     start: "Nov 2024",
     end: "April 2026",
     lines: [],
   },
   {
-    company: "Third Generation Holdings Corporation",
+    company: "Third Generation Holdings Co.",
     role: "Software Developer Intern",
     start: "Mar 2024",
     end: "Jun 2024",
@@ -49,14 +49,14 @@ export const workExperience = [
 // Education
 export const education = [
   {
-    school: "STI College Ortigas-Cainta",
+    school: "STI College",
     degree: "B.S. in Computer Engineering",
     start: "Sep 2020",
     end: "Jul 2024",
     honors: [],
   },
   {
-    school: "STI College Ortigas-Cainta",
+    school: "STI College",
     degree: "Mobile App & Web Development",
     start: "June 2018",
     end: "Mar 2020",
