@@ -46,8 +46,10 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 ```
 luisabhram.dev/
 ├── .github/
-│   └── workflows/
-│       └── deploy.yml                    # GitHub Actions deployment workflow
+│   ├── workflows/
+│   │   ├── deploy.yml                    # GitHub Actions deployment workflow
+│   │   └── check.yml                     # PR validation workflow
+│   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── public/                               # Static assets
 ├── scripts/                              # Build-time scripts
 ├── src/
