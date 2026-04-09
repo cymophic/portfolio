@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useTagPanelAnimation } from "@/hooks/animations/useTagPanelAnimation";
+import { useTagPanel } from "@/hooks/animations/useTagPanel";
 
 type Props = {
   count: number;
@@ -15,7 +15,7 @@ export default function TriggerTagsPanel({ count, hiddenTags, tagStyling }: Prop
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   // Animate panel on open/close
-  useTagPanelAnimation(panelRef, open);
+  useTagPanel(panelRef, open);
 
   // Close panel on outside click or Escape key
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { useEffect, RefObject } from "react";
 import gsap from "gsap";
 
-export function useTagPanelAnimation(
+export function useTagPanel(
   panelRef: RefObject<HTMLDivElement | null>,
   isOpen: boolean
 ) {
