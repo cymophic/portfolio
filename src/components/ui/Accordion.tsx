@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
-
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import { useAccordion } from "@/hooks/animations/useAccordion";
 import { cn } from "@/lib/utils/cn";
