@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import { useAccordion } from "@/hooks/animations/useAccordion";
+import { cn } from "@/lib/utils/cn";
 
 type Props = {
   title: string;
@@ -58,7 +59,7 @@ export default function AccordionItem({
         </div>
       )}
 
-      <button onClick={handleToggle} className="w-full text-left flex flex-col gap-1 group/btn">
+      <button onClick={handleToggle} className={cn("w-full text-left flex flex-col gap-1 group/btn", disabled ? "cursor-default" : "cursor-pointer")}>
         <div className="flex items-center justify-between gap-4">
           {/* Title */}
           <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100 group-hover/btn:text-zinc-900 dark:group-hover/btn:text-white transition-colors">
@@ -75,20 +76,20 @@ export default function AccordionItem({
 
         {/* Subtitle and Meta */}
         {(subtitle || meta) && (
-          <div className="max-w-85 sm:max-w-[calc(100%-8rem)] flex flex-col gap-y-0.5 text-sm text-zinc-600 dark:text-zinc-400">
+          <div className="max-w-100 sm:max-w-[calc(100%-4rem)] flex flex-col gap-y-0.5 text-sm text-zinc-600 dark:text-zinc-400">
             {meta && <span>{meta}</span>}
             {subtitle && <span className="wrap-break-word">{subtitle}</span>}
           </div>
         )}
       </button>
 
-      {/* Outside the trigger so previews can contain buttons / popovers (valid HTML + a11y). */}
+      {/* Preview Content below Subtitle */}
       {preview && (
-        <div className="-ml-0.5 pt-1 max-w-85 sm:max-w-[calc(100%-8rem)]">{preview}</div>
+        <div className="-ml-0.5 pt-1 max-w-100 sm:max-w-[calc(100%-8rem)]">{preview}</div>
       )}
       
       {/* Bullet Lines */}
-      <ul ref={contentRef} className="max-w-85 sm:max-w-[calc(100%-8rem)] flex flex-col gap-2 invisible h-0 overflow-hidden">
+      <ul ref={contentRef} className="max-w-100 sm:max-w-[calc(100%-8rem)] flex flex-col gap-2 invisible h-0 overflow-hidden">
         {children}
       </ul>
     </div>
