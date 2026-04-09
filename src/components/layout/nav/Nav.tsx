@@ -6,7 +6,7 @@ import NavToggleButton from "@/components/layout/nav/NavToggleButton";
 import NavOverlay from "@/components/layout/nav/NavOverlay";
 import NavPanel from "@/components/layout/nav/NavPanel";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-import { useNavPanel } from "@/hooks/animations/navigation/useNavPanel";
+import { useNavPanel } from "@/hooks/animations/useNavPanel";
 import { navLinks } from "@/lib/site";
 
 export default function Nav() {

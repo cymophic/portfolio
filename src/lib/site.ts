@@ -4,10 +4,10 @@ export const navLinks: { href: string; label: string }[] = [
 
 // Profile information
 export const profileInfo = {
-  name: "Luis Abhram Mata",
+  name: "Luis Abhram",
   title: "DevOps Engineer / Full-Stack Developer",
   location: "Pasig City, Philippines",
-  bio: "DevOps Engineer who can provide end-to-end ownership. I build, deploy, and scale resilient systems that stay running.",
+  bio: "DevOps Engineer with full-stack experience. I build, deploy, and maintain scalable systems end to end.",
   image: "https://github.com/cymophic.png",
 }
 
@@ -31,14 +31,14 @@ export const techStack = {
 // Work experience
 export const workExperience = [
   {
-    company: "Power Mac Center",
+    company: "Power Mac Center Inc.",
     role: "DevOps Engineer",
     start: "Nov 2024",
-    end: "Present",
+    end: "Apr 2026",
     lines: [],
   },
   {
-    company: "Third Generation Holdings Corporation",
+    company: "Third Generation Holdings Co.",
     role: "Software Developer Intern",
     start: "Mar 2024",
     end: "Jun 2024",
@@ -49,9 +49,17 @@ export const workExperience = [
 // Education
 export const education = [
   {
-    school: "STI College Ortigas-Cainta",
+    school: "STI College",
     degree: "B.S. in Computer Engineering",
+    start: "Sep 2020",
     end: "Jul 2024",
+    honors: [],
+  },
+  {
+    school: "STI College",
+    degree: "Mobile App & Web Development",
+    start: "Jun 2018",
+    end: "Mar 2020",
     honors: [],
   },
 ];
@@ -69,22 +77,22 @@ export const certifications = [
 export const projects = [
   {
     title: "L2C Portal (Lead-to-Cash CRM)",
-    description: "Enterprise CRM built with Django and Django Ninja, serving 1-2K users across a 3-tier location hierarchy with 4 permission levels controlling dashboard views and data access.",
-    tags: ["Django", "PostgreSQL", "Docker", "Celery", "Grafana", "Ansible"],
-    url: null,
+    description: "Enterprise CRM built for PMC, developed to support their efforts and streamline the lead-to-sale process.",
+    tags: ["Django", "PostgreSQL", "Docker", "Git", "GitHub Actions", "Ansible", "Linux", "CloudFlare", "Sentry", "Grafana", "Prometheus", "Loki", "TailwindCSS", "GSAP"],
+    url: "https://rsoconnect.powermaccenter.com",
     repo: null,
   },
   {
     title: "PMC Business Landing Page",
-    description: "B2B lead generation platform deployed on bare-metal Linux with Nginx and Gunicorn - intentionally kept lightweight for a single-service deployment.",
-    tags: ["Django", "Celery", "Redis", "Nginx", "GitHub Actions"],
+    description: "B2B lead generation platform deployed on bare-metal Linux with Nginx and Gunicorn.",
+    tags: ["Django", "Celery", "Redis", "Nginx", "Git","GitHub Actions", "Linux"],
     url: "https://business.powermaccenter.com",
     repo: null,
   },
   {
     title: "MobileCare Frontend Migration",
-    description: "Migrated customer-facing service portal from Shopify to Django with admin CMS and responsive Bootstrap UI.",
-    tags: ["Django", "Bootstrap", "CSS"],
+    description: "Customer-facing service portal migration from Shopify to Django with admin CMS and Bootstrap UI.",
+    tags: ["Django", "Bootstrap", "Git", "Linux"],
     url: "https://mobilecareph.com",
     repo: null,
   },

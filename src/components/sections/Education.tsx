@@ -21,7 +21,7 @@ export default function Education() {
               key={i}
               title={edu.degree}
               subtitle={edu.school}
-              meta={edu.end}
+              meta={`${edu.start} - ${edu.end}`}
               disabled={edu.honors.length === 0}
               isOpen={openIndex === i}
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}

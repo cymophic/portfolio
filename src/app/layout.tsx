@@ -21,18 +21,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   let content: React.ReactNode;
-  if (SITE_MODE === "live") {
+  if (SITE_MODE === "coming_soon") {
+    content = (
+      <main className="flex flex-1 flex-col">
+        <ComingSoon />
+      </main>
+    );
+  } else {
     content = (
       <>
         <Nav />
         <main className="flex flex-1 flex-col">{children}</main>
       </>
-    );
-  } else {
-    content = (
-      <main className="flex flex-1 flex-col">
-        <ComingSoon />
-      </main>
     );
   }
 
