@@ -51,7 +51,15 @@ export const education = [
   {
     school: "STI College Ortigas-Cainta",
     degree: "B.S. in Computer Engineering",
+    start: "Sep 2020",
     end: "Jul 2024",
+    honors: [],
+  },
+  {
+    school: "STI College Ortigas-Cainta",
+    degree: "Mobile App & Web Development",
+    start: "June 2018",
+    end: "Mar 2020",
     honors: [],
   },
 ];
