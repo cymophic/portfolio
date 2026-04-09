@@ -7,7 +7,7 @@ export const profileInfo = {
   name: "Luis Abhram Mata",
   title: "DevOps Engineer / Full-Stack Developer",
   location: "Pasig City, Philippines",
-  bio: "DevOps Engineer who can provide end-to-end ownership. I build, deploy, and scale resilient systems that stay running.",
+  bio: "DevOps Engineer with full-stack experience. I build, deploy, and maintain scalable systems end to end.",
   image: "https://github.com/cymophic.png",
 }
 
@@ -34,7 +34,7 @@ export const workExperience = [
     company: "Power Mac Center",
     role: "DevOps Engineer",
     start: "Nov 2024",
-    end: "Present",
+    end: "April 2026",
     lines: [],
   },
   {
