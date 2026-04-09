@@ -36,7 +36,7 @@ function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
       {hiddenTags.map((tag, j) => (
         <span
           key={`hidden-${j}`}
-          className={`${tagPillClass} animate-tag overflow-hidden`}
+          className={`${tagPillClass} animate-tag`}
           style={{ display: "none", opacity: 0 }}
         >
           {tag}
