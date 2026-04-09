@@ -34,7 +34,7 @@ export const workExperience = [
     company: "Power Mac Center Inc.",
     role: "DevOps Engineer",
     start: "Nov 2024",
-    end: "April 2026",
+    end: "Apr 2026",
     lines: [],
   },
   {
@@ -58,7 +58,7 @@ export const education = [
   {
     school: "STI College",
     degree: "Mobile App & Web Development",
-    start: "June 2018",
+    start: "Jun 2018",
     end: "Mar 2020",
     honors: [],
   },
