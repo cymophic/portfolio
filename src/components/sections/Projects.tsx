@@ -5,7 +5,6 @@ import { MdFolder } from "react-icons/md";
 import { projects } from "@/lib/site";
 import AccordionItem from "@/components/ui/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
-import TriggerTagsPanel from "@/components/sections/common/OtherTags";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
 
 type TagsSectionProps = {
@@ -15,32 +14,28 @@ type TagsSectionProps = {
 
 function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [showTrigger, setShowTrigger] = useState(!isExpanded);
-  
+
   const maxTagsVisible = 6;
   const visibleTags = tags.slice(0, maxTagsVisible);
   const hiddenTags = tags.slice(maxTagsVisible);
   const remaining = hiddenTags.length;
-  
-  const tagPillClass = "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-600 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300";
-  const tagContainerClass = "flex flex-wrap gap-2 mt-1";
 
-  // Animation hook
-  useExpandTags(containerRef, isExpanded, setShowTrigger);
+  const tagPillClass =
+    "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-600 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300";
+
+  useExpandTags(containerRef, isExpanded);
 
   return (
-    <div ref={containerRef} className={tagContainerClass}>
+    <div ref={containerRef} className="flex flex-wrap gap-2 mt-1">
       {visibleTags.map((tag, j) => (
-        // Always visible tags without animation classes
         <span key={`visible-${j}`} className={tagPillClass}>
           {tag}
         </span>
       ))}
 
       {hiddenTags.map((tag, j) => (
-        // Initially hidden tags with animation classes
-        <span 
-          key={`hidden-${j}`} 
+        <span
+          key={`hidden-${j}`}
           className={`${tagPillClass} animate-tag overflow-hidden`}
           style={{ display: "none", opacity: 0 }}
         >
@@ -48,13 +43,10 @@ function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
         </span>
       ))}
 
-      {showTrigger && remaining > 0 && (
-        // Trigger to display hidden tags
-        <TriggerTagsPanel 
-          count={remaining} 
-          hiddenTags={hiddenTags} 
-          tagStyling={tagPillClass} 
-        />
+      {remaining > 0 && (
+        <span className={`${tagPillClass} tag-counter text-zinc-500 dark:text-zinc-400`}>
+          +{remaining}
+        </span>
       )}
     </div>
   );
