@@ -20,7 +20,7 @@ export function useExpandTags(
       // Stagger hidden tags in
       gsap.set(hiddenTags, {
         display: "inline-flex",
-        clearProps: "width,paddingLeft,paddingRight,marginLeft,marginRight,scale",
+        clearProps: "scale",
       });
       gsap.fromTo(
         hiddenTags,
@@ -40,11 +40,6 @@ export function useExpandTags(
       gsap.to(hiddenTags, {
         opacity: 0,
         scale: 0.5,
-        width: 0,
-        paddingLeft: 0,
-        paddingRight: 0,
-        marginLeft: 0,
-        marginRight: 0,
         duration: 0.3,
         stagger: { each: 0.02, from: "end" },
         ease: "power2.inOut",
