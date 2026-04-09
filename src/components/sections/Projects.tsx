@@ -18,11 +18,12 @@ function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
   const hiddenTags = tags.slice(maxTagsVisible);
   const remaining = hiddenTags.length;
   const tagPillClass = "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-600 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300";
+  const tagContainerClass = "flex flex-wrap gap-2 mt-1"
 
   // If expanded, show all tags
   if (isExpanded) {
     return (
-      <div className="flex flex-wrap gap-2">
+      <div className={tagContainerClass}>
         {tags.map((tag, j) => (
           <span key={`${j}-${tag}`} className={tagPillClass}>
             {tag}
@@ -34,7 +35,7 @@ function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
 
   // If not expanded, show limited tags with toggle to show remaining
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className={tagContainerClass}>
       {visibleTags.map((tag, j) => (
         <span key={`${j}-${tag}`} className={tagPillClass}>
           {tag}
