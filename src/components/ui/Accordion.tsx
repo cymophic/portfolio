@@ -45,9 +45,8 @@ export default function AccordionItem({ title, subtitle, meta, disabled, isOpen,
           )}
         </div>
         {(subtitle || meta) && (
-          <div className="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-xs text-zinc-400">
+          <div className="flex flex-col gap-y-0.5 text-xs text-zinc-400">
             {subtitle && <span>{subtitle}</span>}
-            {subtitle && meta && <span>·</span>}
             {meta && <span>{meta}</span>}
           </div>
         )}
