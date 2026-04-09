@@ -31,14 +31,10 @@ export default function AccordionItem({
   leftAdornment,
   preview,
 }: Props) {
-  const { contentRef, previewRef, animate } = useAccordion();
-
-  useEffect(() => {
-    animate(isOpen);
-  }, [isOpen, animate]);
+  const { contentRef, previewRef, animate, isAnimating } = useAccordion();
 
   const handleToggle = () => {
-    if (disabled) return;
+    if (disabled || isAnimating.current) return;
     animate(!isOpen);
     onToggle();
   };
