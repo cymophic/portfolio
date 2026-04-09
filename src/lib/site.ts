@@ -35,7 +35,9 @@ export const workExperience = [
     role: "DevOps Engineer",
     start: "Nov 2024",
     end: "Apr 2026",
-    lines: [],
+    lines: [
+      "Built and maintained a custom CRM using Django, serving 1-2K users with a 3-tier location hierarchy and 4 permission levels.",
+    ],
   },
   {
     company: "Third Generation Holdings Co.",
@@ -80,7 +82,7 @@ export const projects = [
     description: "Enterprise CRM built with Django and Django Ninja, serving 1-2K users across a 3-tier location hierarchy with 4 permission levels controlling dashboard views and data access.",
     tags: ["Django", "PostgreSQL", "Docker", "Celery", "Grafana", "Ansible"],
     url: null,
-    repo: null,
+    repo: "https://github.com/PMC-ESS/l2c-portal",
   },
   {
     title: "PMC Business Landing Page",
