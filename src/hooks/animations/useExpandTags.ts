@@ -1,10 +1,11 @@
-import { useEffect, RefObject } from "react";
+import { useEffect, RefObject, useRef } from "react";
 import gsap from "gsap";
 
 export function useExpandTags(
   containerRef: RefObject<HTMLDivElement | null>,
   isExpanded: boolean,
 ) {
+  const isMounted = useRef(false);
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -12,6 +13,11 @@ export function useExpandTags(
     const hiddenTags = container.querySelectorAll(".animate-tag");
     const counter = container.querySelector(".tag-counter");
     if (hiddenTags.length === 0) return;
+
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
 
     if (isExpanded) {
       // Hide counter immediately before tags animate in
