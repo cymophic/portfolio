@@ -53,7 +53,7 @@ export default function AccordionItem({
       )}
       {/* Left Adornment */}
       {!showTimeline && leftAdornment && (
-        <div className="absolute left-0 top-0.5">
+        <div className="absolute left-1.75 top-0.5 -translate-x-1/2">
           {leftAdornment}
         </div>
       )}
