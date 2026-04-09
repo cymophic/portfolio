@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import { useAccordion } from "@/hooks/animations/useAccordion";
 import { cn } from "@/lib/utils/cn";
@@ -30,6 +31,14 @@ export default function AccordionItem({
   preview,
 }: Props) {
   const { contentRef, previewRef, animate, isAnimating } = useAccordion();
+  const isProgrammatic = useRef(false);
+  
+  useEffect(() => {
+    if (!isOpen) {
+      isProgrammatic.current = true;
+      animate(false);
+    }
+  }, [isOpen, animate]);
 
   const handleToggle = () => {
     if (disabled || isAnimating.current) return;
