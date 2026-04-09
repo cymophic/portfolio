@@ -35,9 +35,7 @@ export const workExperience = [
     role: "DevOps Engineer",
     start: "Nov 2024",
     end: "Apr 2026",
-    lines: [
-      "Built and maintained a custom CRM using Django, serving 1-2K users with a 3-tier location hierarchy and 4 permission levels.",
-    ],
+    lines: [],
   },
   {
     company: "Third Generation Holdings Co.",
@@ -79,21 +77,21 @@ export const certifications = [
 export const projects = [
   {
     title: "L2C Portal (Lead-to-Cash CRM)",
-    description: "Enterprise CRM built with Django and Django Ninja, serving 1-2K users across a 3-tier location hierarchy with 4 permission levels controlling dashboard views and data access.",
+    description: "Enterprise CRM built for PMC, developed to support their efforts and streamline the lead-to-sale process.",
     tags: ["Django", "PostgreSQL", "Docker", "Celery", "Grafana", "Ansible", "GitHub Actions", "Sentry", "Prometheus", "Loki", "TailwindCSS", "Nginx", "Gunicorn"],
-    url: null,
-    repo: "https://github.com/PMC-ESS/rbt-l2c-portal",
+    url: "https://rsoconnect.powermaccenter.com",
+    repo: null,
   },
   {
     title: "PMC Business Landing Page",
-    description: "B2B lead generation platform deployed on bare-metal Linux with Nginx and Gunicorn, intentionally kept lightweight for a single-service deployment.",
+    description: "B2B lead generation platform deployed on bare-metal Linux with Nginx and Gunicorn.",
     tags: ["Django", "Celery", "Redis", "Nginx", "GitHub Actions"],
     url: "https://business.powermaccenter.com",
     repo: null,
   },
   {
     title: "MobileCare Frontend Migration",
-    description: "Migrated customer-facing service portal from Shopify to Django with admin CMS and responsive Bootstrap UI.",
+    description: "Customer-facing service portal migration from Shopify to Django with admin CMS and Bootstrap UI.",
     tags: ["Django", "Bootstrap", "CSS"],
     url: "https://mobilecareph.com",
     repo: null,
