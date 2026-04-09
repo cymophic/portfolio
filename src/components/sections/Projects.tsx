@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { MdFolder } from "react-icons/md";
 import { projects } from "@/lib/site";
 import AccordionItem from "@/components/ui/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import TriggerTagsPanel from "@/components/sections/common/OtherTags";
+import { useExpandTags } from "@/hooks/animations/useExpandTags";
 
 type TagsSectionProps = {
   tags: string[];
@@ -13,38 +14,51 @@ type TagsSectionProps = {
 };
 
 function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [showTrigger, setShowTrigger] = useState(!isExpanded);
+  
   const maxTagsVisible = 6;
   const visibleTags = tags.slice(0, maxTagsVisible);
   const hiddenTags = tags.slice(maxTagsVisible);
   const remaining = hiddenTags.length;
+  
   const tagPillClass = "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-600 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300";
-  const tagContainerClass = "flex flex-wrap gap-2 mt-1"
+  const tagContainerClass = "flex flex-wrap gap-2 mt-1";
 
-  // If expanded, show all tags
-  if (isExpanded) {
-    return (
-      <div className={tagContainerClass}>
-        {tags.map((tag, j) => (
-          <span key={`${j}-${tag}`} className={tagPillClass}>
-            {tag}
-          </span>
-        ))}
-      </div>
-    );
-  }
+  // Animation hook
+  useExpandTags(containerRef, isExpanded, setShowTrigger);
 
-  // If not expanded, show limited tags with toggle to show remaining
   return (
-    <div className={tagContainerClass}>
+    <div ref={containerRef} className={tagContainerClass}>
       {visibleTags.map((tag, j) => (
-        <span key={`${j}-${tag}`} className={tagPillClass}>
+        // Always visible tags without animation classes
+        <span key={`visible-${j}`} className={tagPillClass}>
           {tag}
         </span>
       ))}
-      {remaining > 0 && <TriggerTagsPanel count={remaining} hiddenTags={hiddenTags} tagStyling={tagPillClass} />}
+
+      {hiddenTags.map((tag, j) => (
+        // Initially hidden tags with animation classes
+        <span 
+          key={`hidden-${j}`} 
+          className={`${tagPillClass} animate-tag overflow-hidden`}
+          style={{ display: "none", opacity: 0 }}
+        >
+          {tag}
+        </span>
+      ))}
+
+      {showTrigger && remaining > 0 && (
+        // Trigger to display hidden tags
+        <TriggerTagsPanel 
+          count={remaining} 
+          hiddenTags={hiddenTags} 
+          tagStyling={tagPillClass} 
+        />
+      )}
     </div>
   );
-} 
+}
 
 export default function Projects() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
