@@ -80,13 +80,13 @@ export const projects = [
   {
     title: "L2C Portal (Lead-to-Cash CRM)",
     description: "Enterprise CRM built with Django and Django Ninja, serving 1-2K users across a 3-tier location hierarchy with 4 permission levels controlling dashboard views and data access.",
-    tags: ["Django", "PostgreSQL", "Docker", "Celery", "Grafana", "Ansible"],
+    tags: ["Django", "PostgreSQL", "Docker", "Celery", "Grafana", "Ansible", "GitHub Actions", "Sentry", "Prometheus", "Loki", "TailwindCSS", "Nginx", "Gunicorn"],
     url: null,
-    repo: "https://github.com/PMC-ESS/l2c-portal",
+    repo: "https://github.com/PMC-ESS/rbt-l2c-portal",
   },
   {
     title: "PMC Business Landing Page",
-    description: "B2B lead generation platform deployed on bare-metal Linux with Nginx and Gunicorn - intentionally kept lightweight for a single-service deployment.",
+    description: "B2B lead generation platform deployed on bare-metal Linux with Nginx and Gunicorn, intentionally kept lightweight for a single-service deployment.",
     tags: ["Django", "Celery", "Redis", "Nginx", "GitHub Actions"],
     url: "https://business.powermaccenter.com",
     repo: null,

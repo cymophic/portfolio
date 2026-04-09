@@ -75,18 +75,20 @@ export default function AccordionItem({
 
         {/* Subtitle and Meta */}
         {(subtitle || meta) && (
-          <div className="max-w-[calc(100%-8rem)] flex flex-col gap-y-0.5 text-sm text-zinc-600 dark:text-zinc-400">
+          <div className="max-w-85 sm:max-w-[calc(100%-8rem)] flex flex-col gap-y-0.5 text-sm text-zinc-600 dark:text-zinc-400">
             {meta && <span>{meta}</span>}
             {subtitle && <span className="wrap-break-word">{subtitle}</span>}
           </div>
         )}
-
-        {/* Preview */}
-        {preview && <div className="-ml-0.5 pt-1">{preview}</div>}
       </button>
+
+      {/* Outside the trigger so previews can contain buttons / popovers (valid HTML + a11y). */}
+      {preview && (
+        <div className="-ml-0.5 pt-1 max-w-85 sm:max-w-[calc(100%-8rem)]">{preview}</div>
+      )}
       
       {/* Bullet Lines */}
-      <ul ref={contentRef} className="max-w-[calc(100%-8rem)] flex flex-col gap-2 invisible h-0 overflow-hidden">
+      <ul ref={contentRef} className="max-w-85 sm:max-w-[calc(100%-8rem)] flex flex-col gap-2 invisible h-0 overflow-hidden">
         {children}
       </ul>
     </div>
