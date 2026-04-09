@@ -31,7 +31,7 @@ export default function AccordionItem({
   leftAdornment,
   preview,
 }: Props) {
-  const { contentRef, animate } = useAccordion();
+  const { contentRef, previewRef, animate } = useAccordion();
 
   useEffect(() => {
     animate(isOpen);
@@ -85,7 +85,7 @@ export default function AccordionItem({
 
       {/* Preview Content below Subtitle */}
       {preview && (
-        <div className="-ml-0.5 pt-1 max-w-100 sm:max-w-[calc(100%-8rem)]">{preview}</div>
+        <div ref={previewRef} className="-ml-0.5 pt-1 max-w-100 sm:max-w-[calc(100%-8rem)]">{preview}</div>
       )}
       
       {/* Bullet Lines */}

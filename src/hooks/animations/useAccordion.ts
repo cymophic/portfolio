@@ -5,16 +5,24 @@ import { gsap } from "gsap";
 
 type UseAccordionResult = {
   contentRef: React.RefObject<HTMLUListElement | null>;
+  previewRef: React.RefObject<HTMLDivElement | null>;
   animate: (isOpen: boolean) => void;
 };
 
 export function useAccordion(): UseAccordionResult {
   const contentRef = useRef<HTMLUListElement | null>(null);
+  const previewRef = useRef<HTMLDivElement | null>(null);
+  const naturalPreviewHeight = useRef<number>(0);
 
   useEffect(() => {
     if (contentRef.current) {
       contentRef.current.classList.remove("invisible");
       gsap.set(contentRef.current, { opacity: 0, height: 0, overflow: "hidden", marginTop: 0 });
+    }
+    
+    if (previewRef.current) {
+      naturalPreviewHeight.current = previewRef.current.scrollHeight;
+      gsap.set(previewRef.current, { overflow: "hidden", height: "auto" });
     }
   }, []);
 
@@ -23,15 +31,29 @@ export function useAccordion(): UseAccordionResult {
 
     if (isOpen) {
       const height = contentRef.current.scrollHeight;
+
       gsap.to(contentRef.current, {
         height, opacity: 1, marginTop: 16, duration: 0.3, ease: "power2.out"
       });
+
+      if (previewRef.current) {
+        gsap.to(previewRef.current, { height: "auto", duration: 0.3, ease: "power2.out" });
+      }
     } else {
       gsap.to(contentRef.current, {
         height: 0, opacity: 0, marginTop: 0, duration: 0.2, ease: "power2.in"
       });
+
+      if (previewRef.current) {
+        gsap.to(previewRef.current, {
+          height: naturalPreviewHeight.current,
+          duration: 0.2,
+          ease: "power2.in",
+          overwrite: true,
+        });
+      }
     }
   }, []);
 
-  return { contentRef, animate };
+  return { contentRef, previewRef, animate };
 }
