@@ -6,8 +6,8 @@ import { gsap } from "gsap";
 type UseAccordionResult = {
   contentRef: React.RefObject<HTMLUListElement | null>;
   previewRef: React.RefObject<HTMLDivElement | null>;
-  animate: (isOpen: boolean) => void;
   isAnimating: React.RefObject<boolean>;
+  animate: (isOpen: boolean, onComplete?: () => void) => void;
 };
 
 export function useAccordion(): UseAccordionResult {
@@ -28,7 +28,7 @@ export function useAccordion(): UseAccordionResult {
     }
   }, []);
 
-  const animate = useCallback((isOpen: boolean) => {
+  const animate = useCallback((isOpen: boolean, onComplete?: () => void) => {
     if (!contentRef.current) return;
     isAnimating.current = true;
 
@@ -46,7 +46,10 @@ export function useAccordion(): UseAccordionResult {
     } else {
       gsap.to(contentRef.current, {
         height: 0, opacity: 0, marginTop: 0, duration: 0.2, ease: "power2.in",
-        onComplete: () => { isAnimating.current = false; }
+        onComplete: () => {
+          isAnimating.current = false;
+          onComplete?.();
+        }
       });
 
       if (previewRef.current) {

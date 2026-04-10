@@ -2,10 +2,11 @@
 
 import { useState, useRef } from "react";
 import { MdFolder } from "react-icons/md";
-import { projects } from "@/lib/site";
+import { projects, portfolioEasterEggMessages } from "@/lib/site";
 import AccordionItem from "@/components/ui/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
+import useIsClient from "@/hooks/browser/useIsClient";
 
 type TagsSectionProps = {
   tags: string[];
@@ -54,6 +55,9 @@ function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
 
 export default function Projects() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [easterEggIndex, setEasterEggIndex] = useState(-1);
+  const isClient = useIsClient();
+  const origin = isClient ? window.location.origin : "";
 
   return (
     <section className="w-full">
@@ -75,7 +79,6 @@ export default function Projects() {
                 subtitle={project.description}
                 disabled={!hasDetails}
                 isOpen={openIndex === i}
-                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
                 showTimeline={false}
                 leftAdornment={
                   <span className="flex h-5 w-5 items-center justify-center rounded-md border border-zinc-200 bg-zinc-100 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
@@ -87,18 +90,42 @@ export default function Projects() {
                     <ProjectTags tags={project.tags} isExpanded={openIndex === i} />
                   ) : null
                 }
+                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+                onCloseComplete={
+                  isClient && project.url?.replace(/\/$/, "") === origin.replace(/\/$/, "")
+                    ? () => setEasterEggIndex(-1)
+                    : undefined
+                }
               >
                 {project.url && (
                   <li className="text-sm text-zinc-600 dark:text-zinc-400">
-                    Live: {" "}
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-zinc-700 underline underline-offset-2 hover:text-zinc-900 dark:text-zinc-200 dark:hover:text-zinc-100"
-                    >
-                      {project.url}
-                    </a>
+                    Live:{" "}
+                    {isClient && project.url.replace(/\/$/, "") === origin.replace(/\/$/, "") ? (
+                      <button
+                        onClick={() => {
+                          const last = portfolioEasterEggMessages.length - 1;
+                          setEasterEggIndex(prev => prev >= last ? last : prev + 1);
+                        }}
+                        className="text-zinc-700 dark:text-zinc-200"
+                      >
+                        {easterEggIndex >= 0 ? (
+                          <span>
+                            {portfolioEasterEggMessages[easterEggIndex]}
+                          </span>
+                        ) : (
+                          <span className="underline underline-offset-2">{project.url}</span>
+                        )}
+                      </button>
+                    ) : (
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-zinc-700 underline underline-offset-2 hover:text-zinc-900 dark:text-zinc-200 dark:hover:text-zinc-100"
+                      >
+                        {project.url}
+                      </a>
+                    )}
                   </li>
                 )}
                 {project.repo && (
