@@ -6,6 +6,7 @@ import { projects } from "@/lib/site";
 import AccordionItem from "@/components/ui/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
+import useIsClient from "@/hooks/browser/useIsClient";
 
 type TagsSectionProps = {
   tags: string[];
@@ -54,6 +55,9 @@ function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
 
 export default function Projects() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [urlRevealed, setUrlRevealed] = useState(false);
+  const isClient = useIsClient();
+  const origin = isClient ? window.location.origin : "";
 
   return (
     <section className="w-full">
@@ -90,15 +94,30 @@ export default function Projects() {
               >
                 {project.url && (
                   <li className="text-sm text-zinc-600 dark:text-zinc-400">
-                    Live: {" "}
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-zinc-700 underline underline-offset-2 hover:text-zinc-900 dark:text-zinc-200 dark:hover:text-zinc-100"
-                    >
-                      {project.url}
-                    </a>
+                    Live:{" "}
+                    {isClient && project.url.replace(/\/$/, "") === origin.replace(/\/$/, "") ? (
+                      <button
+                        onClick={() => setUrlRevealed(prev => !prev)}
+                        className="text-zinc-700 dark:text-zinc-200"
+                      >
+                        {urlRevealed ? (
+                          <span>
+                            {"It's this website, you're already here."}
+                          </span>
+                        ) : (
+                          <span className="underline underline-offset-2">{project.url}</span>
+                        )}
+                      </button>
+                    ) : (
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-zinc-700 underline underline-offset-2 hover:text-zinc-900 dark:text-zinc-200 dark:hover:text-zinc-100"
+                      >
+                        {project.url}
+                      </a>
+                    )}
                   </li>
                 )}
                 {project.repo && (
