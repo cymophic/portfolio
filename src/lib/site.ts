@@ -104,3 +104,21 @@ export const projects = [
     repo: null,
   },
 ];
+
+// Easter egg messages for the portfolio URL
+export const portfolioEasterEggMessages = [
+  "It's this website, you're already here.",
+  "Still here. Still you. Still this page.",
+  "Clicking won't take you anywhere new.",
+  "You're very persistent, aren't you?",
+  "Okay, I admire the dedication.",
+  "Have you tried scrolling instead?",
+  "You can stop now.",
+  "...",
+  "...",
+  "...",
+  "...",
+  "...",
+  "Okay, I'll just ignore you from now on.",
+  "...",
+];

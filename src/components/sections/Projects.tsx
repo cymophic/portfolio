@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { MdFolder } from "react-icons/md";
-import { projects } from "@/lib/site";
+import { projects, portfolioEasterEggMessages } from "@/lib/site";
 import AccordionItem from "@/components/ui/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
@@ -55,7 +55,7 @@ function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
 
 export default function Projects() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [urlRevealed, setUrlRevealed] = useState(false);
+  const [easterEggIndex, setEasterEggIndex] = useState(-1);
   const isClient = useIsClient();
   const origin = isClient ? window.location.origin : "";
 
@@ -93,7 +93,7 @@ export default function Projects() {
                 onToggle={() => setOpenIndex(openIndex === i ? null : i)}
                 onCloseComplete={
                   isClient && project.url?.replace(/\/$/, "") === origin.replace(/\/$/, "")
-                    ? () => setUrlRevealed(false)
+                    ? () => setEasterEggIndex(-1)
                     : undefined
                 }
               >
@@ -102,12 +102,15 @@ export default function Projects() {
                     Live:{" "}
                     {isClient && project.url.replace(/\/$/, "") === origin.replace(/\/$/, "") ? (
                       <button
-                        onClick={() => setUrlRevealed(prev => !prev)}
+                        onClick={() => {
+                          const last = portfolioEasterEggMessages.length - 1;
+                          setEasterEggIndex(prev => prev >= last ? last : prev + 1);
+                        }}
                         className="text-zinc-700 dark:text-zinc-200"
                       >
-                        {urlRevealed ? (
+                        {easterEggIndex >= 0 ? (
                           <span>
-                            {"It's this website, you're already here."}
+                            {portfolioEasterEggMessages[easterEggIndex]}
                           </span>
                         ) : (
                           <span className="underline underline-offset-2">{project.url}</span>
