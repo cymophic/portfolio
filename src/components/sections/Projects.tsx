@@ -26,7 +26,7 @@ function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
   useExpandTags(containerRef, isExpanded);
 
   return (
-    <div ref={containerRef} className="flex flex-wrap gap-2 mt-1">
+    <div ref={containerRef} className="flex flex-wrap gap-2 mt-1.5">
       {visibleTags.map((tag, j) => (
         <span key={`visible-${j}`} className={tagPillClass}>
           {tag}
