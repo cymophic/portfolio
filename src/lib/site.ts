@@ -108,13 +108,13 @@ export const projects = [
 // Easter egg messages for the portfolio URL
 export const portfolioEasterEggMessages = [
   { text: "It's this website, you're already here." },
-  { text: "Still here. Still you. Still this page." },
+  { text: "Nope, it's still this page." },
+  { text: "Have you tried scrolling instead?" },
   { text: "Clicking won't take you anywhere new." },
   { text: "You're very persistent, aren't you?" },
   { text: "Okay, I admire the dedication." },
-  { text: "Have you tried scrolling instead?" },
-  { text: "Sure, keep clicking" },
-  { text: "You can stop now." },
+  { text: "You have a lot of time in your hands." },
+  { text: "Wait, I'm running out of things to say." },
   { text: "Okay, I'll just ignore you from now on." },
   { text: "leaves", type: "action" },
 ];
