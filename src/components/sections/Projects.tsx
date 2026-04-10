@@ -7,6 +7,7 @@ import AccordionItem from "@/components/ui/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
 import useIsClient from "@/hooks/browser/useIsClient";
+import useShake from "@/hooks/animations/useShake";
 
 type TagsSectionProps = {
   tags: string[];
@@ -56,6 +57,7 @@ function ProjectTags({ tags, isExpanded }: TagsSectionProps) {
 export default function Projects() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [easterEggIndex, setEasterEggIndex] = useState(-1);
+  const { ref: shakeRef, shake } = useShake();
   const isClient = useIsClient();
   const origin = isClient ? window.location.origin : "";
 
@@ -102,15 +104,18 @@ export default function Projects() {
                     Live:{" "}
                     {isClient && project.url.replace(/\/$/, "") === origin.replace(/\/$/, "") ? (
                       <button
+                        ref={shakeRef}
+                        disabled={easterEggIndex === portfolioEasterEggMessages.length - 1}
                         onClick={() => {
                           const last = portfolioEasterEggMessages.length - 1;
                           setEasterEggIndex(prev => prev >= last ? last : prev + 1);
+                          if (portfolioEasterEggMessages[easterEggIndex + 1]?.type !== "action") shake();
                         }}
                         className="text-zinc-700 dark:text-zinc-200"
                       >
                         {easterEggIndex >= 0 ? (
-                          <span>
-                            {portfolioEasterEggMessages[easterEggIndex]}
+                          <span className={portfolioEasterEggMessages[easterEggIndex].type === "action" ? "italic text-zinc-600 dark:text-zinc-500 cursor-default" : ""}>
+                            {portfolioEasterEggMessages[easterEggIndex].text}
                           </span>
                         ) : (
                           <span className="underline underline-offset-2">{project.url}</span>
