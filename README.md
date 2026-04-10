@@ -35,6 +35,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **SSL:** AWS Certificate Manager
 - **DNS:** Cloudflare
 - **IaC:** Terraform
+- **Error Monitoring:** Sentry
 - **Analytics:** Google Analytics
 
 ### CI/CD
@@ -184,3 +185,5 @@ Deployments are fully automated via GitHub Actions.
 | `S3_BUCKET_NAME` | Variable | S3 bucket name |
 | `NEXT_PUBLIC_SITE_MODE` | Variable | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
 | `NEXT_PUBLIC_GA_ID` | Variable | Google Analytics Measurement ID |
+| `NEXT_PUBLIC_SENTRY_DSN` | Secret | Sentry DSN for error monitoring |
+| `SENTRY_AUTH_TOKEN` | Secret | Sentry auth token for source map uploads |
