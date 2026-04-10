@@ -79,7 +79,6 @@ export default function Projects() {
                 subtitle={project.description}
                 disabled={!hasDetails}
                 isOpen={openIndex === i}
-                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
                 showTimeline={false}
                 leftAdornment={
                   <span className="flex h-5 w-5 items-center justify-center rounded-md border border-zinc-200 bg-zinc-100 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
@@ -90,6 +89,12 @@ export default function Projects() {
                   project.tags.length > 0 ? (
                     <ProjectTags tags={project.tags} isExpanded={openIndex === i} />
                   ) : null
+                }
+                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+                onCloseComplete={
+                  isClient && project.url?.replace(/\/$/, "") === origin.replace(/\/$/, "")
+                    ? () => setUrlRevealed(false)
+                    : undefined
                 }
               >
                 {project.url && (

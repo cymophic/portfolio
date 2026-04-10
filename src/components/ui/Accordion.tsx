@@ -10,12 +10,13 @@ type Props = {
   subtitle?: string;
   meta?: string;
   isOpen: boolean;
-  onToggle: () => void;
   children?: React.ReactNode;
   disabled?: boolean;
   showTimeline?: boolean;
   leftAdornment?: React.ReactNode;
   preview?: React.ReactNode;
+  onToggle: () => void;
+  onCloseComplete?: () => void;
 };
 
 export default function AccordionItem({
@@ -24,11 +25,12 @@ export default function AccordionItem({
   meta,
   disabled,
   isOpen,
-  onToggle,
   children,
   showTimeline = true,
   leftAdornment,
   preview,
+  onToggle,
+  onCloseComplete,
 }: Props) {
   const { contentRef, previewRef, animate, isAnimating } = useAccordion();
   const isProgrammatic = useRef(false);
@@ -36,9 +38,9 @@ export default function AccordionItem({
   useEffect(() => {
     if (!isOpen) {
       isProgrammatic.current = true;
-      animate(false);
+      animate(false, onCloseComplete);
     }
-  }, [isOpen, animate]);
+  }, [isOpen, animate, onCloseComplete]);
 
   const handleToggle = () => {
     if (disabled || isAnimating.current) return;
