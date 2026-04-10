@@ -114,7 +114,7 @@ export default function Projects() {
                         className="text-zinc-700 dark:text-zinc-200"
                       >
                         {easterEggIndex >= 0 ? (
-                          <span className={portfolioEasterEggMessages[easterEggIndex].type === "action" ? "italic text-zinc-600 dark:text-zinc-500 cursor-default" : ""}>
+                          <span className={portfolioEasterEggMessages[easterEggIndex].type === "action" ? "italic text-zinc-400 dark:text-zinc-500 cursor-default" : ""}>
                             {portfolioEasterEggMessages[easterEggIndex].text}
                           </span>
                         ) : (
