@@ -78,7 +78,7 @@ export const projects = [
   {
     title: "Personal Portfolio",
     description: "The website where you're currently reading this right now.",
-    tags: ["AWS S3", "AWS CM", "AWS CloudFront", "Terraform", "Cloudflare", "Sentry", "NextJS", "React", "Git", "GitHub Actions", "Google Analytics"],
+    tags: ["AWS S3", "AWS CM", "AWS CloudFront", "Terraform", "Cloudflare", "Sentry", "Next.js", "React", "Git", "GitHub Actions", "Google Analytics"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
   },
