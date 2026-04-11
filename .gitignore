@@ -14,7 +14,8 @@
 # Next.js
 /.next/
 /out/
-src/app/icon.png
+/public/avatar.png
+/src/app/icon.png
 
 # Production
 /build

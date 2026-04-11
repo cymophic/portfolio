@@ -8,7 +8,7 @@ export const profileInfo = {
   title: "DevOps Engineer / Full-Stack Developer",
   location: "Pasig City, Philippines",
   bio: "DevOps Engineer with full-stack experience. I build, deploy, and maintain scalable systems end to end.",
-  image: "https://github.com/cymophic.png",
+  image: "/avatar.png",
 }
 
 // Social media links
