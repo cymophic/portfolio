@@ -122,7 +122,7 @@ export default function TechStack() {
 
       <div
         ref={wrapperRef}
-        className="relative max-w-210 mx-auto w-full overflow-hidden cursor-grab active:cursor-grabbing px-6"
+        className="relative max-w-210 mx-auto w-full overflow-hidden px-6"
         style={{
           maskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
           WebkitMaskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
