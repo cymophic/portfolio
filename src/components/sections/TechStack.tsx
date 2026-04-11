@@ -112,7 +112,7 @@ function TechItem({ label }: { label: string }) {
 }
 
 export default function TechStack() {
-  const { trackRef } = useTechMarquee();
+  const { wrapperRef } = useTechMarquee();
 
   return (
     <section className="w-full">
@@ -121,13 +121,14 @@ export default function TechStack() {
       </div>
 
       <div
+        ref={wrapperRef}
         className="relative max-w-210 mx-auto w-full overflow-hidden cursor-grab active:cursor-grabbing px-6"
         style={{
           maskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
           WebkitMaskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
         }}
       >
-        <div ref={trackRef} className="flex w-max gap-3 py-12">
+        <div className="marquee-track flex w-max gap-3 py-10">
           {[...allTechs, ...allTechs].map((tech, i) => (
             <TechItem key={`${tech}-${i}`} label={tech} />
           ))}
