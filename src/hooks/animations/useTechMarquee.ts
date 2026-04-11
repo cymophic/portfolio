@@ -75,6 +75,12 @@ export function useTechMarquee() {
         ? samples.reduce((a, b) => a + b, 0) / samples.length
         : 0;
 
+      // Don't apply inertia if barely moving
+      if (Math.abs(avgVelocity) < 1) {
+        tween.timeScale(1);
+        return;
+      }
+
       const trackWidth = track.scrollWidth / 2;
       const normalSpeed = trackWidth / (CONFIG.duration * 1000);
       const inertiaScale = Math.min(Math.abs(avgVelocity) / normalSpeed, CONFIG.momentum);
