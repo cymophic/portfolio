@@ -107,6 +107,13 @@ export const projects = [
     url: "https://mobilecareph.com",
     repo: null,
   },
+  {
+    title: "Cymo GPT",
+    description: "A simple Discord bot powered by GPT-4o for personal use.",
+    tags: ["Open Source", "AI Integration"],
+    url: null,
+    repo: "https://github.com/cymophic/cymo-gpt",
+  },
 ];
 
 // Easter egg messages for the portfolio URL
