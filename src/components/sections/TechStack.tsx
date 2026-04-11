@@ -123,8 +123,8 @@ export default function TechStack() {
       <div
         className="relative mt-8 max-w-210 mx-auto w-full overflow-hidden cursor-grab active:cursor-grabbing px-6"
         style={{
-          maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+          maskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
         }}
       >
         <div ref={trackRef} className="flex w-max gap-3 py-2">

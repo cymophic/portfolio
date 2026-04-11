@@ -9,7 +9,6 @@ export function useTechMarquee() {
   const dragStartProgress = useRef(0);
   const lastX = useRef(0);
   const lastVelocity = useRef(0);
-  const velocityInterval = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastTimestamp = useRef(0);
   const velocitySamples = useRef<number[]>([]);
 
@@ -98,7 +97,6 @@ export function useTechMarquee() {
 
     return () => {
       tween.kill();
-      if (velocityInterval.current) clearInterval(velocityInterval.current);
       track.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
