@@ -109,7 +109,7 @@ export const projects = [
   },
   {
     title: "Cymo GPT",
-    description: "A simple Discord bot powered by GPT-4o for personal use.",
+    description: "A simple Discord AI bot powered by GPT-4o for personal use.",
     tags: ["Open Source", "AI Integration"],
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",

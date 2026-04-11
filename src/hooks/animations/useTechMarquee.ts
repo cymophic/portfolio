@@ -1,6 +1,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
+const CONFIG = {
+  duration: 30,      // auto-scroll speed (higher = slower)
+  momentum: 24,      // swipe momentum multiplier
+  glide: 2,          // how long it coasts back to normal speed (seconds)
+};
+
 export function useTechMarquee() {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -12,8 +18,6 @@ export function useTechMarquee() {
     if (!track) return;
 
     const isDragging = { current: false };
-    const dragStartX = { current: 0 };
-    const dragStartProgress = { current: 0 };
     const lastX = { current: 0 };
     const lastTimestamp = { current: 0 };
     const velocitySamples = { current: [] as number[] };
@@ -21,18 +25,19 @@ export function useTechMarquee() {
     gsap.set(track, { x: "-50%" });
     const tween = gsap.to(track, {
       x: "0%",
-      duration: 30,
+      duration: CONFIG.duration,
       ease: "none",
       repeat: -1,
+      onReverseComplete() {
+        tween.progress(1);
+      },
     });
 
     const startDrag = (clientX: number) => {
       isDragging.current = true;
-      dragStartX.current = clientX;
       lastX.current = clientX;
       lastTimestamp.current = performance.now();
       velocitySamples.current = [];
-      dragStartProgress.current = tween.progress();
       gsap.killTweensOf(tween);
       tween.timeScale(0);
     };
@@ -51,12 +56,14 @@ export function useTechMarquee() {
       lastX.current = clientX;
       lastTimestamp.current = now;
 
-      const totalDx = clientX - dragStartX.current;
       const trackWidth = track.scrollWidth / 2;
-      const delta = totalDx / trackWidth;
-      let newProgress = (dragStartProgress.current + delta) % 1;
+      const delta = dx / trackWidth;
+      let newProgress = tween.progress() + delta;
+
+      if (newProgress >= 1) newProgress -= 1;
       if (newProgress < 0) newProgress += 1;
-      tween.progress(newProgress);
+
+      tween.progress(newProgress, true);
     };
 
     const endDrag = () => {
@@ -68,14 +75,20 @@ export function useTechMarquee() {
         ? samples.reduce((a, b) => a + b, 0) / samples.length
         : 0;
 
+      // Don't apply inertia if barely moving
+      if (Math.abs(avgVelocity) < 1) {
+        tween.timeScale(1);
+        return;
+      }
+
       const trackWidth = track.scrollWidth / 2;
-      const normalSpeed = trackWidth / (30 * 1000);
-      const inertiaScale = Math.min(Math.abs(avgVelocity) / normalSpeed, 8);
+      const normalSpeed = trackWidth / (CONFIG.duration * 1000);
+      const inertiaScale = Math.min(Math.abs(avgVelocity) / normalSpeed, CONFIG.momentum);
       const direction = avgVelocity < 0 ? -1 : 1;
 
       gsap.killTweensOf(tween);
       tween.timeScale(direction * inertiaScale);
-      gsap.to(tween, { timeScale: 1, duration: 1.5, ease: "power3.out" });
+      gsap.to(tween, { timeScale: 1, duration: CONFIG.glide, ease: "power3.out" });
     };
 
     const onMouseDown = (e: MouseEvent) => startDrag(e.clientX);
