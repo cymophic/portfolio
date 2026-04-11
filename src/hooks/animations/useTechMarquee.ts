@@ -2,19 +2,21 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 export function useTechMarquee() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const tweenRef = useRef<gsap.core.Tween | null>(null);
-  const isDragging = useRef(false);
-  const dragStartX = useRef(0);
-  const dragStartProgress = useRef(0);
-  const lastX = useRef(0);
-  const lastVelocity = useRef(0);
-  const lastTimestamp = useRef(0);
-  const velocitySamples = useRef<number[]>([]);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const track = trackRef.current;
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+
+    const track = wrapper.querySelector<HTMLDivElement>(".marquee-track");
     if (!track) return;
+
+    const isDragging = { current: false };
+    const dragStartX = { current: 0 };
+    const dragStartProgress = { current: 0 };
+    const lastX = { current: 0 };
+    const lastTimestamp = { current: 0 };
+    const velocitySamples = { current: [] as number[] };
 
     gsap.set(track, { x: "-50%" });
     const tween = gsap.to(track, {
@@ -24,13 +26,10 @@ export function useTechMarquee() {
       repeat: -1,
     });
 
-    tweenRef.current = tween;
-
     const startDrag = (clientX: number) => {
       isDragging.current = true;
       dragStartX.current = clientX;
       lastX.current = clientX;
-      lastVelocity.current = 0;
       lastTimestamp.current = performance.now();
       velocitySamples.current = [];
       dragStartProgress.current = tween.progress();
@@ -44,7 +43,6 @@ export function useTechMarquee() {
       const dt = now - lastTimestamp.current;
       const dx = clientX - lastX.current;
 
-      // Keep a rolling window of velocity samples
       if (dt > 0) {
         velocitySamples.current.push(dx / dt);
         if (velocitySamples.current.length > 5) velocitySamples.current.shift();
@@ -71,9 +69,8 @@ export function useTechMarquee() {
         : 0;
 
       const trackWidth = track.scrollWidth / 2;
-      const normalSpeed = trackWidth / (60 * 1000);
+      const normalSpeed = trackWidth / (30 * 1000);
       const inertiaScale = Math.min(Math.abs(avgVelocity) / normalSpeed, 8);
-
       const direction = avgVelocity < 0 ? -1 : 1;
 
       gsap.killTweensOf(tween);
@@ -84,30 +81,33 @@ export function useTechMarquee() {
     const onMouseDown = (e: MouseEvent) => startDrag(e.clientX);
     const onMouseMove = (e: MouseEvent) => moveDrag(e.clientX);
     const onMouseUp = () => endDrag();
-    const onTouchStart = (e: TouchEvent) => startDrag(e.touches[0].clientX);
-    const onTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-      moveDrag(e.touches[0].clientX);
-    };
-    const onTouchEnd = () => endDrag();
-
-    track.addEventListener("mousedown", onMouseDown);
+    wrapper.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
-    track.addEventListener("touchstart", onTouchStart, { passive: true });
-    track.addEventListener("touchmove", onTouchMove, { passive: false });
-    track.addEventListener("touchend", onTouchEnd);
+
+    const onTouchStart = (e: TouchEvent) => startDrag(e.touches[0].clientX);
+    const onTouchMove = (e: TouchEvent) => moveDrag(e.touches[0].clientX);
+    const onTouchEnd = () => endDrag();
+    wrapper.addEventListener("touchstart", onTouchStart, { passive: true });
+    wrapper.addEventListener("touchmove", onTouchMove, { passive: false });
+    wrapper.addEventListener("touchend", onTouchEnd);
+
+    const onWindowTouchMove = (e: TouchEvent) => {
+      if (isDragging.current) e.preventDefault();
+    };
+    window.addEventListener("touchmove", onWindowTouchMove, { passive: false });
 
     return () => {
       tween.kill();
-      track.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("touchmove", onWindowTouchMove);
+      wrapper.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
-      track.removeEventListener("touchstart", onTouchStart);
-      track.removeEventListener("touchmove", onTouchMove);
-      track.removeEventListener("touchend", onTouchEnd);
+      wrapper.removeEventListener("touchstart", onTouchStart);
+      wrapper.removeEventListener("touchmove", onTouchMove);
+      wrapper.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
 
-  return { trackRef };
+  return { wrapperRef };
 }
