@@ -5,10 +5,12 @@ const CONFIG = {
   duration: 30,      // auto-scroll speed (higher = slower)
   momentum: 24,      // swipe momentum multiplier
   glide: 2,          // how long it coasts back to normal speed (seconds)
+  pause: 1.5,        // seconds to pause before resuming auto-scroll
 };
 
 export function useTechMarquee() {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const pauseTimer = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -39,6 +41,7 @@ export function useTechMarquee() {
       lastTimestamp.current = performance.now();
       velocitySamples.current = [];
       gsap.killTweensOf(tween);
+      pauseTimer.current?.kill();
       tween.timeScale(0);
     };
 
@@ -69,6 +72,7 @@ export function useTechMarquee() {
     const endDrag = () => {
       if (!isDragging.current) return;
       isDragging.current = false;
+      gsap.killTweensOf(tween);
 
       const samples = velocitySamples.current;
       const avgVelocity = samples.length
@@ -76,8 +80,8 @@ export function useTechMarquee() {
         : 0;
 
       // Don't apply inertia if barely moving
-      if (Math.abs(avgVelocity) < 1) {
-        tween.timeScale(1);
+      if (Math.abs(avgVelocity) < 0.7) {
+        pauseTimer.current = gsap.delayedCall(CONFIG.pause, () => gsap.to(tween, { timeScale: 1, duration: CONFIG.glide, ease: "power3.out" }));
         return;
       }
 
