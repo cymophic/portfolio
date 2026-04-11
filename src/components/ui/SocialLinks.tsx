@@ -13,6 +13,13 @@ const iconMap: Record<string, IconType> = {
   Email: MdEmail,
 };
 
+const colorMap: Record<string, { light: string; dark: string }> = {
+  GitHub:    { light: "#333333", dark: "#ffffff"  },
+  LinkedIn:  { light: "#0A66C2", dark: "#0A66C2"  },
+  Instagram: { light: "#E1306C", dark: "#E1306C"  },
+  Email:     { light: "#71717a", dark: "#d4d4d8"  },
+};
+
 type SocialLinksProps = {
   exclude?: string[];
   iconsRef?: React.RefObject<(HTMLAnchorElement | null)[]>;
@@ -22,7 +29,8 @@ export default function SocialLinks({ exclude = [], iconsRef }: SocialLinksProps
   const filtered = socialLinks.filter(({ label }) => !exclude.includes(label));
   return (
     <div className="flex items-center gap-4">
-      {filtered.map(({ label, link, color }, i) => {
+      {filtered.map(({ label, link }, i) => {
+        const color = colorMap[label];
         const Icon = iconMap[label];
         return (
           <Link

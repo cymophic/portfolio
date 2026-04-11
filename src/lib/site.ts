@@ -13,10 +13,10 @@ export const profileInfo = {
 
 // Social media links
 export const socialLinks = [
-  { label: "GitHub", link: "https://github.com/cymophic", color: { light: "#333", dark: "#fff" } },
-  { label: "LinkedIn", link: "https://linkedin.com/in/luisabhram", color: { light: "#0A66C2", dark: "#0A66C2" } },
-  { label: "Instagram", link: "https://instagram.com/cymophic", color: { light: "#E1306C", dark: "#E1306C" } },
-  { label: "Email", link: "mailto:work.luisabhram@gmail.com", color: { light: "#71717a", dark: "#d4d4d8" } },
+  { label: "GitHub", link: "https://github.com/cymophic" },
+  { label: "LinkedIn", link: "https://linkedin.com/in/luisabhram" },
+  { label: "Instagram", link: "https://instagram.com/cymophic" },
+  { label: "Email", link: "mailto:work.luisabhram@gmail.com" },
 ];
 
 // Tech stack
