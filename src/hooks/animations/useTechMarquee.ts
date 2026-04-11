@@ -70,12 +70,12 @@ export function useTechMarquee() {
 
       const trackWidth = track.scrollWidth / 2;
       const normalSpeed = trackWidth / (30 * 1000);
-      const inertiaScale = Math.min(Math.abs(avgVelocity) / normalSpeed, 8);
+      const inertiaScale = Math.min(Math.abs(avgVelocity) / normalSpeed, 24);
       const direction = avgVelocity < 0 ? -1 : 1;
 
       gsap.killTweensOf(tween);
       tween.timeScale(direction * inertiaScale);
-      gsap.to(tween, { timeScale: 1, duration: 1.5, ease: "power3.out" });
+      gsap.to(tween, { timeScale: 1, duration: 2, ease: "power3.out" });
     };
 
     const onMouseDown = (e: MouseEvent) => startDrag(e.clientX);
