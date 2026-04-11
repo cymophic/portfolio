@@ -21,11 +21,15 @@ export const socialLinks = [
 
 // Tech stack
 export const techStack = {
-  devops: ["Docker", "GitHub Actions", "Nginx", "Gunicorn", "Celery", "Redis", "Linux", "Ansible"],
-  monitoring: ["Sentry", "Grafana", "Prometheus", "Loki"],
+  os: ["Linux", "Windows", "MacOS"],
+  frontend: ["JavaScript", "TypeScript", "React", "Next.js", "TailwindCSS", "Bootstrap", "GSAP"],
   backend: ["Python", "Django", "Django Ninja", "REST APIs"],
   databases: ["PostgreSQL", "SQLite", "NeonDB", "Supabase"],
-  frontend: ["JavaScript", "TailwindCSS", "Bootstrap", "React", "Next.js"],
+  devops: ["Docker", "Nginx", "Gunicorn", "Celery", "Redis", "Ansible", "Ansible Vault", "Kubernetes"],
+  cloud: ["AWS S3", "AWS CloudFront", "AWS Certificate Manager", "Terraform", "Cloudflare"],
+  cicd: ["Git", "GitHub Actions"],
+  scripting: ["Python", "Bash", "Makefile"],
+  monitoring: ["Sentry", "Google Analytics", "Grafana", "Prometheus", "Loki"],
 };
 
 // Work experience
@@ -78,28 +82,28 @@ export const projects = [
   {
     title: "Personal Portfolio",
     description: "The website where you're currently reading this right now.",
-    tags: ["AWS S3", "AWS CM", "AWS CloudFront", "Terraform", "Cloudflare", "Sentry", "Next.js", "React", "Git", "GitHub Actions", "Google Analytics"],
+    tags: ["Live", "Open Source", "Solo Project", "CI/CD", "IaC", "Cloud", "Monitoring"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
   },
   {
     title: "L2C Portal",
     description: "Enterprise CRM developed to support Power Mac Center's retail team efforts and streamline their sales process.",
-    tags: ["Linux", "Docker", "Ansible", "CloudFlare", "Sentry", "Git", "GitHub Actions", "Grafana", "Prometheus", "Django", "PostgreSQL", "Celery", "Redis", "TailwindCSS", "GSAP"],
+    tags: ["Live", "Enterprise", "CI/CD", "Containerized", "Self-Hosted", "Monitoring", "Scheduled Tasks"],
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
   },
   {
     title: "PMC Business",
     description: "PMC's B2B lead generation platform.",
-    tags: ["Linux", "Celery", "Redis", "Nginx", "Git","GitHub Actions", "Django", "Bootstrap"],
+    tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted"],
     url: "https://business.powermaccenter.com",
     repo: null,
   },
   {
     title: "Mobile Care",
     description: "Service and repair portal migration from Shopify to Django.",
-    tags: ["Linux", "Django", "Bootstrap", "Git", "Linux"],
+    tags: ["Live", "Enterprise", "Solo Project", "Migration", "Self-Hosted"],
     url: "https://mobilecareph.com",
     repo: null,
   },
