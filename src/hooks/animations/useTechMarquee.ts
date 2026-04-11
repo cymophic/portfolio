@@ -10,6 +10,7 @@ const CONFIG = {
 
 export function useTechMarquee() {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const pauseTimer = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -40,6 +41,7 @@ export function useTechMarquee() {
       lastTimestamp.current = performance.now();
       velocitySamples.current = [];
       gsap.killTweensOf(tween);
+      pauseTimer.current?.kill();
       tween.timeScale(0);
     };
 
@@ -79,7 +81,7 @@ export function useTechMarquee() {
 
       // Don't apply inertia if barely moving
       if (Math.abs(avgVelocity) < 0.7) {
-        gsap.delayedCall(CONFIG.pause, () => gsap.to(tween, { timeScale: 1, duration: CONFIG.glide, ease: "power3.out" }));
+        pauseTimer.current = gsap.delayedCall(CONFIG.pause, () => gsap.to(tween, { timeScale: 1, duration: CONFIG.glide, ease: "power3.out" }));
         return;
       }
 
