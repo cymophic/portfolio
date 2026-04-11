@@ -85,14 +85,17 @@ export function useTechMarquee() {
     const onMouseMove = (e: MouseEvent) => moveDrag(e.clientX);
     const onMouseUp = () => endDrag();
     const onTouchStart = (e: TouchEvent) => startDrag(e.touches[0].clientX);
-    const onTouchMove = (e: TouchEvent) => moveDrag(e.touches[0].clientX);
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      moveDrag(e.touches[0].clientX);
+    };
     const onTouchEnd = () => endDrag();
 
     track.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
     track.addEventListener("touchstart", onTouchStart, { passive: true });
-    track.addEventListener("touchmove", onTouchMove, { passive: true });
+    track.addEventListener("touchmove", onTouchMove, { passive: false });
     track.addEventListener("touchend", onTouchEnd);
 
     return () => {
