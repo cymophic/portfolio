@@ -37,3 +37,9 @@
     clip-path: circle(0px at center);
   }
 }
+
+@layer utilities {
+  .font-consolas {
+    font-family: Consolas, monospace;
+  }
+}
