@@ -2,10 +2,10 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const CONFIG = {
-  duration: 30,      // auto-scroll speed (higher = slower)
-  momentum: 24,      // swipe momentum multiplier
-  glide: 2,          // how long it coasts back to normal speed (seconds)
-  pause: 1.5,        // seconds to pause before resuming auto-scroll
+  duration: 30, // auto-scroll speed (higher = slower)
+  momentum: 24, // swipe momentum multiplier
+  glide: 2, // how long it coasts back to normal speed (seconds)
+  pause: 1.5, // seconds to pause before resuming auto-scroll
 };
 
 export function useTechMarquee() {
