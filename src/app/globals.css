@@ -4,6 +4,7 @@
 
 @theme {
   --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
 }
 
 @layer base {
