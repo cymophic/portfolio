@@ -23,12 +23,14 @@ const colorMap: Record<string, { light: string; dark: string }> = {
 type SocialLinksProps = {
   exclude?: string[];
   iconsRef?: React.RefObject<(HTMLAnchorElement | null)[]>;
+  opacity?: number;
+  iconSize?: number;
 };
 
-export default function SocialLinks({ exclude = [], iconsRef }: SocialLinksProps) {
+export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, iconSize = 18 }: SocialLinksProps) {
   const filtered = socialLinks.filter(({ label }) => !exclude.includes(label));
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4" style={{ opacity: opacity / 100 }}>
       {filtered.map(({ label, link }, i) => {
         const color = colorMap[label];
         const Icon = iconMap[label];
@@ -48,7 +50,7 @@ export default function SocialLinks({ exclude = [], iconsRef }: SocialLinksProps
               }}
             className="text-zinc-400 hover:text-(--brand-light) dark:hover:text-(--brand-dark) transition-colors"
           >
-            <Icon size={18} />
+            <Icon size={iconSize} />
           </Link>
         );
       })}
