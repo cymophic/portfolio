@@ -1,5 +1,5 @@
 import { profileInfo } from "@/lib/site";
-import SocialLinks from "@/components/ui/SocialLinks";
+import SocialLinks from "@/components/sections/common/SocialLinks";
 import ProfileImage from "@/components/sections/common/ProfileImage";
 import SectionTitle from "./common/SectionTitle";
 

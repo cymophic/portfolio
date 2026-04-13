@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { navLinks } from "@/lib/site";
-import SocialLinks from "@/components/ui/SocialLinks";
+import SocialLinks from "@/components/sections/common/SocialLinks";
 
 type Props = {
   visible: boolean;

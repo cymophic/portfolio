@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { education } from "@/lib/site";
-import AccordionItem from "@/components/ui/Accordion";
+import AccordionItem from "@/components/sections/common/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 
 export default function Education() {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { workExperience } from "@/lib/site";
-import AccordionItem from "../ui/Accordion";
+import AccordionItem from "./common/Accordion";
 import SectionTitle from "./common/SectionTitle";
 
 export default function WorkOverviewSection() {

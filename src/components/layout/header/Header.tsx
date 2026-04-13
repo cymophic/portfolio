@@ -6,7 +6,7 @@ import { useToggleSidebar } from "@/hooks/animations/useToggleSidebar";
 import { navLinks } from "@/lib/site";
 import Sidebar from "@/components/layout/header/Sidebar";
 import SidebarToggle from "@/components/layout/header/Toggle";
-import ThemeToggle from "@/components/ui/ThemeToggle";
+import ThemeToggle from "@/components/layout/theme/ThemeToggle";
 
 export default function Nav() {
   const { open, visible, toggle, close, panelRef, linksRef, iconsRef } = useToggleSidebar();
