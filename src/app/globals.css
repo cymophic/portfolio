@@ -4,6 +4,7 @@
 
 @theme {
   --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
 }
 
 @layer base {
@@ -34,5 +35,11 @@
   ::view-transition-new(root) {
     z-index: 2;
     clip-path: circle(0px at center);
+  }
+}
+
+@layer utilities {
+  .font-consolas {
+    font-family: Consolas, monospace;
   }
 }

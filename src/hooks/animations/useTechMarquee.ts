@@ -2,10 +2,11 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const CONFIG = {
-  duration: 30,      // auto-scroll speed (higher = slower)
-  momentum: 24,      // swipe momentum multiplier
-  glide: 2,          // how long it coasts back to normal speed (seconds)
-  pause: 1.5,        // seconds to pause before resuming auto-scroll
+  duration: 30, // auto-scroll speed (higher = slower)
+  momentum: 24, // swipe momentum multiplier
+  glide: 2, // how long it coasts back to normal speed (seconds)
+  pause: 1.5, // seconds to pause before resuming auto-scroll
+  direction: -1, // 1 = left to right, -1 = right to left
 };
 
 export function useTechMarquee() {
@@ -34,6 +35,9 @@ export function useTechMarquee() {
         tween.progress(1);
       },
     });
+    
+    if (CONFIG.direction === -1) tween.progress(1);
+    tween.timeScale(CONFIG.direction);
 
     const startDrag = (clientX: number) => {
       isDragging.current = true;
@@ -81,7 +85,7 @@ export function useTechMarquee() {
 
       // Don't apply inertia if barely moving
       if (Math.abs(avgVelocity) < 0.7) {
-        pauseTimer.current = gsap.delayedCall(CONFIG.pause, () => gsap.to(tween, { timeScale: 1, duration: CONFIG.glide, ease: "power3.out" }));
+        pauseTimer.current = gsap.delayedCall(CONFIG.pause, () => gsap.to(tween, { timeScale: CONFIG.direction, duration: CONFIG.glide, ease: "power3.out" }));
         return;
       }
 
@@ -92,7 +96,7 @@ export function useTechMarquee() {
 
       gsap.killTweensOf(tween);
       tween.timeScale(direction * inertiaScale);
-      gsap.to(tween, { timeScale: 1, duration: CONFIG.glide, ease: "power3.out" });
+      gsap.to(tween, { timeScale: CONFIG.direction, duration: CONFIG.glide, ease: "power3.out" });
     };
 
     const onMouseDown = (e: MouseEvent) => startDrag(e.clientX);

@@ -16,13 +16,13 @@ export default function Footer() {
         <ProfileImage width={64} height={64} />
       </button>
 
-      {/* Social Links */}
-      <SocialLinks opacity={50} iconSize={16} />
-
-      {/* Made w/ Love */}
+      {/* Byline */}
       <p className="font-mono text-xs tracking-wider uppercase font-semibold text-zinc-400 dark:text-zinc-500">
         Made with <FiHeart className="inline" style={{ strokeWidth: 3 }} /> by {profileInfo.name}
       </p>
+
+      {/* Social Links */}
+      <SocialLinks opacity={50} iconSize={16} />
       
       {/* Copyright */}
       <p className="text-xs text-zinc-400 dark:text-zinc-500">

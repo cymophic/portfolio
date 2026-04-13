@@ -3,6 +3,7 @@
 import { MouseEvent } from "react";
 
 import { useToggleSidebar } from "@/hooks/animations/useToggleSidebar";
+import { useHideOnScroll } from "@/hooks/animations/useHideOnScroll";
 import { navLinks } from "@/lib/site";
 import Sidebar from "@/components/layout/header/Sidebar";
 import SidebarToggle from "@/components/layout/header/Toggle";
@@ -11,6 +12,7 @@ import ThemeToggle from "@/components/layout/theme/ThemeToggle";
 export default function Nav() {
   const { open, visible, toggle, close, panelRef, linksRef, iconsRef } = useToggleSidebar();
   const showNavToggle = navLinks.length > 0;
+  const headerRef = useHideOnScroll();
 
   const handleToggle = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -19,7 +21,7 @@ export default function Nav() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 pointer-events-none">
+      <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 pointer-events-none">
         {/* Sidebar Toggle Button */}
         <div className="pointer-events-auto -ml-1">
           {showNavToggle && <SidebarToggle open={open} onToggle={handleToggle} />}
