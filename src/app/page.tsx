@@ -3,7 +3,7 @@ import Work from "@/components/sections/Work";
 import Education from "@/components/sections/Education";
 import Projects from "@/components/sections/Projects";
 import TechStack from "@/components/sections/TechStack";
-import Footer from "@/components/sections/Footer";
+import Footer from "@/components/layout/footer/Footer";
 
 export default function Home() {
   return (

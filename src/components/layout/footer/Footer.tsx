@@ -3,7 +3,7 @@
 import ProfileImage from "@/components/sections/common/ProfileImage";
 import { profileInfo } from "@/lib/site";
 import { FiHeart } from "react-icons/fi";
-import SocialLinks from "../ui/SocialLinks";
+import SocialLinks from "../../ui/SocialLinks";
 
 export default function Footer() {
   return (

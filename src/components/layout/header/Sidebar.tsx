@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { navLinks } from "@/lib/site";
 import SocialLinks from "@/components/ui/SocialLinks";
 
-type NavPanelProps = {
+type Props = {
   visible: boolean;
   panelRef: React.RefObject<HTMLDivElement | null>;
   linksRef: React.RefObject<(HTMLAnchorElement | null)[]>;
@@ -14,13 +14,13 @@ type NavPanelProps = {
   onLinkClick: () => void;
 };
 
-export default function NavPanel({
+export default function Sidebar({
   visible,
   panelRef,
   linksRef,
   iconsRef,
   onLinkClick,
-}: NavPanelProps) {
+}: Props) {
   const pathname = usePathname();
 
   return (

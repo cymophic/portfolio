@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
-import Nav from "@/components/layout/nav/Nav";
+import Nav from "@/components/layout/header/Header";
 import ThemeProvider from "@/components/layout/theme/ThemeProvider";
 import ComingSoon from "@/components/pages/ComingSoon";
 const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
