@@ -29,6 +29,8 @@ export default function Nav() {
         <div className="pointer-events-auto">
           <ThemeToggle />
         </div>
+
+       <div className="absolute inset-0 -z-10 bg-linear-to-b from-zinc-50 via-zinc-50/60 dark:from-zinc-950 dark:via-zinc-950/60 to-transparent pointer-events-none h-36"/>
       </header>
       
       {/* Sidebar Panel */}
