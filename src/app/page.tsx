@@ -12,7 +12,9 @@ export default function Home() {
       <Work />
       <Education />
       <Projects />
-      <TechStack />
+      <div className="-mb-6">
+        <TechStack />
+      </div>
       <Footer />
     </div>
   );
