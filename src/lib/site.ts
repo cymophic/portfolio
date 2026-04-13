@@ -26,7 +26,7 @@ export const techStack = {
   backend: ["Python", "Django", "Django Ninja", "REST APIs"],
   databases: ["PostgreSQL", "SQLite", "NeonDB", "Supabase"],
   devops: ["Docker", "Nginx", "Gunicorn", "Celery", "Redis", "Ansible", "Ansible Vault", "Kubernetes"],
-  cloud: ["AWS S3", "AWS CloudFront", "AWS Certificate Manager", "Terraform", "Cloudflare"],
+  cloud: ["AWS", "Cloudflare"],
   cicd: ["Git", "GitHub Actions"],
   scripting: ["Python", "Bash", "Makefile"],
   monitoring: ["Sentry", "Google Analytics", "Grafana", "Prometheus", "Loki"],
