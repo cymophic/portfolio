@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
-import Nav from "@/components/layout/nav/Nav";
+import Nav from "@/components/layout/header/Header";
 import ThemeProvider from "@/components/layout/theme/ThemeProvider";
 import ComingSoon from "@/components/pages/ComingSoon";
 const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 import "./globals.css";
 
-import { Inter } from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -37,7 +42,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
   }
 
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased font-sans`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${geistMono.variable} h-full antialiased font-sans`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950">
         <ThemeProvider>{content}</ThemeProvider>
       </body>

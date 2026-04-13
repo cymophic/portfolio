@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 
-type UseNavPanelResult = {
+type UseSidebarResult = {
   open: boolean;
   visible: boolean;
   toggle: () => void;
@@ -13,7 +13,7 @@ type UseNavPanelResult = {
   iconsRef: React.RefObject<(HTMLAnchorElement | null)[]>;
 };
 
-export function useNavPanel(): UseNavPanelResult {
+export function useToggleSidebar(): UseSidebarResult {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);

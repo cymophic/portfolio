@@ -1,12 +1,12 @@
 import { profileInfo } from "@/lib/site";
-import SocialLinks from "@/components/ui/SocialLinks";
+import SocialLinks from "@/components/sections/common/SocialLinks";
 import ProfileImage from "@/components/sections/common/ProfileImage";
 import SectionTitle from "./common/SectionTitle";
 
 export default function Intro() {
   return (
     <section className="w-full">
-      <div className="mx-auto flex max-w-4xl flex-col md:flex-row md:items-center md:justify-between md:gap-12 px-6 sm:px-10">
+      <div className="mx-auto mt-24 flex max-w-4xl flex-col md:flex-row md:items-center md:justify-between md:gap-12 px-6 sm:px-10">
         <div className="flex flex-col gap-4 md:gap-6">
           {/* Title */}
           <SectionTitle title="About Me" />

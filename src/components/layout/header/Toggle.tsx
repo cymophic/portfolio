@@ -4,12 +4,12 @@ import type { MouseEventHandler } from "react";
 import { MdMenu, MdClose } from "react-icons/md";
 import Button from "@/components/ui/Button";
 
-type NavToggleButtonProps = {
+type Props = {
   open: boolean;
   onToggle: MouseEventHandler<HTMLButtonElement>;
 };
 
-export default function NavToggleButton({ open, onToggle }: NavToggleButtonProps) {
+export default function SidebarToggle({ open, onToggle }: Props) {
   return (
     <Button
       variant="icon"

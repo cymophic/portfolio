@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { MdFolder } from "react-icons/md";
 import { projects, portfolioEasterEggMessages } from "@/lib/site";
-import AccordionItem from "@/components/ui/Accordion";
+import AccordionItem from "@/components/sections/common/Accordion";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
 import useIsClient from "@/hooks/browser/useIsClient";
