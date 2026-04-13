@@ -89,7 +89,7 @@ export const projects = [
   {
     title: "L2C Portal",
     description: "An internal Lead-to-Cash (L2C) platform built for Power Mac Center to centralize retail lead tracking and digitize post-sale service workflows across all 100+ branches in the Philippines.",
-    tags: ["Live", "Enterprise", "CI/CD", "Containerized", "Self-Hosted", "Monitoring", "Scheduled Tasks"],
+    tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted", "Containerization", "Monitoring", "Scheduled Tasks"],
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
   },
