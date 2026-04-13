@@ -133,7 +133,7 @@ export default function TechStack() {
             <TechItem key={`${tech}-${i}`} label={tech} />
           ))}
         </div>
-      </div>w
+      </div>
     </section>
   );
 }
