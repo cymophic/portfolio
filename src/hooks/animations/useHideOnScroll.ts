@@ -28,15 +28,16 @@ export function useHideOnScroll(mobileOnly = true) {
 
       if (isAtTop || isScrollingUp) {
         if (hidden.current) {
-          gsap.to(ref.current, { y: 0, duration: CONFIG.showDuration, ease: CONFIG.showEase });
-          hidden.current = false;
+          gsap.killTweensOf(ref.current);
           setIsHidden(false);
+          gsap.to(ref.current, { y: 0, duration: CONFIG.showDuration, ease: CONFIG.showEase, delay: 0.025 });
+          hidden.current = false;
         }
       } else {
         if (!hidden.current) {
-          gsap.to(ref.current, { y: "-100%", duration: CONFIG.hideDuration, ease: CONFIG.hideEase });
+          gsap.killTweensOf(ref.current);
+          gsap.to(ref.current, { y: "-100%", duration: CONFIG.hideDuration, ease: CONFIG.hideEase, onComplete: () => setIsHidden(true) });
           hidden.current = true;
-          setIsHidden(true);
         }
       }
 
