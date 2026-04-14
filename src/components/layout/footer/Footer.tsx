@@ -22,7 +22,7 @@ export default function Footer() {
       </button>
 
       {/* Social Links */}
-      <SocialLinks opacity={50} iconSize={16} />
+      <SocialLinks opacity={50} iconSize={16} hoverEffect="monochrome" />
       
       {/* Copyright */}
       <p className="text-xs text-zinc-400 dark:text-zinc-500">
