@@ -8,6 +8,7 @@ export const profileInfo = {
   title: "DevOps Engineer",
   location: "Pasig City, Philippines",
   bio: "DevOps Engineer with full-stack experience. I build, deploy, and maintain scalable systems end to end.",
+  birthDate: "2003/03/26",
   image: "/avatar.png",
 }
 
