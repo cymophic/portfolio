@@ -5,7 +5,7 @@ export const navLinks: { href: string; label: string }[] = [
 // Profile information
 export const profileInfo = {
   name: "Luis Abhram",
-  title: "DevOps Engineer / Full-Stack Developer",
+  title: "DevOps Engineer",
   location: "Pasig City, Philippines",
   bio: "DevOps Engineer with full-stack experience. I build, deploy, and maintain scalable systems end to end.",
   image: "/avatar.png",
