@@ -7,19 +7,19 @@ import SocialLinks from "../../sections/common/SocialLinks";
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col items-center text-center gap-8">
+    <footer className="flex flex-col items-center text-center gap-6">
       {/* Line */}
       <div className="w-px h-16 bg-zinc-300 dark:bg-zinc-700"/>
-
-      {/* Footer Image */}
-      <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-        <ProfileImage width={64} height={64} />
-      </button>
 
       {/* Byline */}
       <p className="font-mono text-xs tracking-wider uppercase font-semibold text-zinc-400 dark:text-zinc-500">
         Made with <FiHeart className="inline" style={{ strokeWidth: 3 }} /> by {profileInfo.name}
       </p>
+
+      {/* Footer Image */}
+      <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+        <ProfileImage width={64} height={64} />
+      </button>
 
       {/* Social Links */}
       <SocialLinks opacity={50} iconSize={16} />
