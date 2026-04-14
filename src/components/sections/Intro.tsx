@@ -1,14 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState } from "react"
 import { profileInfo, greetingMessages } from "@/lib/site";
+import { useTypingAnimation } from "@/hooks/animations/useTypingAnimation";
 import SocialLinks from "@/components/sections/common/SocialLinks";
 import ProfileImage from "@/components/sections/common/ProfileImage";
+import TypingText from "@/components/ui/TypingText";
+
+const CONFIG = {
+  greetingInterval: 3700, // how long each greeting stays before swapping
+};
 
 export default function Intro() {
-  const [greeting] = useState(
-    () => greetingMessages[Math.floor(Math.random() * greetingMessages.length)]
-  );
+  const [shuffled] = useState(() => [...greetingMessages].sort(() => Math.random() - 0.5));
 
   return (
     <section className="w-full">
@@ -18,7 +22,13 @@ export default function Intro() {
             <div>
               {/* Greeting */}
               <p className="font-consolas max-w-md text-sm sm:text-base text-zinc-600 dark:text-zinc-400" suppressHydrationWarning>
-                {greeting}
+                <TypingText
+                  words={shuffled}
+                  className="font-consolas max-w-md text-sm sm:text-base text-zinc-600 dark:text-zinc-400"
+                  config={{
+                    pauseMs: CONFIG.greetingInterval,
+                  }}
+                />
               </p>
               {/* Name */}
               <h1 className="text-4xl sm:text-5xl font-semibold leading-tight tracking-tight text-zinc-700 dark:text-zinc-50">
