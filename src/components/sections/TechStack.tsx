@@ -128,7 +128,7 @@ export default function TechStack() {
           WebkitMaskImage: "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
         }}
       >
-        <div className="marquee-track flex w-max gap-3 py-10">
+        <div className="marquee-track flex w-max gap-3 py-10 active:cursor-pointer">
           {[...allTechs, ...allTechs].map((tech, i) => (
             <TechItem key={`${tech}-${i}`} label={tech} />
           ))}
