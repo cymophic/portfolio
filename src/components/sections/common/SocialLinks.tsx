@@ -25,15 +25,20 @@ type SocialLinksProps = {
   iconsRef?: React.RefObject<(HTMLAnchorElement | null)[]>;
   opacity?: number;
   iconSize?: number;
+  hoverEffect?: "monochrome" | "colored";
 };
 
-export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, iconSize = 18 }: SocialLinksProps) {
+export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, iconSize = 18, hoverEffect = "colored" }: SocialLinksProps) {
   const filtered = socialLinks.filter(({ label }) => !exclude.includes(label));
   return (
     <div className="flex items-center gap-4" style={{ opacity: opacity / 100 }}>
       {filtered.map(({ label, link }, i) => {
         const color = colorMap[label];
         const Icon = iconMap[label];
+        const brandStyles = hoverEffect === "colored" ? {
+          ["--brand-light" as string]: color.light,
+          ["--brand-dark" as string]: color.dark,
+        } : {};
         return (
           <Link
             key={label}
@@ -44,11 +49,13 @@ export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, ico
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
-            style={{
-                ["--brand-light" as string]: color.light,
-                ["--brand-dark" as string]: color.dark,
-              }}
-            className="text-zinc-400 hover:text-(--brand-light) dark:hover:text-(--brand-dark) transition-colors"
+            style={brandStyles}
+            className={`
+              transition-colors duration-200
+              ${hoverEffect === "colored" 
+                ? "text-zinc-400 hover:text-(--brand-light) dark:hover:text-(--brand-dark)" 
+                : "text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-100"}
+            `}
           >
             <Icon size={iconSize} />
           </Link>
