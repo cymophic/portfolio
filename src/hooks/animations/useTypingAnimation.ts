@@ -4,12 +4,13 @@ const CONFIG = {
   typingSpeedMs: 80, // delay between each character typed
   deletingSpeedMs: 40, // delay between each character deleted
   pauseMs: 1000, // pause before starting to delete
+  loop: false, // repeats the sequence once it reaches the end
 };
 
 type TypingConfig = Partial<typeof CONFIG>;
 
 export function useTypingAnimation(words: string[], config?: TypingConfig) {
-  const { typingSpeedMs, deletingSpeedMs, pauseMs } = { ...CONFIG, ...config };
+  const { typingSpeedMs, deletingSpeedMs, pauseMs, loop } = { ...CONFIG, ...config };
 
   const [displayed, setDisplayed] = useState("");
   const [index, setIndex] = useState(0);
@@ -19,6 +20,8 @@ export function useTypingAnimation(words: string[], config?: TypingConfig) {
     const current = words[index]; 
 
     if (!isDeleting && displayed === current) {
+      const isLast = index === words.length - 1;
+      if (isLast && !loop) return;
       const pause = setTimeout(() => setIsDeleting(true), pauseMs);
       return () => clearTimeout(pause);
     }
@@ -37,7 +40,7 @@ export function useTypingAnimation(words: string[], config?: TypingConfig) {
     }, speed);
 
     return () => clearTimeout(timeout);
-  }, [displayed, index, isDeleting, words, typingSpeedMs, deletingSpeedMs, pauseMs]);
+  }, [displayed, index, isDeleting, words, typingSpeedMs, deletingSpeedMs, pauseMs, loop]);
 
   return { displayed, isBusy: displayed !== words[index] || isDeleting };
 }
