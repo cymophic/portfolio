@@ -1,13 +1,13 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 
 const CONFIG = {
-  scrollThreshold: 50, // px from top where header always shows
-  mobileBreakpoint: 1024, // px — matches Tailwind's `md`
-  showDuration: 0.18, // seconds — slide down speed
-  hideDuration: 0.18, // seconds — slide up speed
+  scrollThreshold: 50,
+  mobileBreakpoint: 1280,
+  showDuration: 0.18,
+  hideDuration: 0.18,
   showEase: "power2.out",
   hideEase: "power2.in",
 };
@@ -16,6 +16,7 @@ export function useHideOnScroll(mobileOnly = true) {
   const ref = useRef<HTMLElement | null>(null);
   const lastScrollY = useRef(0);
   const hidden = useRef(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,12 +28,15 @@ export function useHideOnScroll(mobileOnly = true) {
 
       if (isAtTop || isScrollingUp) {
         if (hidden.current) {
-          gsap.to(ref.current, { y: 0, duration: CONFIG.showDuration, ease: CONFIG.showEase });
+          gsap.killTweensOf(ref.current);
+          setIsHidden(false);
+          gsap.to(ref.current, { y: 0, duration: CONFIG.showDuration, ease: CONFIG.showEase, delay: 0.025 });
           hidden.current = false;
         }
       } else {
         if (!hidden.current) {
-          gsap.to(ref.current, { y: "-100%", duration: CONFIG.hideDuration, ease: CONFIG.hideEase });
+          gsap.killTweensOf(ref.current);
+          gsap.to(ref.current, { y: "-100%", duration: CONFIG.hideDuration, ease: CONFIG.hideEase, onComplete: () => setIsHidden(true) });
           hidden.current = true;
         }
       }
@@ -44,5 +48,5 @@ export function useHideOnScroll(mobileOnly = true) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [mobileOnly]);
 
-  return ref;
-}
+  return { ref, isHidden };
+} 
