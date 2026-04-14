@@ -18,7 +18,7 @@ export default function Footer() {
 
       {/* Footer Image */}
       <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-        <ProfileImage width={64} height={64} />
+        <ProfileImage width={48} height={48} />
       </button>
 
       {/* Social Links */}

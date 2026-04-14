@@ -34,7 +34,7 @@ export default function Intro() {
 
         {/* Profile Image - Large Screens */}
         <div className="shrink-0 hidden sm:block">
-          <ProfileImage width={160} height={160} />
+          <ProfileImage width={180} height={180} />
         </div>
       </div>
     </section>
