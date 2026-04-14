@@ -4,6 +4,8 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import Nav from "@/components/layout/header/Header";
 import ThemeProvider from "@/components/layout/theme/ThemeProvider";
 import ComingSoon from "@/components/pages/ComingSoon";
+import { profileInfo } from "@/lib/site";
+
 const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 import "./globals.css";
 
@@ -20,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Luis Abhram | DevOps Engineer",
+  title: `${profileInfo.name} | ${profileInfo.title}`,
   description: "Personal portfolio of Luis Abhram Mata",
 };
 
