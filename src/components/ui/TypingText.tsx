@@ -7,7 +7,7 @@ import { useTypingAnimation } from "@/hooks/animations/useTypingAnimation";
 interface TypingTextProps {
   words: string[];
   className?: string;
-  cursor?: "block" | "outline" | "underscore" | "bar" | "none";
+  cursor?: "block" | "underscore" | "bar" | "none";
   config?: {
     pauseMs?: number;
     typingSpeedMs?: number;
@@ -16,14 +16,13 @@ interface TypingTextProps {
 }
 
 const CURSORS = {
-  block: "█",
-  outline: "▒",
+  block: "▌",
   underscore: "_",
   bar: "|", 
   none: "\u200B",
 };
 
-export default function TypingText({ words, className, cursor = "none", config }: TypingTextProps) {
+export default function TypingText({ words, className, cursor = "block", config }: TypingTextProps) {
   const cursorRef = useRef<HTMLSpanElement>(null);
   const { displayed, isBusy } = useTypingAnimation(words, config);
 
