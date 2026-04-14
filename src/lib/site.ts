@@ -130,24 +130,3 @@ export const portfolioEasterEggMessages = [
   { text: "Okay, I'll just ignore you from now on." },
   { text: "leaves", type: "action" },
 ];
-
-// Greeting messages
-export const greetingMessages = [
-  "Hi",              // English
-  "Kamusta",      // Filipino
-  "Hola",            // Spanish
-  "Bonjour",     // French
-  "Ciao",           // Italian
-  "Hei",          // Norwegian
-  "Hallo",       // German
-  "Olá",          // Portuguese
-  "Hej",          // Swedish
-  "Hei",            // Finnish
-  "Salut",          // Romanian
-  "Ahoj",           // Czech
-  "Cześć",        // Polish
-  "Szia",      // Hungarian
-  "Merhaba",         // Turkish
-  "Sawubona",        // Zulu
-  "Habari",      // Swahili
-];
