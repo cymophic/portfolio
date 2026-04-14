@@ -3,28 +3,44 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useTypingAnimation } from "@/hooks/animations/useTypingAnimation";
+import { useScramble } from "@/hooks/animations/useScrambleText";
 
-interface TypingTextProps {
+interface AnimatedTextProps {
   words: string[];
+  variant?: "typing" | "scramble";
   className?: string;
   cursor?: "block" | "underscore" | "bar" | "none";
   config?: {
     pauseMs?: number;
     typingSpeedMs?: number;
     deletingSpeedMs?: number;
+    scrambleDurationMs?: number;
+    scrambleIntervalMs?: number;
   };
 }
 
 const CURSORS = {
   block: "▌",
   underscore: "_",
-  bar: "|", 
+  bar: "|",
   none: "\u200B",
 };
 
-export default function TypingText({ words, className, cursor = "block", config }: TypingTextProps) {
+export default function AnimateText({
+  words,
+  variant = "scramble",
+  className,
+  cursor = "bar",
+  config,
+}: AnimatedTextProps) {
   const cursorRef = useRef<HTMLSpanElement>(null);
-  const { displayed, isBusy } = useTypingAnimation(words, config);
+
+  const typing = useTypingAnimation(words, config);
+  const scramble = useScramble(words, config);
+
+  const { locked, scrambleChar, isBusy } = variant === "scramble"
+    ? scramble
+    : { locked: typing.displayed, scrambleChar: null, isBusy: typing.isBusy };
 
   useEffect(() => {
     if (isBusy) {
@@ -44,7 +60,8 @@ export default function TypingText({ words, className, cursor = "block", config 
 
   return (
     <span className={className}>
-      {displayed}
+      {locked}
+      {scrambleChar && <span className="opacity-80">{scrambleChar}</span>}
       <span ref={cursorRef}>{CURSORS[cursor]}</span>
     </span>
   );
