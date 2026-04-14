@@ -130,3 +130,24 @@ export const portfolioEasterEggMessages = [
   { text: "Okay, I'll just ignore you from now on." },
   { text: "leaves", type: "action" },
 ];
+
+// Greeting messages
+export const greetingMessages = [
+  "Hi, I'm",              // English
+  "Kamusta, ako si",      // Filipino
+  "Hola, soy",            // Spanish
+  "Bonjour, je suis",     // French
+  "Ciao, sono",           // Italian
+  "Hei, jeg er",          // Norwegian
+  "Hallo, ich bin",       // German
+  "Olá, eu sou",          // Portuguese
+  "Hej, jag är",          // Swedish
+  "Hei, olen",            // Finnish
+  "Salut, sunt",          // Romanian
+  "Ahoj, jsem",           // Czech
+  "Cześć, jestem",        // Polish
+  "Szia, én vagyok",      // Hungarian
+  "Merhaba, ben",         // Turkish
+  "Sawubona, ngi",        // Zulu
+  "Habari, mimi ni",      // Swahili
+];
