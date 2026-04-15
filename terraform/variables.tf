@@ -1,11 +1,7 @@
+# General
 variable "aws_region" {
   description = "AWS region to deploy resources"
   default     = "ap-southeast-1"
-}
-
-variable "bucket_name" {
-  description = "S3 bucket name for the portfolio site"
-  default     = "cymo-portfolio-nextjs"
 }
 
 variable "project_name" {
@@ -13,6 +9,42 @@ variable "project_name" {
   default     = "portfolio"
 }
 
+# S3
+variable "bucket_name" {
+  description = "S3 bucket name for the portfolio site"
+  type        = string
+}
+
+# Budget
+variable "budget_limit_usd" {
+  description = "Monthly budget cap in USD"
+  type        = string
+}
+
+variable "budget_alert_email" {
+  description = "Email addresses for budget alerts"
+  type        = list(string)
+}
+
+# Domain & CORS Logic
+variable "domain_name" {
+  description = "The primary root domain"
+  type        = string
+}
+
+variable "other_domains" {
+  description = "List of additional domains to support"
+  type        = list(string)
+  default     = []
+}
+
+variable "dev_origins" {
+  description = "List of local development origins"
+  type        = list(string)
+  default     = []
+}
+
+# GitHub
 variable "github_pat" {
   description = "GitHub PAT for contributions API"
   sensitive   = true
@@ -20,10 +52,5 @@ variable "github_pat" {
 
 variable "github_username" {
   description = "GitHub username for contributions API"
-  default     = "cymophic"
-}
-
-variable "allowed_origin" {
-  description = "Allowed origin for API Gateway CORS"
-  default     = "https://luisabhram.dev"
+  type        = string
 }

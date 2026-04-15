@@ -47,7 +47,7 @@ resource "aws_apigatewayv2_api" "contributions" {
   protocol_type = "HTTP"
 
   cors_configuration {
-    allow_origins = [var.allowed_origin]
+    allow_origins = local.cors_origins
     allow_methods = ["GET"]
   }
 }

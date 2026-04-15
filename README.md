@@ -35,6 +35,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **SSL:** AWS Certificate Manager
 - **DNS:** Cloudflare
 - **IaC:** Terraform
+- **Serverless:** AWS Lambda & API Gateway
 - **Error Monitoring:** Sentry
 - **Analytics:** Google Analytics
 
@@ -78,7 +79,8 @@ luisabhram.dev/
 │   ├── cloudfront.tf                     # CloudFront distribution, OAC, and functions
 │   ├── acm.tf                            # ACM SSL certificate
 │   ├── outputs.tf                        # Terraform output values
-│   └── variables.tf                      # Input variables (region, bucket name, etc.)
+│   ├── locals.tf                         # Centralized logic and data transformation layer
+│   └── variables.tf                      # Input definitions
 ├── .env.example                          # Required environment variables
 ├── .gitignore
 ├── eslint.config.mjs
