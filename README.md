@@ -74,6 +74,7 @@ luisabhram.dev/
 │   │   └── site.ts
 │   └── types/                            # Type definitions
 ├── terraform/                            # AWS infrastructure as code
+│   ├── terraform.tfvars                  # Terraform secrets
 │   ├── main.tf                           # Terraform and provider configuration
 │   ├── s3.tf                             # S3 bucket, policy, and access configuration
 │   ├── cloudfront.tf                     # CloudFront distribution, OAC, and functions
