@@ -43,7 +43,7 @@ next-env.d.ts
 
 # Terraform
 .terraform/
-terraform/terraform.tfvars
+terraform/*.tfvars
 terraform/.terraform/
 terraform/.terraform.lock.hcl
 lambda/contributions.zip
