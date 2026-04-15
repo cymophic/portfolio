@@ -11,7 +11,7 @@ function getAge(birthDate: string): string {
   const now = new Date();
   const diff = now.getTime() - birth.getTime();
   const age = diff / (1000 * 60 * 60 * 24 * 365.25);
-  return age.toFixed(8);
+  return age.toFixed(7);
 }
 
 function getLocalTime(): string {
