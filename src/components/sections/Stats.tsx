@@ -14,6 +14,14 @@ function getAge(birthDate: string): string {
   return age.toFixed(7);
 }
 
+function getDaysUntilBirthday(birthDate: string): number {
+  const now = new Date();
+  const birth = new Date(birthDate);
+  const next = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
+  if (next <= now) next.setFullYear(now.getFullYear() + 1);
+  return Math.ceil((next.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+}
+
 function getLocalTime(): string {
   return new Date().toLocaleTimeString("en-US", {
     timeZone: "Asia/Manila",
@@ -54,18 +62,24 @@ export default function Stats() {
     return () => clearInterval(interval);
   }, []);
 
-  const stats: { icon: React.ReactNode; label: string; ready: boolean }[] = [
-    { icon: <MdCake size={16} />, 
-      label: `${age} years old`, 
-      ready: age !== "—" 
+  const stats: { icon: React.ReactNode; label: string; sublabel: string; ready: boolean }[] = [
+    {
+      icon: <MdCake size={18} />,
+      label: `${age} years old`,
+      sublabel: `Next birthday in ${getDaysUntilBirthday(profileInfo.birthDate)} days`,
+      ready: age !== "—",
     },
-    { icon: <MdAccessTime size={16} />, 
-      label: `It is ${time}`, 
-      ready: time !== "—" 
+    {
+      icon: <MdAccessTime size={18} />,
+      label: "Currently in the Philippines",
+      sublabel: `${time}`,
+      ready: time !== "—",
     },
-    { icon: <MdCode size={16} />, 
-      label: `${contributions?.toLocaleString()} contributions in ${new Date().getFullYear() - 1}`, 
-      ready: contributions !== null 
+    {
+      icon: <MdCode size={18} />,
+      label: `${contributions?.toLocaleString()} contributions`,
+      sublabel: `On GitHub in the last year`,
+      ready: contributions !== null,
     },
   ];
 
@@ -73,11 +87,26 @@ export default function Stats() {
     <section className="w-full">
       <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Stats" />
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-6">
           {stats.map((stat, i) => (
-            <li key={i} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-              <span className="text-zinc-400 dark:text-zinc-500">{stat.icon}</span>
-              {stat.ready ? stat.label : <Skeleton shape="pill" className="h-5 w-48" />}
+            <li key={i} className="flex items-start gap-4 text-zinc-600 dark:text-zinc-400">
+              <span className="flex h-5 w-5 pt-1 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
+              <div className="flex flex-col gap-1">
+                {stat.ready ? (
+                  <span className="text-base font-medium leading-5 text-zinc-800 dark:text-zinc-200">
+                    {stat.label}
+                  </span> 
+                ) : (
+                  <Skeleton shape="pill" className="h-5 w-48" />
+                )}
+                {stat.ready ? (
+                  <span className="text-base font-medium leading-5 text-zinc-400 dark:text-zinc-500">
+                    {stat.sublabel}
+                  </span> 
+                ) : (
+                  <Skeleton shape="pill" className="h-5 w-48" />
+                )}
+              </div>
             </li>
           ))}
         </ul>
