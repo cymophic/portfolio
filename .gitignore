@@ -43,6 +43,10 @@ next-env.d.ts
 
 # Terraform
 .terraform/
+terraform/terraform.tfvars
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+lambda/contributions.zip
 .terraform.lock.hcl
 .terraform.tfstate.lock.info
 *.tfstate

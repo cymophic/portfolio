@@ -51,6 +51,8 @@ luisabhram.dev/
 │   │   ├── deploy.yml                    # GitHub Actions deployment workflow
 │   │   └── check.yml                     # PR validation workflow
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
+├── lambda/
+│   └── contributions.mjs                 # GitHub contributions Lambda function
 ├── public/                               # Static assets
 ├── scripts/                              # Build-time scripts
 ├── src/
@@ -71,7 +73,10 @@ luisabhram.dev/
 │   │   └── site.ts
 │   └── types/                            # Type definitions
 ├── terraform/                            # AWS infrastructure as code
-│   ├── main.tf                           # S3, CloudFront, ACM, and IAM resources
+│   ├── main.tf                           # Terraform and provider configuration
+│   ├── s3.tf                             # S3 bucket, policy, and access configuration
+│   ├── cloudfront.tf                     # CloudFront distribution, OAC, and functions
+│   ├── acm.tf                            # ACM SSL certificate
 │   ├── outputs.tf                        # Terraform output values
 │   └── variables.tf                      # Input variables (region, bucket name, etc.)
 ├── .env.example                          # Required environment variables
@@ -131,7 +136,7 @@ luisabhram.dev/
 
 - **Terraform** v1.14+
 - **AWS CLI** configured with valid credentials (`aws configure`)
-- An AWS IAM user with S3, CloudFront, ACM, and IAM permissions
+- An AWS IAM user with S3, CloudFront, ACM, IAM, Lambda, and API Gateway permissions
 
 ### Provision AWS Resources
 
@@ -187,3 +192,5 @@ Deployments are fully automated via GitHub Actions.
 | `NEXT_PUBLIC_GA_ID` | Variable | Google Analytics Measurement ID |
 | `NEXT_PUBLIC_SENTRY_DSN` | Secret | Sentry DSN for error monitoring |
 | `SENTRY_AUTH_TOKEN` | Secret | Sentry auth token for source map uploads |
+| `GH_PAT` | Secret | GitHub PAT for stats API |
+| `NEXT_PUBLIC_STATS_API_URL` | Variable | Lambda + API Gateway URL |
