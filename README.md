@@ -71,7 +71,10 @@ luisabhram.dev/
 │   │   └── site.ts
 │   └── types/                            # Type definitions
 ├── terraform/                            # AWS infrastructure as code
-│   ├── main.tf                           # S3, CloudFront, ACM, and IAM resources
+│   ├── main.tf                           # Terraform and provider configuration
+│   ├── s3.tf                             # S3 bucket, policy, and access configuration
+│   ├── cloudfront.tf                     # CloudFront distribution, OAC, and functions
+│   ├── acm.tf                            # ACM SSL certificate
 │   ├── outputs.tf                        # Terraform output values
 │   └── variables.tf                      # Input variables (region, bucket name, etc.)
 ├── .env.example                          # Required environment variables
