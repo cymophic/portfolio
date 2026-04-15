@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { MdCake, MdAccessTime } from "react-icons/md";
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "./common/SectionTitle";
+import Skeleton from "@/components/ui/Skeleton";
 
 function getAge(birthDate: string): string {
   const birth = new Date(birthDate);
@@ -19,12 +20,6 @@ function getLocalTime(): string {
     hour: "2-digit",
     minute: "2-digit",
   }) + " (UTC +08:00)";
-}
-
-function SkeletonStat() {
-  return (
-    <div className="h-5 w-48 animate-pulse rounded-md bg-zinc-200 dark:bg-zinc-700" />
-  );
 }
 
 export default function Stats() {
@@ -52,7 +47,7 @@ export default function Stats() {
           {stats.map((stat, i) => (
             <li key={i} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <span className="text-zinc-400 dark:text-zinc-500">{stat.icon}</span>
-              {stat.ready ? stat.label : <SkeletonStat />}
+              {stat.ready ? stat.label : <Skeleton shape="pill" className="h-5 w-48" />}
             </li>
           ))}
         </ul>
