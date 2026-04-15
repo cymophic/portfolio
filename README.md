@@ -12,6 +12,7 @@ Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) wi
 4. 🚀 [Local Development](#-local-development)
 5. 🏗️ [Infrastructure Setup](#-infrastructure-setup)
 6. 🔄 [Deployment Process](#-deployment-process)
+7. 🔌 [API Endpoints](#-api-endpoints)
 
 ---
 
@@ -222,4 +223,14 @@ Deployments are fully automated via GitHub Actions.
 | `NEXT_PUBLIC_GA_ID` | Variable | Google Analytics Measurement ID |
 | `NEXT_PUBLIC_SENTRY_DSN` | Secret | Sentry DSN for error monitoring |
 | `SENTRY_AUTH_TOKEN` | Secret | Sentry auth token for source map uploads |
-| `NEXT_PUBLIC_STATS_API_URL` | Variable | Lambda + API Gateway URL |
+| `NEXT_PUBLIC_API_URL` | Variable | Lambda + API Gateway URL |
+
+---
+
+## 🔌 API Endpoints
+
+Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in `NEXT_PUBLIC_API_URL`.
+
+| Method | Endpoint | Description | Response |
+|---|---|---|---|
+| `GET` | `/contributions` | GitHub contributions for the previous year | `{ contributions: number }` |
