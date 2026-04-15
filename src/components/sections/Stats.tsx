@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { MdCake, MdAccessTime, MdCode } from "react-icons/md";
-import { profileInfo, socialLinks } from "@/lib/site";
+import { profileInfo } from "@/lib/site";
 import SectionTitle from "./common/SectionTitle";
 import Skeleton from "@/components/ui/Skeleton";
 
