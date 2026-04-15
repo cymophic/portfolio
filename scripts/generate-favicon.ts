@@ -8,7 +8,7 @@ async function main() {
   mkdirSync("public", { recursive: true });
   writeFileSync("src/app/icon.png", Buffer.from(buffer));
   writeFileSync("public/avatar.png", Buffer.from(buffer));
-  console.log("✔ favicon fetched");
+  console.log("✓ favicon fetched");
 }
 
 main();
