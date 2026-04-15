@@ -12,3 +12,18 @@ variable "project_name" {
   description = "Project name used for tagging resources"
   default     = "portfolio"
 }
+
+variable "github_pat" {
+  description = "GitHub PAT for contributions API"
+  sensitive   = true
+}
+
+variable "github_username" {
+  description = "GitHub username for contributions API"
+  default     = "cymophic"
+}
+
+variable "allowed_origin" {
+  description = "Allowed origin for API Gateway CORS"
+  default     = "https://luisabhram.dev"
+}

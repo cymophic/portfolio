@@ -22,37 +22,14 @@ function getLocalTime(): string {
   }) + " (UTC +08:00)";
 }
 
-async function fetchContributions(username: string | undefined, year: number): Promise<number | null> {
-  const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
-  if (!token || !username) return null;
-
-  const query = `
-    query($username: String!, $from: DateTime!, $to: DateTime!) {
-      user(login: $username) {
-        contributionsCollection(from: $from, to: $to) {
-          contributionCalendar {
-            totalContributions
-          }
-        }
-      }
-    }
-  `;
-  const variables = { 
-    username, 
-    from: `${year}-01-01T00:00:00Z`, 
-    to: `${year}-12-31T23:59:59Z` 
-  };
+async function fetchContributions(): Promise<number | null> {
+  const url = process.env.NEXT_PUBLIC_STATS_API_URL;
+  if (!url) return null;
 
   try {
-    const res = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ query, variables }),
-    });
-
+    const res = await fetch(url);
     const result = await res.json();
-    if (result.errors) { console.error("GraphQL Error:", result.errors[0].message); return null; }
-    return result.data?.user?.contributionsCollection.contributionCalendar.totalContributions ?? null;
+    return result.contributions ?? null;
   } catch (error) {
     console.error("Network or Parsing Error:", error);
     return null;
@@ -63,11 +40,6 @@ export default function Stats() {
   const [age, setAge] = useState("—");
   const [time, setTime] = useState("—");
   const [contributions, setContributions] = useState<number | null>(null);
-  const githubUsername = socialLinks
-    .find((l) => l.label === "GitHub")?.link
-    .split("/")
-    .pop();
-  const year = new Date().getFullYear() - 1;
 
   useEffect(() => {
     // Interval for age and time
@@ -77,15 +49,24 @@ export default function Stats() {
     }, 1000);
 
     // Fetch contributions
-    fetchContributions(githubUsername, year).then(setContributions);
+    fetchContributions().then(setContributions);
 
     return () => clearInterval(interval);
-  }, [githubUsername, year]);
+  }, []);
 
   const stats: { icon: React.ReactNode; label: string; ready: boolean }[] = [
-    { icon: <MdCake size={16} />, label: `${age} years old`, ready: age !== "—" },
-    { icon: <MdAccessTime size={16} />, label: `It is ${time}`, ready: time !== "—" },
-    { icon: <MdCode size={16} />, label: `${contributions?.toLocaleString()} contributions in ${year}`, ready: contributions !== null },
+    { icon: <MdCake size={16} />, 
+      label: `${age} years old`, 
+      ready: age !== "—" 
+    },
+    { icon: <MdAccessTime size={16} />, 
+      label: `It is ${time}`, 
+      ready: time !== "—" 
+    },
+    { icon: <MdCode size={16} />, 
+      label: `${contributions?.toLocaleString()} contributions in ${new Date().getFullYear() - 1}`, 
+      ready: contributions !== null 
+    },
   ];
 
   return (
