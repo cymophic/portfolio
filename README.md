@@ -12,6 +12,7 @@ Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) wi
 4. 🚀 [Local Development](#-local-development)
 5. 🏗️ [Infrastructure Setup](#-infrastructure-setup)
 6. 🔄 [Deployment Process](#-deployment-process)
+7. 🔌 [API Endpoints](#-api-endpoints)
 
 ---
 
@@ -35,6 +36,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **SSL:** AWS Certificate Manager
 - **DNS:** Cloudflare
 - **IaC:** Terraform
+- **Serverless:** AWS Lambda & API Gateway
 - **Error Monitoring:** Sentry
 - **Analytics:** Google Analytics
 
@@ -73,12 +75,14 @@ luisabhram.dev/
 │   │   └── site.ts
 │   └── types/                            # Type definitions
 ├── terraform/                            # AWS infrastructure as code
+│   ├── terraform.tfvars.example          # Terraform variable template
 │   ├── main.tf                           # Terraform and provider configuration
 │   ├── s3.tf                             # S3 bucket, policy, and access configuration
 │   ├── cloudfront.tf                     # CloudFront distribution, OAC, and functions
 │   ├── acm.tf                            # ACM SSL certificate
 │   ├── outputs.tf                        # Terraform output values
-│   └── variables.tf                      # Input variables (region, bucket name, etc.)
+│   ├── locals.tf                         # Centralized logic and data transformation layer
+│   └── variables.tf                      # Input definitions
 ├── .env.example                          # Required environment variables
 ├── .gitignore
 ├── eslint.config.mjs
@@ -138,6 +142,32 @@ luisabhram.dev/
 - **AWS CLI** configured with valid credentials (`aws configure`)
 - An AWS IAM user with S3, CloudFront, ACM, IAM, Lambda, and API Gateway permissions
 
+### Terraform Variables
+
+Create a `terraform/terraform.tfvars` file based on the example below:
+
+```hcl
+# General
+domain_name  = ""
+project_name = ""
+aws_region   = ""
+
+# Domain & CORS
+other_domains = []
+dev_origins   = ["http://localhost:3000", "http://localhost:3001"]
+
+# S3
+bucket_name = ""
+
+# Budget
+budget_limit_usd   = "100.0"
+budget_alert_email = ["your@email.com"]
+
+# GitHub
+github_pat      = "your-github-pat"
+github_username = "your-github-username"
+```
+
 ### Provision AWS Resources
 
 ```bash
@@ -160,7 +190,8 @@ After provisioning, add these records in Cloudflare:
 | Type | Name | Value |
 |---|---|---|
 | `CNAME` | `@` | Your CloudFront domain (from `terraform output cloudfront_domain`) |
-| `CNAME` | ACM validation name | ACM validation value (from `terraform output acm_validation_records`) |
+| `CNAME` | `www` | Your CloudFront domain (from `terraform output cloudfront_domain`) |
+| `CNAME` | ACM validation names | ACM validation values (from `terraform output acm_validation_records`) |
 
 > ⚠️ Set both records to **DNS only** (grey cloud) — not proxied.
 
@@ -192,5 +223,14 @@ Deployments are fully automated via GitHub Actions.
 | `NEXT_PUBLIC_GA_ID` | Variable | Google Analytics Measurement ID |
 | `NEXT_PUBLIC_SENTRY_DSN` | Secret | Sentry DSN for error monitoring |
 | `SENTRY_AUTH_TOKEN` | Secret | Sentry auth token for source map uploads |
-| `GH_PAT` | Secret | GitHub PAT for stats API |
-| `NEXT_PUBLIC_STATS_API_URL` | Variable | Lambda + API Gateway URL |
+| `NEXT_PUBLIC_API_URL` | Variable | Lambda + API Gateway URL |
+
+---
+
+## 🔌 API Endpoints
+
+Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in `NEXT_PUBLIC_API_URL`.
+
+| Method | Endpoint | Description | Response |
+|---|---|---|---|
+| `GET` | `/contributions` | GitHub contributions for the previous year | `{ contributions: number }` |

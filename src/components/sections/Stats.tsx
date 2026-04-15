@@ -23,11 +23,11 @@ function getLocalTime(): string {
 }
 
 async function fetchContributions(): Promise<number | null> {
-  const url = process.env.NEXT_PUBLIC_STATS_API_URL;
+  const url = process.env.NEXT_PUBLIC_API_URL;
   if (!url) return null;
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(`${url}/contributions`);
     const result = await res.json();
     return result.contributions ?? null;
   } catch (error) {

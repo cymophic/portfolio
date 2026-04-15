@@ -6,9 +6,10 @@ resource "aws_cloudfront_origin_access_control" "portfolio" {
 }
 
 resource "aws_cloudfront_distribution" "portfolio" {
+  depends_on          = [aws_acm_certificate_validation.portfolio]
   enabled             = true
   default_root_object = "index.html"
-  aliases             = ["luisabhram.dev"]
+  aliases             = local.all_domains
 
   origin {
     domain_name              = aws_s3_bucket.portfolio.bucket_regional_domain_name
