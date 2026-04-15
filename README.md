@@ -190,3 +190,5 @@ Deployments are fully automated via GitHub Actions.
 | `NEXT_PUBLIC_GA_ID` | Variable | Google Analytics Measurement ID |
 | `NEXT_PUBLIC_SENTRY_DSN` | Secret | Sentry DSN for error monitoring |
 | `SENTRY_AUTH_TOKEN` | Secret | Sentry auth token for source map uploads |
+| `GH_PAT` | Secret | GitHub PAT for stats API |
+| `NEXT_PUBLIC_STATS_API_URL` | Variable | Lambda + API Gateway URL |
