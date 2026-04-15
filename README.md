@@ -74,7 +74,7 @@ luisabhram.dev/
 │   │   └── site.ts
 │   └── types/                            # Type definitions
 ├── terraform/                            # AWS infrastructure as code
-│   ├── terraform.tfvars                  # Terraform secrets
+│   ├── terraform.tfvars.example          # Terraform variable template
 │   ├── main.tf                           # Terraform and provider configuration
 │   ├── s3.tf                             # S3 bucket, policy, and access configuration
 │   ├── cloudfront.tf                     # CloudFront distribution, OAC, and functions
@@ -141,6 +141,32 @@ luisabhram.dev/
 - **AWS CLI** configured with valid credentials (`aws configure`)
 - An AWS IAM user with S3, CloudFront, ACM, IAM, Lambda, and API Gateway permissions
 
+### Terraform Variables
+
+Create a `terraform/terraform.tfvars` file based on the example below:
+
+```hcl
+# General
+domain_name  = ""
+project_name = ""
+aws_region   = ""
+
+# Domain & CORS
+other_domains = []
+dev_origins   = ["http://localhost:3000", "http://localhost:3001"]
+
+# S3
+bucket_name = ""
+
+# Budget
+budget_limit_usd   = "100.0"
+budget_alert_email = ["your@email.com"]
+
+# GitHub
+github_pat      = "your-github-pat"
+github_username = "your-github-username"
+```
+
 ### Provision AWS Resources
 
 ```bash
@@ -163,7 +189,8 @@ After provisioning, add these records in Cloudflare:
 | Type | Name | Value |
 |---|---|---|
 | `CNAME` | `@` | Your CloudFront domain (from `terraform output cloudfront_domain`) |
-| `CNAME` | ACM validation name | ACM validation value (from `terraform output acm_validation_records`) |
+| `CNAME` | `www` | Your CloudFront domain (from `terraform output cloudfront_domain`) |
+| `CNAME` | ACM validation names | ACM validation values (from `terraform output acm_validation_records`) |
 
 > ⚠️ Set both records to **DNS only** (grey cloud) — not proxied.
 

@@ -1,0 +1,19 @@
+# General
+domain_name        = ""
+project_name       = ""
+aws_region         = ""
+
+# Domain & CORS
+other_domains      = []
+dev_origins        = ["http://localhost:3000", "http://localhost:3001"]
+
+# S3
+bucket_name        = ""
+
+# Budget
+budget_limit_usd   = "100.0"
+budget_alert_email = ["your@email.com"]
+
+# GitHub
+github_pat         = ""
+github_username    = ""
