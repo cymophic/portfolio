@@ -64,19 +64,19 @@ export default function Stats() {
 
   const stats: { icon: React.ReactNode; label: string; sublabel: string; ready: boolean }[] = [
     {
-      icon: <MdCake size={16} />,
+      icon: <MdCake size={18} />,
       label: `${age} years old`,
       sublabel: `Next birthday in ${getDaysUntilBirthday(profileInfo.birthDate)} days`,
       ready: age !== "—",
     },
     {
-      icon: <MdAccessTime size={16} />,
+      icon: <MdAccessTime size={18} />,
       label: "Currently in the Philippines",
       sublabel: `${time}`,
       ready: time !== "—",
     },
     {
-      icon: <MdCode size={16} />,
+      icon: <MdCode size={18} />,
       label: `${contributions?.toLocaleString()} contributions`,
       sublabel: `On GitHub in the last year`,
       ready: contributions !== null,
@@ -89,18 +89,18 @@ export default function Stats() {
         <SectionTitle title="Stats" />
         <ul className="flex flex-col gap-6">
           {stats.map((stat, i) => (
-            <li key={i} className="flex items-start gap-3 text-zinc-600 dark:text-zinc-400">
-              <span className="flex h-5 items-center text-zinc-400 dark:text-zinc-500">{stat.icon}</span>
+            <li key={i} className="flex items-start gap-4 text-zinc-600 dark:text-zinc-400">
+              <span className="flex h-5 w-5 pt-1 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
               <div className="flex flex-col gap-1">
                 {stat.ready ? (
-                  <span className="text-sm font-medium leading-5 text-zinc-800 dark:text-zinc-200">
+                  <span className="text-base font-medium leading-5 text-zinc-800 dark:text-zinc-200">
                     {stat.label}
                   </span> 
                 ) : (
                   <Skeleton shape="pill" className="h-5 w-48" />
                 )}
                 {stat.ready ? (
-                  <span className="text-sm font-medium leading-5 text-zinc-400 dark:text-zinc-500">
+                  <span className="text-base font-medium leading-5 text-zinc-400 dark:text-zinc-500">
                     {stat.sublabel}
                   </span> 
                 ) : (
