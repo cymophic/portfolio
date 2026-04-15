@@ -51,6 +51,8 @@ luisabhram.dev/
 │   │   ├── deploy.yml                    # GitHub Actions deployment workflow
 │   │   └── check.yml                     # PR validation workflow
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
+├── lambda/
+│   └── contributions.mjs                 # GitHub contributions Lambda function
 ├── public/                               # Static assets
 ├── scripts/                              # Build-time scripts
 ├── src/
@@ -134,7 +136,7 @@ luisabhram.dev/
 
 - **Terraform** v1.14+
 - **AWS CLI** configured with valid credentials (`aws configure`)
-- An AWS IAM user with S3, CloudFront, ACM, and IAM permissions
+- An AWS IAM user with S3, CloudFront, ACM, IAM, Lambda, and API Gateway permissions
 
 ### Provision AWS Resources
 
