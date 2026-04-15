@@ -90,7 +90,7 @@ export default function Stats() {
         <ul className="flex flex-col gap-6">
           {stats.map((stat, i) => (
             <li key={i} className="flex items-start gap-4 text-zinc-600 dark:text-zinc-400">
-              <span className="flex h-5 w-5 pt-1 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
               <div className="flex flex-col gap-1">
                 {stat.ready ? (
                   <span className="text-base font-medium leading-5 text-zinc-800 dark:text-zinc-200">
