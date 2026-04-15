@@ -72,7 +72,7 @@ luisabhram.dev/
 │   │   └── animations/                   # GSAP animation hooks
 │   ├── lib/
 │   │   ├── utils/
-│   │   └── site.ts
+│   │   └── site.ts                       # Site configurations
 │   └── types/                            # Type definitions
 ├── terraform/                            # AWS infrastructure as code
 │   ├── terraform.tfvars.example          # Terraform variable template
