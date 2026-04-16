@@ -5,6 +5,7 @@ import { MdCake, MdLocationPin, MdCode, MdAccessTime } from "react-icons/md";
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "./common/SectionTitle";
 import Skeleton from "@/components/ui/Skeleton";
+import AnimateText from "@/components/ui/AnimatedText";
 
 function getAge(birthDate: string): string {
   const birth = new Date(birthDate);
@@ -22,12 +23,18 @@ function getDaysUntilBirthday(birthDate: string): number {
   return Math.ceil((next.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-function getLocalTime(): string {
-  return new Date().toLocaleTimeString("en-US", {
-    timeZone: "Asia/Manila",
-    hour: "2-digit",
-    minute: "2-digit",
-  }) + " (UTC +08:00)";
+function getUTCOffset(timeZone: string): string {
+  const date = new Date();
+  const formatter = new Intl.DateTimeFormat("en-US", { timeZone, timeZoneName: "shortOffset" });
+  const parts = formatter.formatToParts(date);
+  return parts.find((p) => p.type === "timeZoneName")?.value ?? "";
+}
+
+function getLocalTime(timeZone: string): { time: string; offset: string } {
+  return {
+    time: new Date().toLocaleTimeString("en-US", { timeZone, hour: "2-digit", minute: "2-digit" }),
+    offset: getUTCOffset(timeZone),
+  };
 }
 
 async function fetchContributions(): Promise<number | null> {
@@ -60,43 +67,39 @@ async function fetchCodingStats(): Promise<{ monthly: number; yearly: number } |
 
 export default function Stats() {
   const [age, setAge] = useState("—");
-  const [time, setTime] = useState("—");
+  const [time, setTime] = useState<{ time: string; offset: string } | null>(null);
   const [contributions, setContributions] = useState<number | null>(null);
   const [codingStats, setCodingStats] = useState<{ monthly: number; yearly: number } | null>(null);
 
   useEffect(() => {
-    // Interval for age and time
     const interval = setInterval(() => {
       setAge(getAge(profileInfo.birthDate));
-      setTime(getLocalTime());
+      setTime(getLocalTime("Asia/Manila"));
     }, 1000);
 
-    // Fetch contributions
     fetchContributions().then(setContributions);
-
-    // Fetch coding stats
     fetchCodingStats().then(setCodingStats);
 
     return () => clearInterval(interval);
   }, []);
 
-  const stats: { icon: React.ReactNode; label: string; sublabel: string; ready: boolean }[] = [
+  const stats: { icon: React.ReactNode; label: React.ReactNode; sublabel: React.ReactNode; ready: boolean }[] = [
     {
       icon: <MdCake size={18} />,
-      label: `${age} years old`,
+      label: <><AnimateText words={[age]} variant="slot" cursor="none" /> years old</>,
       sublabel: `Next birthday in ${getDaysUntilBirthday(profileInfo.birthDate)} days`,
       ready: age !== "—",
     },
     {
       icon: <MdLocationPin size={18} />,
       label: "Currently in the Philippines",
-      sublabel: `${time}`,
-      ready: time !== "—",
+      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> {time?.offset}</>,
+      ready: time !== null,
     },
     {
       icon: <MdCode size={18} />,
       label: `${contributions?.toLocaleString()} contributions`,
-      sublabel: `On GitHub in the last year`,
+      sublabel: "On GitHub in the last year",
       ready: contributions !== null,
     },
     {
@@ -117,16 +120,12 @@ export default function Stats() {
               <span className="flex h-5 w-5 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
               <div className="flex flex-col gap-1">
                 {stat.ready ? (
-                  <span className="font-semibold leading-5 text-base text-zinc-800 dark:text-zinc-200">
-                    {stat.label}
-                  </span> 
+                  <span className="leading-5 text-base text-zinc-800 dark:text-zinc-200">{stat.label}</span>
                 ) : (
                   <Skeleton shape="pill" className="h-5 w-48" />
                 )}
                 {stat.ready ? (
-                  <span className="leading-5 text-sm text-zinc-600 dark:text-zinc-400">
-                    {stat.sublabel}
-                  </span> 
+                  <span className="leading-5 text-sm text-zinc-600 dark:text-zinc-400">{stat.sublabel}</span>
                 ) : (
                   <Skeleton shape="pill" className="h-5 w-48" />
                 )}
