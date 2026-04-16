@@ -88,7 +88,7 @@ export default function Stats() {
     {
       icon: <MdCake size={18} />,
       label: <><AnimateText words={[age]} variant="slot" cursor="none" /> years old</>,
-      sublabel: `Next birthday in ${getDaysUntilBirthday(profileInfo.birthDate)} days`,
+      sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
       ready: age !== "—",
     },
     {
