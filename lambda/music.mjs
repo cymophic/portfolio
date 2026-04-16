@@ -60,7 +60,7 @@ export const handler = async () => {
     // Top genre (derived from top 10 artists)
     const genreCounts = {};
     for (const a of topArtistsData?.items ?? []) {
-      for (const genre of a.genres) {
+      for (const genre of a.genres ?? []) {
         genreCounts[genre] = (genreCounts[genre] ?? 0) + 1;
       }
     }
