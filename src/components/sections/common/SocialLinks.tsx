@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
 import { IconType } from "react-icons";
 import { profileInfo } from "@/lib/site";
 
@@ -10,14 +9,12 @@ const iconMap: Record<string, IconType> = {
   GitHub: FaGithub,
   LinkedIn: FaLinkedin,
   Instagram: FaInstagram,
-  Email: MdEmail,
 };
 
 const colorMap: Record<string, { light: string; dark: string }> = {
   GitHub:    { light: "#333333", dark: "#ffffff"  },
   LinkedIn:  { light: "#0A66C2", dark: "#0A66C2"  },
   Instagram: { light: "#E1306C", dark: "#E1306C"  },
-  Email:     { light: "#71717a", dark: "#d4d4d8"  },
 };
 
 type SocialLinksProps = {
