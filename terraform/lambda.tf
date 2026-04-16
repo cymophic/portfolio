@@ -46,7 +46,7 @@ resource "aws_lambda_function" "contributions" {
   function_name    = "${var.project_name}-contributions"
   role             = aws_iam_role.lambda_shared.arn
   handler          = "contributions.handler"
-  runtime          = "nodejs20.x"
+  runtime          = "nodejs22.x"
   source_code_hash = data.archive_file.contributions.output_base64sha256
 
   environment {
@@ -89,8 +89,9 @@ resource "aws_lambda_function" "coding_stats" {
   function_name    = "${var.project_name}-coding-stats"
   role             = aws_iam_role.lambda_shared.arn
   handler          = "codingStats.handler"
-  runtime          = "nodejs20.x"
+  runtime          = "nodejs22.x"
   source_code_hash = data.archive_file.coding_stats.output_base64sha256
+  timeout = 10
 
   environment {
     variables = {
@@ -131,8 +132,9 @@ resource "aws_lambda_function" "music" {
   function_name    = "${var.project_name}-music"
   role             = aws_iam_role.lambda_shared.arn
   handler          = "music.handler"
-  runtime          = "nodejs20.x"
+  runtime          = "nodejs22.x"
   source_code_hash = data.archive_file.music.output_base64sha256
+  timeout = 15
 
   environment {
     variables = {
