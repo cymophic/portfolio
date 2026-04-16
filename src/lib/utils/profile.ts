@@ -31,7 +31,6 @@ export function getLocalTime(timeZone: string): { time: string; offset: string }
     time: new Date().toLocaleTimeString("en-US", { timeZone,
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit"
     }),
     offset: getTimezoneOffset(timeZone, "UTC", true),
   };
