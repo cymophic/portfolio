@@ -54,7 +54,9 @@ luisabhram.dev/
 │   │   └── check.yml                     # PR validation workflow
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── lambda/
-│   └── contributions.mjs                 # GitHub contributions Lambda function
+│   ├── codingStats.mjs                   # Coding stats Lambda function
+│   ├── contributions.mjs                 # GitHub contributions Lambda function
+│   └── music.mjs                         # Music stats Lambda function
 ├── public/                               # Static assets
 ├── scripts/                              # Build-time scripts
 ├── src/
@@ -169,6 +171,11 @@ github_username    = ""
 
 # WakaTime
 wakatime_api_key   = ""
+
+# Spotify
+spotify_client_id     = ""
+spotify_client_secret = ""
+spotify_refresh_token = ""
 ```
 
 ### Provision AWS Resources
@@ -237,4 +244,5 @@ Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in 
 | Method | Endpoint | Description | Response |
 |---|---|---|---|
 | `GET` | `/contributions` | GitHub contributions for the previous year | `{ contributions: number }` |
-| `GET` | `/coding-stats` | WakaTime coding hours | `{ monthly: number, yearly: number }` |  <!-- add this -->
+| `GET` | `/coding-stats` | WakaTime coding hours | `{ monthly: number, yearly: number }` |
+| `GET` | `/music` | Spotify music stats | `{ topTrack, topArtist, topGenre, nowPlaying, lastPlayed }` |

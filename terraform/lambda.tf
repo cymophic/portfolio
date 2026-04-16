@@ -118,3 +118,47 @@ resource "aws_lambda_permission" "coding_stats" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
 }
+
+# Music (Spotify) Endpoint
+data "archive_file" "music" {
+  type        = "zip"
+  source_file = "${path.module}/../lambda/music.mjs"
+  output_path = "${path.module}/../lambda/music.zip"
+}
+
+resource "aws_lambda_function" "music" {
+  filename         = data.archive_file.music.output_path
+  function_name    = "${var.project_name}-music"
+  role             = aws_iam_role.lambda_shared.arn
+  handler          = "music.handler"
+  runtime          = "nodejs20.x"
+  source_code_hash = data.archive_file.music.output_base64sha256
+
+  environment {
+    variables = {
+      SPOTIFY_CLIENT_ID     = var.spotify_client_id
+      SPOTIFY_CLIENT_SECRET = var.spotify_client_secret
+      SPOTIFY_REFRESH_TOKEN = var.spotify_refresh_token
+    }
+  }
+}
+
+resource "aws_apigatewayv2_integration" "music" {
+  api_id                 = aws_apigatewayv2_api.api.id
+  integration_type       = "AWS_PROXY"
+  integration_uri        = aws_lambda_function.music.invoke_arn
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "music" {
+  api_id    = aws_apigatewayv2_api.api.id
+  route_key = "GET /music"
+  target    = "integrations/${aws_apigatewayv2_integration.music.id}"
+}
+
+resource "aws_lambda_permission" "music" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.music.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
+}

@@ -20,3 +20,8 @@ github_username    = ""
 
 # WakaTime
 wakatime_api_key   = ""
+
+# Spotify
+spotify_client_id     = "your_client_id"
+spotify_client_secret = "your_client_secret"
+spotify_refresh_token = "your_refresh_token"
