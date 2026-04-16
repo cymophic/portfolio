@@ -48,7 +48,7 @@ export default function Intro() {
           </h1>
 
           {/* Bio */}
-          <p className="max-w-md text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
+          <p className="max-w-md text-base text-zinc-600 dark:text-zinc-400">
             {profileInfo.bio}
           </p>
           
