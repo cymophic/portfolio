@@ -3,7 +3,7 @@
 import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { cn } from "@/lib/utils/cn";
 
-type ButtonVariant = "primary" | "ghost" | "icon";
+type ButtonVariant = "primary" | "secondary" | "ghost" | "icon";
 type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,7 +16,9 @@ const baseClasses =
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-zinc-900 text-zinc-50 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-700 dark:hover:bg-zinc-200",
+    "bg-zinc-900 text-zinc-50 hover:bg-zinc-600 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300",
+  secondary:
+    "bg-zinc-200 text-zinc-900 hover:bg-zinc-300 dark:bg-zinc-900 dark:text-zinc-50 dark:hover:bg-zinc-800",
   ghost:
     "bg-transparent text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100/60 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800/60",
   icon:
