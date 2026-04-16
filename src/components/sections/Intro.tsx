@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { getCalApi } from "@calcom/embed-react";
 
 import { profileInfo } from "@/lib/site";
@@ -15,6 +15,22 @@ const CONFIG = {
 };
 
 export default function Intro() {
+  const [copied, setCopied] = useState(false);
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const words = useMemo(() => ["Luis Abhram"], []);
+
+  const handleCopyEmail = () => {
+    const swapTextSeconds = 3000;
+    navigator.clipboard.writeText(profileInfo.emails[0]);
+    setCopied(true);
+
+    if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+
+    copyTimeoutRef.current = setTimeout(() => {
+      requestAnimationFrame(() => setCopied(false));
+    }, swapTextSeconds);
+  };
+
   useEffect(() => {
     (async function () {
       const cal = await getCalApi({ namespace: "book-a-meeting" });
@@ -36,7 +52,7 @@ export default function Intro() {
           {/* Name */}
           <h1 className="whitespace-nowrap">
             <AnimateText
-              words={["Luis Abhram"]}
+              words={words}
               className="font-mono text-3xl sm:text-5xl font-semibold leading-tight tracking-wide text-zinc-700 dark:text-zinc-50"
               variant="scramble"
               cursor="underscore"
@@ -55,15 +71,24 @@ export default function Intro() {
           {/* Social Links */}
           <SocialLinks />
 
-          <div className="mt-2">
+          <div className="mt-2 flex gap-4">
             <Button 
               size="md" 
-              className="rounded-lg max-w-md w-full sm:w-fit sm:h-11 sm:px-5 sm:text-sm" 
+              className="rounded-lg w-50 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-95 transition-transform" 
               data-cal-namespace="book-a-meeting"
               data-cal-link="luisabhram"
               data-cal-config='{"layout":"month_view"}'
             >
               Schedule a Meeting
+            </Button>
+
+            <Button
+              variant="secondary"
+              size="md"
+              className="rounded-lg w-40 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-95 transition-transform"
+              onClick={handleCopyEmail}
+            >
+              {copied ? "Copied!" : "Copy Email"}
             </Button>
           </div>
         </div>
