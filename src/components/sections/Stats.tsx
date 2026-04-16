@@ -59,6 +59,18 @@ export default function Stats() {
 
   const stats: { icon: React.ReactNode; label: React.ReactNode; sublabel: React.ReactNode; ready: boolean }[] = [
     {
+      icon: <MdCalendarMonth size={18} />,
+      label: <><AnimateText words={[age]} variant="slot" cursor="none" className="text-base leading-5" /> years old</>,
+      sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
+      ready: age !== "—",
+    },
+    {
+      icon: <MdLocationPin size={18} />,
+      label: `Currently in ${COUNTRY}`,
+      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> {time?.offset}</>,
+      ready: time !== null,
+    },
+    {
       icon: <MdCode size={18} />,
       label: <><span className="font-mono">{contributions?.toLocaleString()}</span> contributions</>,
       sublabel: "On GitHub in the last year",
@@ -69,18 +81,6 @@ export default function Stats() {
       label: <><span className="font-mono">{codingStats?.monthly.toLocaleString()}</span> hours coded this month</>,
       sublabel: <><span className="font-mono">{codingStats?.yearly.toLocaleString()}</span> hours coded this year</>,
       ready: codingStats !== null,
-    },
-      {
-      icon: <MdLocationPin size={18} />,
-      label: `Currently in ${COUNTRY}`,
-      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> {time?.offset}</>,
-      ready: time !== null,
-    },
-    {
-      icon: <MdCalendarMonth size={18} />,
-      label: <><AnimateText words={[age]} variant="slot" cursor="none" className="text-base leading-5" /> years old</>,
-      sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
-      ready: age !== "—",
     },
   ];
 
