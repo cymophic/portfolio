@@ -6,44 +6,10 @@ import { profileInfo } from "@/lib/site";
 import SectionTitle from "./common/SectionTitle";
 import Skeleton from "@/components/ui/Skeleton";
 import AnimateText from "@/components/ui/AnimatedText";
+import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
-
-function getAge(birthDate: string): string {
-  const birth = new Date(birthDate);
-  const now = new Date();
-  const diff = now.getTime() - birth.getTime();
-  const age = diff / (1000 * 60 * 60 * 24 * 365.25);
-  return age.toFixed(7);
-}
-
-function getDaysUntilBirthday(birthDate: string): number {
-  const now = new Date();
-  const birth = new Date(birthDate);
-  const next = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
-  if (next <= now) next.setFullYear(now.getFullYear() + 1);
-  return Math.ceil((next.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-}
-
-function getTimezoneOffset(timeZone: string, prefix: "GMT" | "UTC" = "GMT", padded: boolean = false): string {
-  const date = new Date();
-  const formatter = new Intl.DateTimeFormat("en-US", { timeZone, timeZoneName: padded ? "longOffset" : "shortOffset" });
-  const parts = formatter.formatToParts(date);
-  const offset = parts.find((p) => p.type === "timeZoneName")?.value ?? "";
-  return offset.replace("GMT", `${prefix} `);
-}
-
-function getLocalTime(timeZone: string): { time: string; offset: string } {
-  return {
-    time: new Date().toLocaleTimeString("en-US", { timeZone, 
-      hour: "2-digit", 
-      minute: "2-digit", 
-      second: "2-digit"
-    }),
-    offset: getTimezoneOffset(timeZone, "UTC", true),
-  };
-}
 
 async function fetchContributions(): Promise<number | null> {
   const url = process.env.NEXT_PUBLIC_API_URL;
