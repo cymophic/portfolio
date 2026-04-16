@@ -47,7 +47,11 @@ function SlotChar({ char, phase, durationMs }: { char: string; phase: CharPhase;
     }
   }, [phase, durationMs]);
 
-  return <span ref={ref} style={{ display: "inline-block" }}>{char}</span>;
+  return (
+    <span ref={ref} style={{ display: "inline-block" }} className={/\d/.test(char) ? "font-mono" : ""}>
+      {char}
+    </span>
+  );
 }
 
 export default function AnimateText({

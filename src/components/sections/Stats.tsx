@@ -98,14 +98,14 @@ export default function Stats() {
     },
     {
       icon: <MdCode size={18} />,
-      label: `${contributions?.toLocaleString()} contributions`,
+      label: <><span className="font-mono">{contributions?.toLocaleString()}</span> contributions</>,
       sublabel: "On GitHub in the last year",
       ready: contributions !== null,
     },
     {
       icon: <MdAccessTime size={18} />,
-      label: `${codingStats?.monthly.toLocaleString()} hours coded this month`,
-      sublabel: `${codingStats?.yearly.toLocaleString()} hours coded this year`,
+      label: <><span className="font-mono">{codingStats?.monthly.toLocaleString()}</span> hours coded this month</>,
+      sublabel: <><span className="font-mono">{codingStats?.yearly.toLocaleString()}</span> hours coded this year</>,
       ready: codingStats !== null,
     },
   ];
