@@ -54,3 +54,9 @@ variable "github_username" {
   description = "GitHub username for contributions API"
   type        = string
 }
+
+# WakaTime
+variable "wakatime_api_key" {
+  description = "WakaTime API key for coding stats"
+  sensitive   = true
+}

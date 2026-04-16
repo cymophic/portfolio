@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MdCake, MdAccessTime, MdCode } from "react-icons/md";
+import { MdCake, MdAccessTime, MdCode, MdKeyboard } from "react-icons/md";
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "./common/SectionTitle";
 import Skeleton from "@/components/ui/Skeleton";
@@ -44,10 +44,25 @@ async function fetchContributions(): Promise<number | null> {
   }
 }
 
+async function fetchCodingStats(): Promise<{ monthly: number; yearly: number } | null> {
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  if (!url) return null;
+
+  try {
+    const res = await fetch(`${url}/coding-stats`);
+    const result = await res.json();
+    return result.monthly != null && result.yearly != null ? result : null;
+  } catch (error) {
+    console.error("Network or Parsing Error:", error);
+    return null;
+  }
+}
+
 export default function Stats() {
   const [age, setAge] = useState("—");
   const [time, setTime] = useState("—");
   const [contributions, setContributions] = useState<number | null>(null);
+  const [codingStats, setCodingStats] = useState<{ monthly: number; yearly: number } | null>(null);
 
   useEffect(() => {
     // Interval for age and time
@@ -58,6 +73,9 @@ export default function Stats() {
 
     // Fetch contributions
     fetchContributions().then(setContributions);
+
+    // Fetch coding stats
+    fetchCodingStats().then(setCodingStats);
 
     return () => clearInterval(interval);
   }, []);
@@ -81,6 +99,12 @@ export default function Stats() {
       sublabel: `On GitHub in the last year`,
       ready: contributions !== null,
     },
+    {
+      icon: <MdKeyboard size={18} />,
+      label: `${codingStats?.monthly.toLocaleString()} hours coded this month`,
+      sublabel: `${codingStats?.yearly.toLocaleString()} hours coded this year`,
+      ready: codingStats !== null,
+    },
   ];
 
   return (
@@ -93,14 +117,14 @@ export default function Stats() {
               <span className="flex h-5 w-5 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
               <div className="flex flex-col gap-1">
                 {stat.ready ? (
-                  <span className="text-base font-medium leading-5 text-zinc-800 dark:text-zinc-200">
+                  <span className="font-medium leading-5 text-sm sm:text-base text-zinc-800 dark:text-zinc-200">
                     {stat.label}
                   </span> 
                 ) : (
                   <Skeleton shape="pill" className="h-5 w-48" />
                 )}
                 {stat.ready ? (
-                  <span className="text-base font-medium leading-5 text-zinc-400 dark:text-zinc-500">
+                  <span className="font-medium leading-5 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                     {stat.sublabel}
                   </span> 
                 ) : (

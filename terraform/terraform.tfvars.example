@@ -17,3 +17,6 @@ budget_alert_email = ["your@email.com"]
 # GitHub
 github_pat         = ""
 github_username    = ""
+
+# WakaTime
+wakatime_api_key   = ""

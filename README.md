@@ -148,24 +148,27 @@ Create a `terraform/terraform.tfvars` file based on the example below:
 
 ```hcl
 # General
-domain_name  = ""
-project_name = ""
-aws_region   = ""
+domain_name        = ""
+project_name       = ""
+aws_region         = ""
 
 # Domain & CORS
-other_domains = []
-dev_origins   = ["http://localhost:3000", "http://localhost:3001"]
+other_domains      = []
+dev_origins        = ["http://localhost:3000", "http://localhost:3001"]
 
 # S3
-bucket_name = ""
+bucket_name        = ""
 
 # Budget
 budget_limit_usd   = "100.0"
 budget_alert_email = ["your@email.com"]
 
 # GitHub
-github_pat      = "your-github-pat"
-github_username = "your-github-username"
+github_pat         = ""
+github_username    = ""
+
+# WakaTime
+wakatime_api_key   = ""
 ```
 
 ### Provision AWS Resources
@@ -234,3 +237,4 @@ Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in 
 | Method | Endpoint | Description | Response |
 |---|---|---|---|
 | `GET` | `/contributions` | GitHub contributions for the previous year | `{ contributions: number }` |
+| `GET` | `/coding-stats` | WakaTime coding hours | `{ monthly: number, yearly: number }` |  <!-- add this -->

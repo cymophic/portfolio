@@ -15,16 +15,9 @@ resource "aws_apigatewayv2_stage" "api" {
   auto_deploy = true
 }
 
-# Contributions Endpoint
-data "archive_file" "contributions" {
-  type        = "zip"
-  source_file = "${path.module}/../lambda/contributions.mjs"
-  output_path = "${path.module}/../lambda/contributions.zip"
-}
-
-# IAM role for Lambda
-resource "aws_iam_role" "lambda_contributions" {
-  name = "${var.project_name}-lambda-contributions"
+# Shared IAM Role for all Lambdas
+resource "aws_iam_role" "lambda_shared" {
+  name = "${var.project_name}-lambda-shared"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -36,15 +29,22 @@ resource "aws_iam_role" "lambda_contributions" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_basic" {
-  role       = aws_iam_role.lambda_contributions.name
+resource "aws_iam_role_policy_attachment" "lambda_shared_basic" {
+  role       = aws_iam_role.lambda_shared.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+# Contributions Endpoint
+data "archive_file" "contributions" {
+  type        = "zip"
+  source_file = "${path.module}/../lambda/contributions.mjs"
+  output_path = "${path.module}/../lambda/contributions.zip"
 }
 
 resource "aws_lambda_function" "contributions" {
   filename         = data.archive_file.contributions.output_path
   function_name    = "${var.project_name}-contributions"
-  role             = aws_iam_role.lambda_contributions.arn
+  role             = aws_iam_role.lambda_shared.arn
   handler          = "contributions.handler"
   runtime          = "nodejs20.x"
   source_code_hash = data.archive_file.contributions.output_base64sha256
@@ -73,6 +73,48 @@ resource "aws_apigatewayv2_route" "contributions" {
 resource "aws_lambda_permission" "contributions" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.contributions.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
+}
+
+# Coding Stats Endpoint
+data "archive_file" "coding_stats" {
+  type        = "zip"
+  source_file = "${path.module}/../lambda/codingStats.mjs"
+  output_path = "${path.module}/../lambda/codingStats.zip"
+}
+
+resource "aws_lambda_function" "coding_stats" {
+  filename         = data.archive_file.coding_stats.output_path
+  function_name    = "${var.project_name}-coding-stats"
+  role             = aws_iam_role.lambda_shared.arn
+  handler          = "codingStats.handler"
+  runtime          = "nodejs20.x"
+  source_code_hash = data.archive_file.coding_stats.output_base64sha256
+
+  environment {
+    variables = {
+      WAKATIME_API_KEY = var.wakatime_api_key
+    }
+  }
+}
+
+resource "aws_apigatewayv2_integration" "coding_stats" {
+  api_id                 = aws_apigatewayv2_api.api.id
+  integration_type       = "AWS_PROXY"
+  integration_uri        = aws_lambda_function.coding_stats.invoke_arn
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "coding_stats" {
+  api_id    = aws_apigatewayv2_api.api.id
+  route_key = "GET /coding-stats"
+  target    = "integrations/${aws_apigatewayv2_integration.coding_stats.id}"
+}
+
+resource "aws_lambda_permission" "coding_stats" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.coding_stats.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
 }
