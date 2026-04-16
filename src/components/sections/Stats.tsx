@@ -88,7 +88,7 @@ export default function Stats() {
     <section className="w-full">
       <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Stats" />
-        <ul className="flex flex-col gap-6">
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {stats.map((stat, i) => (
             <li key={i} className="flex items-start gap-4 text-zinc-600 dark:text-zinc-400">
               <span className="flex h-5 w-5 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
