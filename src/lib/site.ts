@@ -10,11 +10,13 @@ export const profileInfo = {
   bio: "DevOps Engineer with full-stack experience. I build, deploy, and maintain scalable systems end to end.",
   birthDate: "2003/03/26",
   image: "/avatar.png",
+  emails: [
+    "work.luisabhram@gmail.com"
+  ],
   socialLinks: [
     { label: "GitHub", link: "https://github.com/cymophic" },
     { label: "LinkedIn", link: "https://linkedin.com/in/luisabhram" },
     { label: "Instagram", link: "https://instagram.com/cymophic" },
-    { label: "Email", link: "mailto:work.luisabhram@gmail.com" },
   ],
 }
 
