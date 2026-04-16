@@ -57,6 +57,22 @@ variable "github_username" {
 
 # WakaTime
 variable "wakatime_api_key" {
-  description = "WakaTime API key for coding stats"
+  description = "WakaTime API key for coding stats API"
+  sensitive   = true
+}
+
+# Spotify
+variable "spotify_client_id" {
+  description = "Spotify client ID for music stats API"
+  sensitive   = true
+}
+
+variable "spotify_client_secret" {
+  description = "Spotify client secret for music stats API"
+  sensitive   = true
+}
+
+variable "spotify_refresh_token" {
+  description = "Spotify refresh token for music stats API"
   sensitive   = true
 }
