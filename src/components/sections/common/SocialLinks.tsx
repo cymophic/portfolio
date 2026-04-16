@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IconType } from "react-icons";
-import { socialLinks } from "@/lib/site";
+import { profileInfo } from "@/lib/site";
 
 const iconMap: Record<string, IconType> = {
   GitHub: FaGithub,
@@ -29,7 +29,7 @@ type SocialLinksProps = {
 };
 
 export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, iconSize = 18, hoverEffect = "colored" }: SocialLinksProps) {
-  const filtered = socialLinks.filter(({ label }) => !exclude.includes(label));
+  const filtered = profileInfo.socialLinks.filter(({ label }) => !exclude.includes(label));
   return (
     <div className="flex items-center gap-4" style={{ opacity: opacity / 100 }}>
       {filtered.map(({ label, link }, i) => {
