@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MdCake, MdAccessTime, MdCode, MdKeyboard } from "react-icons/md";
+import { MdCake, MdLocationPin, MdCode, MdAccessTime } from "react-icons/md";
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "./common/SectionTitle";
 import Skeleton from "@/components/ui/Skeleton";
@@ -88,7 +88,7 @@ export default function Stats() {
       ready: age !== "—",
     },
     {
-      icon: <MdAccessTime size={18} />,
+      icon: <MdLocationPin size={18} />,
       label: "Currently in the Philippines",
       sublabel: `${time}`,
       ready: time !== "—",
@@ -100,7 +100,7 @@ export default function Stats() {
       ready: contributions !== null,
     },
     {
-      icon: <MdKeyboard size={18} />,
+      icon: <MdAccessTime size={18} />,
       label: `${codingStats?.monthly.toLocaleString()} hours coded this month`,
       sublabel: `${codingStats?.yearly.toLocaleString()} hours coded this year`,
       ready: codingStats !== null,
@@ -117,14 +117,14 @@ export default function Stats() {
               <span className="flex h-5 w-5 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
               <div className="flex flex-col gap-1">
                 {stat.ready ? (
-                  <span className="font-medium leading-5 text-sm sm:text-base text-zinc-800 dark:text-zinc-200">
+                  <span className="font-semibold leading-5 text-base text-zinc-800 dark:text-zinc-200">
                     {stat.label}
                   </span> 
                 ) : (
                   <Skeleton shape="pill" className="h-5 w-48" />
                 )}
                 {stat.ready ? (
-                  <span className="font-medium leading-5 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+                  <span className="leading-5 text-sm text-zinc-600 dark:text-zinc-400">
                     {stat.sublabel}
                   </span> 
                 ) : (
