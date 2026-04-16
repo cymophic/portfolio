@@ -1,34 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MdCake, MdAccessTime, MdCode } from "react-icons/md";
+import { MdLocationPin, MdCode, MdAccessTime, MdCalendarMonth } from "react-icons/md";
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "./common/SectionTitle";
 import Skeleton from "@/components/ui/Skeleton";
+import AnimateText from "@/components/ui/AnimatedText";
+import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile";
 
-function getAge(birthDate: string): string {
-  const birth = new Date(birthDate);
-  const now = new Date();
-  const diff = now.getTime() - birth.getTime();
-  const age = diff / (1000 * 60 * 60 * 24 * 365.25);
-  return age.toFixed(7);
-}
-
-function getDaysUntilBirthday(birthDate: string): number {
-  const now = new Date();
-  const birth = new Date(birthDate);
-  const next = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
-  if (next <= now) next.setFullYear(now.getFullYear() + 1);
-  return Math.ceil((next.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-}
-
-function getLocalTime(): string {
-  return new Date().toLocaleTimeString("en-US", {
-    timeZone: "Asia/Manila",
-    hour: "2-digit",
-    minute: "2-digit",
-  }) + " (UTC +08:00)";
-}
+const TIMEZONE = "Asia/Manila";
+const COUNTRY = "Philippines";
 
 async function fetchContributions(): Promise<number | null> {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -44,42 +25,62 @@ async function fetchContributions(): Promise<number | null> {
   }
 }
 
+async function fetchCodingStats(): Promise<{ monthly: number; yearly: number } | null> {
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  if (!url) return null;
+
+  try {
+    const res = await fetch(`${url}/coding-stats`);
+    const result = await res.json();
+    return result.monthly != null && result.yearly != null ? result : null;
+  } catch (error) {
+    console.error("Network or Parsing Error:", error);
+    return null;
+  }
+}
+
 export default function Stats() {
   const [age, setAge] = useState("—");
-  const [time, setTime] = useState("—");
+  const [time, setTime] = useState<{ time: string; offset: string } | null>(null);
   const [contributions, setContributions] = useState<number | null>(null);
+  const [codingStats, setCodingStats] = useState<{ monthly: number; yearly: number } | null>(null);
 
   useEffect(() => {
-    // Interval for age and time
     const interval = setInterval(() => {
       setAge(getAge(profileInfo.birthDate));
-      setTime(getLocalTime());
+      setTime(getLocalTime(TIMEZONE));
     }, 1000);
 
-    // Fetch contributions
     fetchContributions().then(setContributions);
+    fetchCodingStats().then(setCodingStats);
 
     return () => clearInterval(interval);
   }, []);
 
-  const stats: { icon: React.ReactNode; label: string; sublabel: string; ready: boolean }[] = [
+  const stats: { icon: React.ReactNode; label: React.ReactNode; sublabel: React.ReactNode; ready: boolean }[] = [
     {
-      icon: <MdCake size={18} />,
-      label: `${age} years old`,
-      sublabel: `Next birthday in ${getDaysUntilBirthday(profileInfo.birthDate)} days`,
-      ready: age !== "—",
+      icon: <MdCode size={18} />,
+      label: <><span className="font-mono">{contributions?.toLocaleString()}</span> contributions</>,
+      sublabel: "On GitHub in the last year",
+      ready: contributions !== null,
     },
     {
       icon: <MdAccessTime size={18} />,
-      label: "Currently in the Philippines",
-      sublabel: `${time}`,
-      ready: time !== "—",
+      label: <><span className="font-mono">{codingStats?.monthly.toLocaleString()}</span> hours coded this month</>,
+      sublabel: <><span className="font-mono">{codingStats?.yearly.toLocaleString()}</span> hours coded this year</>,
+      ready: codingStats !== null,
+    },
+      {
+      icon: <MdLocationPin size={18} />,
+      label: `Currently in ${COUNTRY}`,
+      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> {time?.offset}</>,
+      ready: time !== null,
     },
     {
-      icon: <MdCode size={18} />,
-      label: `${contributions?.toLocaleString()} contributions`,
-      sublabel: `On GitHub in the last year`,
-      ready: contributions !== null,
+      icon: <MdCalendarMonth size={18} />,
+      label: <><AnimateText words={[age]} variant="slot" cursor="none" className="text-base leading-5" /> years old</>,
+      sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
+      ready: age !== "—",
     },
   ];
 
@@ -93,16 +94,12 @@ export default function Stats() {
               <span className="flex h-5 w-5 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
               <div className="flex flex-col gap-1">
                 {stat.ready ? (
-                  <span className="text-base font-medium leading-5 text-zinc-800 dark:text-zinc-200">
-                    {stat.label}
-                  </span> 
+                  <span className="leading-5 text-base text-zinc-800 dark:text-zinc-200">{stat.label}</span>
                 ) : (
                   <Skeleton shape="pill" className="h-5 w-48" />
                 )}
                 {stat.ready ? (
-                  <span className="text-base font-medium leading-5 text-zinc-400 dark:text-zinc-500">
-                    {stat.sublabel}
-                  </span> 
+                  <span className="leading-5 text-sm text-zinc-600 dark:text-zinc-400">{stat.sublabel}</span>
                 ) : (
                   <Skeleton shape="pill" className="h-5 w-48" />
                 )}
