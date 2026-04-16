@@ -17,6 +17,7 @@ const CONFIG = {
 export default function Intro() {
   const [copied, setCopied] = useState(false);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [bookingDisabled, setBookingDisabled] = useState(false);
   const words = useMemo(() => ["Luis Abhram"], []);
 
   const handleCopyEmail = () => {
@@ -36,6 +37,10 @@ export default function Intro() {
       const cal = await getCalApi({ namespace: "book-a-meeting" });
       cal("ui", {
         hideEventTypeDetails: false,
+      });
+      cal("on", {
+        action: "bookingSuccessful",
+        callback: () => setBookingDisabled(true),
       });
     })();
   }, []);
@@ -72,14 +77,15 @@ export default function Intro() {
           <SocialLinks />
 
           <div className="mt-2 flex gap-4">
-            <Button 
-              size="md" 
-              className="rounded-lg w-50 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-95 transition-transform" 
+            <Button
+              size="md"
+              className="rounded-lg w-50 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap"
+              disabled={bookingDisabled}
               data-cal-namespace="book-a-meeting"
               data-cal-link="luisabhram"
               data-cal-config='{"layout":"month_view"}'
             >
-              Schedule a Meeting
+              {bookingDisabled ? "Meeting Scheduled" : "Schedule a Meeting"}
             </Button>
 
             <Button
