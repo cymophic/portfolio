@@ -7,6 +7,9 @@ import SectionTitle from "./common/SectionTitle";
 import Skeleton from "@/components/ui/Skeleton";
 import AnimateText from "@/components/ui/AnimatedText";
 
+const TIMEZONE = "Asia/Manila";
+const COUNTRY = "Philippines";
+
 function getAge(birthDate: string): string {
   const birth = new Date(birthDate);
   const now = new Date();
@@ -33,7 +36,11 @@ function getTimezoneOffset(timeZone: string, prefix: "GMT" | "UTC" = "GMT", padd
 
 function getLocalTime(timeZone: string): { time: string; offset: string } {
   return {
-    time: new Date().toLocaleTimeString("en-US", { timeZone, hour: "2-digit", minute: "2-digit" }),
+    time: new Date().toLocaleTimeString("en-US", { timeZone, 
+      hour: "2-digit", 
+      minute: "2-digit", 
+      second: "2-digit"
+    }),
     offset: getTimezoneOffset(timeZone, "UTC", true),
   };
 }
@@ -75,7 +82,7 @@ export default function Stats() {
   useEffect(() => {
     const interval = setInterval(() => {
       setAge(getAge(profileInfo.birthDate));
-      setTime(getLocalTime("Asia/Manila"));
+      setTime(getLocalTime(TIMEZONE));
     }, 1000);
 
     fetchContributions().then(setContributions);
@@ -93,7 +100,7 @@ export default function Stats() {
     },
     {
       icon: <MdLocationPin size={18} />,
-      label: "Currently in the Philippines",
+      label: `Currently in ${COUNTRY}`,
       sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> {time?.offset}</>,
       ready: time !== null,
     },
