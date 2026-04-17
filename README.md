@@ -100,7 +100,7 @@ luisabhram.dev/
 
 ### Prerequisites
 
-- **Node.js** v20+
+- **Node.js** v22+
 - **npm** v10+
 
 ### Setup
@@ -245,4 +245,4 @@ Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in 
 |---|---|---|---|
 | `GET` | `/contributions` | GitHub contributions for the previous year | `{ contributions: number }` |
 | `GET` | `/coding-stats` | WakaTime coding hours | `{ monthly: number, yearly: number }` |
-| `GET` | `/music` | Spotify music stats | `{ topTrack, topArtist, topGenre, nowPlaying, lastPlayed }` |
+| `GET` | `/music` | Spotify music stats | `{ topTrack, topArtist, nowPlaying, lastPlayed }` |
