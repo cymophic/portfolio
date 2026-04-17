@@ -1,4 +1,5 @@
 import Intro from "@/components/sections/Intro";
+import About from "@/components/sections/About";
 import Stats from "@/components/sections/Stats";
 import Work from "@/components/sections/Work";
 import Education from "@/components/sections/Education";
@@ -8,8 +9,11 @@ import Footer from "@/components/layout/footer/Footer";
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans py-18 sm:py-18 gap-20">
-      <Intro />
+    <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans py-18 sm:py-18 gap-28">
+      <div className="mt-24">
+        <Intro />
+      </div>
+      <About />
       <Stats />
       <Work />
       <Education />
