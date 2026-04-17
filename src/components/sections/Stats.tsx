@@ -82,7 +82,7 @@ export default function Stats() {
   const stats: { icon: React.ReactNode; label: React.ReactNode; sublabel: React.ReactNode; ready: boolean }[] = [
     {
       icon: <MdCalendarMonth size={18} />,
-      label: <><AnimateText words={[age]} variant="slot" cursor="none" className="text-base leading-5" /> years old</>,
+      label: <><AnimateText words={[age]} variant="slot" cursor="none" className="leading-5" /> years old</>,
       sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
       ready: age !== "—",
     },
@@ -127,20 +127,26 @@ export default function Stats() {
 
   return (
     <section className="w-full">
-      <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-10">
+      <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Stats" />
         <ul className="columns-1 gap-6 sm:columns-2 md:columns-3">
           {stats.map((stat, i) => (
             <li key={i} className="break-inside-avoid mb-6 flex items-start gap-4 text-zinc-600 dark:text-zinc-400">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center text-zinc-400">{stat.icon}</span>
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center text-zinc-400">
+                {stat.icon}
+              </span>
               <div className="flex min-w-0 flex-col gap-1">
                 {stat.ready ? (
-                  <span className="leading-5 truncate text-base text-zinc-800 dark:text-zinc-200">{stat.label}</span>
+                  <span className="leading-5 truncate text-base text-zinc-800 dark:text-zinc-200">
+                    {stat.label}
+                  </span>
                 ) : (
                   <Skeleton shape="pill" className="h-5 w-48" />
                 )}
                 {stat.ready ? (
-                  <span className="leading-5 truncate text-sm text-zinc-600 dark:text-zinc-400">{stat.sublabel}</span>
+                  <span className="leading-5 truncate text-sm text-zinc-600 dark:text-zinc-400">
+                    {stat.sublabel}
+                  </span>
                 ) : (
                   <Skeleton shape="pill" className="h-5 w-48" />
                 )}

@@ -7,7 +7,14 @@ export const profileInfo = {
   name: "Luis Abhram",
   title: "DevOps Engineer",
   location: "Pasig City, Philippines",
-  bio: "DevOps Engineer with full-stack experience. I build, deploy, and maintain scalable systems end to end.",
+  tagline: "Simplicity is the ultimate sophistication.",
+  bio: [
+    "Hi! I'm Luis, a DevOps engineer with a background in software engineering based in Philippines. I build, deploy, and maintain systems end to end, from the code to the infrastructure it runs on.",
+
+    "In my previous work, I've managed on-premise deployments, deploying even the applications I built myself. I've continuously refined my craft by learning from other engineers, studying well-built systems, and pushing my own standards higher with every project I ship. Currently, I'm expanding into cloud & infrastructure, exploring how to bring that same end-to-end ownership to cloud environments.",
+
+    "When not building, you'll find me taking photos, hanging out with friends & family, gaming, or traveling when I get the chance. I also enjoy long walks, making pixel art, trying out new food, and spending time with my cats.",
+  ],
   birthDate: "2003/03/26",
   image: "/avatar.png",
   emails: [

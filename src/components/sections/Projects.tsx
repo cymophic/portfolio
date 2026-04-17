@@ -63,7 +63,7 @@ export default function Projects() {
 
   return (
     <section className="w-full">
-      <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-10">
+      <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         {/* Title */}
         <SectionTitle title="Projects" />
 
@@ -84,7 +84,7 @@ export default function Projects() {
                 showTimeline={false}
                 leftAdornment={
                   <span className="flex h-5 w-5 items-center justify-center rounded-md border border-zinc-200 bg-zinc-100 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
-                    <MdFolder size={12} />
+                    <MdFolder size={12} className="overflow-clip"/>
                   </span>
                 }
                 preview={

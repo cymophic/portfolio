@@ -103,7 +103,7 @@ function TechItem({ label }: { label: string }) {
         ["--brand-dark" as string]: color.dark,
       }}
     >
-      <Icon size={14} className="text-(--brand-light) dark:text-(--brand-dark) shrink-0" />
+      <Icon size={14} className="text-(--brand-light) dark:text-(--brand-dark) shrink-0 overflow-clip" />
       <span className="text-xs text-zinc-600 dark:text-zinc-400 whitespace-nowrap">
         {label}
       </span>
@@ -116,7 +116,7 @@ export default function TechStack() {
 
   return (
     <section className="w-full">
-      <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-10">
+      <div className="flex flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Tech Stack" />
       </div>
 
