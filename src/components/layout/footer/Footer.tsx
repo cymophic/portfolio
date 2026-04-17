@@ -13,7 +13,7 @@ export default function Footer() {
 
       {/* Byline */}
       <p className="font-mono text-xs tracking-wider uppercase font-semibold text-zinc-400 dark:text-zinc-500">
-        Made with <FiHeart className="inline" style={{ strokeWidth: 3 }} /> by {profileInfo.name}
+        Made with <FiHeart className="inline overflow-clip -mt-1" style={{ strokeWidth: 3 }} /> by {profileInfo.name}
       </p>
 
       {/* Footer Image */}
