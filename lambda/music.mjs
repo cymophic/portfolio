@@ -40,7 +40,7 @@ export const handler = async () => {
 
     const [topTracksData, topArtistsData, nowPlayingData, recentlyPlayedData] = await Promise.all([
       spotifyFetch("/me/top/tracks?time_range=long_term&limit=1", token),
-      spotifyFetch("/me/top/artists?time_range=long_term&limit=50", token),
+      spotifyFetch("/me/top/artists?time_range=long_term&limit=5", token),
       spotifyFetch("/me/player/currently-playing", token),
       spotifyFetch("/me/player/recently-played?limit=1", token),
     ]);
@@ -56,15 +56,6 @@ export const handler = async () => {
     const topArtist = artist
       ? { artist: artist.name, url: artist.external_urls.spotify }
       : null;
-
-    // Top genre (derived from top 10 artists)
-    const genreCounts = {};
-    for (const a of topArtistsData?.items ?? []) {
-      for (const genre of a.genres ?? []) {
-        genreCounts[genre] = (genreCounts[genre] ?? 0) + 1;
-      }
-    }
-    const topGenre = Object.entries(genreCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
 
     // Now playing
     const nowPlaying = nowPlayingData?.is_playing && nowPlayingData.item
@@ -82,7 +73,7 @@ export const handler = async () => {
       ? { song: lastTrack.name, artist: lastTrack.artists.map((a) => a.name).join(", "), url: lastTrack.external_urls.spotify }
       : null;
 
-    return response(200, { topTrack, topArtist, topGenre, nowPlaying, lastPlayed });
+    return response(200, { topTrack, topArtist, nowPlaying, lastPlayed });
   } catch (error) {
     console.error("Spotify Lambda error:", error);
     return response(500, { error: "Internal server error" });
