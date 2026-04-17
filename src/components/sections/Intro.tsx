@@ -4,8 +4,8 @@ import { useEffect, useState, useMemo, useRef } from "react";
 import { getCalApi } from "@calcom/embed-react";
 
 import { profileInfo } from "@/lib/site";
-import SocialLinks from "@/components/sections/common/SocialLinks";
-import ProfileImage from "@/components/sections/common/ProfileImage";
+import SocialLinks from "@/components/ui/SocialLinks";
+import ProfileImage from "@/components/ui/ProfileImage";
 import AnimateText from "@/components/ui/AnimatedText";
 import Button from "@/components/ui/Button";
 
