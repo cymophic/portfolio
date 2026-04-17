@@ -13,26 +13,26 @@ import Tooltip from "@/components/ui/Tooltip";
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
 
-async function fetchContributions(): Promise<number | null> {
+async function fetchGithubStats(): Promise<number | null> {
   const url = process.env.NEXT_PUBLIC_API_URL;
   if (!url) return null;
 
   try {
     const res = await fetch(`${url}/github`);
     const result = await res.json();
-    return result.contributions ?? null;
+    return result.githubStats ?? null;
   } catch (error) {
     console.error("Network or Parsing Error:", error);
     return null;
   }
 }
 
-async function fetchCodingStats(): Promise<{ monthly: number; yearly: number } | null> {
+async function fetchWakatimeStats(): Promise<{ monthly: number; yearly: number } | null> {
   const url = process.env.NEXT_PUBLIC_API_URL;
   if (!url) return null;
 
   try {
-    const res = await fetch(`${url}/coding-stats`);
+    const res = await fetch(`${url}/wakatime`);
     const result = await res.json();
     return result.monthly != null && result.yearly != null ? result : null;
   } catch (error) {
@@ -47,12 +47,12 @@ type MusicStats = {
   topTrack: { song: string; artist: string; url: string } | null;
 };
 
-async function fetchMusicStats(): Promise<MusicStats | null> {
+async function fetchSpotifyStats(): Promise<MusicStats | null> {
   const url = process.env.NEXT_PUBLIC_API_URL;
   if (!url) return null;
 
   try {
-    const res = await fetch(`${url}/music`);
+    const res = await fetch(`${url}/spotify`);
     const result = await res.json();
     return result ?? null;
   } catch (error) {
@@ -115,9 +115,9 @@ function StatItem({ stat }: { stat: StatItemType }) {
 export default function Stats() {
   const [age, setAge] = useState("—");
   const [time, setTime] = useState<{ time: string; offset: string } | null>(null);
-  const [contributions, setContributions] = useState<number | null>(null);
-  const [codingStats, setCodingStats] = useState<{ monthly: number; yearly: number } | null>(null);
-  const [musicStats, setMusicStats] = useState<MusicStats | null>(null);
+  const [githubStats, setGithubStats] = useState<number | null>(null);
+  const [wakatimeStats, setWakatimeStats] = useState<{ monthly: number; yearly: number } | null>(null);
+  const [spotifyStats, setSpotifyStats] = useState<MusicStats | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -125,14 +125,14 @@ export default function Stats() {
       setTime(getLocalTime(TIMEZONE));
     }, 1000);
 
-    fetchContributions().then(setContributions);
-    fetchCodingStats().then(setCodingStats);
-    fetchMusicStats().then(setMusicStats);
+    fetchGithubStats().then(setGithubStats);
+    fetchWakatimeStats().then(setWakatimeStats);
+    fetchSpotifyStats().then(setSpotifyStats);
 
     return () => clearInterval(interval);
   }, []);
 
-  const nowOrLast = musicStats?.nowPlaying ?? musicStats?.lastPlayed;
+  const nowOrLast = spotifyStats?.nowPlaying ?? spotifyStats?.lastPlayed;
 
   const stats: StatItemType[] = [
     {
@@ -149,15 +149,15 @@ export default function Stats() {
     },
     {
       icon: <MdCode size={18} />,
-      label: <><span className="font-mono">{contributions?.toLocaleString()}</span> contributions</>,
+      label: <><span className="font-mono">{githubStats?.toLocaleString()}</span> githubStats</>,
       sublabel: "On GitHub in the last year",
-      ready: contributions !== null,
+      ready: githubStats !== null,
     },
     {
       icon: <MdAccessTime size={18} />,
-      label: <><span className="font-mono">{codingStats?.monthly.toLocaleString()}</span> hours coded this month</>,
-      sublabel: <><span className="font-mono">{codingStats?.yearly.toLocaleString()}</span> hours coded this year</>,
-      ready: codingStats !== null,
+      label: <><span className="font-mono">{wakatimeStats?.monthly.toLocaleString()}</span> hours coded this month</>,
+      sublabel: <><span className="font-mono">{wakatimeStats?.yearly.toLocaleString()}</span> hours coded this year</>,
+      ready: wakatimeStats !== null,
     },
     {
       icon: <MdMusicNote size={18} />,
@@ -165,17 +165,17 @@ export default function Stats() {
         ? <><a href={nowOrLast.url} target="_blank" rel="noopener noreferrer" className="underline">{nowOrLast.song}</a> by {nowOrLast.artist}</>
         : "-",
       labelText: nowOrLast ? `${nowOrLast.song} by ${nowOrLast.artist}` : undefined,
-      sublabel: musicStats?.nowPlaying ? "Currently playing" : "Recently played",
-      ready: musicStats !== null,
+      sublabel: spotifyStats?.nowPlaying ? "Currently playing" : "Recently played",
+      ready: spotifyStats !== null,
     },
     {
       icon: <MdHeadphones size={18} />,
-      label: musicStats?.topTrack
-        ? <><a href={musicStats.topTrack.url} target="_blank" rel="noopener noreferrer" className="underline">{musicStats.topTrack.song}</a> by {musicStats.topTrack.artist}</>
+      label: spotifyStats?.topTrack
+        ? <><a href={spotifyStats.topTrack.url} target="_blank" rel="noopener noreferrer" className="underline">{spotifyStats.topTrack.song}</a> by {spotifyStats.topTrack.artist}</>
         : "-",
-      labelText: musicStats?.topTrack ? `${musicStats.topTrack.song} by ${musicStats.topTrack.artist}` : undefined,
+      labelText: spotifyStats?.topTrack ? `${spotifyStats.topTrack.song} by ${spotifyStats.topTrack.artist}` : undefined,
       sublabel: "Top track this year",
-      ready: musicStats !== null,
+      ready: spotifyStats !== null,
     },
   ];
 

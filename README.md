@@ -54,9 +54,9 @@ luisabhram.dev/
 │   │   └── check.yml                     # PR validation workflow
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── lambda/
-│   ├── codingStats.mjs                   # Coding stats Lambda function
-│   ├── github.mjs                        # GitHub stats Lambda function
-│   └── music.mjs                         # Music stats Lambda function
+│   ├── wakatime.mjs                      # Wakatime stats Lambda function
+│   ├── github.mjs                        # GitHub profile stats Lambda function
+│   └── spotify.mjs                       # Spotify stats Lambda function
 ├── public/                               # Static assets
 ├── scripts/                              # Build-time scripts
 ├── src/
@@ -243,6 +243,6 @@ Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in 
 
 | Method | Endpoint | Description | Response |
 |---|---|---|---|
-| `GET` | `/contributions` | GitHub stats | `{ contributions, totalCommits, recentPortfolioCommits, recentActivity }` |
-| `GET` | `/coding-stats` | WakaTime coding hours | `{ monthly: number, yearly: number }` |
-| `GET` | `/music` | Spotify music stats | `{ topTrack, topArtist, nowPlaying, lastPlayed }` |
+| `GET` | `/github` | GitHub profile stats | `{ contributions, totalCommits, recentPortfolioCommits, recentActivity }` |
+| `GET` | `/wakatime` | WakaTime coding hours | `{ monthly: number, yearly: number }` |
+| `GET` | `/spotify` | Spotify music stats | `{ topTrack, topArtist, nowPlaying, lastPlayed }` |
