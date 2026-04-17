@@ -50,8 +50,8 @@ export default function Intro() {
       <div className="flex flex-col mx-auto px-6 sm:flex-row sm:justify-between sm:gap-12 sm:items-center sm:px-10">
         <div className="flex flex-col gap-4 sm:gap-6">
           {/* Profile Image - Small Screens */}
-          <div className="shrink-0 sm:hidden ">
-            <ProfileImage width={64} height={64} />
+          <div className="shrink-0 sm:hidden">
+            <ProfileImage width={64} height={64}/>
           </div>
 
           {/* Name */}
@@ -101,7 +101,7 @@ export default function Intro() {
 
         {/* Profile Image - Large Screens */}
         <div className="shrink-0 hidden sm:block">
-          <ProfileImage width={160} height={160} />
+          <ProfileImage width={160} height={160}/>
         </div>
       </div>
     </section>
