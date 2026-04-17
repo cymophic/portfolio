@@ -146,7 +146,7 @@ export default function Stats() {
     {
       icon: <MdLocationPin size={18} />,
       label: `Currently in ${COUNTRY}`,
-      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> {time?.offset}</>,
+      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> ({time?.offset})</>,
       ready: time !== null,
     },
     {
