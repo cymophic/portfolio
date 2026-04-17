@@ -103,7 +103,7 @@ function TechItem({ label }: { label: string }) {
         ["--brand-dark" as string]: color.dark,
       }}
     >
-      <Icon size={14} className="text-(--brand-light) dark:text-(--brand-dark) shrink-0" />
+      <Icon size={14} className="text-(--brand-light) dark:text-(--brand-dark) shrink-0 overflow-clip" />
       <span className="text-xs text-zinc-600 dark:text-zinc-400 whitespace-nowrap">
         {label}
       </span>
