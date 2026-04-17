@@ -40,7 +40,7 @@ export const handler = async () => {
 
     const [topTracksData, topArtistsData, nowPlayingData, recentlyPlayedData] = await Promise.all([
       spotifyFetch("/me/top/tracks?time_range=long_term&limit=1", token),
-      spotifyFetch("/me/top/artists?time_range=long_term&limit=10", token),
+      spotifyFetch("/me/top/artists?time_range=long_term&limit=50", token),
       spotifyFetch("/me/player/currently-playing", token),
       spotifyFetch("/me/player/recently-played?limit=1", token),
     ]);
