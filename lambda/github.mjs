@@ -1,8 +1,11 @@
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+const STATS_CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+const ACTIVITY_CACHE_TTL = 60 * 60 * 1000; // 1 hour
 const PORTFOLIO_REPO = "portfolio";
 
-let cache = null;
-let cacheTime = null;
+let statsCache = null;
+let statsCacheTime = null;
+let activityCache = null;
+let activityCacheTime = null;
 
 function response(statusCode, body) {
   return { statusCode, body: JSON.stringify(body) };
@@ -11,7 +14,10 @@ function response(statusCode, body) {
 export const handler = async () => {
   try {
     const now = Date.now();
-    if (cache && cacheTime && now - cacheTime < CACHE_TTL) return cache;
+    const statsCacheHit = statsCache && statsCacheTime && now - statsCacheTime < STATS_CACHE_TTL;
+    const activityCacheHit = activityCache && activityCacheTime && now - activityCacheTime < ACTIVITY_CACHE_TTL;
+
+    if (statsCacheHit && activityCacheHit) return response(200, { ...statsCache, ...activityCache });
 
     const token = process.env.GITHUB_TOKEN;
     const username = process.env.GITHUB_USERNAME;
@@ -102,9 +108,13 @@ export const handler = async () => {
       commitCount: r.contributions.nodes[0]?.commitCount ?? null,
     })) ?? [];
 
-    cache = response(200, { contributions, totalCommits, recentPortfolioCommits, recentActivity });
-    cacheTime = now;
-    return cache;
+    statsCache = { contributions, totalCommits };
+    statsCacheTime = now;
+
+    activityCache = { recentPortfolioCommits, recentActivity };
+    activityCacheTime = now;
+
+    return response(200, { ...statsCache, ...activityCache });
   } catch (error) {
     console.error("GitHub Lambda error:", error);
     return response(500, { error: "Internal server error" });
