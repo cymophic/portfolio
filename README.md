@@ -55,7 +55,7 @@ luisabhram.dev/
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── lambda/
 │   ├── codingStats.mjs                   # Coding stats Lambda function
-│   ├── contributions.mjs                 # GitHub contributions Lambda function
+│   ├── github.mjs                        # GitHub stats Lambda function
 │   └── music.mjs                         # Music stats Lambda function
 ├── public/                               # Static assets
 ├── scripts/                              # Build-time scripts
@@ -243,6 +243,6 @@ Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in 
 
 | Method | Endpoint | Description | Response |
 |---|---|---|---|
-| `GET` | `/contributions` | GitHub contributions for the previous year | `{ contributions: number }` |
+| `GET` | `/contributions` | GitHub stats | `{ contributions, totalCommits, recentPortfolioCommits, recentActivity }` |
 | `GET` | `/coding-stats` | WakaTime coding hours | `{ monthly: number, yearly: number }` |
 | `GET` | `/music` | Spotify music stats | `{ topTrack, topArtist, nowPlaying, lastPlayed }` |

@@ -34,20 +34,20 @@ resource "aws_iam_role_policy_attachment" "lambda_shared_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-# Contributions Endpoint
-data "archive_file" "contributions" {
+# GitHub Endpoint
+data "archive_file" "github" {
   type        = "zip"
-  source_file = "${path.module}/../lambda/contributions.mjs"
-  output_path = "${path.module}/../lambda/contributions.zip"
+  source_file = "${path.module}/../lambda/github.mjs"
+  output_path = "${path.module}/../lambda/github.zip"
 }
 
-resource "aws_lambda_function" "contributions" {
-  filename         = data.archive_file.contributions.output_path
-  function_name    = "${var.project_name}-contributions"
+resource "aws_lambda_function" "github" {
+  filename         = data.archive_file.github.output_path
+  function_name    = "${var.project_name}-github"
   role             = aws_iam_role.lambda_shared.arn
-  handler          = "contributions.handler"
+  handler          = "github.handler"
   runtime          = "nodejs22.x"
-  source_code_hash = data.archive_file.contributions.output_base64sha256
+  source_code_hash = data.archive_file.github.output_base64sha256
 
   environment {
     variables = {
@@ -57,22 +57,22 @@ resource "aws_lambda_function" "contributions" {
   }
 }
 
-resource "aws_apigatewayv2_integration" "contributions" {
+resource "aws_apigatewayv2_integration" "github" {
   api_id                 = aws_apigatewayv2_api.api.id
   integration_type       = "AWS_PROXY"
-  integration_uri        = aws_lambda_function.contributions.invoke_arn
+  integration_uri        = aws_lambda_function.github.invoke_arn
   payload_format_version = "2.0"
 }
 
-resource "aws_apigatewayv2_route" "contributions" {
+resource "aws_apigatewayv2_route" "github" {
   api_id    = aws_apigatewayv2_api.api.id
-  route_key = "GET /contributions"
-  target    = "integrations/${aws_apigatewayv2_integration.contributions.id}"
+  route_key = "GET /github"
+  target    = "integrations/${aws_apigatewayv2_integration.github.id}"
 }
 
-resource "aws_lambda_permission" "contributions" {
+resource "aws_lambda_permission" "github" {
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.contributions.function_name
+  function_name = aws_lambda_function.github.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
 }

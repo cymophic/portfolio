@@ -18,7 +18,7 @@ async function fetchContributions(): Promise<number | null> {
   if (!url) return null;
 
   try {
-    const res = await fetch(`${url}/contributions`);
+    const res = await fetch(`${url}/github`);
     const result = await res.json();
     return result.contributions ?? null;
   } catch (error) {
