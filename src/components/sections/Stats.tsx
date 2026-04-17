@@ -93,7 +93,7 @@ function StatItem({ stat }: { stat: StatItemType }) {
       <div className="flex min-w-0 flex-col gap-1">
         {stat.ready ? (
           <Tooltip content={stat.labelText ?? ""} disabled={!isOverflowing}>
-            <span ref={ref} className="block overflow-hidden whitespace-nowrap pr-2 sm:pr-1 leading-5 text-base text-zinc-800 dark:text-zinc-200">
+            <span ref={ref} className="block overflow-hidden scrollbar-gutter-auto whitespace-nowrap pr-2 sm:pr-1 leading-5 text-base text-zinc-800 dark:text-zinc-200">
               {stat.label}
             </span>
           </Tooltip>

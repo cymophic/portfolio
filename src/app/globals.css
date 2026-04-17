@@ -42,4 +42,8 @@
   .font-consolas {
     font-family: Consolas, monospace;
   }
+
+  .scrollbar-gutter-auto {
+    scrollbar-gutter: auto;
+  }
 }

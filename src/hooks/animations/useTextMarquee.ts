@@ -33,7 +33,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
 
           const pauseEndTimer = setTimeout(() => {
             el.scrollLeft = 0;
-            if (!cancelled) animateRef.current?.();
+            if (!cancelled) requestAnimationFrame(() => animateRef.current?.());
           }, CONFIG.pauseEnd * 1000);
 
           return () => clearTimeout(pauseEndTimer);
