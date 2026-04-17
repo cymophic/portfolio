@@ -17,6 +17,7 @@ async function getAccessToken() {
     }),
   });
 
+  if (!res.ok) throw new Error(`Token error: ${res.status}`);
   const data = await res.json();
   return data.access_token;
 }
@@ -27,6 +28,7 @@ async function spotifyFetch(path, token) {
   });
 
   if (res.status === 204) return null;
+  if (!res.ok) throw new Error(`Spotify API error: ${res.status}`);
   return res.json();
 }
 
