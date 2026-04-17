@@ -1,9 +1,9 @@
 "use client";
 
-import ProfileImage from "@/components/sections/common/ProfileImage";
+import ProfileImage from "@/components/ui/ProfileImage";
 import { profileInfo } from "@/lib/site";
 import { FiHeart } from "react-icons/fi";
-import SocialLinks from "../../sections/common/SocialLinks";
+import SocialLinks from "../../ui/SocialLinks";
 
 export default function Footer() {
   return (

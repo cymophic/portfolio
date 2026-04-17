@@ -34,20 +34,20 @@ resource "aws_iam_role_policy_attachment" "lambda_shared_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-# Contributions Endpoint
-data "archive_file" "contributions" {
+# GitHub Endpoint
+data "archive_file" "github" {
   type        = "zip"
-  source_file = "${path.module}/../lambda/contributions.mjs"
-  output_path = "${path.module}/../lambda/contributions.zip"
+  source_file = "${path.module}/../lambda/github.mjs"
+  output_path = "${path.module}/../lambda/github.zip"
 }
 
-resource "aws_lambda_function" "contributions" {
-  filename         = data.archive_file.contributions.output_path
-  function_name    = "${var.project_name}-contributions"
+resource "aws_lambda_function" "github" {
+  filename         = data.archive_file.github.output_path
+  function_name    = "${var.project_name}-github"
   role             = aws_iam_role.lambda_shared.arn
-  handler          = "contributions.handler"
+  handler          = "github.handler"
   runtime          = "nodejs22.x"
-  source_code_hash = data.archive_file.contributions.output_base64sha256
+  source_code_hash = data.archive_file.github.output_base64sha256
 
   environment {
     variables = {
@@ -57,40 +57,40 @@ resource "aws_lambda_function" "contributions" {
   }
 }
 
-resource "aws_apigatewayv2_integration" "contributions" {
+resource "aws_apigatewayv2_integration" "github" {
   api_id                 = aws_apigatewayv2_api.api.id
   integration_type       = "AWS_PROXY"
-  integration_uri        = aws_lambda_function.contributions.invoke_arn
+  integration_uri        = aws_lambda_function.github.invoke_arn
   payload_format_version = "2.0"
 }
 
-resource "aws_apigatewayv2_route" "contributions" {
+resource "aws_apigatewayv2_route" "github" {
   api_id    = aws_apigatewayv2_api.api.id
-  route_key = "GET /contributions"
-  target    = "integrations/${aws_apigatewayv2_integration.contributions.id}"
+  route_key = "GET /github"
+  target    = "integrations/${aws_apigatewayv2_integration.github.id}"
 }
 
-resource "aws_lambda_permission" "contributions" {
+resource "aws_lambda_permission" "github" {
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.contributions.function_name
+  function_name = aws_lambda_function.github.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
 }
 
 # Coding Stats Endpoint
-data "archive_file" "coding_stats" {
+data "archive_file" "wakatime" {
   type        = "zip"
-  source_file = "${path.module}/../lambda/codingStats.mjs"
-  output_path = "${path.module}/../lambda/codingStats.zip"
+  source_file = "${path.module}/../lambda/wakatime.mjs"
+  output_path = "${path.module}/../lambda/wakatime.zip"
 }
 
-resource "aws_lambda_function" "coding_stats" {
-  filename         = data.archive_file.coding_stats.output_path
-  function_name    = "${var.project_name}-coding-stats"
+resource "aws_lambda_function" "wakatime" {
+  filename         = data.archive_file.wakatime.output_path
+  function_name    = "${var.project_name}-wakatime"
   role             = aws_iam_role.lambda_shared.arn
-  handler          = "codingStats.handler"
+  handler          = "wakatime.handler"
   runtime          = "nodejs22.x"
-  source_code_hash = data.archive_file.coding_stats.output_base64sha256
+  source_code_hash = data.archive_file.wakatime.output_base64sha256
   timeout = 10
 
   environment {
@@ -100,40 +100,40 @@ resource "aws_lambda_function" "coding_stats" {
   }
 }
 
-resource "aws_apigatewayv2_integration" "coding_stats" {
+resource "aws_apigatewayv2_integration" "wakatime" {
   api_id                 = aws_apigatewayv2_api.api.id
   integration_type       = "AWS_PROXY"
-  integration_uri        = aws_lambda_function.coding_stats.invoke_arn
+  integration_uri        = aws_lambda_function.wakatime.invoke_arn
   payload_format_version = "2.0"
 }
 
-resource "aws_apigatewayv2_route" "coding_stats" {
+resource "aws_apigatewayv2_route" "wakatime" {
   api_id    = aws_apigatewayv2_api.api.id
-  route_key = "GET /coding-stats"
-  target    = "integrations/${aws_apigatewayv2_integration.coding_stats.id}"
+  route_key = "GET /wakatime"
+  target    = "integrations/${aws_apigatewayv2_integration.wakatime.id}"
 }
 
-resource "aws_lambda_permission" "coding_stats" {
+resource "aws_lambda_permission" "wakatime" {
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.coding_stats.function_name
+  function_name = aws_lambda_function.wakatime.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
 }
 
-# Music (Spotify) Endpoint
-data "archive_file" "music" {
+# Spotify Endpoint
+data "archive_file" "spotify" {
   type        = "zip"
-  source_file = "${path.module}/../lambda/music.mjs"
-  output_path = "${path.module}/../lambda/music.zip"
+  source_file = "${path.module}/../lambda/spotify.mjs"
+  output_path = "${path.module}/../lambda/spotify.zip"
 }
 
-resource "aws_lambda_function" "music" {
-  filename         = data.archive_file.music.output_path
-  function_name    = "${var.project_name}-music"
+resource "aws_lambda_function" "spotify" {
+  filename         = data.archive_file.spotify.output_path
+  function_name    = "${var.project_name}-spotify"
   role             = aws_iam_role.lambda_shared.arn
-  handler          = "music.handler"
+  handler          = "spotify.handler"
   runtime          = "nodejs22.x"
-  source_code_hash = data.archive_file.music.output_base64sha256
+  source_code_hash = data.archive_file.spotify.output_base64sha256
   timeout = 15
 
   environment {
@@ -145,22 +145,22 @@ resource "aws_lambda_function" "music" {
   }
 }
 
-resource "aws_apigatewayv2_integration" "music" {
+resource "aws_apigatewayv2_integration" "spotify" {
   api_id                 = aws_apigatewayv2_api.api.id
   integration_type       = "AWS_PROXY"
-  integration_uri        = aws_lambda_function.music.invoke_arn
+  integration_uri        = aws_lambda_function.spotify.invoke_arn
   payload_format_version = "2.0"
 }
 
-resource "aws_apigatewayv2_route" "music" {
+resource "aws_apigatewayv2_route" "spotify" {
   api_id    = aws_apigatewayv2_api.api.id
-  route_key = "GET /music"
-  target    = "integrations/${aws_apigatewayv2_integration.music.id}"
+  route_key = "GET /spotify"
+  target    = "integrations/${aws_apigatewayv2_integration.spotify.id}"
 }
 
-resource "aws_lambda_permission" "music" {
+resource "aws_lambda_permission" "spotify" {
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.music.function_name
+  function_name = aws_lambda_function.spotify.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
 }

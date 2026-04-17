@@ -46,33 +46,33 @@ variable "dev_origins" {
 
 # GitHub
 variable "github_pat" {
-  description = "GitHub PAT for contributions API"
+  description = "GitHub PAT"
   sensitive   = true
 }
 
 variable "github_username" {
-  description = "GitHub username for contributions API"
+  description = "GitHub username"
   type        = string
 }
 
 # WakaTime
 variable "wakatime_api_key" {
-  description = "WakaTime API key for coding stats API"
+  description = "WakaTime API key"
   sensitive   = true
 }
 
 # Spotify
 variable "spotify_client_id" {
-  description = "Spotify client ID for music stats API"
+  description = "Spotify client ID"
   sensitive   = true
 }
 
 variable "spotify_client_secret" {
-  description = "Spotify client secret for music stats API"
+  description = "Spotify client secret"
   sensitive   = true
 }
 
 variable "spotify_refresh_token" {
-  description = "Spotify refresh token for music stats API"
+  description = "Spotify refresh token"
   sensitive   = true
 }

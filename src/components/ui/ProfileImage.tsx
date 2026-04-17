@@ -13,7 +13,6 @@ type Props = {
 };
 
 export default function ProfileImage({ width, height, className }: Props) {
-  console.log(className);
   const [loaded, setLoaded] = useState(false);
 
   return (

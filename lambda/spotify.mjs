@@ -1,6 +1,10 @@
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN;
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
+let cache = null;
+let cacheTime = null;
 
 async function getAccessToken() {
   const credentials = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64");
@@ -17,6 +21,7 @@ async function getAccessToken() {
     }),
   });
 
+  if (!res.ok) throw new Error(`Token error: ${res.status}`);
   const data = await res.json();
   return data.access_token;
 }
@@ -27,7 +32,23 @@ async function spotifyFetch(path, token) {
   });
 
   if (res.status === 204) return null;
+  if (!res.ok) throw new Error(`Spotify API error: ${res.status}`);
   return res.json();
+}
+
+async function getStaticMusicStats(token) {
+  const now = Date.now();
+  if (cache && cacheTime && now - cacheTime < CACHE_TTL) return cache;
+
+  const [topTracksData, topArtistsData, recentlyPlayedData] = await Promise.all([
+    spotifyFetch("/me/top/tracks?time_range=long_term&limit=1", token),
+    spotifyFetch("/me/top/artists?time_range=long_term&limit=5", token),
+    spotifyFetch("/me/player/recently-played?limit=1", token),
+  ]);
+
+  cache = { topTracksData, topArtistsData, recentlyPlayedData };
+  cacheTime = now;
+  return cache;
 }
 
 function response(statusCode, body) {
@@ -38,12 +59,8 @@ export const handler = async () => {
   try {
     const token = await getAccessToken();
 
-    const [topTracksData, topArtistsData, nowPlayingData, recentlyPlayedData] = await Promise.all([
-      spotifyFetch("/me/top/tracks?time_range=long_term&limit=1", token),
-      spotifyFetch("/me/top/artists?time_range=long_term&limit=5", token),
-      spotifyFetch("/me/player/currently-playing", token),
-      spotifyFetch("/me/player/recently-played?limit=1", token),
-    ]);
+    const { topTracksData, topArtistsData, recentlyPlayedData } = await getStaticMusicStats(token);
+    const nowPlayingData = await spotifyFetch("/me/player/currently-playing", token);
 
     // Top track
     const track = topTracksData?.items?.[0];
