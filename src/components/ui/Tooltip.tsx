@@ -14,6 +14,7 @@ export default function Tooltip({ content, disabled = false, children }: Props) 
   const [visible, setVisible] = useState(false);
   const [position, setPosition] = useState<Position>("top");
   const triggerRef = useRef<HTMLDivElement>(null);
+  const [offsetX, setOffsetX] = useState(0);
 
   const updatePosition = useCallback(() => {
     const el = triggerRef.current;
@@ -22,6 +23,15 @@ export default function Tooltip({ content, disabled = false, children }: Props) 
     const spaceAbove = rect.top;
     const spaceBelow = window.innerHeight - rect.bottom;
     setPosition(spaceAbove >= spaceBelow ? "top" : "bottom");
+
+    // Shift tooltip left if it would overflow the right edge
+    const tooltipMaxWidth = 320;
+    const rightEdge = rect.left + tooltipMaxWidth;
+    if (rightEdge > window.innerWidth) {
+      setOffsetX(window.innerWidth - rightEdge - 8);
+    } else {
+      setOffsetX(0);
+    }
   }, []);
 
   const show = useCallback(() => {
@@ -51,6 +61,7 @@ export default function Tooltip({ content, disabled = false, children }: Props) 
       {visible && (
         <div
           role="tooltip"
+          style={{ left: offsetX }}
           className={`${position === "top" ? "bottom-full mb-2" : "top-full mt-2"} pointer-events-none absolute left-0 z-50 w-max max-w-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2.5 py-1.5 text-sm text-zinc-800 dark:text-zinc-200 shadow-md`}
         >
           {content}
