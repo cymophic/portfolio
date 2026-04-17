@@ -8,6 +8,7 @@ import Skeleton from "@/components/ui/Skeleton";
 import AnimateText from "@/components/ui/AnimatedText";
 import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
+import Tooltip from "@/components/ui/Tooltip";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
@@ -70,6 +71,19 @@ type StatItemType = {
 
 function StatItem({ stat }: { stat: StatItemType }) {
   const { ref } = useTextMarquee(stat.labelText, stat.ready);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !stat.ready) return;
+
+    const observer = new ResizeObserver(() => {
+      setIsOverflowing(el.scrollWidth > el.clientWidth);
+    });
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [stat.ready, ref]);
 
   return (
     <li className="break-inside-avoid mb-6 flex items-start gap-4 text-zinc-600 dark:text-zinc-400">
@@ -78,9 +92,11 @@ function StatItem({ stat }: { stat: StatItemType }) {
       </span>
       <div className="flex min-w-0 flex-col gap-1">
         {stat.ready ? (
-          <span ref={ref} className="overflow-hidden whitespace-nowrap pr-2 leading-5 text-base text-zinc-800 dark:text-zinc-200">
-            {stat.label}
-          </span>
+          <Tooltip content={stat.labelText ?? ""} disabled={!isOverflowing}>
+            <span ref={ref} className="block overflow-hidden whitespace-nowrap pr-2 sm:pr-1 leading-5 text-base text-zinc-800 dark:text-zinc-200">
+              {stat.label}
+            </span>
+          </Tooltip>
         ) : (
           <Skeleton shape="pill" className="h-5 w-48" />
         )}
