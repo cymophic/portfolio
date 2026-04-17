@@ -13,14 +13,16 @@ import Tooltip from "@/components/ui/Tooltip";
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
 
-async function fetchGithubStats(): Promise<number | null> {
+async function fetchGithubStats(): Promise<{ contributions: number; totalCommits: number } | null> {
   const url = process.env.NEXT_PUBLIC_API_URL;
   if (!url) return null;
 
   try {
     const res = await fetch(`${url}/github`);
     const result = await res.json();
-    return result.githubStats ?? null;
+    return result.contributions != null && result.totalCommits != null
+      ? { contributions: result.contributions, totalCommits: result.totalCommits }
+      : null;
   } catch (error) {
     console.error("Network or Parsing Error:", error);
     return null;
@@ -115,7 +117,7 @@ function StatItem({ stat }: { stat: StatItemType }) {
 export default function Stats() {
   const [age, setAge] = useState("—");
   const [time, setTime] = useState<{ time: string; offset: string } | null>(null);
-  const [githubStats, setGithubStats] = useState<number | null>(null);
+  const [githubStats, setGithubStats] = useState<{ contributions: number; totalCommits: number } | null>(null);
   const [wakatimeStats, setWakatimeStats] = useState<{ monthly: number; yearly: number } | null>(null);
   const [spotifyStats, setSpotifyStats] = useState<MusicStats | null>(null);
 
@@ -149,7 +151,7 @@ export default function Stats() {
     },
     {
       icon: <MdCode size={18} />,
-      label: <><span className="font-mono">{githubStats?.toLocaleString()}</span> githubStats</>,
+      label: <><span className="font-mono">{githubStats?.contributions.toLocaleString()}</span> contributions</>,
       sublabel: "On GitHub in the last year",
       ready: githubStats !== null,
     },
