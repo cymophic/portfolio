@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils/cn";
 import { useState } from "react";
 import Image from "next/image";
 import { profileInfo } from "@/lib/site";
@@ -8,9 +9,11 @@ import Skeleton from "@/components/ui/Skeleton";
 type Props = {
   width: number;
   height: number;
+  className?: string;
 };
 
-export default function ProfileImage({ width, height }: Props) {
+export default function ProfileImage({ width, height, className }: Props) {
+  console.log(className);
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -29,7 +32,11 @@ export default function ProfileImage({ width, height }: Props) {
         height={height}
         priority
         onLoad={() => setLoaded(true)}
-        className={`rounded-full object-cover ${loaded ? "block" : "hidden"}`}
+        className={cn(
+          "rounded-full object-cover",
+          loaded ? "block" : "hidden",
+          className
+        )}
       />
     </>
   );
