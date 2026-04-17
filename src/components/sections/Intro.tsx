@@ -47,7 +47,7 @@ export default function Intro() {
 
   return (
     <section className="w-full">
-      <div className="flex flex-col mx-auto max-w-4xl mt-24 px-6 sm:flex-row sm:justify-between sm:gap-12 sm:items-center sm:px-10">
+      <div className="flex flex-col mx-auto mt-24 px-6 sm:flex-row sm:justify-between sm:gap-12 sm:items-center sm:px-10">
         <div className="flex flex-col gap-4 sm:gap-6">
           {/* Profile Image - Small Screens */}
           <div className="shrink-0 sm:hidden ">

@@ -63,7 +63,7 @@ export default function Projects() {
 
   return (
     <section className="w-full">
-      <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-10">
+      <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         {/* Title */}
         <SectionTitle title="Projects" />
 
