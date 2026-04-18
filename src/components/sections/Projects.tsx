@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { MdFolder, MdClose } from "react-icons/md";
+import { MdFolder, MdArrowBackIosNew } from "react-icons/md";
 import { projects } from "@/lib/site";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
@@ -45,9 +45,9 @@ function ProjectTags({ tags }: TagsSectionProps) {
       {remaining > 0 && isExpanded && (
         <button
           onClick={() => setIsExpanded(false)}
-          className={`${tagPillClass} text-zinc-400 dark:text-zinc-400 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors`}
+          className={`${tagPillClass} cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors py-1!`}
         >
-          <MdClose size={10} className="overflow-clip text-zinc-500 dark:text-zinc-300" />
+          <MdArrowBackIosNew size={10} className="overflow-clip text-zinc-500 dark:text-zinc-400" />
         </button>
       )}
 
