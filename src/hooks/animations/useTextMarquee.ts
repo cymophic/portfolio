@@ -12,50 +12,59 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
   const animateRef = useRef<() => (() => void) | undefined>(undefined);
 
   const animate = useCallback(() => {
-      const el = ref.current;
-      if (!el || !labelText) return;
+    const el = ref.current;
+    if (!el || !labelText) return;
 
-      let cancelled = false;
-      let pauseStartTimer: ReturnType<typeof setTimeout> | undefined;
-      let pauseEndTimer: ReturnType<typeof setTimeout> | undefined;
+    let cancelled = false;
+    let pauseEndTimer: ReturnType<typeof setTimeout> | undefined;
 
-      const overflowCheckTimer = setTimeout(() => {
-        const isOverflowing = el.scrollWidth > el.clientWidth;
-        if (!isOverflowing || cancelled) return;
+    const isOverflowing = el.scrollWidth > el.clientWidth;
+    if (!isOverflowing) return;
 
-        pauseStartTimer = setTimeout(() => {
-          const interval = setInterval(() => {
-            if (cancelled) return clearInterval(interval);
+    const pauseStartTimer = setTimeout(() => {
+      const interval = setInterval(() => {
+        if (cancelled) return clearInterval(interval);
 
-            el.scrollLeft += CONFIG.pixelsPerStep;
-            const maxScroll = el.scrollWidth - el.clientWidth;
+        el.scrollLeft += CONFIG.pixelsPerStep;
 
-            if (el.scrollLeft >= maxScroll) {
-              clearInterval(interval);
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        if (el.scrollLeft >= maxScroll) {
+          clearInterval(interval);
 
-              pauseEndTimer = setTimeout(() => {
-                el.scrollLeft = 0;
-                if (!cancelled) animateRef.current?.();
-              }, CONFIG.pauseEnd * 1000);
-            }
-          }, CONFIG.stepInterval);
-        }, CONFIG.pauseStart * 1000);
-      }, 200);
+          pauseEndTimer = setTimeout(() => {
+            el.scrollLeft = 0;
+            if (!cancelled) animateRef.current?.();
+          }, CONFIG.pauseEnd * 1000);
+        }
+      }, CONFIG.stepInterval);
+    }, CONFIG.pauseStart * 1000);
 
-      return () => {
-        cancelled = true;
-        clearTimeout(overflowCheckTimer);
-        clearTimeout(pauseStartTimer);
-        clearTimeout(pauseEndTimer);
-        el.scrollLeft = 0;
-      };
-    }, [labelText]);
+    return () => {
+      cancelled = true;
+      clearTimeout(pauseStartTimer);
+      clearTimeout(pauseEndTimer);
+      el.scrollLeft = 0;
+    };
+  }, [labelText]);
 
   useEffect(() => {
     if (!ready || !labelText) return;
     animateRef.current = animate;
-    const cleanup = animate();
-    return cleanup;
+
+    let cleanup: (() => void) | undefined;
+
+    const observer = new ResizeObserver(() => {
+      cleanup?.();
+      cleanup = animate();
+    });
+
+    const el = ref.current;
+    if (el) observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      cleanup?.();
+    };
   }, [ready, labelText, animate]);
 
   return { ref };
