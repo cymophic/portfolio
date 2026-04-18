@@ -24,4 +24,6 @@ export interface Career {
   type?: string;
   start: string;
   end: string;
+  about?: string;
+  scope?: string;
 }
