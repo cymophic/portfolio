@@ -8,31 +8,37 @@ const CONFIG = {
 };
 
 export default function useTextMarquee(labelText: string | undefined, ready: boolean) {
-  const ref = useRef<HTMLSpanElement>(null);
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const innerRef = useRef<HTMLSpanElement>(null);
   const animateRef = useRef<() => (() => void) | undefined>(undefined);
 
   const animate = useCallback(() => {
-    const el = ref.current;
-    if (!el || !labelText) return;
+    const container = containerRef.current;
+    const inner = innerRef.current;
+    if (!container || !inner || !labelText) return;
+
+    const isOverflowing = inner.scrollWidth > container.clientWidth;
+    if (!isOverflowing) return;
 
     let cancelled = false;
-    let pauseEndTimer: ReturnType<typeof setTimeout> | undefined;
+    let offset = 0;
+    const maxOffset = inner.scrollWidth - container.clientWidth;
 
-    const isOverflowing = el.scrollWidth > el.clientWidth;
-    if (!isOverflowing) return;
+    let pauseEndTimer: ReturnType<typeof setTimeout> | undefined;
 
     const pauseStartTimer = setTimeout(() => {
       const interval = setInterval(() => {
         if (cancelled) return clearInterval(interval);
 
-        el.scrollLeft += CONFIG.pixelsPerStep;
+        offset += CONFIG.pixelsPerStep;
+        inner.style.transform = `translateX(-${offset}px)`;
 
-        const maxScroll = el.scrollWidth - el.clientWidth;
-        if (el.scrollLeft >= maxScroll) {
+        if (offset >= maxOffset) {
           clearInterval(interval);
 
           pauseEndTimer = setTimeout(() => {
-            el.scrollLeft = 0;
+            offset = 0;
+            inner.style.transform = `translateX(0px)`;
             if (!cancelled) animateRef.current?.();
           }, CONFIG.pauseEnd * 1000);
         }
@@ -43,7 +49,8 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
       cancelled = true;
       clearTimeout(pauseStartTimer);
       clearTimeout(pauseEndTimer);
-      el.scrollLeft = 0;
+      offset = 0;
+      inner.style.transform = `translateX(0px)`;
     };
   }, [labelText]);
 
@@ -58,7 +65,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
       cleanup = animate();
     });
 
-    const el = ref.current;
+    const el = containerRef.current;
     if (el) observer.observe(el);
 
     return () => {
@@ -67,5 +74,5 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
     };
   }, [ready, labelText, animate]);
 
-  return { ref };
+  return { containerRef, innerRef };
 }
