@@ -70,6 +70,14 @@ export const profileInfo = {
       start: "Mar 2024",
       end: "Jun 2024",
     },
+    {
+      company: "Gingersnaps PH",
+      logo: "/logos/work_gk.png",
+      role: "QA Analyst",
+      type: "Internship",
+      start: "Nov 2019",
+      end: "Dec 2019",
+    },
   ] as Career[],
 }
 
