@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MdArrowOutward } from "react-icons/md";
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { TimelineItem } from "@/components/sections/common/Timeline";
@@ -19,11 +20,20 @@ export default function Education() {
                   {/* Left: School info */}
                   <div className="flex gap-5 sm:gap-3 items-start">
                     {edu.logo && (
-                      <Image src={edu.logo} alt={edu.school} width={64} height={64} className="hidden sm:block rounded-lg object-cover shrink-0 mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600" />
+                      <a href={edu.website} target="_blank" rel="noopener noreferrer" className="hidden sm:block shrink-0">
+                        <Image src={edu.logo} alt={edu.school} width={64} height={64} className="rounded-lg object-cover mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600" />
+                      </a>
                     )}
                     <div className="flex flex-col gap-0.5">
                       <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100">{edu.degree}</span>
-                      <span className="text-sm text-zinc-600 dark:text-zinc-400">{edu.school}</span>
+                      <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                        <a href={edu.website} target="_blank" rel="noopener noreferrer" className={edu.website ? "underline sm:no-underline sm:hover:underline" : ""}>
+                          {edu.school}
+                          {edu.website && (
+                            <MdArrowOutward size={18} className="sm:hidden inline ml-1 mb-0.5 overflow-clip" />
+                          )}
+                        </a>
+                      </span>
                       <span className="text-sm text-zinc-600 dark:text-zinc-400 sm:text-zinc-500 sm:dark:text-zinc-500">{edu.start} - {edu.end}</span>
                     </div>
                   </div>

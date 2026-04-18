@@ -1,6 +1,7 @@
 export interface Education {
   school: string;
   logo?: string;
+  website?: string;
   degree: string;
   start: string;
   end: string;
@@ -18,6 +19,7 @@ export interface EducationDetails {
 export interface Career {
   company: string;
   logo?: string;
+  website?: string;
   role: string;
   type?: string;
   start: string;

@@ -9,7 +9,7 @@ export const profileInfo = {
   name: "Luis Abhram",
   title: "DevOps Engineer",
   location: "Pasig City, Philippines",
-  tagline: "Simplicity is the ultimate sophistication.",
+  tagline: "In coding, simplicity is the ultimate sophistication",
   bio: [
     "Hi! I'm Luis, a DevOps engineer with a background in software engineering based in Philippines. I build, deploy, and maintain systems end to end, from the code to the infrastructure it runs on.",
 
@@ -30,6 +30,7 @@ export const profileInfo = {
   education: [
     {
       school: "Systems Technology Institute College",
+      website: "https://sti.edu/",
       logo: "/logos/edu_sti.png",
       degree: "B.S. in Computer Engineering",
       start: "Sep 2020",
@@ -43,6 +44,7 @@ export const profileInfo = {
     },
     {
       school: "Systems Technology Institute College",
+      website: "https://sti.edu/",
       logo: "/logos/edu_sti.png",
       degree: "Mobile App & Web Development",
       start: "Jun 2018",
@@ -56,6 +58,7 @@ export const profileInfo = {
   career: [
     {
       company: "Power Mac Center Inc.",
+      website: "https://powermaccenter.com/",
       logo: "/logos/work_pmc.png",
       role: "DevOps Engineer",
       type: "Full-time",
@@ -72,6 +75,7 @@ export const profileInfo = {
     },
     {
       company: "Gingersnaps PH",
+      website: "https://gingersnaps.com.ph/",
       logo: "/logos/work_gk.png",
       role: "QA Analyst",
       type: "Internship",
