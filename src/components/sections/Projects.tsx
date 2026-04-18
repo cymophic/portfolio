@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { MdFolder, MdArrowBackIosNew } from "react-icons/md";
+import { MdFolder, MdArrowBackIosNew, MdLanguage } from "react-icons/md";
+import { FaGithub } from "react-icons/fa";
+
 import { projects } from "@/lib/site";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
+import Tooltip from "@/components/ui/Tooltip";
 
 type TagsSectionProps = {
   tags: string[];
@@ -80,9 +83,27 @@ export default function Projects() {
               </div>
 
               {/* Title */}
-              <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100">
-                {project.title}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100">
+                  {project.title}
+                </span>
+                {project.url && (
+                  <Tooltip content={project.url}>
+                    <a href={project.url} target="_blank" rel="noopener noreferrer"
+                    className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                      <MdLanguage size={16} className="overflow-clip" />
+                    </a>
+                  </Tooltip>
+                )}
+                {project.repo && (
+                  <Tooltip content={project.repo}>
+                    <a href={project.repo} target="_blank" rel="noopener noreferrer"
+                      className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                      <FaGithub size={16} className="overflow-clip" />
+                    </a>
+                  </Tooltip>
+                )}
+              </div>
 
               {/* Description */}
               {project.description && (

@@ -130,7 +130,7 @@ export const projects = [
     repo: null,
   },
   {
-    title: "PMC Enterprise & Education",
+    title: "PMC Business",
     description: "The official lead generation website of Power Mac Center for business-level clients.",
     tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted"],
     url: "https://business.powermaccenter.com",
