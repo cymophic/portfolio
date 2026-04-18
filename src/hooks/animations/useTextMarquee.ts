@@ -16,6 +16,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
       if (!el || !labelText) return;
 
       let cancelled = false;
+      let pauseStartTimer: ReturnType<typeof setTimeout> | undefined;
       let pauseEndTimer: ReturnType<typeof setTimeout> | undefined;
 
       const overflowCheckTimer = setTimeout(() => {
@@ -24,7 +25,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
 
         const maxScroll = el.scrollWidth - el.clientWidth;
 
-        setTimeout(() => {
+        pauseStartTimer = setTimeout(() => {
           const interval = setInterval(() => {
             if (cancelled) return clearInterval(interval);
 
@@ -45,6 +46,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
       return () => {
         cancelled = true;
         clearTimeout(overflowCheckTimer);
+        clearTimeout(pauseStartTimer);
         clearTimeout(pauseEndTimer);
         el.scrollLeft = 0;
       };
