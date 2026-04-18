@@ -23,13 +23,13 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
         const isOverflowing = el.scrollWidth > el.clientWidth;
         if (!isOverflowing || cancelled) return;
 
-        const maxScroll = el.scrollWidth - el.clientWidth;
-
         pauseStartTimer = setTimeout(() => {
           const interval = setInterval(() => {
             if (cancelled) return clearInterval(interval);
 
             el.scrollLeft += CONFIG.pixelsPerStep;
+            const maxScroll = el.scrollWidth - el.clientWidth;
+            console.log(el.scrollLeft, maxScroll);
 
             if (el.scrollLeft >= maxScroll) {
               clearInterval(interval);
