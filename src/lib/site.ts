@@ -130,7 +130,7 @@ export const projects = [
     repo: null,
   },
   {
-    title: "PMC Enterprise & Education",
+    title: "PMC Business",
     description: "The official lead generation website of Power Mac Center for business-level clients.",
     tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted"],
     url: "https://business.powermaccenter.com",
@@ -161,7 +161,7 @@ export const portfolioEasterEggMessages = [
   { text: "You're very persistent, aren't you?" },
   { text: "Okay, I admire the dedication." },
   { text: "You have a lot of time in your hands." },
-  { text: "Wait, I'm running out of things to say." },
-  { text: "Okay, I'll just ignore you from now on." },
-  { text: "leaves", type: "action" },
+  { text: "You can stop now." },
+  { text: "Stop, it's gonna break." },
+  { text: "Explodes to countless fragments", type: "action" },
 ];

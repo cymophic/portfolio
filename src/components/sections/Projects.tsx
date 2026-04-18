@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { MdFolder, MdArrowBackIosNew } from "react-icons/md";
-import { projects } from "@/lib/site";
+import { MdFolder, MdArrowBackIosNew, MdLanguage } from "react-icons/md";
+import { FaGithub } from "react-icons/fa";
+import { toast } from "sonner";
+
+import { projects, portfolioEasterEggMessages } from "@/lib/site";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
+import Tooltip from "@/components/ui/Tooltip";
 
 type TagsSectionProps = {
   tags: string[];
@@ -64,6 +68,9 @@ function ProjectTags({ tags }: TagsSectionProps) {
 }
 
 export default function Projects() {
+  const [easterEggIndex, setEasterEggIndex] = useState(0);
+  const [easterEggDisabled, setEasterEggDisabled] = useState(false);
+
   return (
     <section className="w-full">
       <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
@@ -80,9 +87,51 @@ export default function Projects() {
               </div>
 
               {/* Title */}
-              <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100">
-                {project.title}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100">
+                  {project.title}
+                </span>
+                {project.url && (
+                  <Tooltip content={project.url} disabled={project.title === "Personal Portfolio"}>
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => {
+                        if (project.title === "Personal Portfolio") {
+                          e.preventDefault();
+                          const current = portfolioEasterEggMessages[easterEggIndex];
+                          if (current.type === "action") {
+                            toast(<span className="font-sans italic text-sm text-zinc-400 dark:text-zinc-500">{current.text}</span>);
+                            setEasterEggDisabled(true);
+                            return;
+                          }
+                          toast(<span className="font-sans text-sm">{current.text}</span>);
+                          setEasterEggIndex((prev) => prev + 1);
+                        }
+                      }}
+                      className={
+                        easterEggDisabled && project.title === "Personal Portfolio"
+                          ? "text-zinc-300 dark:text-zinc-700 pointer-events-none"
+                          : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
+                      }
+                    >
+                      {easterEggDisabled && project.title === "Personal Portfolio"
+                        ? <span className="text-base leading-none">💥</span>
+                        : <MdLanguage size={16} className="overflow-clip" />
+                      }
+                    </a>
+                  </Tooltip>
+                )}
+                {project.repo && (
+                  <Tooltip content={project.repo}>
+                    <a href={project.repo} target="_blank" rel="noopener noreferrer"
+                      className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                      <FaGithub size={16} className="overflow-clip" />
+                    </a>
+                  </Tooltip>
+                )}
+              </div>
 
               {/* Description */}
               {project.description && (
