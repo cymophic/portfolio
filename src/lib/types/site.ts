@@ -14,3 +14,12 @@ export interface EducationDetails {
   honor?: string[];
   description?: string;
 }
+
+export interface Career {
+  company: string;
+  logo?: string;
+  role: string;
+  type?: string;
+  start: string;
+  end: string;
+}
