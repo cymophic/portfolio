@@ -25,6 +25,31 @@ export const profileInfo = {
     { label: "LinkedIn", link: "https://linkedin.com/in/luisabhram" },
     { label: "Instagram", link: "https://instagram.com/cymophic" },
   ],
+  education: [
+    {
+      school: "STI College",
+      degree: "B.S. in Computer Engineering",
+      start: "Sep 2020",
+      end: "Jul 2024",
+      details: {
+        grade: "1.75 GWA",
+        awards: ["Best Thesis Award"],
+        organizations: ["Computer Engineering Society (CompE)", "STI Robotics Club"],
+        honor: ["President's Lister"],
+        description: "Graduated with honors.",
+      },
+    },
+    {
+      school: "STI College",
+      degree: "Mobile App & Web Development",
+      start: "Jun 2018",
+      end: "Mar 2020",
+      details: {
+        grade: "98.2% General Average",
+        honor: ["High Honors"],
+      },
+    },
+  ],
 }
 
 // Tech stack
@@ -55,24 +80,6 @@ export const workExperience = [
     start: "Mar 2024",
     end: "Jun 2024",
     lines: [],
-  },
-];
-
-// Education
-export const education = [
-  {
-    school: "STI College",
-    degree: "B.S. in Computer Engineering",
-    start: "Sep 2020",
-    end: "Jul 2024",
-    honors: [],
-  },
-  {
-    school: "STI College",
-    degree: "Mobile App & Web Development",
-    start: "Jun 2018",
-    end: "Mar 2020",
-    honors: [],
   },
 ];
 
