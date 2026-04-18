@@ -55,7 +55,7 @@ export default function Intro() {
           </div>
 
           {/* Name */}
-          <h1 className="whitespace-nowrap">
+          <h1 className="whitespace-nowrap -mb-2">
             <AnimateText
               words={words}
               className="font-mono text-3xl sm:text-5xl font-semibold leading-tight tracking-wide text-zinc-700 dark:text-zinc-50"
