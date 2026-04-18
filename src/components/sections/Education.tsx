@@ -19,7 +19,7 @@ export default function Education() {
                   {/* Left: School info */}
                   <div className="flex gap-5 sm:gap-3 items-start">
                     {edu.logo && (
-                      <Image src={edu.logo} alt={edu.school} width={64} height={64} className="hidden sm:block rounded-lg object-cover shrink-0 mt-0.5 p-1 -ml-1 border border-zinc-200 dark:border-zinc-700" />
+                      <Image src={edu.logo} alt={edu.school} width={64} height={64} className="hidden sm:block rounded-lg object-cover shrink-0 mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600" />
                     )}
                     <div className="flex flex-col gap-0.5">
                       <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100">{edu.degree}</span>

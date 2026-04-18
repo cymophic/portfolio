@@ -14,7 +14,7 @@ export default function WorkOverviewSection() {
             <TimelineItem key={i}>
               <div className="flex gap-3 items-start">
                 {work.logo && (
-                  <Image src={work.logo} alt={work.company} width={64} height={64} className="hidden sm:block rounded-lg object-cover shrink-0 mt-0.5 p-1 -ml-1 border border-zinc-200 dark:border-zinc-700" />
+                  <Image src={work.logo} alt={work.company} width={64} height={64} className="hidden sm:block rounded-lg object-cover shrink-0 mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600" />
                 )}
                 <div className="flex flex-col gap-0.5">
                   <div className="flex items-center gap-3">
