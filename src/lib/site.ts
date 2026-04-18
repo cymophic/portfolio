@@ -1,3 +1,5 @@
+import type { Education } from "@/lib/types/site";
+
 // Navigation links for the website
 export const navLinks: { href: string; label: string }[] = [
 ];
@@ -32,11 +34,10 @@ export const profileInfo = {
       start: "Sep 2020",
       end: "Jul 2024",
       details: {
-        grade: "1.75 GWA",
-        awards: ["Best Thesis Award"],
-        organizations: ["Computer Engineering Society (CompE)", "STI Robotics Club"],
-        honor: ["President's Lister"],
-        description: "Graduated with honors.",
+        honor: ["President's Lister (2020-2024)", "Magna Cum Laude"],
+        awards: ["Best Capstone Research", "Best in Communication"],
+        grade: "1.18 GWA",
+        clubs: ["Institute of Computer Engineers of the Philippines (ISCpE)", "STI Engineering Community"],
       },
     },
     {
@@ -44,12 +45,12 @@ export const profileInfo = {
       degree: "Mobile App & Web Development",
       start: "Jun 2018",
       end: "Mar 2020",
-      details: {
-        grade: "98.2% General Average",
+      details: {  
         honor: ["High Honors"],
+        clubs: ["Developers of Next Advanced Technology (DoNAT)"],
       },
     },
-  ],
+  ] as Education[],
 }
 
 // Tech stack
