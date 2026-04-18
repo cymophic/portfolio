@@ -1,3 +1,5 @@
+import type { Career, Education } from "@/lib/types/site";
+
 // Navigation links for the website
 export const navLinks: { href: string; label: string }[] = [
 ];
@@ -25,6 +27,58 @@ export const profileInfo = {
     { label: "LinkedIn", link: "https://linkedin.com/in/luisabhram" },
     { label: "Instagram", link: "https://instagram.com/cymophic" },
   ],
+  education: [
+    {
+      school: "STI College",
+      logo: "/logos/edu_sti.png",
+      degree: "B.S. in Computer Engineering",
+      start: "Sep 2020",
+      end: "Jul 2024",
+      details: {
+        honor: ["President's Lister (2020-2024)", "Magna Cum Laude"],
+        awards: ["Best Capstone Research", "Best in Communication"],
+        grade: "1.18 GWA",
+        clubs: ["Institute of Computer Engineers of the Philippines (ISCpE)", "STI Engineering Community"],
+      },
+    },
+    {
+      school: "STI College",
+      logo: "/logos/edu_sti.png",
+      degree: "Mobile App & Web Development",
+      start: "Jun 2018",
+      end: "Mar 2020",
+      details: {  
+        honor: ["High Honors"],
+        clubs: ["Developers of Next Advanced Technology (DoNAT)"],
+      },
+    },
+  ] as Education[],
+  career: [
+    {
+      company: "Power Mac Center Inc.",
+      logo: "/logos/work_pmc.png",
+      role: "DevOps Engineer",
+      type: "Full-time",
+      start: "Nov 2024",
+      end: "Apr 2026",
+    },
+    {
+      company: "Third Generation Holdings Co.",
+      logo: "/logos/work_tghc.png",
+      role: "Software Developer",
+      type: "Internship",
+      start: "Mar 2024",
+      end: "Jun 2024",
+    },
+    {
+      company: "Gingersnaps PH",
+      logo: "/logos/work_gk.png",
+      role: "QA Analyst",
+      type: "Internship",
+      start: "Nov 2019",
+      end: "Dec 2019",
+    },
+  ] as Career[],
 }
 
 // Tech stack
@@ -39,42 +93,6 @@ export const techStack = {
   scripting: ["Python", "Bash", "Makefile"],
   monitoring: ["Sentry", "Google Analytics", "Grafana", "Prometheus", "Loki"],
 };
-
-// Work experience
-export const workExperience = [
-  {
-    company: "Power Mac Center Inc.",
-    role: "DevOps Engineer",
-    start: "Nov 2024",
-    end: "Apr 2026",
-    lines: [],
-  },
-  {
-    company: "Third Generation Holdings Co.",
-    role: "Software Developer Intern",
-    start: "Mar 2024",
-    end: "Jun 2024",
-    lines: [],
-  },
-];
-
-// Education
-export const education = [
-  {
-    school: "STI College",
-    degree: "B.S. in Computer Engineering",
-    start: "Sep 2020",
-    end: "Jul 2024",
-    honors: [],
-  },
-  {
-    school: "STI College",
-    degree: "Mobile App & Web Development",
-    start: "Jun 2018",
-    end: "Mar 2020",
-    honors: [],
-  },
-];
 
 // Certifications
 export const certifications = [

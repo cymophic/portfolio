@@ -62,7 +62,7 @@ export default function Tooltip({ content, disabled = false, children }: Props) 
         <div
           role="tooltip"
           style={{ left: offsetX }}
-          className={`${position === "top" ? "bottom-full mb-2" : "top-full mt-2"} pointer-events-none absolute left-0 z-50 w-max max-w-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2.5 py-1.5 text-sm text-zinc-800 dark:text-zinc-200 shadow-md`}
+          className={`${position === "top" ? "bottom-full mb-2" : "top-full mt-2"} pointer-events-none absolute left-0 z-50 w-max max-w-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1.5 text-sm text-zinc-800 dark:text-zinc-200 shadow-md`}
         >
           {content}
         </div>

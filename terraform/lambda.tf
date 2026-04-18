@@ -48,6 +48,7 @@ resource "aws_lambda_function" "github" {
   handler          = "github.handler"
   runtime          = "nodejs22.x"
   source_code_hash = data.archive_file.github.output_base64sha256
+  timeout          = 10
 
   environment {
     variables = {

@@ -73,9 +73,9 @@ luisabhram.dev/
 │   ├── hooks/
 │   │   └── animations/                   # GSAP animation hooks
 │   ├── lib/
-│   │   ├── utils/
+│   │   ├── types/                        # Type definitions
+│   │   ├── utils/                        # Utilities
 │   │   └── site.ts                       # Site configurations
-│   └── types/                            # Type definitions
 ├── terraform/                            # AWS infrastructure as code
 │   ├── terraform.tfvars.example          # Terraform variable template
 │   ├── main.tf                           # Terraform and provider configuration
