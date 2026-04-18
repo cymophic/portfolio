@@ -29,14 +29,14 @@ async function fetchGithubStats(): Promise<{ contributions: number; totalCommits
   }
 }
 
-async function fetchWakatimeStats(): Promise<{ monthly: number; yearly: number } | null> {
+async function fetchWakatimeStats(): Promise<{ today: number; weekly: number; monthly: number; yearly: number } | null> {
   const url = process.env.NEXT_PUBLIC_API_URL;
   if (!url) return null;
 
   try {
     const res = await fetch(`${url}/wakatime`);
     const result = await res.json();
-    return result.monthly != null && result.yearly != null ? result : null;
+    return result.monthly != null && result.yearly != null && result.weekly != null ? result : null;
   } catch (error) {
     console.error("Network or Parsing Error:", error);
     return null;
@@ -118,7 +118,7 @@ export default function Stats() {
   const [age, setAge] = useState("—");
   const [time, setTime] = useState<{ time: string; offset: string } | null>(null);
   const [githubStats, setGithubStats] = useState<{ contributions: number; totalCommits: number } | null>(null);
-  const [wakatimeStats, setWakatimeStats] = useState<{ monthly: number; yearly: number } | null>(null);
+  const [wakatimeStats, setWakatimeStats] = useState<{ today: number; weekly: number; monthly: number; yearly: number } | null>(null);
   const [spotifyStats, setSpotifyStats] = useState<MusicStats | null>(null);
 
   useEffect(() => {
@@ -157,7 +157,7 @@ export default function Stats() {
     },
     {
       icon: <MdAccessTime size={18} />,
-      label: <><span className="font-mono">{wakatimeStats?.monthly.toLocaleString()}</span> hours coded this month</>,
+      label: <><span className="font-mono">{wakatimeStats?.weekly.toLocaleString()}</span> hours coded this week</>,
       sublabel: <><span className="font-mono">{wakatimeStats?.yearly.toLocaleString()}</span> hours coded this year</>,
       ready: wakatimeStats !== null,
     },
