@@ -30,6 +30,7 @@ export const profileInfo = {
   education: [
     {
       school: "STI College",
+      logo: "/logos/edu_sti.png",
       degree: "B.S. in Computer Engineering",
       start: "Sep 2020",
       end: "Jul 2024",
@@ -42,6 +43,7 @@ export const profileInfo = {
     },
     {
       school: "STI College",
+      logo: "/logos/edu_sti.png",
       degree: "Mobile App & Web Development",
       start: "Jun 2018",
       end: "Mar 2020",

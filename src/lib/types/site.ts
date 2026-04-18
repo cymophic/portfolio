@@ -1,5 +1,6 @@
 export interface Education {
   school: string;
+  logo?: string;
   degree: string;
   start: string;
   end: string;
