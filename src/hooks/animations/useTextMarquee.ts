@@ -29,7 +29,6 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
 
             el.scrollLeft += CONFIG.pixelsPerStep;
             const maxScroll = el.scrollWidth - el.clientWidth;
-            console.log(el.scrollLeft, maxScroll);
 
             if (el.scrollLeft >= maxScroll) {
               clearInterval(interval);
@@ -41,7 +40,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
             }
           }, CONFIG.stepInterval);
         }, CONFIG.pauseStart * 1000);
-      }, 50);
+      }, 200);
 
       return () => {
         cancelled = true;
