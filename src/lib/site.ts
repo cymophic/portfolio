@@ -9,7 +9,7 @@ export const profileInfo = {
   name: "Luis Abhram",
   title: "DevOps Engineer",
   location: "Pasig City, Philippines",
-  tagline: "Simplicity is the ultimate sophistication.",
+  tagline: "In coding, simplicity is the ultimate sophistication",
   bio: [
     "Hi! I'm Luis, a DevOps engineer with a background in software engineering based in Philippines. I build, deploy, and maintain systems end to end, from the code to the infrastructure it runs on.",
 
@@ -29,7 +29,8 @@ export const profileInfo = {
   ],
   education: [
     {
-      school: "STI College",
+      school: "Systems Technology Institute College",
+      website: "https://sti.edu/",
       logo: "/logos/edu_sti.png",
       degree: "B.S. in Computer Engineering",
       start: "Sep 2020",
@@ -42,7 +43,8 @@ export const profileInfo = {
       },
     },
     {
-      school: "STI College",
+      school: "Systems Technology Institute College",
+      website: "https://sti.edu/",
       logo: "/logos/edu_sti.png",
       degree: "Mobile App & Web Development",
       start: "Jun 2018",
@@ -56,11 +58,14 @@ export const profileInfo = {
   career: [
     {
       company: "Power Mac Center Inc.",
+      website: "https://powermaccenter.com/",
       logo: "/logos/work_pmc.png",
       role: "DevOps Engineer",
       type: "Full-time",
       start: "Nov 2024",
       end: "Apr 2026",
+      about: "Power Mac Center is the largest Apple Premium Reseller in the Philippines, operating 100+ branches nationwide.",
+      scope: "Served as a DevOps engineer, developing and deploying production systems on-premise and supporting thousands of employees across 100+ branches with minimal to no downtime.",
     },
     {
       company: "Third Generation Holdings Co.",
@@ -69,14 +74,19 @@ export const profileInfo = {
       type: "Internship",
       start: "Mar 2024",
       end: "Jun 2024",
+      about: "Third Generation Holdings is a Filipino conglomerate with business interests in security, manpower, and facilities management.",
+      scope: "Served as an intern software developer, building a forms and time log app for the security and roving team.",
     },
     {
       company: "Gingersnaps PH",
+      website: "https://gingersnaps.com.ph/",
       logo: "/logos/work_gk.png",
       role: "QA Analyst",
       type: "Internship",
       start: "Nov 2019",
       end: "Dec 2019",
+      about: "Gingersnaps is a Filipino children's fashion brand known for its playful and colorful clothing line.",
+      scope: "Served as a QA intern, conducting inventory checks and developing error reports from quality checks.",
     },
   ] as Career[],
 }

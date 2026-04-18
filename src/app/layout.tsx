@@ -9,7 +9,7 @@ import { profileInfo } from "@/lib/site";
 const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 import "./globals.css";
 
-import { Inter, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono, Spline_Sans_Mono } from "next/font/google";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,6 +20,11 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const splineSansMono = Spline_Sans_Mono({
+  subsets: ["latin"],
+  variable: "--font-spline-sans-mono",
+})
 
 export const metadata: Metadata = {
   title: `${profileInfo.name} | ${profileInfo.title}`,
@@ -44,7 +49,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
   }
 
   return (
-    <html lang="en" className={`${inter.variable} ${geistMono.variable} h-full antialiased font-sans`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${geistMono.variable} ${splineSansMono.variable} h-full antialiased font-sans`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950" suppressHydrationWarning>
         <ThemeProvider>{content}</ThemeProvider>
       </body>
