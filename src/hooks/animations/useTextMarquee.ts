@@ -12,41 +12,43 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
   const animateRef = useRef<() => (() => void) | undefined>(undefined);
 
   const animate = useCallback(() => {
-    const el = ref.current;
-    if (!el || !labelText) return;
+      const el = ref.current;
+      if (!el || !labelText) return;
 
-    // not truncated, skip
-    const isOverflowing = el.scrollWidth > el.clientWidth;
-    if (!isOverflowing) return;
+      let cancelled = false;
+      let pauseEndTimer: ReturnType<typeof setTimeout> | undefined;
 
-    const maxScroll = el.scrollWidth - el.clientWidth;
-    let cancelled = false;
+      const overflowCheckTimer = setTimeout(() => {
+        const isOverflowing = el.scrollWidth > el.clientWidth;
+        if (!isOverflowing || cancelled) return;
 
-    let pauseEndTimer: ReturnType<typeof setTimeout> | undefined;
-    const pauseStartTimer = setTimeout(() => {
-      const interval = setInterval(() => {
-        if (cancelled) return clearInterval(interval);
+        const maxScroll = el.scrollWidth - el.clientWidth;
 
-        el.scrollLeft += CONFIG.pixelsPerStep;
+        setTimeout(() => {
+          const interval = setInterval(() => {
+            if (cancelled) return clearInterval(interval);
 
-        if (el.scrollLeft >= maxScroll) {
-          clearInterval(interval);
+            el.scrollLeft += CONFIG.pixelsPerStep;
 
-          pauseEndTimer = setTimeout(() => {
-            el.scrollLeft = 0;
-            if (!cancelled) animateRef.current?.();
-          }, CONFIG.pauseEnd * 1000);
-        }
-      }, CONFIG.stepInterval);
-    }, CONFIG.pauseStart * 1000);
+            if (el.scrollLeft >= maxScroll) {
+              clearInterval(interval);
 
-    return () => {
-      cancelled = true;
-      clearTimeout(pauseStartTimer);
-      clearTimeout(pauseEndTimer);
-      el.scrollLeft = 0;
-    };
-  }, [labelText]);
+              pauseEndTimer = setTimeout(() => {
+                el.scrollLeft = 0;
+                if (!cancelled) animateRef.current?.();
+              }, CONFIG.pauseEnd * 1000);
+            }
+          }, CONFIG.stepInterval);
+        }, CONFIG.pauseStart * 1000);
+      }, 50);
+
+      return () => {
+        cancelled = true;
+        clearTimeout(overflowCheckTimer);
+        clearTimeout(pauseEndTimer);
+        el.scrollLeft = 0;
+      };
+    }, [labelText]);
 
   useEffect(() => {
     if (!ready || !labelText) return;
