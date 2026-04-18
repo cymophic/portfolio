@@ -40,7 +40,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
             }
           }, CONFIG.stepInterval);
         }, CONFIG.pauseStart * 1000);
-      }, 50);
+      }, 200);
 
       return () => {
         cancelled = true;
