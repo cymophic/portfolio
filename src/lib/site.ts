@@ -29,7 +29,7 @@ export const profileInfo = {
   ],
   education: [
     {
-      school: "STI College",
+      school: "Systems Technology Institute College",
       logo: "/logos/edu_sti.png",
       degree: "B.S. in Computer Engineering",
       start: "Sep 2020",
@@ -42,7 +42,7 @@ export const profileInfo = {
       },
     },
     {
-      school: "STI College",
+      school: "Systems Technology Institute College",
       logo: "/logos/edu_sti.png",
       degree: "Mobile App & Web Development",
       start: "Jun 2018",
