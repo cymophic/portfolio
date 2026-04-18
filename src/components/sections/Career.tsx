@@ -7,7 +7,7 @@ export default function WorkOverviewSection() {
   return (
     <section className="w-full">
       <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
-        <SectionTitle title="Work" />
+        <SectionTitle title="Career" />
 
         <div className="flex flex-col">
           {profileInfo.career.map((work, i) => (
