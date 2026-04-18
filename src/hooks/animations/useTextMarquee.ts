@@ -22,6 +22,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
     const maxScroll = el.scrollWidth - el.clientWidth;
     let cancelled = false;
 
+    let pauseEndTimer: ReturnType<typeof setTimeout> | undefined;
     const pauseStartTimer = setTimeout(() => {
       const interval = setInterval(() => {
         if (cancelled) return clearInterval(interval);
@@ -31,12 +32,10 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
         if (el.scrollLeft >= maxScroll) {
           clearInterval(interval);
 
-          const pauseEndTimer = setTimeout(() => {
+          pauseEndTimer = setTimeout(() => {
             el.scrollLeft = 0;
-            if (!cancelled) requestAnimationFrame(() => animateRef.current?.());
+            if (!cancelled) animateRef.current?.();
           }, CONFIG.pauseEnd * 1000);
-
-          return () => clearTimeout(pauseEndTimer);
         }
       }, CONFIG.stepInterval);
     }, CONFIG.pauseStart * 1000);
@@ -44,6 +43,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
     return () => {
       cancelled = true;
       clearTimeout(pauseStartTimer);
+      clearTimeout(pauseEndTimer);
       el.scrollLeft = 0;
     };
   }, [labelText]);
