@@ -15,23 +15,31 @@ export const handler = async () => {
     const token = process.env.WAKATIME_API_KEY;
     const headers = { Authorization: `Basic ${Buffer.from(token).toString("base64")}` };
 
-    const [monthlyRes, yearlyRes] = await Promise.all([
+    const [monthlyRes, yearlyRes, weeklyRes, todayRes] = await Promise.all([
       fetch("https://wakatime.com/api/v1/users/current/stats/last_30_days", { headers }),
       fetch("https://wakatime.com/api/v1/users/current/stats/last_year", { headers }),
+      fetch("https://wakatime.com/api/v1/users/current/stats/last_7_days", { headers }),
+      fetch("https://wakatime.com/api/v1/users/current/summaries?range=today", { headers }),
     ]);
 
     if (!monthlyRes.ok) throw new Error(`WakaTime API error: ${monthlyRes.status}`);
     if (!yearlyRes.ok) throw new Error(`WakaTime API error: ${yearlyRes.status}`);
+    if (!weeklyRes.ok) throw new Error(`WakaTime API error: ${weeklyRes.status}`);
+    if (!todayRes.ok) throw new Error(`WakaTime API error: ${todayRes.status}`);
 
-    const [monthly, yearly] = await Promise.all([monthlyRes.json(), yearlyRes.json()]);
+    const [monthly, yearly, weekly, today] = await Promise.all([
+      monthlyRes.json(), yearlyRes.json(), weeklyRes.json(), todayRes.json()
+    ]);
 
-    if (monthly.error || yearly.error) {
+    if (monthly.error || yearly.error || weekly.error || today.error) {
       return response(500, { error: "WakaTime API error" });
     }
 
     const toHours = (seconds) => Math.round(seconds / 3600);
 
     cache = response(200, {
+      today: toHours(today.data.reduce((sum, day) => sum + day.grand_total.total_seconds, 0)),
+      weekly: toHours(weekly.data.total_seconds),
       monthly: toHours(monthly.data.total_seconds),
       yearly: toHours(yearly.data.total_seconds),
     });
