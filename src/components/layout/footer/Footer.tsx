@@ -4,6 +4,7 @@ import ProfileImage from "@/components/ui/ProfileImage";
 import { profileInfo } from "@/lib/site";
 import { FiHeart } from "react-icons/fi";
 import SocialLinks from "../../ui/SocialLinks";
+import Tooltip from "@/components/ui/Tooltip";
 
 export default function Footer() {
   return (
@@ -17,9 +18,11 @@ export default function Footer() {
       </p>
 
       {/* Footer Image */}
-      <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-        <ProfileImage width={48} height={48} className="hover:scale-112 transition-transform"/>
-      </button>
+      <Tooltip content="Back to top">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <ProfileImage width={48} height={48} className="hover:scale-112 transition-transform"/>
+        </button>
+      </Tooltip>
 
       {/* Social Links */}
       <SocialLinks opacity={50} iconSize={16} hoverEffect="monochrome" />
