@@ -4,7 +4,7 @@
 
 @theme {
   --font-sans: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-geist-mono), var(--font-spline-sans-mono);
 }
 
 @layer base {
@@ -39,8 +39,8 @@
 }
 
 @layer utilities {
-  .font-consolas {
-    font-family: Consolas, monospace;
+  .font-console {
+    font-family: var(--font-spline-sans-mono), Consolas, monospace;
   }
 
   .scrollbar-gutter-auto {
