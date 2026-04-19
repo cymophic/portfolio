@@ -157,7 +157,7 @@ export default function Stats() {
   const stats: StatItemType[] = [
     {
       icon: <MdCalendarMonth size={18} />,
-      label: <><AnimateText words={[age]} variant="slot" cursor="none" className="leading-5" /> years old</>,
+      label: <><span className="font-mono"><AnimateText words={[age]} variant="slot" cursor="none" /></span> years old</>,
       sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
       ready: age !== "—",
     },
