@@ -1,33 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MdLocationPin, MdCode, MdAccessTime, MdCalendarMonth, MdMusicNote, MdHeadphones } from "react-icons/md";
+import { MdLocationPin, MdCode, MdAccessTime, MdCalendarMonth, MdKeyboard, MdMusicNote } from "react-icons/md";
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "./common/SectionTitle";
 import Skeleton from "@/components/ui/Skeleton";
 import AnimateText from "@/components/ui/AnimatedText";
 import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile";
+import { fetchGithubData } from "@/lib/utils/github";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
 import Tooltip from "@/components/ui/Tooltip";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
-
-async function fetchGithubStats(): Promise<{ contributions: number; totalCommits: number } | null> {
-  const url = process.env.NEXT_PUBLIC_API_URL;
-  if (!url) return null;
-
-  try {
-    const res = await fetch(`${url}/github`);
-    const result = await res.json();
-    return result.contributions != null && result.totalCommits != null
-      ? { contributions: result.contributions, totalCommits: result.totalCommits }
-      : null;
-  } catch (error) {
-    console.error("Network or Parsing Error:", error);
-    return null;
-  }
-}
 
 async function fetchWakatimeStats(): Promise<{ today: number; weekly: number; monthly: number; yearly: number } | null> {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -57,6 +42,20 @@ async function fetchSpotifyStats(): Promise<MusicStats | null> {
     const res = await fetch(`${url}/spotify`);
     const result = await res.json();
     return result ?? null;
+  } catch (error) {
+    console.error("Network or Parsing Error:", error);
+    return null;
+  }
+}
+
+async function fetchMonkeytypeStats(): Promise<{ wpm: number; acc: number; consistency: number } | null> {
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  if (!url) return null;
+
+  try {
+    const res = await fetch(`${url}/monkeytype`);
+    const result = await res.json();
+    return result.time?.["60"] ?? result.time?.["15"] ?? null;
   } catch (error) {
     console.error("Network or Parsing Error:", error);
     return null;
@@ -122,6 +121,7 @@ export default function Stats() {
   const [githubStats, setGithubStats] = useState<{ contributions: number; totalCommits: number } | null>(null);
   const [wakatimeStats, setWakatimeStats] = useState<{ today: number; weekly: number; monthly: number; yearly: number } | null>(null);
   const [spotifyStats, setSpotifyStats] = useState<MusicStats | null>(null);
+  const [monkeytypeStats, setMonkeytypeStats] = useState<{ wpm: number; acc: number; consistency: number } | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -129,9 +129,10 @@ export default function Stats() {
       setTime(getLocalTime(TIMEZONE));
     }, 1000);
 
-    fetchGithubStats().then(setGithubStats);
+    fetchGithubData().then((data) => setGithubStats(data ? { contributions: data.contributions, totalCommits: data.totalCommits } : null));
     fetchWakatimeStats().then(setWakatimeStats);
     fetchSpotifyStats().then(setSpotifyStats);
+    fetchMonkeytypeStats().then(setMonkeytypeStats);
 
     return () => clearInterval(interval);
   }, []);
@@ -141,7 +142,7 @@ export default function Stats() {
   const stats: StatItemType[] = [
     {
       icon: <MdCalendarMonth size={18} />,
-      label: <><AnimateText words={[age]} variant="slot" cursor="none" className="leading-5" /> years old</>,
+      label: <><span className="font-mono"><AnimateText words={[age]} variant="slot" cursor="none" /></span> years old</>,
       sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
       ready: age !== "—",
     },
@@ -164,21 +165,19 @@ export default function Stats() {
       ready: wakatimeStats !== null,
     },
     {
+      icon: <MdKeyboard size={18} />,
+      label: monkeytypeStats ? <><span className="font-mono">{Math.floor(monkeytypeStats.wpm)}</span> words per minute</> : "-",
+      labelText: monkeytypeStats ? `${monkeytypeStats.wpm} 60s typing speed` : undefined,
+      sublabel: "60s typing speed",
+      ready: monkeytypeStats !== null,
+    },
+    {
       icon: <MdMusicNote size={18} />,
       label: nowOrLast
         ? <><a href={nowOrLast.url} target="_blank" rel="noopener noreferrer" className="underline">{nowOrLast.song}</a> by {nowOrLast.artist}</>
         : "-",
       labelText: nowOrLast ? `${nowOrLast.song} by ${nowOrLast.artist}` : undefined,
       sublabel: spotifyStats?.nowPlaying ? "Currently playing" : "Recently played",
-      ready: spotifyStats !== null,
-    },
-    {
-      icon: <MdHeadphones size={18} />,
-      label: spotifyStats?.topTrack
-        ? <><a href={spotifyStats.topTrack.url} target="_blank" rel="noopener noreferrer" className="underline">{spotifyStats.topTrack.song}</a> by {spotifyStats.topTrack.artist}</>
-        : "-",
-      labelText: spotifyStats?.topTrack ? `${spotifyStats.topTrack.song} by ${spotifyStats.topTrack.artist}` : undefined,
-      sublabel: "Top track this year",
       ready: spotifyStats !== null,
     },
   ];

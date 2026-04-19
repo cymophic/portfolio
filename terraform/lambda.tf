@@ -165,3 +165,46 @@ resource "aws_lambda_permission" "spotify" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
 }
+
+# Monkeytype Endpoint
+data "archive_file" "monkeytype" {
+  type        = "zip"
+  source_file = "${path.module}/../lambda/monkeytype.mjs"
+  output_path = "${path.module}/../lambda/monkeytype.zip"
+}
+
+resource "aws_lambda_function" "monkeytype" {
+  filename         = data.archive_file.monkeytype.output_path
+  function_name    = "${var.project_name}-monkeytype"
+  role             = aws_iam_role.lambda_shared.arn
+  handler          = "monkeytype.handler"
+  runtime          = "nodejs22.x"
+  source_code_hash = data.archive_file.monkeytype.output_base64sha256
+  timeout          = 10
+
+  environment {
+    variables = {
+      MONKEYTYPE_API_KEY = var.monkeytype_api_key
+    }
+  }
+}
+
+resource "aws_apigatewayv2_integration" "monkeytype" {
+  api_id                 = aws_apigatewayv2_api.api.id
+  integration_type       = "AWS_PROXY"
+  integration_uri        = aws_lambda_function.monkeytype.invoke_arn
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "monkeytype" {
+  api_id    = aws_apigatewayv2_api.api.id
+  route_key = "GET /monkeytype"
+  target    = "integrations/${aws_apigatewayv2_integration.monkeytype.id}"
+}
+
+resource "aws_lambda_permission" "monkeytype" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.monkeytype.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
+}

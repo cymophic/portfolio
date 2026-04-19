@@ -1,12 +1,63 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
+import { useEffect, useState } from "react";
 import ProfileImage from "@/components/ui/ProfileImage";
 import { profileInfo } from "@/lib/site";
 import { FiHeart } from "react-icons/fi";
 import SocialLinks from "../../ui/SocialLinks";
 import Tooltip from "@/components/ui/Tooltip";
+import { fetchGithubData } from "@/lib/utils/github";
+
+function getOrdinal(n: number): string {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]);
+}
+
+function getDeviceOS(): string {
+  const platform = (navigator as Navigator & { userAgentData?: { platform: string } }).userAgentData?.platform ?? navigator.platform ?? "";
+  if (platform.includes("Win")) return "windows";
+  if (platform.includes("Mac")) return "macos";
+  if (platform.includes("Linux")) return "linux";
+  if (platform.includes("Android")) return "android";
+  if (platform.includes("iPhone") || platform.includes("iPad")) return "ios";
+  return "unknown";
+}
+
+function getVisitCount(): number {
+  if (typeof window === "undefined") return 0;
+  const count = parseInt(localStorage.getItem("visitCount") ?? "0") + 1;
+  localStorage.setItem("visitCount", String(count));
+  return count;
+}
+
+function formatCommitDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString("en-US", { month: "short", year: "numeric" }).toLowerCase();
+}
 
 export default function Footer() {
+  const [session, setSession] = useState(0);
+  const [os, setOs] = useState("—");
+  const [visitCount, setVisitCount] = useState(0);
+  const [commit, setCommit] = useState<{ id: string; url: string; date: string } | null>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => setSession((s) => s + 1), 1000);
+    setOs(getDeviceOS());
+    setVisitCount(getVisitCount());
+    fetchGithubData().then((data) => setCommit(data?.recentCommit ?? null));
+    return () => clearInterval(interval);
+  }, []);
+
+  const sessionTime = `${String(Math.floor(session / 60)).padStart(2, "0")}:${String(session % 60).padStart(2, "0")}`;
+  const visitLabel = visitCount > 0 ? `${getOrdinal(visitCount)} visit` : "—";
+  const commitLabel = commit ? `commit ${commit.id}` : "—";
+  const lastUpdated = commit ? formatCommitDate(commit.date) : "—";
+
+  const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors cursor-default";
+  const sep = "font-mono text-xs text-zinc-300 dark:text-zinc-700 mx-2.5";
+
   return (
     <footer className="flex flex-col items-center text-center gap-6">
       {/* Line */}
@@ -26,7 +77,49 @@ export default function Footer() {
 
       {/* Social Links */}
       <SocialLinks opacity={50} iconSize={16} hoverEffect="monochrome" />
-      
+
+      {/* Metadata */}
+      <div className="flex flex-col items-center gap-1.5">
+        {/* Desktop */}
+        <div className="hidden sm:flex items-center">
+          <Tooltip content="Your Visit Count"><span className={metaItem} suppressHydrationWarning>{visitLabel}</span></Tooltip>
+          <span className={sep}>|</span>
+          <Tooltip content="Your Device OS"><span className={metaItem} suppressHydrationWarning>{os.toLowerCase()}</span></Tooltip>
+          <span className={sep}>|</span>
+          <Tooltip content="Your Session Time"><span className={metaItem}>{sessionTime}</span></Tooltip>
+          <span className={sep}>|</span>
+          <Tooltip content="Latest Portfolio Commit">
+            {commit
+              ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={metaItem}>{commitLabel}</a>
+              : <span className={metaItem}>{commitLabel}</span>
+            }
+          </Tooltip>
+          <span className={sep}>|</span>
+          <Tooltip content="Last Updated"><span className={metaItem}>{lastUpdated}</span></Tooltip>
+        </div>
+
+        {/* Mobile */}
+        <div className="flex sm:hidden flex-col items-center gap-1.5">
+          <div className="flex items-center">
+            <Tooltip content="Your Visit Count"><span className={metaItem}>{visitLabel}</span></Tooltip>
+            <span className={sep}>|</span>
+            <Tooltip content="Your Session Time"><span className={metaItem}>{sessionTime}</span></Tooltip>
+            <span className={sep}>|</span>
+            <Tooltip content="Your Device OS"><span className={metaItem}>{os.toLowerCase()}</span></Tooltip>
+          </div>
+          <div className="flex items-center">
+            <Tooltip content="Latest Portfolio Commit">
+              {commit
+                ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={metaItem}>{commitLabel}</a>
+                : <span className={metaItem}>{commitLabel}</span>
+              }
+            </Tooltip>
+            <span className={sep}>|</span>
+            <Tooltip content="Last Updated"><span className={metaItem}>{lastUpdated}</span></Tooltip>
+          </div>
+        </div>
+      </div>
+
       {/* Copyright */}
       <p className="text-xs text-zinc-400 dark:text-zinc-500">
         © 2026{new Date().getFullYear() !== 2026 ? ` - ${new Date().getFullYear()}` : ""}. All rights reserved.
