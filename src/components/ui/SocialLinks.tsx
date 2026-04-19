@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
-import { IconType } from "react-icons";
+import { IconBrandGithub, IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
+import { Icon } from "@tabler/icons-react";
 import { profileInfo } from "@/lib/site";
 
-const iconMap: Record<string, IconType> = {
-  GitHub: FaGithub,
-  LinkedIn: FaLinkedin,
-  Instagram: FaInstagram,
+const iconMap: Record<string, Icon> = {
+  GitHub: IconBrandGithub,
+  LinkedIn: IconBrandLinkedin,
+  Instagram: IconBrandInstagram,
 };
 
 const colorMap: Record<string, { light: string; dark: string }> = {
@@ -25,7 +25,7 @@ type SocialLinksProps = {
   hoverEffect?: "monochrome" | "colored";
 };
 
-export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, iconSize = 18, hoverEffect = "colored" }: SocialLinksProps) {
+export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, iconSize = 20, hoverEffect = "colored" }: SocialLinksProps) {
   const filtered = profileInfo.socialLinks.filter(({ label }) => !exclude.includes(label));
   return (
     <div className="flex items-center gap-4" style={{ opacity: opacity / 100 }}>
@@ -51,7 +51,7 @@ export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, ico
               transition-colors duration-200
               ${hoverEffect === "colored" 
                 ? "text-zinc-400 hover:text-(--brand-light) dark:hover:text-(--brand-dark)" 
-                : "text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-100"}
+                : "text-zinc-400 hover:text-zinc-500 dark:text-zinc-500 dark:hover:text-zinc-300"}
             `}
           >
             <Icon size={iconSize} />

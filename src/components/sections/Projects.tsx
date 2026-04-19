@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { MdFolder, MdArrowBackIosNew, MdLanguage } from "react-icons/md";
 import { FaGithub } from "react-icons/fa";
+import { IconFolderFilled, IconChevronLeft, IconWorldShare } from "@tabler/icons-react";
 import { toast } from "sonner";
 
 import { projects, portfolioEasterEggMessages } from "@/lib/site";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
 import Tooltip from "@/components/ui/Tooltip";
+import useIsMobile from "@/hooks/browser/useIsMobile";
 
 type TagsSectionProps = {
   tags: string[];
@@ -49,9 +50,9 @@ function ProjectTags({ tags }: TagsSectionProps) {
       {remaining > 0 && isExpanded && (
         <button
           onClick={() => setIsExpanded(false)}
-          className={`${tagPillClass} cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors py-1!`}
+          className={`${tagPillClass} cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors py-0.75!`}
         >
-          <MdArrowBackIosNew size={10} className="overflow-clip text-zinc-500 dark:text-zinc-400" />
+          <IconChevronLeft size={12} className="overflow-clip text-zinc-500 dark:text-zinc-400" />
         </button>
       )}
 
@@ -68,6 +69,7 @@ function ProjectTags({ tags }: TagsSectionProps) {
 }
 
 export default function Projects() {
+  const isMobile = useIsMobile();
   const [easterEggIndex, setEasterEggIndex] = useState(0);
   const [easterEggDisabled, setEasterEggDisabled] = useState(false);
 
@@ -82,7 +84,7 @@ export default function Projects() {
               {/* Left Adornment */}
               <div className="absolute left-1.75 top-0.5 -translate-x-1/2">
                 <span className="flex h-5 w-5 items-center justify-center rounded-md border border-zinc-200 bg-zinc-100 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
-                  <MdFolder size={12} className="overflow-clip" />
+                  <IconFolderFilled size={12} className="overflow-clip" />
                 </span>
               </div>
 
@@ -92,7 +94,7 @@ export default function Projects() {
                   {project.title}
                 </span>
                 {project.url && (
-                  <Tooltip content={project.url} disabled={project.title === "Personal Portfolio"}>
+                  <Tooltip content="View live" disabled={project.title === "Personal Portfolio" || isMobile}>
                     <a
                       href={project.url}
                       target="_blank"
@@ -118,13 +120,13 @@ export default function Projects() {
                     >
                       {easterEggDisabled && project.title === "Personal Portfolio"
                         ? <span className="text-base leading-none">💥</span>
-                        : <MdLanguage size={16} className="overflow-clip" />
+                        : <IconWorldShare size={18} className="overflow-clip" />
                       }
                     </a>
                   </Tooltip>
                 )}
                 {project.repo && (
-                  <Tooltip content={project.repo}>
+                  <Tooltip content="View repository" disabled={isMobile}>
                     <a href={project.repo} target="_blank" rel="noopener noreferrer"
                       className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
                       <FaGithub size={16} className="overflow-clip" />

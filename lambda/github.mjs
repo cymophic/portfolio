@@ -72,7 +72,7 @@ export const handler = async () => {
       fetch(`https://api.github.com/search/commits?q=author:${username}&per_page=1`, {
         headers: { ...headers, Accept: "application/vnd.github.cloak-preview" },
       }),
-      fetch(`https://api.github.com/repos/${username}/${PORTFOLIO_REPO}/commits?per_page=10`, { headers }),
+      fetch(`https://api.github.com/repos/${username}/${PORTFOLIO_REPO}/commits?per_page=10&sha=main`, { headers }),
     ]);
 
     if (!graphqlRes.ok) throw new Error(`GitHub GraphQL error: ${graphqlRes.status}`);
