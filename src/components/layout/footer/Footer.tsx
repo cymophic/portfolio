@@ -26,13 +26,6 @@ function getDeviceOS(): string {
   return "unknown";
 }
 
-function getVisitCount(): number {
-  if (typeof window === "undefined") return 0;
-  const count = parseInt(localStorage.getItem("visitCount") ?? "0") + 1;
-  localStorage.setItem("visitCount", String(count));
-  return count;
-}
-
 function formatCommitDate(dateStr: string): string {
   return new Date(dateStr).toLocaleDateString("en-US", { month: "short", year: "numeric" }).toLowerCase();
 }
@@ -46,7 +39,11 @@ export default function Footer() {
   useEffect(() => {
     const interval = setInterval(() => setSession((s) => s + 1), 1000);
     setOs(getDeviceOS());
-    setVisitCount(getVisitCount());
+
+    fetch("https://abacus.jasoncameron.dev/hit/luisabhram.dev/visits")
+      .then((res) => res.json())
+      .then((data) => setVisitCount(data.value));
+      
     fetchGithubData().then((data) => setCommit(data?.recentCommit ?? null));
     return () => clearInterval(interval);
   }, []);
