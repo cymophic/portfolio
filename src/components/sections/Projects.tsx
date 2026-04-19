@@ -92,7 +92,7 @@ export default function Projects() {
                   {project.title}
                 </span>
                 {project.url && (
-                  <Tooltip content={project.url} disabled={project.title === "Personal Portfolio"}>
+                  <Tooltip content="View live" disabled={project.title === "Personal Portfolio"}>
                     <a
                       href={project.url}
                       target="_blank"
@@ -124,7 +124,7 @@ export default function Projects() {
                   </Tooltip>
                 )}
                 {project.repo && (
-                  <Tooltip content={project.repo}>
+                  <Tooltip content="View repository">
                     <a href={project.repo} target="_blank" rel="noopener noreferrer"
                       className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
                       <FaGithub size={16} className="overflow-clip" />
