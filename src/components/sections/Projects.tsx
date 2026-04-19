@@ -2,13 +2,14 @@
 
 import { useState, useRef } from "react";
 import { FaGithub } from "react-icons/fa";
-import { IconFolderFilled, IconChevronLeft, IconWorld } from "@tabler/icons-react";
+import { IconFolderFilled, IconChevronLeft, IconWorldShare } from "@tabler/icons-react";
 import { toast } from "sonner";
 
 import { projects, portfolioEasterEggMessages } from "@/lib/site";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
 import Tooltip from "@/components/ui/Tooltip";
+import useIsMobile from "@/hooks/browser/useIsMobile";
 
 type TagsSectionProps = {
   tags: string[];
@@ -68,6 +69,7 @@ function ProjectTags({ tags }: TagsSectionProps) {
 }
 
 export default function Projects() {
+  const isMobile = useIsMobile();
   const [easterEggIndex, setEasterEggIndex] = useState(0);
   const [easterEggDisabled, setEasterEggDisabled] = useState(false);
 
@@ -92,7 +94,7 @@ export default function Projects() {
                   {project.title}
                 </span>
                 {project.url && (
-                  <Tooltip content="View live" disabled={project.title === "Personal Portfolio"}>
+                  <Tooltip content="View live" disabled={project.title === "Personal Portfolio" || isMobile}>
                     <a
                       href={project.url}
                       target="_blank"
@@ -118,13 +120,13 @@ export default function Projects() {
                     >
                       {easterEggDisabled && project.title === "Personal Portfolio"
                         ? <span className="text-base leading-none">💥</span>
-                        : <IconWorld size={18} className="overflow-clip" />
+                        : <IconWorldShare size={18} className="overflow-clip" />
                       }
                     </a>
                   </Tooltip>
                 )}
                 {project.repo && (
-                  <Tooltip content="View repository">
+                  <Tooltip content="View repository" disabled={isMobile}>
                     <a href={project.repo} target="_blank" rel="noopener noreferrer"
                       className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
                       <FaGithub size={16} className="overflow-clip" />
