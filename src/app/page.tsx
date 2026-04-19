@@ -18,7 +18,7 @@ export default function Home() {
       <Work />
       <Education />
       <Projects />
-      <div className="-mb-6">
+      <div className="-mb-10">
         <TechStack />
       </div>
       <Footer />
