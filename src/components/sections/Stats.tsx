@@ -7,27 +7,12 @@ import SectionTitle from "./common/SectionTitle";
 import Skeleton from "@/components/ui/Skeleton";
 import AnimateText from "@/components/ui/AnimatedText";
 import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile";
+import { fetchGithubData } from "@/lib/utils/github";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
 import Tooltip from "@/components/ui/Tooltip";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
-
-async function fetchGithubStats(): Promise<{ contributions: number; totalCommits: number } | null> {
-  const url = process.env.NEXT_PUBLIC_API_URL;
-  if (!url) return null;
-
-  try {
-    const res = await fetch(`${url}/github`);
-    const result = await res.json();
-    return result.contributions != null && result.totalCommits != null
-      ? { contributions: result.contributions, totalCommits: result.totalCommits }
-      : null;
-  } catch (error) {
-    console.error("Network or Parsing Error:", error);
-    return null;
-  }
-}
 
 async function fetchWakatimeStats(): Promise<{ today: number; weekly: number; monthly: number; yearly: number } | null> {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -70,7 +55,7 @@ async function fetchMonkeytypeStats(): Promise<{ wpm: number; acc: number; consi
   try {
     const res = await fetch(`${url}/monkeytype`);
     const result = await res.json();
-    return result.time?.["15"] ?? result.time?.["60"] ?? null;
+    return result.time?.["60"] ?? result.time?.["15"] ?? null;
   } catch (error) {
     console.error("Network or Parsing Error:", error);
     return null;
@@ -144,7 +129,7 @@ export default function Stats() {
       setTime(getLocalTime(TIMEZONE));
     }, 1000);
 
-    fetchGithubStats().then(setGithubStats);
+    fetchGithubData().then((data) => setGithubStats(data ? { contributions: data.contributions, totalCommits: data.totalCommits } : null));
     fetchWakatimeStats().then(setWakatimeStats);
     fetchSpotifyStats().then(setSpotifyStats);
     fetchMonkeytypeStats().then(setMonkeytypeStats);
@@ -181,7 +166,7 @@ export default function Stats() {
     },
     {
       icon: <MdKeyboard size={18} />,
-      label: monkeytypeStats ? <><span className="font-mono">{Math.floor(monkeytypeStats.wpm)}</span> WPM</> : "-",
+      label: monkeytypeStats ? <><span className="font-mono">{Math.floor(monkeytypeStats.wpm)}</span> words per minute</> : "-",
       labelText: monkeytypeStats ? `${monkeytypeStats.wpm} 60s typing speed` : undefined,
       sublabel: "60s typing speed",
       ready: monkeytypeStats !== null,
