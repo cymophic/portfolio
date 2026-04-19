@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IconHeart } from "@tabler/icons-react";
+import { IconHeart, IconGitCommit } from "@tabler/icons-react";
 
 import ProfileImage from "@/components/ui/ProfileImage";
 import { profileInfo } from "@/lib/site";
@@ -56,7 +56,6 @@ export default function Footer() {
     : `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
   const visitLabel = visitCount > 0 ? `${getOrdinal(visitCount)} visit` : "—";
-  const commitLabel = commit ? `commit ${commit.id}` : "—";
   const lastUpdated = commit ? formatCommitDate(commit.date) : "—";
 
   const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors cursor-default";
@@ -103,8 +102,13 @@ export default function Footer() {
           <span className={metaItem}>{sessionTime}</span>
           <span className={separator}>|</span>
             {commit
-              ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={`${metaItem} sm:hover:text-zinc-600 sm:dark:hover:text-zinc-300 transition-colors cursor-pointer`}>{commitLabel}</a>
-              : <span className={metaItem}>{commitLabel}</span>
+              ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={`${metaItem} sm:hover:text-zinc-600 sm:dark:hover:text-zinc-300 transition-colors cursor-pointer`}>
+                <IconGitCommit size={12} className="inline overflow-clip -mt-0.5" /> 
+                {commit.id}
+              </a>
+              : <span className={metaItem}>
+                  —
+                </span>
             }
           <span className={separator}>|</span><span className={metaItem}>{lastUpdated}</span>
         </div>
@@ -120,8 +124,13 @@ export default function Footer() {
           </div>
           <div className="flex items-center">
             {commit
-              ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={metaItem}>{commitLabel}</a>
-              : <span className={metaItem}>{commitLabel}</span>
+              ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={metaItem}>
+                <IconGitCommit size={12} className="inline overflow-clip -mt-0.5" /> 
+                {commit.id}
+              </a>
+              : <span className={metaItem}>
+                  —
+                </span>
             }
             <span className={separator}>|</span>
             <span className={metaItem}>{lastUpdated}</span>
