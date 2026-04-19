@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { MdArrowOutward } from "react-icons/md";
+import { IconArrowUpRight } from "@tabler/icons-react";
+
 import { profileInfo } from "@/lib/site";
-import SectionTitle from "./common/SectionTitle";
+import SectionTitle from "@/components/sections/common/SectionTitle";
 import { TimelineItem } from "@/components/sections/common/Timeline";
 
 export default function Career() {
@@ -32,7 +33,7 @@ export default function Career() {
                       <a href={work.website} target="_blank" rel="noopener noreferrer" className={work.website ? "underline sm:no-underline sm:hover:underline" : ""}>
                         {work.company}
                         {work.website && (
-                          <MdArrowOutward size={18} className="sm:hidden inline ml-1 mb-0.5 overflow-clip" />
+                          <IconArrowUpRight size={18} className="sm:hidden inline mb-0.5 overflow-clip" />
                         )}
                       </a>
                     </span>

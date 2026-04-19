@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { MdArrowOutward } from "react-icons/md";
+import { IconArrowUpRight } from "@tabler/icons-react";
+
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { TimelineItem } from "@/components/sections/common/Timeline";
@@ -30,7 +31,7 @@ export default function Education() {
                         <a href={edu.website} target="_blank" rel="noopener noreferrer" className={edu.website ? "underline sm:no-underline sm:hover:underline" : ""}>
                           {edu.school}
                           {edu.website && (
-                            <MdArrowOutward size={18} className="sm:hidden inline ml-1 mb-0.5 overflow-clip" />
+                            <IconArrowUpRight size={18} className="sm:hidden inline mb-0.5 overflow-clip" />
                           )}
                         </a>
                       </span>
