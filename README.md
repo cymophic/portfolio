@@ -54,9 +54,10 @@ luisabhram.dev/
 │   │   └── check.yml                     # PR validation workflow
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── lambda/
-│   ├── wakatime.mjs                      # Wakatime stats Lambda function
 │   ├── github.mjs                        # GitHub profile stats Lambda function
-│   └── spotify.mjs                       # Spotify stats Lambda function
+│   ├── monkeytype.mjs                    # Monkeytype personal bests Lambda function
+│   ├── spotify.mjs                       # Spotify music stats Lambda function
+│   └── wakatime.mjs                      # Wakatime coding stats Lambda function
 ├── public/                               # Static assets
 ├── scripts/                              # Build-time scripts
 ├── src/
@@ -176,6 +177,9 @@ wakatime_api_key   = ""
 spotify_client_id     = ""
 spotify_client_secret = ""
 spotify_refresh_token = ""
+
+# Monkeytype
+monkeytype_api_key = ""
 ```
 
 ### Provision AWS Resources
@@ -246,3 +250,4 @@ Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in 
 | `GET` | `/github` | GitHub profile stats | `{ contributions, totalCommits, recentPortfolioCommits, recentActivity }` |
 | `GET` | `/wakatime` | WakaTime coding hours | `{ monthly: number, yearly: number }` |
 | `GET` | `/spotify` | Spotify music stats | `{ topTrack, topArtist, nowPlaying, lastPlayed }` |
+| `GET` | `/monkeytype` | Monkeytype personal bests | `{ time: { 15/60 { wpm, acc, consistency, timestamp } } }` |

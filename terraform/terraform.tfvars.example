@@ -25,3 +25,6 @@ wakatime_api_key   = ""
 spotify_client_id     = "your_client_id"
 spotify_client_secret = "your_client_secret"
 spotify_refresh_token = "your_refresh_token"
+
+# Monkeytype
+monkeytype_api_key = ""

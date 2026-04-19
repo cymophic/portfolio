@@ -76,3 +76,9 @@ variable "spotify_refresh_token" {
   description = "Spotify refresh token"
   sensitive   = true
 }
+
+# Monkeytype
+variable "monkeytype_api_key" {
+  type      = string
+  sensitive = true
+}
