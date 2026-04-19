@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { MdFolder, MdArrowBackIosNew, MdLanguage } from "react-icons/md";
 import { FaGithub } from "react-icons/fa";
+import { IconFolderFilled, IconChevronLeft, IconWorld } from "@tabler/icons-react";
 import { toast } from "sonner";
 
 import { projects, portfolioEasterEggMessages } from "@/lib/site";
@@ -49,9 +49,9 @@ function ProjectTags({ tags }: TagsSectionProps) {
       {remaining > 0 && isExpanded && (
         <button
           onClick={() => setIsExpanded(false)}
-          className={`${tagPillClass} cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors py-1!`}
+          className={`${tagPillClass} cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors py-0.75!`}
         >
-          <MdArrowBackIosNew size={10} className="overflow-clip text-zinc-500 dark:text-zinc-400" />
+          <IconChevronLeft size={12} className="overflow-clip text-zinc-500 dark:text-zinc-400" />
         </button>
       )}
 
@@ -82,7 +82,7 @@ export default function Projects() {
               {/* Left Adornment */}
               <div className="absolute left-1.75 top-0.5 -translate-x-1/2">
                 <span className="flex h-5 w-5 items-center justify-center rounded-md border border-zinc-200 bg-zinc-100 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
-                  <MdFolder size={12} className="overflow-clip" />
+                  <IconFolderFilled size={12} className="overflow-clip" />
                 </span>
               </div>
 
@@ -118,7 +118,7 @@ export default function Projects() {
                     >
                       {easterEggDisabled && project.title === "Personal Portfolio"
                         ? <span className="text-base leading-none">💥</span>
-                        : <MdLanguage size={16} className="overflow-clip" />
+                        : <IconWorld size={18} className="overflow-clip" />
                       }
                     </a>
                   </Tooltip>
