@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MdLocationPin, MdCode, MdAccessTime, MdCalendarMonth, MdKeyboard, MdMusicNote } from "react-icons/md";
+import { IconMapPin, IconCode, IconClock, IconCalendarEvent, IconKeyboard, IconMusic } from "@tabler/icons-react";
+
 import { profileInfo } from "@/lib/site";
-import SectionTitle from "./common/SectionTitle";
-import Skeleton from "@/components/ui/Skeleton";
-import AnimateText from "@/components/ui/AnimatedText";
+import SectionTitle from "@/components/sections/common/SectionTitle";
 import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile";
 import { fetchGithubData } from "@/lib/utils/github";
+import Skeleton from "@/components/ui/Skeleton";
+import AnimateText from "@/components/ui/AnimatedText";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
 import Tooltip from "@/components/ui/Tooltip";
 
@@ -141,38 +142,38 @@ export default function Stats() {
 
   const stats: StatItemType[] = [
     {
-      icon: <MdCalendarMonth size={18} />,
+      icon: <IconCalendarEvent size={18} />,
       label: <><span className="font-mono"><AnimateText words={[age]} variant="slot" cursor="none" /></span> years old</>,
       sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
       ready: age !== "—",
     },
     {
-      icon: <MdLocationPin size={18} />,
+      icon: <IconMapPin size={18} />,
       label: `Currently in ${COUNTRY}`,
       sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> <span className="font-mono">({time?.offset})</span> </>,
       ready: time !== null,
     },
     {
-      icon: <MdCode size={18} />,
+      icon: <IconCode size={18} />,
       label: <><span className="font-mono">{githubStats?.contributions.toLocaleString()}</span> contributions</>,
       sublabel: "On GitHub in the last year",
       ready: githubStats !== null,
     },
     {
-      icon: <MdAccessTime size={18} />,
+      icon: <IconClock size={18} />,
       label: <><span className="font-mono">{wakatimeStats?.weekly.toLocaleString()}</span> hours coded this week</>,
       sublabel: <><span className="font-mono">{wakatimeStats?.yearly.toLocaleString()}</span> hours coded this year</>,
       ready: wakatimeStats !== null,
     },
     {
-      icon: <MdKeyboard size={18} />,
+      icon: <IconKeyboard size={20} />,
       label: monkeytypeStats ? <><span className="font-mono">{Math.floor(monkeytypeStats.wpm)}</span> words per minute</> : "-",
       labelText: monkeytypeStats ? `${monkeytypeStats.wpm} 60s typing speed` : undefined,
       sublabel: "60s typing speed",
       ready: monkeytypeStats !== null,
     },
     {
-      icon: <MdMusicNote size={18} />,
+      icon: <IconMusic size={18} />,
       label: nowOrLast
         ? <><a href={nowOrLast.url} target="_blank" rel="noopener noreferrer" className="underline">{nowOrLast.song}</a> by {nowOrLast.artist}</>
         : "-",
