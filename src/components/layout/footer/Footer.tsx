@@ -2,9 +2,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { IconHeart } from "@tabler/icons-react";
+
 import ProfileImage from "@/components/ui/ProfileImage";
 import { profileInfo } from "@/lib/site";
-import { FiHeart } from "react-icons/fi";
 import SocialLinks from "../../ui/SocialLinks";
 import Tooltip from "@/components/ui/Tooltip";
 import { fetchGithubData } from "@/lib/utils/github";
@@ -55,7 +56,7 @@ export default function Footer() {
   const commitLabel = commit ? `commit ${commit.id}` : "—";
   const lastUpdated = commit ? formatCommitDate(commit.date) : "—";
 
-  const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 sm:hover:text-zinc-600 sm:dark:hover:text-zinc-300 transition-colors cursor-default";
+  const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors cursor-default";
   const sep = "font-mono text-xs text-zinc-300 dark:text-zinc-700 mx-2.5";
 
   return (
@@ -64,9 +65,11 @@ export default function Footer() {
       <div className="w-px h-16 bg-zinc-300 dark:bg-zinc-700"/>
 
       {/* Byline */}
-      <p className="font-mono text-xs tracking-wider uppercase font-semibold text-zinc-400 dark:text-zinc-500">
-        Made with <FiHeart className="inline overflow-clip -mt-1" style={{ strokeWidth: 3 }} /> by {profileInfo.name}
-      </p>
+      <div className="my-1">
+        <p className="font-mono text-xs tracking-wider uppercase font-semibold text-zinc-400 dark:text-zinc-500">
+          Made with <IconHeart className="inline overflow-clip -mt-1" size={14} style={{ strokeWidth: 3 }} /> by {profileInfo.name}
+        </p>
+      </div>
 
       {/* Mobile Image */}
       <div className="sm:hidden">
@@ -84,26 +87,23 @@ export default function Footer() {
       </div>
 
       {/* Social Links */}
-      <SocialLinks opacity={50} iconSize={16} hoverEffect="monochrome" />
+      <SocialLinks iconSize={18} hoverEffect="monochrome" />
 
       {/* Metadata */}
       <div className="flex flex-col items-center gap-1.5">
         {/* Desktop */}
         <div className="hidden sm:flex items-center">
-          <Tooltip content="Your Visit Count"><span className={metaItem} suppressHydrationWarning>{visitLabel}</span></Tooltip>
+          <span className={metaItem} suppressHydrationWarning>{visitLabel}</span>
           <span className={sep}>|</span>
-          <Tooltip content="Your Device OS"><span className={metaItem} suppressHydrationWarning>{os.toLowerCase()}</span></Tooltip>
+          <span className={metaItem} suppressHydrationWarning>{os.toLowerCase()}</span>
           <span className={sep}>|</span>
-          <Tooltip content="Your Session Time"><span className={metaItem}>{sessionTime}</span></Tooltip>
+          <span className={metaItem}>{sessionTime}</span>
           <span className={sep}>|</span>
-          <Tooltip content="Latest Portfolio Commit">
             {commit
-              ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={metaItem}>{commitLabel}</a>
+              ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={`${metaItem} sm:hover:text-zinc-600 sm:dark:hover:text-zinc-300 transition-colors cursor-pointer`}>{commitLabel}</a>
               : <span className={metaItem}>{commitLabel}</span>
             }
-          </Tooltip>
-          <span className={sep}>|</span>
-          <Tooltip content="Last Updated"><span className={metaItem}>{lastUpdated}</span></Tooltip>
+          <span className={sep}>|</span><span className={metaItem}>{lastUpdated}</span>
         </div>
 
         {/* Mobile */}
