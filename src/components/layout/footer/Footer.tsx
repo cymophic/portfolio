@@ -55,7 +55,7 @@ export default function Footer() {
   const commitLabel = commit ? `commit ${commit.id}` : "—";
   const lastUpdated = commit ? formatCommitDate(commit.date) : "—";
 
-  const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors cursor-default";
+  const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 sm:hover:text-zinc-600 sm:dark:hover:text-zinc-300 transition-colors cursor-default";
   const sep = "font-mono text-xs text-zinc-300 dark:text-zinc-700 mx-2.5";
 
   return (
@@ -68,12 +68,20 @@ export default function Footer() {
         Made with <FiHeart className="inline overflow-clip -mt-1" style={{ strokeWidth: 3 }} /> by {profileInfo.name}
       </p>
 
-      {/* Footer Image */}
-      <Tooltip content="Back to top">
+      {/* Mobile Image */}
+      <div className="sm:hidden">
         <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <ProfileImage width={48} height={48} className="hover:scale-112 transition-transform"/>
+          <ProfileImage width={48} height={48} />
         </button>
-      </Tooltip>
+      </div>
+      {/* Desktop Image */}
+      <div className="hidden sm:block">
+        <Tooltip content="Back to top">
+          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <ProfileImage width={48} height={48} className="hover:scale-112 transition-transform"/>
+          </button>
+        </Tooltip>
+      </div>
 
       {/* Social Links */}
       <SocialLinks opacity={50} iconSize={16} hoverEffect="monochrome" />
@@ -101,21 +109,19 @@ export default function Footer() {
         {/* Mobile */}
         <div className="flex sm:hidden flex-col items-center gap-1.5">
           <div className="flex items-center">
-            <Tooltip content="Your Visit Count"><span className={metaItem}>{visitLabel}</span></Tooltip>
+            <span className={metaItem}>{visitLabel}</span>
             <span className={sep}>|</span>
-            <Tooltip content="Your Session Time"><span className={metaItem}>{sessionTime}</span></Tooltip>
+            <span className={metaItem}>{sessionTime}</span>
             <span className={sep}>|</span>
-            <Tooltip content="Your Device OS"><span className={metaItem}>{os.toLowerCase()}</span></Tooltip>
+            <span className={metaItem}>{os.toLowerCase()}</span>
           </div>
           <div className="flex items-center">
-            <Tooltip content="Latest Portfolio Commit">
-              {commit
-                ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={metaItem}>{commitLabel}</a>
-                : <span className={metaItem}>{commitLabel}</span>
-              }
-            </Tooltip>
+            {commit
+              ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={metaItem}>{commitLabel}</a>
+              : <span className={metaItem}>{commitLabel}</span>
+            }
             <span className={sep}>|</span>
-            <Tooltip content="Last Updated"><span className={metaItem}>{lastUpdated}</span></Tooltip>
+            <span className={metaItem}>{lastUpdated}</span>
           </div>
         </div>
       </div>
