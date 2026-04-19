@@ -51,13 +51,19 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
 
-  const sessionTime = `${String(Math.floor(session / 60)).padStart(2, "0")}:${String(session % 60).padStart(2, "0")}`;
+  const hours = Math.floor(session / 3600);
+  const minutes = Math.floor((session % 3600) / 60);
+  const seconds = session % 60;
+  const sessionTime = hours > 0
+    ? `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+    : `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
   const visitLabel = visitCount > 0 ? `${getOrdinal(visitCount)} visit` : "—";
   const commitLabel = commit ? `commit ${commit.id}` : "—";
   const lastUpdated = commit ? formatCommitDate(commit.date) : "—";
 
   const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors cursor-default";
-  const sep = "font-mono text-xs text-zinc-300 dark:text-zinc-700 mx-2.5";
+  const separator = "font-mono text-xs text-zinc-300 dark:text-zinc-700 mx-2.5";
 
   return (
     <footer className="flex flex-col items-center text-center gap-6">
@@ -94,25 +100,25 @@ export default function Footer() {
         {/* Desktop */}
         <div className="hidden sm:flex items-center">
           <span className={metaItem} suppressHydrationWarning>{visitLabel}</span>
-          <span className={sep}>|</span>
+          <span className={separator}>|</span>
           <span className={metaItem} suppressHydrationWarning>{os.toLowerCase()}</span>
-          <span className={sep}>|</span>
+          <span className={separator}>|</span>
           <span className={metaItem}>{sessionTime}</span>
-          <span className={sep}>|</span>
+          <span className={separator}>|</span>
             {commit
               ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={`${metaItem} sm:hover:text-zinc-600 sm:dark:hover:text-zinc-300 transition-colors cursor-pointer`}>{commitLabel}</a>
               : <span className={metaItem}>{commitLabel}</span>
             }
-          <span className={sep}>|</span><span className={metaItem}>{lastUpdated}</span>
+          <span className={separator}>|</span><span className={metaItem}>{lastUpdated}</span>
         </div>
 
         {/* Mobile */}
         <div className="flex sm:hidden flex-col items-center gap-1.5">
           <div className="flex items-center">
             <span className={metaItem}>{visitLabel}</span>
-            <span className={sep}>|</span>
+            <span className={separator}>|</span>
             <span className={metaItem}>{sessionTime}</span>
-            <span className={sep}>|</span>
+            <span className={separator}>|</span>
             <span className={metaItem}>{os.toLowerCase()}</span>
           </div>
           <div className="flex items-center">
@@ -120,7 +126,7 @@ export default function Footer() {
               ? <a href={commit.url} target="_blank" rel="noopener noreferrer" className={metaItem}>{commitLabel}</a>
               : <span className={metaItem}>{commitLabel}</span>
             }
-            <span className={sep}>|</span>
+            <span className={separator}>|</span>
             <span className={metaItem}>{lastUpdated}</span>
           </div>
         </div>
