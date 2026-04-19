@@ -40,9 +40,11 @@ export default function Footer() {
     const interval = setInterval(() => setSession((s) => s + 1), 1000);
     setOs(getDeviceOS());
 
-    fetch("https://abacus.jasoncameron.dev/hit/luisabhram.dev/visits")
-      .then((res) => res.json())
-      .then((data) => setVisitCount(data.value));
+    if (process.env.NODE_ENV !== "development") {
+      fetch("https://abacus.jasoncameron.dev/hit/luisabhram.dev/visits")
+        .then((res) => res.json())
+        .then((data) => setVisitCount(data.value));
+    }
       
     fetchGithubData().then((data) => setCommit(data?.recentCommit ?? null));
     return () => clearInterval(interval);
@@ -55,7 +57,9 @@ export default function Footer() {
     ? `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
     : `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
-  const visitLabel = visitCount > 0 ? `${getOrdinal(visitCount)} visit` : "—";
+  const visitLabel = process.env.NODE_ENV === "development"
+    ? "dev mode"
+    : visitCount > 0 ? `${getOrdinal(visitCount)} visit` : "—";
   const lastUpdated = commit ? formatCommitDate(commit.date) : "—";
 
   const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors cursor-default";
