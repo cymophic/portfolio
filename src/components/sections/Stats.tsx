@@ -150,7 +150,7 @@ export default function Stats() {
     {
       icon: <IconMapPin size={18} />,
       label: `Currently in ${COUNTRY}`,
-      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> <span className="font-mono">({time?.offset})</span> </>,
+      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> <span>({time?.offset})</span> </>,
       ready: time !== null,
     },
     {
