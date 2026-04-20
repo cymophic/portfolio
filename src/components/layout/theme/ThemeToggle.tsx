@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { MdLightMode, MdDarkMode } from "react-icons/md";
+import { IconSunHighFilled, IconMoonFilled } from "@tabler/icons-react";
 import { useThemeTransition } from "@/hooks/animations/useThemeTransition";
 
 export default function ThemeToggle() {
@@ -17,7 +17,7 @@ export default function ThemeToggle() {
     return () => clearTimeout(timeout);
   }, []);
 
-  if (!mounted) return <MdDarkMode size={iconSize} className="m-2 text-zinc-500" />;
+  if (!mounted) return <IconMoonFilled size={iconSize} className="m-2 text-zinc-500" />;
 
   return (
     <button
@@ -25,7 +25,7 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       className="p-2 text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-100 transition-colors cursor-pointer"
     >
-      {isDark ? <MdLightMode size={iconSize} /> : <MdDarkMode size={iconSize} />}
+      {isDark ? <IconSunHighFilled size={iconSize} /> : <IconMoonFilled size={iconSize} />}
     </button>
   );
 }
