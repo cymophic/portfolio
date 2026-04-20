@@ -31,7 +31,7 @@ export default function Education() {
                         <a href={edu.website} target="_blank" rel="noopener noreferrer" className={edu.website ? "underline sm:no-underline sm:hover:underline" : ""}>
                           {edu.school}
                           {edu.website && (
-                            <IconArrowUpRight size={18} className="sm:hidden inline mb-0.5 overflow-clip" />
+                            <IconArrowUpRight size={18} className="sm:hidden inline mb-0.5 overflow-clip text-zinc-400 dark:text-zinc-500" />
                           )}
                         </a>
                       </span>
