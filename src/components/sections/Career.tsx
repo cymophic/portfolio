@@ -33,7 +33,7 @@ export default function Career() {
                       <a href={work.website} target="_blank" rel="noopener noreferrer" className={work.website ? "underline sm:no-underline sm:hover:underline" : ""}>
                         {work.company}
                         {work.website && (
-                          <IconArrowUpRight size={18} className="sm:hidden inline mb-0.5 overflow-clip" />
+                          <IconArrowUpRight size={18} className="sm:hidden inline mb-0.5 overflow-clip  text-zinc-400 dark:text-zinc-500" />
                         )}
                       </a>
                     </span>

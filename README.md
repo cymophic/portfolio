@@ -31,13 +31,11 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **Animations:** GSAP
 
 ### Infrastructure
-- **Hosting:** AWS S3
-- **CDN:** AWS CloudFront
-- **SSL:** AWS Certificate Manager
-- **DNS:** Cloudflare
+- **Frontend Hosting:** AWS S3 & AWS CloudFront 
+- **Serverless Backend:** AWS Lambda & API Gateway  
+- **DNS & Security:** Cloudflare (DNS) & AWS ACM (SSL)
 - **IaC:** Terraform
-- **Serverless:** AWS Lambda & API Gateway
-- **Error Monitoring:** Sentry
+- **Observability:** Sentry (Errors), AWS CloudWatch (Logs + Metrics)
 - **Analytics:** Google Analytics
 
 ### CI/CD
