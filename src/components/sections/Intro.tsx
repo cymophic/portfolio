@@ -74,7 +74,7 @@ export default function Intro() {
           </p>
           
           {/* Social Links */}
-          <SocialLinks />
+          <SocialLinks iconSize={24} />
 
           <div className="mt-2 flex gap-4">
             <Button

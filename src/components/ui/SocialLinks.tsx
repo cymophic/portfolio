@@ -54,7 +54,7 @@ export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, ico
                 : "text-zinc-400 hover:text-zinc-500 dark:text-zinc-500 dark:hover:text-zinc-300"}
             `}
           >
-            <Icon size={iconSize} />
+            <Icon size={iconSize} stroke={1.7} />
           </Link>
         );
       })}
