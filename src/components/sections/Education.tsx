@@ -26,16 +26,16 @@ export default function Education() {
                       </a>
                     )}
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100">{edu.degree}</span>
-                      <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                      <span className="text-base font-semibold text-zinc-700 dark:text-zinc-300">{edu.degree}</span>
+                      <span className="text-sm text-zinc-600 dark:text-zinc-400">
                         <a href={edu.website} target="_blank" rel="noopener noreferrer" className={edu.website ? "underline sm:hover:text-zinc-700 sm:dark:hover:text-zinc-300" : ""}>
                           {edu.school}
                           {edu.website && (
-                            <IconArrowUpRight size={18} className="inline mb-0.5 overflow-clip text-zinc-400 dark:text-zinc-500" />
+                            <IconArrowUpRight size={18} className="inline mb-0.5 overflow-clip text-zinc-500 dark:text-zinc-500" />
                           )}
                         </a>
                       </span>
-                      <span className="text-sm text-zinc-400 dark:text-zinc-500">{edu.start} - {edu.end}</span>
+                      <span className="text-sm text-zinc-500">{edu.start} - {edu.end}</span>
                     </div>
                   </div>
 
