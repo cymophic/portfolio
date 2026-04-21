@@ -52,14 +52,14 @@ function ProjectTags({ tags }: TagsSectionProps) {
           onClick={() => setIsExpanded(false)}
           className={`${tagPillClass} cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors py-0.75!`}
         >
-          <IconChevronLeft size={12} className="overflow-clip text-zinc-500 dark:text-zinc-400" />
+          <IconChevronLeft size={14} className="overflow-clip text-zinc-400" />
         </button>
       )}
 
       {remaining > 0 && (
         <button
           onClick={() => setIsExpanded((prev) => !prev)}
-          className={`${tagPillClass} tag-counter text-zinc-400 dark:text-zinc-400 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors`}
+          className={`${tagPillClass} tag-counter text-zinc-500 dark:text-zinc-300 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors`}
         >
           <span className="text-[11px]">+{remaining}</span>
         </button>
