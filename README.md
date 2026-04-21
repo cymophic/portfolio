@@ -48,6 +48,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 luisabhram.dev/
 ├── .github/
 │   ├── workflows/
+│   │   ├── build.yml                     # Reusable build workflow
 │   │   ├── deploy.yml                    # GitHub Actions deployment workflow
 │   │   └── check.yml                     # PR validation workflow
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
@@ -230,10 +231,10 @@ Deployments are fully automated via GitHub Actions.
 | `AWS_ACCESS_KEY_ID` | Secret | IAM user access key |
 | `AWS_SECRET_ACCESS_KEY` | Secret | IAM user secret key |
 | `CLOUDFRONT_DISTRIBUTION_ID` | Secret | CloudFront distribution ID |
-| `S3_BUCKET_NAME` | Variable | S3 bucket name |
+| `S3_BUCKET_NAME` | Secret | S3 bucket name |
 | `NEXT_PUBLIC_SITE_MODE` | Variable | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
 | `NEXT_PUBLIC_GA_ID` | Variable | Google Analytics Measurement ID |
-| `NEXT_PUBLIC_SENTRY_DSN` | Secret | Sentry DSN for error monitoring |
+| `NEXT_PUBLIC_SENTRY_DSN` | Variable | Sentry DSN for error monitoring |
 | `SENTRY_AUTH_TOKEN` | Secret | Sentry auth token for source map uploads |
 | `NEXT_PUBLIC_API_URL` | Variable | Lambda + API Gateway URL |
 
