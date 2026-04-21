@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 type Props = {
   content: string;
@@ -8,30 +9,23 @@ type Props = {
   children: React.ReactNode;
 };
 
-type Position = "top" | "bottom";
-
 export default function Tooltip({ content, disabled = false, children }: Props) {
   const [visible, setVisible] = useState(false);
-  const [position, setPosition] = useState<Position>("top");
+  const [coords, setCoords] = useState({ top: 0, left: 0, isTop: true });
   const triggerRef = useRef<HTMLDivElement>(null);
-  const [offsetX, setOffsetX] = useState(0);
+  const [mounted] = useState(() => typeof window !== "undefined");
 
   const updatePosition = useCallback(() => {
     const el = triggerRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const spaceAbove = rect.top;
-    const spaceBelow = window.innerHeight - rect.bottom;
-    setPosition(spaceAbove >= spaceBelow ? "top" : "bottom");
+    const isTop = rect.top >= window.innerHeight - rect.bottom;
 
-    // Shift tooltip left if it would overflow the right edge
-    const tooltipMaxWidth = 320;
-    const rightEdge = rect.left + tooltipMaxWidth;
-    if (rightEdge > window.innerWidth) {
-      setOffsetX(window.innerWidth - rightEdge - 8);
-    } else {
-      setOffsetX(0);
-    }
+    setCoords({
+      top: isTop ? rect.top : rect.bottom,
+      left: Math.min(rect.left, window.innerWidth - 328),
+      isTop,
+    });
   }, []);
 
   const show = useCallback(() => {
@@ -58,14 +52,20 @@ export default function Tooltip({ content, disabled = false, children }: Props) 
       onBlur={hide}
     >
       {children}
-      {visible && (
+      {visible && mounted && createPortal(
         <div
           role="tooltip"
-          style={{ left: offsetX }}
-          className={`${position === "top" ? "bottom-full mb-2" : "top-full mt-2"} pointer-events-none absolute left-0 z-50 w-max max-w-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1.5 text-xs text-zinc-800 dark:text-zinc-200 shadow-md`}
+          style={{
+            position: "fixed",
+            top: coords.isTop ? coords.top - 8 : coords.top + 8,
+            left: coords.left,
+            transform: coords.isTop ? "translateY(-100%)" : "translateY(0)",
+          }}
+          className="pointer-events-none z-50 w-max max-w-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1.5 text-xs text-zinc-800 dark:text-zinc-200 shadow-md"
         >
           {content}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
