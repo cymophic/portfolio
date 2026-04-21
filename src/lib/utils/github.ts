@@ -1,7 +1,17 @@
-type GithubData = {
+export type ContributionDay = {
+  date: string;
+  contributionCount: number;
+};
+
+export type Week = {
+  contributionDays: ContributionDay[];
+};
+
+export type GithubData = {
   contributions: number;
   totalCommits: number;
   recentCommit: { id: string; url: string; date: string };
+  weeks: Week[];
 };
 
 export async function fetchGithubData(): Promise<GithubData | null> {
@@ -19,6 +29,7 @@ export async function fetchGithubData(): Promise<GithubData | null> {
       contributions: result.contributions,
       totalCommits: result.totalCommits,
       recentCommit: { id: commit.id, url: commit.url, date: commit.date },
+      weeks: result.weeks ?? [],
     };
   } catch (error) {
     console.error("Network or Parsing Error:", error);

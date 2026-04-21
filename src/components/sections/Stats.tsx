@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IconMapPin, IconCode, IconClock, IconCalendarEvent, IconKeyboard, IconMusic } from "@tabler/icons-react";
+import { IconMapPin, IconCode, IconClock, IconCalendarEvent, IconKeyboard, IconVolume } from "@tabler/icons-react";
 
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "@/components/sections/common/SectionTitle";
 import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile";
 import { fetchGithubData } from "@/lib/utils/github";
+import type { Week } from "@/lib/utils/github";
 import Skeleton from "@/components/ui/Skeleton";
 import AnimateText from "@/components/ui/AnimatedText";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
 import Tooltip from "@/components/ui/Tooltip";
+import ContributionGraph from "@/components/sections/common/ContributionGraph";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
@@ -119,7 +121,7 @@ function StatItem({ stat }: { stat: StatItemType }) {
 export default function Stats() {
   const [age, setAge] = useState("—");
   const [time, setTime] = useState<{ time: string; offset: string } | null>(null);
-  const [githubStats, setGithubStats] = useState<{ contributions: number; totalCommits: number } | null>(null);
+  const [githubStats, setGithubStats] = useState<{ contributions: number; totalCommits: number; weeks: Week[] } | null>(null);
   const [wakatimeStats, setWakatimeStats] = useState<{ today: number; weekly: number; monthly: number; yearly: number } | null>(null);
   const [spotifyStats, setSpotifyStats] = useState<MusicStats | null>(null);
   const [monkeytypeStats, setMonkeytypeStats] = useState<{ wpm: number; acc: number; consistency: number } | null>(null);
@@ -130,7 +132,9 @@ export default function Stats() {
       setTime(getLocalTime(TIMEZONE));
     }, 1000);
 
-    fetchGithubData().then((data) => setGithubStats(data ? { contributions: data.contributions, totalCommits: data.totalCommits } : null));
+    fetchGithubData().then((data) =>
+      setGithubStats(data ? { contributions: data.contributions, totalCommits: data.totalCommits, weeks: data.weeks ?? [] } : null)
+    );
     fetchWakatimeStats().then(setWakatimeStats);
     fetchSpotifyStats().then(setSpotifyStats);
     fetchMonkeytypeStats().then(setMonkeytypeStats);
@@ -150,12 +154,12 @@ export default function Stats() {
     {
       icon: <IconMapPin size={18} />,
       label: `Currently in ${COUNTRY}`,
-      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> <span>({time?.offset})</span> </>,
+      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> <span>({time?.offset})</span></>,
       ready: time !== null,
     },
     {
       icon: <IconCode size={18} />,
-      label: <><span className="font-mono">{githubStats?.contributions.toLocaleString()}</span> contributions</>,
+      label: <><span className="font-mono">{githubStats?.totalCommits.toLocaleString()}</span> total commits</>,
       sublabel: "On GitHub in the last year",
       ready: githubStats !== null,
     },
@@ -173,7 +177,7 @@ export default function Stats() {
       ready: monkeytypeStats !== null,
     },
     {
-      icon: <IconMusic size={18} />,
+      icon: <IconVolume size={18} />,
       label: nowOrLast
         ? <><a href={nowOrLast.url} target="_blank" rel="noopener noreferrer" className="underline">{nowOrLast.song}</a> by {nowOrLast.artist}</>
         : "-",
@@ -187,6 +191,12 @@ export default function Stats() {
     <section className="w-full">
       <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Stats" />
+        {githubStats && (
+          <ContributionGraph
+            weeks={githubStats.weeks}
+            totalContributions={githubStats.contributions}
+          />
+        )}
         <ul className="columns-1 gap-6 sm:columns-2 md:columns-3">
           {stats.map((stat, i) => (
             <StatItem key={i} stat={stat} />

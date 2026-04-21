@@ -21,20 +21,25 @@ export const handler = async () => {
 
     const token = process.env.GITHUB_TOKEN;
     const username = process.env.GITHUB_USERNAME;
-    const year = new Date().getFullYear() - 1;
 
     const headers = {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
 
-    // GraphQL — contributions + recent activity
     const graphqlQuery = `
-      query($username: String!, $from: DateTime!, $to: DateTime!) {
+      query($username: String!) {
         user(login: $username) {
-          contributionsCollection(from: $from, to: $to) {
+          contributionsCollection {
             contributionCalendar {
               totalContributions
+              weeks {
+                contributionDays {
+                  date
+                  contributionCount
+                  color
+                }
+              }
             }
           }
           activity: contributionsCollection {
@@ -55,18 +60,13 @@ export const handler = async () => {
       }
     `;
 
-    // REST — total commit count + recent portfolio commits (parallel)
     const [graphqlRes, totalCommitsRes, recentCommitsRes] = await Promise.all([
       fetch("https://api.github.com/graphql", {
         method: "POST",
         headers,
         body: JSON.stringify({
           query: graphqlQuery,
-          variables: {
-            username,
-            from: `${year}-01-01T00:00:00Z`,
-            to: `${year}-12-31T23:59:59Z`,
-          },
+          variables: { username },
         }),
       }),
       fetch(`https://api.github.com/search/commits?q=author:${username}&per_page=1`, {
@@ -89,14 +89,14 @@ export const handler = async () => {
       return response(500, { error: graphqlResult.errors[0].message });
     }
 
-    const contributions =
-      graphqlResult.data?.user?.contributionsCollection.contributionCalendar.totalContributions ?? null;
+    const { totalContributions, weeks } =
+      graphqlResult.data?.user?.contributionsCollection.contributionCalendar ?? {};
 
     const totalCommits = totalCommitsResult.total_count ?? null;
 
     const recentPortfolioCommits = recentCommitsResult.map((c) => ({
       id: c.sha.slice(0, 7),
-      message: c.commit.message.split("\n")[0], // first line only
+      message: c.commit.message.split("\n")[0],
       date: c.commit.author.date,
       url: c.html_url,
     }));
@@ -108,7 +108,7 @@ export const handler = async () => {
       commitCount: r.contributions.nodes[0]?.commitCount ?? null,
     })) ?? [];
 
-    statsCache = { contributions, totalCommits };
+    statsCache = { contributions: totalContributions ?? null, weeks: weeks ?? [], totalCommits };
     statsCacheTime = now;
 
     activityCache = { recentPortfolioCommits, recentActivity };

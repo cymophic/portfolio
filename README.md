@@ -258,7 +258,7 @@ Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in 
 
 | Method | Endpoint | Description | Response |
 |---|---|---|---|
-| `GET` | `/github` | GitHub profile stats | `{ contributions, totalCommits, recentPortfolioCommits, recentActivity }` |
+| `GET` | `/github` | GitHub profile stats | `{ contributions, totalCommits, weeks, recentPortfolioCommits, recentActivity }` |
 | `GET` | `/wakatime` | WakaTime coding hours | `{ monthly: number, yearly: number }` |
 | `GET` | `/spotify` | Spotify music stats | `{ topTrack, topArtist, nowPlaying, lastPlayed }` |
 | `GET` | `/monkeytype` | Monkeytype personal bests | `{ time: { 15/60 { wpm, acc, consistency, timestamp } } }` |
