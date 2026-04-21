@@ -28,7 +28,7 @@ const splineSansMono = Spline_Sans_Mono({
 })
 
 export const metadata: Metadata = {
-  title: `${profileInfo.name} | ${profileInfo.title}`,
+  title: `${profileInfo.name}`,
   description: "Personal portfolio of Luis Abhram Mata",
 };
 
