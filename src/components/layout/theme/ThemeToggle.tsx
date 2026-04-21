@@ -23,7 +23,7 @@ export default function ThemeToggle() {
     <button
       ref={buttonRef}
       onClick={toggleTheme}
-      className="p-2 text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-100 transition-colors cursor-pointer"
+      className="p-2 text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-100 cursor-pointer active:scale-90 transition-transform"
     >
       {isDark ? <IconSunHighFilled size={iconSize} /> : <IconMoonFilled size={iconSize} />}
     </button>
