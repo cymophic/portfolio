@@ -26,9 +26,6 @@ jobs:
           name: out
           path: out/
 
-      - name: Checkout code
-        uses: actions/checkout@v6
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
