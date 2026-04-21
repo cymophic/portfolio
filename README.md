@@ -240,6 +240,7 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 **On pull request to `main`** — `check.yml` runs:
 1. Calls the reusable `build.yml` workflow
 2. Installs dependencies, lints, and builds the Next.js static export
+3. Runs security analysis with CodeQL
 
 **On merge to `main`** — `deploy.yml` runs:
 1. Calls the reusable `build.yml` workflow
