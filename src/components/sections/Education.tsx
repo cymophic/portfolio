@@ -27,15 +27,15 @@ export default function Education() {
                     )}
                     <div className="flex flex-col gap-0.5">
                       <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100">{edu.degree}</span>
-                      <span className="text-sm text-zinc-600 dark:text-zinc-400">
-                        <a href={edu.website} target="_blank" rel="noopener noreferrer" className={edu.website ? "underline sm:no-underline sm:hover:underline" : ""}>
+                      <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                        <a href={edu.website} target="_blank" rel="noopener noreferrer" className={edu.website ? "underline sm:hover:text-zinc-700 sm:dark:hover:text-zinc-300" : ""}>
                           {edu.school}
                           {edu.website && (
-                            <IconArrowUpRight size={18} className="sm:hidden inline mb-0.5 overflow-clip text-zinc-400 dark:text-zinc-500" />
+                            <IconArrowUpRight size={18} className="inline mb-0.5 overflow-clip text-zinc-400 dark:text-zinc-500" />
                           )}
                         </a>
                       </span>
-                      <span className="text-sm text-zinc-600 dark:text-zinc-400 sm:text-zinc-500 sm:dark:text-zinc-500">{edu.start} - {edu.end}</span>
+                      <span className="text-sm text-zinc-400 dark:text-zinc-500">{edu.start} - {edu.end}</span>
                     </div>
                   </div>
 
@@ -44,31 +44,31 @@ export default function Education() {
                     <div className="grid grid-cols-[4rem_1fr] gap-x-4 gap-y-2 text-sm text-zinc-600 dark:text-zinc-400">
                       {details.honor && (
                         <>
-                          <span className="font-medium text-zinc-700 dark:text-zinc-300">Honors</span>
+                          <span className="font-medium text-zinc-400 dark:text-zinc-500">Honors</span>
                           <span>{details.honor.join(", ")}</span>
                         </>
                       )}
                       {details.awards && (
                         <>
-                          <span className="font-medium text-zinc-700 dark:text-zinc-300">Awards</span>
+                          <span className="font-medium text-zinc-400 dark:text-zinc-500">Awards</span>
                           <span>{details.awards.join(", ")}</span>
                         </>
                       )}
                       {details.grade && (
                         <>
-                          <span className="font-medium text-zinc-700 dark:text-zinc-300">Grade</span>
+                          <span className="font-medium text-zinc-400 dark:text-zinc-500">Grade</span>
                           <span>{details.grade}</span>
                         </>
                       )}
                       {details.clubs && (
                         <>
-                          <span className="font-medium text-zinc-700 dark:text-zinc-300">Clubs</span>
+                          <span className="font-medium text-zinc-400 dark:text-zinc-500">Clubs</span>
                           <span>{details.clubs.join(", ")}</span>
                         </>
                       )}
                       {details.description && (
                         <>
-                          <span className="font-medium text-zinc-700 dark:text-zinc-300">Description</span>
+                          <span className="font-medium text-zinc-400 dark:text-zinc-500">Description</span>
                           <span>{details.description}</span>
                         </>
                       )}

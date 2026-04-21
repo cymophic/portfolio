@@ -29,15 +29,15 @@ export default function Career() {
                         <span className="items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-600 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300">{work.type}</span>
                       )}
                     </div>
-                    <span className="text-sm text-zinc-600 dark:text-zinc-400">
-                      <a href={work.website} target="_blank" rel="noopener noreferrer" className={work.website ? "underline sm:no-underline sm:hover:underline" : ""}>
+                    <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                      <a href={work.website} target="_blank" rel="noopener noreferrer" className={work.website ? "underline sm:hover:text-zinc-700 sm:dark:hover:text-zinc-300" : ""}>
                         {work.company}
                         {work.website && (
-                          <IconArrowUpRight size={18} className="sm:hidden inline mb-0.5 overflow-clip  text-zinc-400 dark:text-zinc-500" />
+                          <IconArrowUpRight size={18} className="inline mb-0.5 overflow-clip  text-zinc-400 dark:text-zinc-500" />
                         )}
                       </a>
                     </span>
-                    <span className="text-sm text-zinc-500">{work.start} - {work.end}</span>
+                    <span className="text-sm text-zinc-400 dark:text-zinc-500">{work.start} - {work.end}</span>
                   </div>
                 </div>
 
@@ -46,13 +46,13 @@ export default function Career() {
                   <div className="grid grid-cols-[4rem_1fr] gap-x-4 gap-y-2 text-sm text-zinc-600 dark:text-zinc-400">
                     {work.about && (
                       <>
-                        <span className="font-medium text-zinc-700 dark:text-zinc-300">About</span>
+                        <span className="font-medium text-zinc-400 dark:text-zinc-500">About</span>
                         <span>{work.about}</span>
                       </>
                     )}
                     {work.scope && (
                       <>
-                        <span className="font-medium text-zinc-700 dark:text-zinc-300">Scope</span>
+                        <span className="font-medium text-zinc-400 dark:text-zinc-500">Scope</span>
                         <span>{work.scope}</span>
                       </>
                     )}
