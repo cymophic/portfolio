@@ -158,6 +158,15 @@ export default function Stats() {
       ready: time !== null,
     },
     {
+      icon: <IconVolume size={18} />,
+      label: nowOrLast
+        ? <><a href={nowOrLast.url} target="_blank" rel="noopener noreferrer" className="underline">{nowOrLast.song}</a> by {nowOrLast.artist}</>
+        : "-",
+      labelText: nowOrLast ? `${nowOrLast.song} by ${nowOrLast.artist}` : undefined,
+      sublabel: spotifyStats?.nowPlaying ? "Currently playing" : "Song recently listened to",
+      ready: spotifyStats !== null,
+    },
+    {
       icon: <IconCode size={18} />,
       label: <><span className="font-mono">{githubStats?.totalCommits.toLocaleString()}</span> total commits</>,
       sublabel: "On GitHub in the last year",
@@ -173,17 +182,8 @@ export default function Stats() {
       icon: <IconKeyboard size={20} />,
       label: monkeytypeStats ? <><span className="font-mono">{Math.floor(monkeytypeStats.wpm)}</span> words per minute</> : "-",
       labelText: monkeytypeStats ? `${monkeytypeStats.wpm} 60s typing speed` : undefined,
-      sublabel: "60s typing speed",
+      sublabel: "Record typing speed in 60s",
       ready: monkeytypeStats !== null,
-    },
-    {
-      icon: <IconVolume size={18} />,
-      label: nowOrLast
-        ? <><a href={nowOrLast.url} target="_blank" rel="noopener noreferrer" className="underline">{nowOrLast.song}</a> by {nowOrLast.artist}</>
-        : "-",
-      labelText: nowOrLast ? `${nowOrLast.song} by ${nowOrLast.artist}` : undefined,
-      sublabel: spotifyStats?.nowPlaying ? "Currently playing" : "Recently played",
-      ready: spotifyStats !== null,
     },
   ];
 
@@ -197,7 +197,7 @@ export default function Stats() {
             totalContributions={githubStats.contributions}
           />
         )}
-        <ul className="columns-1 gap-6 sm:columns-2 md:columns-3">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {stats.map((stat, i) => (
             <StatItem key={i} stat={stat} />
           ))}
