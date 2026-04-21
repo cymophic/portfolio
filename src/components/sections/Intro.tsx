@@ -58,7 +58,7 @@ export default function Intro() {
           <h1 className="whitespace-nowrap -mb-2">
             <AnimateText
               words={words}
-              className="font-mono text-3xl sm:text-5xl font-semibold leading-tight tracking-wide text-zinc-700 dark:text-zinc-50"
+              className="font-mono text-3xl sm:text-5xl font-semibold leading-tight tracking-wide text-zinc-700 dark:text-zinc-200"
               variant="scramble"
               cursor="underscore"
               config={{
@@ -74,7 +74,7 @@ export default function Intro() {
           </p>
           
           {/* Social Links */}
-          <SocialLinks />
+          <SocialLinks iconSize={24} />
 
           <div className="mt-2 flex gap-4">
             <Button

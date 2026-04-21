@@ -97,7 +97,7 @@ function TechItem({ label }: { label: string }) {
   const color = colorMap[label];
   return (
     <div
-      className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shrink-0 select-none"
+      className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shrink-0 select-none"
       style={{
         ["--brand-light" as string]: color.light,
         ["--brand-dark" as string]: color.dark,

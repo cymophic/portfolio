@@ -48,6 +48,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 luisabhram.dev/
 ├── .github/
 │   ├── workflows/
+│   │   ├── build.yml                     # Reusable build workflow
 │   │   ├── deploy.yml                    # GitHub Actions deployment workflow
 │   │   └── check.yml                     # PR validation workflow
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
@@ -213,29 +214,41 @@ After provisioning, add these records in Cloudflare:
 
 Deployments are fully automated via GitHub Actions.
 
+### Prerequisites
+
+Ensure the following are configured in **Settings → Secrets and Variables → Actions** before the pipeline will work:
+
+**Secrets**
+| Name | Description |
+|---|---|
+| `AWS_ACCESS_KEY_ID` | IAM user access key |
+| `AWS_SECRET_ACCESS_KEY` | IAM user secret key |
+| `CLOUDFRONT_DISTRIBUTION_ID` | CloudFront distribution ID |
+| `S3_BUCKET_NAME` | S3 bucket name |
+| `SENTRY_AUTH_TOKEN` | Sentry auth token for source map uploads |
+
+**Variables**
+| Name | Description |
+|---|---|
+| `NEXT_PUBLIC_SITE_MODE` | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
+| `NEXT_PUBLIC_GA_ID` | Google Analytics Measurement ID |
+| `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN for error monitoring |
+| `NEXT_PUBLIC_API_URL` | Lambda + API Gateway URL |
+
 ### How it works
 
-1. Merge a PR into `main`
-2. GitHub Actions runs automatically:
-   - Installs dependencies
-   - Builds the Next.js static export
-   - Syncs `/out` to S3
-   - Invalidates the CloudFront cache
-3. Changes are live at [luisabhram.dev](https://luisabhram.dev)
+**On pull request to `main`** — `check.yml` runs:
+1. Calls the reusable `build.yml` workflow
+2. Installs dependencies, lints, and builds the Next.js static export
+3. Runs security analysis with CodeQL
 
-### GitHub Secrets & Variables
-
-| Name | Type | Description |
-|---|---|---|
-| `AWS_ACCESS_KEY_ID` | Secret | IAM user access key |
-| `AWS_SECRET_ACCESS_KEY` | Secret | IAM user secret key |
-| `CLOUDFRONT_DISTRIBUTION_ID` | Secret | CloudFront distribution ID |
-| `S3_BUCKET_NAME` | Variable | S3 bucket name |
-| `NEXT_PUBLIC_SITE_MODE` | Variable | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
-| `NEXT_PUBLIC_GA_ID` | Variable | Google Analytics Measurement ID |
-| `NEXT_PUBLIC_SENTRY_DSN` | Secret | Sentry DSN for error monitoring |
-| `SENTRY_AUTH_TOKEN` | Secret | Sentry auth token for source map uploads |
-| `NEXT_PUBLIC_API_URL` | Variable | Lambda + API Gateway URL |
+**On merge to `main`** — `deploy.yml` runs:
+1. Calls the reusable `build.yml` workflow
+2. Uploads the `/out` build artifact
+3. Downloads the `/out` artifact in the deploy job
+4. Syncs `/out` to S3
+5. Invalidates the CloudFront cache
+6. Changes are live at [luisabhram.dev](https://luisabhram.dev)
 
 ---
 

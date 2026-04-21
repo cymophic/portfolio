@@ -95,7 +95,7 @@ function StatItem({ stat }: { stat: StatItemType }) {
       <div className="flex min-w-0 flex-col gap-1">
         {stat.ready ? (
           <Tooltip content={stat.labelText ?? ""} disabled={!isOverflowing}>
-            <span ref={containerRef} className="block overflow-hidden whitespace-nowrap pr-4 sm:pr-1 leading-5 text-base text-zinc-800 dark:text-zinc-200">
+            <span ref={containerRef} className="block overflow-hidden whitespace-nowrap pr-4 sm:pr-1 leading-5 text-base text-zinc-600 dark:text-zinc-300">
               <span ref={innerRef} className="inline-block">
                 {stat.label}
               </span>
@@ -105,7 +105,7 @@ function StatItem({ stat }: { stat: StatItemType }) {
           <Skeleton shape="pill" className="h-5 w-48" />
         )}
         {stat.ready ? (
-          <span className="leading-5 truncate text-sm text-zinc-600 dark:text-zinc-400">
+          <span className="leading-5 truncate text-sm text-zinc-500 dark:text-zinc-400">
             {stat.sublabel}
           </span>
         ) : (

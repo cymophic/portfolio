@@ -25,7 +25,7 @@ function ProjectTags({ tags }: TagsSectionProps) {
   const remaining = hiddenTags.length;
 
   const tagPillClass =
-    "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-600 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300";
+    "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300/80";
 
   useExpandTags(containerRef, isExpanded);
 
@@ -52,14 +52,14 @@ function ProjectTags({ tags }: TagsSectionProps) {
           onClick={() => setIsExpanded(false)}
           className={`${tagPillClass} cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors py-0.75!`}
         >
-          <IconChevronLeft size={12} className="overflow-clip text-zinc-500 dark:text-zinc-400" />
+          <IconChevronLeft size={14} className="overflow-clip text-zinc-400" />
         </button>
       )}
 
       {remaining > 0 && (
         <button
           onClick={() => setIsExpanded((prev) => !prev)}
-          className={`${tagPillClass} tag-counter text-zinc-400 dark:text-zinc-400 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors`}
+          className={`${tagPillClass} tag-counter text-zinc-500 dark:text-zinc-300 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors`}
         >
           <span className="text-[11px]">+{remaining}</span>
         </button>
@@ -90,7 +90,7 @@ export default function Projects() {
 
               {/* Title */}
               <div className="flex items-center gap-2">
-                <span className="text-base font-semibold text-zinc-700 dark:text-zinc-100">
+                <span className="text-base font-semibold text-zinc-700 dark:text-zinc-300">
                   {project.title}
                 </span>
                 {project.url && (
@@ -115,7 +115,7 @@ export default function Projects() {
                       className={
                         easterEggDisabled && project.title === "Personal Portfolio"
                           ? "text-zinc-300 dark:text-zinc-700 pointer-events-none"
-                          : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
+                          : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors"
                       }
                     >
                       {easterEggDisabled && project.title === "Personal Portfolio"
@@ -128,7 +128,7 @@ export default function Projects() {
                 {project.repo && (
                   <Tooltip content="View repository" disabled={isMobile}>
                     <a href={project.repo} target="_blank" rel="noopener noreferrer"
-                      className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                      className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors">
                       <FaGithub size={16} className="overflow-clip" />
                     </a>
                   </Tooltip>

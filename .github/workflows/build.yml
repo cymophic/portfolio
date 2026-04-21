@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  workflow_call:
+    secrets:
+      SENTRY_AUTH_TOKEN:
+        required: true
+    inputs:
+      NEXT_PUBLIC_SITE_MODE:
+        required: true
+        type: string
+      NEXT_PUBLIC_GA_ID:
+        required: true
+        type: string
+      NEXT_PUBLIC_SENTRY_DSN:
+        required: true
+        type: string
+      NEXT_PUBLIC_API_URL:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Cache Next.js build
+        uses: actions/cache@v5
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_MODE: ${{ inputs.NEXT_PUBLIC_SITE_MODE }}
+          NEXT_PUBLIC_GA_ID: ${{ inputs.NEXT_PUBLIC_GA_ID }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ inputs.NEXT_PUBLIC_SENTRY_DSN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          NEXT_PUBLIC_API_URL: ${{ inputs.NEXT_PUBLIC_API_URL }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: out
+          path: out/
