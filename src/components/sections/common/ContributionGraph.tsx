@@ -5,6 +5,7 @@ import Tooltip from "@/components/ui/Tooltip";
 import type { Week } from "@/lib/utils/github";
 import { useEffect, useRef } from "react";
 
+const THRESHOLDS = [0, 10, 25, 40];
 const PALETTE = {
   light: {
     empty: "#ebedf0",
@@ -30,9 +31,9 @@ type Props = {
 function getColor(count: number, isDark: boolean): string {
   const color = isDark ? PALETTE.dark : PALETTE.light;
   if (count === 0) return color.empty;
-  if (count <= 10)  return color.low;
-  if (count <= 25)  return color.mid;
-  if (count <= 40)  return color.high;
+  if (count <= THRESHOLDS[1]) return color.low;
+  if (count <= THRESHOLDS[2]) return color.mid;
+  if (count <= THRESHOLDS[3]) return color.high;
   return color.max;
 }
 
@@ -80,7 +81,13 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
           {[color.empty, color.low, color.mid, color.high, color.max].map((color, i) => (
             <Tooltip
               key={i}
-              content={`${i === 0 ? "0" : i * 10 + 1} to ${i === 4 ? "40+" : (i + 1) * 10} contributions`}
+              content={
+                i === 0
+                  ? "0 contributions"
+                  : i === THRESHOLDS.length
+                  ? `${THRESHOLDS[i - 1] + 1}+ contributions`
+                  : `${THRESHOLDS[i - 1] + 1} to ${THRESHOLDS[i]} contributions`
+              }
             >
               <div key={i} style={{ backgroundColor: color }} className="h-3 w-3 rounded-xs" />
             </Tooltip>
