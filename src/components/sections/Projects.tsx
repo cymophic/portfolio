@@ -104,18 +104,26 @@ export default function Projects() {
                           e.preventDefault();
                           const current = portfolioEasterEggMessages[easterEggIndex];
                           if (current.type === "action") {
-                            toast(<span className="font-sans italic text-sm text-zinc-400 dark:text-zinc-500">{current.text}</span>);
+                            toast(
+                              <span className="font-sans italic text-sm text-zinc-400 dark:text-zinc-500">
+                                {current.text}
+                              </span>
+                            );
                             setEasterEggDisabled(true);
                             return;
                           }
-                          toast(<span className="font-sans text-sm">{current.text}</span>);
+                          toast(
+                            <span className="font-sans text-sm">
+                              {current.text}
+                            </span>
+                          );
                           setEasterEggIndex((prev) => prev + 1);
                         }
                       }}
                       className={
                         easterEggDisabled && project.title === "Personal Portfolio"
-                          ? "text-zinc-300 dark:text-zinc-700 pointer-events-none"
-                          : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors"
+                          ? "text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors pointer-events-none"
+                          : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors"
                       }
                     >
                       {easterEggDisabled && project.title === "Personal Portfolio"
@@ -128,7 +136,10 @@ export default function Projects() {
                 {project.repo && (
                   <Tooltip content="View repository" disabled={isMobile}>
                     <a href={project.repo} target="_blank" rel="noopener noreferrer"
-                      className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors">
+                      className="transition-colors
+                        text-zinc-400 dark:text-zinc-500 
+                        hover:text-zinc-500 dark:hover:text-zinc-400"
+                      >
                       <FaGithub size={16} className="overflow-clip" />
                     </a>
                   </Tooltip>
