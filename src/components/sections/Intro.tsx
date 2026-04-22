@@ -77,9 +77,10 @@ export default function Intro() {
           <SocialLinks iconSize={24} />
 
           <div className="mt-2 flex gap-4">
+            {/* Booking Button */}
             <Button
               size="md"
-              className="rounded-lg w-50 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap"
+              className="rounded-lg w-50 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
               disabled={bookingDisabled}
               data-cal-namespace="book-a-meeting"
               data-cal-link="luisabhram"
@@ -87,11 +88,12 @@ export default function Intro() {
             >
               {bookingDisabled ? "Meeting Scheduled" : "Schedule a Meeting"}
             </Button>
-
+            
+            {/* Copy Email Button */}
             <Button
               variant="secondary"
               size="md"
-              className="rounded-lg w-40 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-95 transition-transform"
+              className="rounded-lg w-40 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
               onClick={handleCopyEmail}
             >
               {copied ? "Copied!" : "Copy Email"}
