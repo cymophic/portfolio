@@ -7,21 +7,21 @@ import Projects from "@/components/sections/Projects";
 import TechStack from "@/components/sections/TechStack";
 import Footer from "@/components/layout/footer/Footer";
 
+import PageAnimator, { AnimatedSection } from "@/components/layout/PageAnimator";
+
 export default function Home() {
   return (
-    <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans py-18 sm:py-18 gap-28">
-      <div className="mt-24">
-        <Intro />
+    <PageAnimator>
+      <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans py-18 sm:py-18 gap-28">
+        <AnimatedSection className="mt-24"><Intro /></AnimatedSection>
+        <AnimatedSection><About /></AnimatedSection>
+        <AnimatedSection><Stats /></AnimatedSection>
+        <AnimatedSection><Work /></AnimatedSection>
+        <AnimatedSection><Education /></AnimatedSection>
+        <AnimatedSection><Projects /></AnimatedSection>
+        <AnimatedSection className="-mb-10"><TechStack /></AnimatedSection>
+        <AnimatedSection><Footer /></AnimatedSection>
       </div>
-      <About />
-      <Stats />
-      <Work />
-      <Education />
-      <Projects />
-      <div className="-mb-10">
-        <TechStack />
-      </div>
-      <Footer />
-    </div>
+    </PageAnimator>
   );
 }
