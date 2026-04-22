@@ -222,7 +222,7 @@ export default function Stats() {
         ) : (
           <Skeleton shape="pill" className="h-32.5 w-full" />
         )}
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-8 md:w-full">
           {stats.map((stat, i) => (
             <StatItem key={i} stat={stat} />
           ))}
