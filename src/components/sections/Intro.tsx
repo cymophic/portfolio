@@ -79,6 +79,7 @@ export default function Intro() {
           <div className="mt-2 flex gap-4">
             {/* Booking Button */}
             <Button
+              variant="primary"
               size="md"
               className="rounded-lg w-50 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
               disabled={bookingDisabled}
