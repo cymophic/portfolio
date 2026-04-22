@@ -80,15 +80,17 @@ luisabhram.dev/
 │   │   ├── utils/                        # Utilities
 │   │   └── site.ts                       # Site configurations
 ├── terraform/                            # AWS infrastructure as code
-│   ├── terraform.tfvars.example          # Terraform variable template
-│   ├── main.tf                           # Terraform and provider configuration
-│   ├── s3.tf                             # S3 bucket, policy, and access configuration
+│   ├── acm.tf                            # ACM SSL certificate 
+│   ├── budgets.tf                        # AWS budget alerts
 │   ├── cloudfront.tf                     # CloudFront distribution, OAC, and functions
 │   ├── eventbridge.tf                    # EventBridge scheduled triggers for Lambda
-│   ├── acm.tf                            # ACM SSL certificate
-│   ├── outputs.tf                        # Terraform output values
+│   ├── lambda.tf                         # Lambda functions and IAM roles
 │   ├── locals.tf                         # Centralized logic and data transformation layer
-│   └── variables.tf                      # Input definitions
+│   ├── main.tf                           # Terraform and provider configuration
+│   ├── outputs.tf                        # Terraform output values
+│   ├── s3.tf                             # S3 bucket, policy, and access configuration
+│   ├── variables.tf                      # Input definitions
+│   └── terraform.tfvars.example          # Terraform variable template
 ├── .env.example                          # Required environment variables
 ├── .gitignore
 ├── eslint.config.mjs
@@ -256,15 +258,15 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 ### How it works
 
 **On pull request to `main`** — `check.yml` runs:
-1. Calls the reusable `build.yml` workflow
-2. Installs dependencies, lints, and builds the Next.js static export
+1. Lints the codebase
+2. Calls the reusable `build.yml` workflow to build the Next.js static export
 3. Runs security analysis with CodeQL
 
 **On merge to `main`** — `deploy.yml` runs:
 1. Calls the reusable `build.yml` workflow
 2. Uploads the `/out` build artifact
 3. Downloads the `/out` artifact in the deploy job
-4. Syncs `/out` to S3
+4. Syncs `/out` to S3, preserving the `stats/` folder managed by Lambda
 5. Invalidates the CloudFront cache
 6. Changes are live at [luisabhram.dev](https://luisabhram.dev)
 
