@@ -125,6 +125,23 @@ function StatItem({ stat }: { stat: StatItemType }) {
   );
 }
 
+export function SoundWave() {
+  return (
+    <svg width="18" height="20" viewBox="0 0 18 18" className="text-current">
+      {[3, 7, 11, 15].map((x, i) => (
+        <line key={x} x1={x} x2={x} y1="12" y2="16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+          <animate
+            attributeName="y1"
+            values={`${[10, 8, 11, 9][i]};${[6, 5, 7, 6][i]};${[10, 8, 11, 9][i]}`}
+            dur={`${[0.8, 1.1, 0.6, 0.9][i]}s`}
+            repeatCount="indefinite"
+          />
+        </line>
+      ))}
+    </svg>
+  );
+}
+
 export default function Stats() {
   const [age, setAge] = useState("—");
   const [time, setTime] = useState<{ time: string; offset: string } | null>(null);
@@ -132,7 +149,8 @@ export default function Stats() {
   const [wakatimeStats, setWakatimeStats] = useState<{ today: number; weekly: number; monthly: number; yearly: number } | null>(null);
   const [spotifyStats, setSpotifyStats] = useState<SpotifyStats | null>(null);
   const [monkeytypeStats, setMonkeytypeStats] = useState<{ wpm: number; acc: number; consistency: number } | null>(null);
-
+  const nowOrLast = spotifyStats?.nowPlaying ?? spotifyStats?.lastPlayed;
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setAge(getAge(profileInfo.birthDate));
@@ -149,8 +167,6 @@ export default function Stats() {
     return () => clearInterval(interval);
   }, []);
 
-  const nowOrLast = spotifyStats?.nowPlaying ?? spotifyStats?.lastPlayed;
-
   const stats: StatItemType[] = [
     {
       icon: <IconCalendarEvent size={18} />,
@@ -165,7 +181,7 @@ export default function Stats() {
       ready: time !== null,
     },
     {
-      icon: <IconVolume size={18} />,
+      icon: spotifyStats?.nowPlaying ? <SoundWave /> : <IconVolume size={18} />,
       label: nowOrLast
         ? <><a href={nowOrLast.url} target="_blank" rel="noopener noreferrer" className="underline">{nowOrLast.song}</a> by {nowOrLast.artist}</>
         : "-",
