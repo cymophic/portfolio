@@ -7,7 +7,7 @@ Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) wi
 ## 📚 Table of Contents
 
 1. 🌐 [Live Deployment](#-live-deployment)
-2. ⚙️ [Architecture & Tech Stack](#-architecture--tech-stack)
+2. ⚙️ [Architecture and Tech Stack](#️⃣-architecture-and-tech-stack)
 3. 📁 [Project Structure](#-project-structure)
 4. 🚀 [Local Development](#-local-development)
 5. 🏗️ [Infrastructure Setup](#-infrastructure-setup)
@@ -22,7 +22,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 
 ---
 
-## ⚙️ Architecture & Tech Stack
+## ⚙️ Architecture and Tech Stack
 
 ### Application
 - **Framework:** Next.js 16
