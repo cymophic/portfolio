@@ -18,11 +18,11 @@ const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
 
 async function fetchWakatimeStats(): Promise<{ today: number; weekly: number; monthly: number; yearly: number } | null> {
-  const url = process.env.NEXT_PUBLIC_API_URL;
+  const url = process.env.NEXT_PUBLIC_CDN_URL;
   if (!url) return null;
 
   try {
-    const res = await fetch(`${url}/wakatime`);
+    const res = await fetch(`${url}/stats/wakatime.json`);
     const result = await res.json();
     return result.monthly != null && result.yearly != null && result.weekly != null ? result : null;
   } catch (error) {
@@ -31,20 +31,27 @@ async function fetchWakatimeStats(): Promise<{ today: number; weekly: number; mo
   }
 }
 
-type MusicStats = {
+type SpotifyStats = {
   nowPlaying: { song: string; artist: string; url: string; isPlaying: boolean } | null;
   lastPlayed: { song: string; artist: string; url: string } | null;
   topTrack: { song: string; artist: string; url: string } | null;
 };
 
-async function fetchSpotifyStats(): Promise<MusicStats | null> {
-  const url = process.env.NEXT_PUBLIC_API_URL;
-  if (!url) return null;
+async function fetchSpotifyStats(): Promise<SpotifyStats | null> {
+  const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (!cdnUrl || !apiUrl) return null;
 
   try {
-    const res = await fetch(`${url}/spotify`);
-    const result = await res.json();
-    return result ?? null;
+    const [statsRes, nowPlayingRes] = await Promise.all([
+      fetch(`${cdnUrl}/stats/spotify.json`),
+      fetch(`${apiUrl}/spotify/now-playing`),
+    ]);
+
+    const stats = await statsRes.json();
+    const nowPlaying = await nowPlayingRes.json();
+
+    return { ...stats, nowPlaying: nowPlaying.nowPlaying ?? null };
   } catch (error) {
     console.error("Network or Parsing Error:", error);
     return null;
@@ -52,11 +59,11 @@ async function fetchSpotifyStats(): Promise<MusicStats | null> {
 }
 
 async function fetchMonkeytypeStats(): Promise<{ wpm: number; acc: number; consistency: number } | null> {
-  const url = process.env.NEXT_PUBLIC_API_URL;
+  const url = process.env.NEXT_PUBLIC_CDN_URL;
   if (!url) return null;
 
   try {
-    const res = await fetch(`${url}/monkeytype`);
+    const res = await fetch(`${url}/stats/monkeytype.json`);
     const result = await res.json();
     return result.time?.["60"] ?? result.time?.["15"] ?? null;
   } catch (error) {
@@ -123,7 +130,7 @@ export default function Stats() {
   const [time, setTime] = useState<{ time: string; offset: string } | null>(null);
   const [githubStats, setGithubStats] = useState<{ contributions: number; totalCommits: number; weeks: Week[] } | null>(null);
   const [wakatimeStats, setWakatimeStats] = useState<{ today: number; weekly: number; monthly: number; yearly: number } | null>(null);
-  const [spotifyStats, setSpotifyStats] = useState<MusicStats | null>(null);
+  const [spotifyStats, setSpotifyStats] = useState<SpotifyStats | null>(null);
   const [monkeytypeStats, setMonkeytypeStats] = useState<{ wpm: number; acc: number; consistency: number } | null>(null);
 
   useEffect(() => {
@@ -191,11 +198,13 @@ export default function Stats() {
     <section className="w-full">
       <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Stats" />
-        {githubStats && (
+        {githubStats ? (
           <ContributionGraph
             weeks={githubStats.weeks}
             totalContributions={githubStats.contributions}
           />
+        ) : (
+          <Skeleton shape="pill" className="h-32.5 w-full" />
         )}
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {stats.map((stat, i) => (

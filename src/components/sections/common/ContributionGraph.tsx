@@ -5,7 +5,7 @@ import Tooltip from "@/components/ui/Tooltip";
 import type { Week } from "@/lib/utils/github";
 import { useEffect, useRef } from "react";
 
-const THRESHOLDS = [0, 10, 25, 40];
+const THRESHOLDS = [0, 10, 30, 50];
 const PALETTE = {
   light: {
     empty: "#ebedf0",

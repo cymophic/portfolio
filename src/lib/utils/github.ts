@@ -15,11 +15,11 @@ export type GithubData = {
 };
 
 export async function fetchGithubData(): Promise<GithubData | null> {
-  const url = process.env.NEXT_PUBLIC_API_URL;
+  const url = process.env.NEXT_PUBLIC_CDN_URL;
   if (!url) return null;
 
   try {
-    const res = await fetch(`${url}/github`);
+    const res = await fetch(`${url}/stats/github.json`);
     const result = await res.json();
     const commit = result.recentPortfolioCommits?.[0];
 

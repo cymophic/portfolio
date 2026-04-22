@@ -7,12 +7,12 @@ Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) wi
 ## 📚 Table of Contents
 
 1. 🌐 [Live Deployment](#-live-deployment)
-2. ⚙️ [Architecture & Tech Stack](#-architecture--tech-stack)
+2. ⚙️ [Architecture and Tech Stack](#️⃣-architecture-and-tech-stack)
 3. 📁 [Project Structure](#-project-structure)
 4. 🚀 [Local Development](#-local-development)
 5. 🏗️ [Infrastructure Setup](#-infrastructure-setup)
 6. 🔄 [Deployment Process](#-deployment-process)
-7. 🔌 [API Endpoints](#-api-endpoints)
+7. 🔌 [Data Sources](#-data-sources)
 
 ---
 
@@ -22,7 +22,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 
 ---
 
-## ⚙️ Architecture & Tech Stack
+## ⚙️ Architecture and Tech Stack
 
 ### Application
 - **Framework:** Next.js 16
@@ -31,8 +31,9 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **Animations:** GSAP
 
 ### Infrastructure
-- **Frontend Hosting:** AWS S3 & AWS CloudFront 
-- **Serverless Backend:** AWS Lambda & API Gateway  
+- **Frontend Hosting:** AWS S3 & AWS CloudFront
+- **Serverless Backend:** AWS Lambda & API Gateway
+- **Scheduled Jobs:** AWS EventBridge Scheduler
 - **DNS & Security:** Cloudflare (DNS) & AWS ACM (SSL)
 - **IaC:** Terraform
 - **Observability:** Sentry (Errors), AWS CloudWatch (Logs + Metrics)
@@ -53,9 +54,11 @@ luisabhram.dev/
 │   │   └── check.yml                     # PR validation workflow
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── lambda/
+│   ├── spotify/
+│   │   ├── now-playing.mjs               # Spotify now playing Lambda (live, API Gateway)
+│   │   └── stats.mjs                     # Spotify static stats Lambda (scheduled, S3)
 │   ├── github.mjs                        # GitHub profile stats Lambda function
 │   ├── monkeytype.mjs                    # Monkeytype personal bests Lambda function
-│   ├── spotify.mjs                       # Spotify music stats Lambda function
 │   └── wakatime.mjs                      # Wakatime coding stats Lambda function
 ├── public/                               # Static assets
 ├── scripts/                              # Build-time scripts
@@ -81,6 +84,7 @@ luisabhram.dev/
 │   ├── main.tf                           # Terraform and provider configuration
 │   ├── s3.tf                             # S3 bucket, policy, and access configuration
 │   ├── cloudfront.tf                     # CloudFront distribution, OAC, and functions
+│   ├── eventbridge.tf                    # EventBridge scheduled triggers for Lambda
 │   ├── acm.tf                            # ACM SSL certificate
 │   ├── outputs.tf                        # Terraform output values
 │   ├── locals.tf                         # Centralized logic and data transformation layer
@@ -142,7 +146,7 @@ luisabhram.dev/
 
 - **Terraform** v1.14+
 - **AWS CLI** configured with valid credentials (`aws configure`)
-- An AWS IAM user with S3, CloudFront, ACM, IAM, Lambda, and API Gateway permissions
+- An AWS IAM user with S3, CloudFront, ACM, IAM, Lambda, API Gateway, and EventBridge permissions
 
 ### Terraform Variables
 
@@ -195,6 +199,8 @@ This provisions:
 - CloudFront distribution with HTTPS
 - ACM SSL certificate for the custom domain
 - S3 bucket policy scoped to CloudFront only
+- Lambda functions for stats and Spotify now playing
+- EventBridge schedules for automated stats updates
 
 ### DNS Setup
 
@@ -207,6 +213,17 @@ After provisioning, add these records in Cloudflare:
 | `CNAME` | ACM validation names | ACM validation values (from `terraform output acm_validation_records`) |
 
 > ⚠️ Set both records to **DNS only** (grey cloud) — not proxied.
+
+### Seeding Static Stats
+
+After provisioning, manually invoke each scheduled Lambda once to seed the initial JSON files in S3:
+
+```bash
+aws lambda invoke --function-name <project_name>-github /dev/null
+aws lambda invoke --function-name <project_name>-wakatime /dev/null
+aws lambda invoke --function-name <project_name>-spotify-stats /dev/null
+aws lambda invoke --function-name <project_name>-monkeytype /dev/null
+```
 
 ---
 
@@ -234,6 +251,7 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 | `NEXT_PUBLIC_GA_ID` | Google Analytics Measurement ID |
 | `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN for error monitoring |
 | `NEXT_PUBLIC_API_URL` | Lambda + API Gateway URL |
+| `NEXT_PUBLIC_CDN_URL` | CloudFront CDN URL for static stats JSON |
 
 ### How it works
 
@@ -252,13 +270,21 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 
 ---
 
-## 🔌 API Endpoints
+## 🔌 Data Sources
 
+### Live Endpoints
 Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in `NEXT_PUBLIC_API_URL`.
 
 | Method | Endpoint | Description | Response |
 |---|---|---|---|
-| `GET` | `/github` | GitHub profile stats | `{ contributions, totalCommits, weeks, recentPortfolioCommits, recentActivity }` |
-| `GET` | `/wakatime` | WakaTime coding hours | `{ monthly: number, yearly: number }` |
-| `GET` | `/spotify` | Spotify music stats | `{ topTrack, topArtist, nowPlaying, lastPlayed }` |
-| `GET` | `/monkeytype` | Monkeytype personal bests | `{ time: { 15/60 { wpm, acc, consistency, timestamp } } }` |
+| `GET` | `/spotify/now-playing` | Spotify currently playing | `{ nowPlaying: { song, artist, url, isPlaying } }` |
+
+### Static Stats
+Pre-generated JSON files served from CloudFront, updated on a schedule via EventBridge. Base URL is stored in `NEXT_PUBLIC_CDN_URL`.
+
+| File | Description | Schedule | Response |
+|---|---|---|---|
+| `/stats/github.json` | GitHub profile stats | Hourly | `{ contributions, totalCommits, weeks, recentPortfolioCommits, recentActivity }` |
+| `/stats/wakatime.json` | WakaTime coding hours | Hourly | `{ today, weekly, monthly, yearly }` |
+| `/stats/spotify.json` | Spotify static stats | Hourly | `{ topTrack, topArtist, lastPlayed }` |
+| `/stats/monkeytype.json` | Monkeytype personal bests | Daily | `{ time: { 15, 60: { wpm, acc, consistency, timestamp } } }` |
