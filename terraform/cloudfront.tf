@@ -22,6 +22,7 @@ resource "aws_cloudfront_distribution" "portfolio" {
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = "S3-${var.bucket_name}"
     viewer_protocol_policy = "redirect-to-https"
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cors.id
 
     forwarded_values {
       query_string = false
@@ -86,4 +87,22 @@ resource "aws_cloudfront_function" "rewrite_uri" {
       return request;
     }
   EOT
+}
+
+resource "aws_cloudfront_response_headers_policy" "cors" {
+  name = "${var.project_name}-cors-policy"
+
+  cors_config {
+    access_control_allow_origins {
+      items = local.cors_origins
+    }
+    access_control_allow_headers {
+      items = ["*"]
+    }
+    access_control_allow_methods {
+      items = ["GET", "HEAD"]
+    }
+    access_control_allow_credentials = false
+    origin_override                   = true
+  }
 }
