@@ -12,7 +12,7 @@ Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) wi
 4. 🚀 [Local Development](#-local-development)
 5. 🏗️ [Infrastructure Setup](#-infrastructure-setup)
 6. 🔄 [Deployment Process](#-deployment-process)
-7. 🔌 [API Endpoints](#-api-endpoints)
+7. 🔌 [Data Sources](#-data-sources)
 
 ---
 
@@ -270,7 +270,7 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 
 ---
 
-## 🔌 API Endpoints
+## 🔌 Data Sources
 
 ### Live Endpoints
 Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in `NEXT_PUBLIC_API_URL`.
