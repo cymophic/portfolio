@@ -122,8 +122,8 @@ export default function Projects() {
                       }}
                       className={
                         easterEggDisabled && project.title === "Personal Portfolio"
-                          ? "text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors pointer-events-none"
-                          : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors"
+                          ? "text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-300 transition-colors pointer-events-none"
+                          : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-300 transition-colors"
                       }
                     >
                       {easterEggDisabled && project.title === "Personal Portfolio"
@@ -138,7 +138,7 @@ export default function Projects() {
                     <a href={project.repo} target="_blank" rel="noopener noreferrer"
                       className="transition-colors
                         text-zinc-400 dark:text-zinc-500 
-                        hover:text-zinc-500 dark:hover:text-zinc-400"
+                        hover:text-zinc-500 dark:hover:text-zinc-300"
                       >
                       <FaGithub size={16} className="overflow-clip" />
                     </a>
