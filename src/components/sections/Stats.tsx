@@ -191,11 +191,13 @@ export default function Stats() {
     <section className="w-full">
       <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Stats" />
-        {githubStats && (
+        {githubStats ? (
           <ContributionGraph
             weeks={githubStats.weeks}
             totalContributions={githubStats.contributions}
           />
+        ) : (
+          <Skeleton shape="pill" className="h-32.5 w-full" />
         )}
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {stats.map((stat, i) => (
