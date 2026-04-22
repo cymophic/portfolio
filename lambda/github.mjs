@@ -1,11 +1,41 @@
-const STATS_CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
-const ACTIVITY_CACHE_TTL = 60 * 60 * 1000; // 1 hour
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+
+const s3 = new S3Client();
+const API_BASE = "https://api.github.com";
 const PORTFOLIO_REPO = "portfolio";
 
-let statsCache = null;
-let statsCacheTime = null;
-let activityCache = null;
-let activityCacheTime = null;
+const GRAPHQL_QUERY = `
+  query($username: String!) {
+    user(login: $username) {
+      contributionsCollection {
+        contributionCalendar {
+          totalContributions
+          weeks {
+            contributionDays {
+              date
+              contributionCount
+              color
+            }
+          }
+        }
+      }
+      activity: contributionsCollection {
+        commitContributionsByRepository(maxRepositories: 10) {
+          repository {
+            name
+            url
+          }
+          contributions(first: 1) {
+            nodes {
+              occurredAt
+              commitCount
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 function response(statusCode, body) {
   return { statusCode, body: JSON.stringify(body) };
@@ -13,12 +43,6 @@ function response(statusCode, body) {
 
 export const handler = async () => {
   try {
-    const now = Date.now();
-    const statsCacheHit = statsCache && statsCacheTime && now - statsCacheTime < STATS_CACHE_TTL;
-    const activityCacheHit = activityCache && activityCacheTime && now - activityCacheTime < ACTIVITY_CACHE_TTL;
-
-    if (statsCacheHit && activityCacheHit) return response(200, { ...statsCache, ...activityCache });
-
     const token = process.env.GITHUB_TOKEN;
     const username = process.env.GITHUB_USERNAME;
 
@@ -27,52 +51,16 @@ export const handler = async () => {
       "Content-Type": "application/json",
     };
 
-    const graphqlQuery = `
-      query($username: String!) {
-        user(login: $username) {
-          contributionsCollection {
-            contributionCalendar {
-              totalContributions
-              weeks {
-                contributionDays {
-                  date
-                  contributionCount
-                  color
-                }
-              }
-            }
-          }
-          activity: contributionsCollection {
-            commitContributionsByRepository(maxRepositories: 10) {
-              repository {
-                name
-                url
-              }
-              contributions(first: 1) {
-                nodes {
-                  occurredAt
-                  commitCount
-                }
-              }
-            }
-          }
-        }
-      }
-    `;
-
     const [graphqlRes, totalCommitsRes, recentCommitsRes] = await Promise.all([
-      fetch("https://api.github.com/graphql", {
+      fetch(`${API_BASE}/graphql`, {
         method: "POST",
         headers,
-        body: JSON.stringify({
-          query: graphqlQuery,
-          variables: { username },
-        }),
+        body: JSON.stringify({ query: GRAPHQL_QUERY, variables: { username } }),
       }),
-      fetch(`https://api.github.com/search/commits?q=author:${username}&per_page=1`, {
+      fetch(`${API_BASE}/search/commits?q=author:${username}&per_page=1`, {
         headers: { ...headers, Accept: "application/vnd.github.cloak-preview" },
       }),
-      fetch(`https://api.github.com/repos/${username}/${PORTFOLIO_REPO}/commits?per_page=10&sha=main`, { headers }),
+      fetch(`${API_BASE}/repos/${username}/${PORTFOLIO_REPO}/commits?per_page=10&sha=main`, { headers }),
     ]);
 
     if (!graphqlRes.ok) throw new Error(`GitHub GraphQL error: ${graphqlRes.status}`);
@@ -92,8 +80,6 @@ export const handler = async () => {
     const { totalContributions, weeks } =
       graphqlResult.data?.user?.contributionsCollection.contributionCalendar ?? {};
 
-    const totalCommits = totalCommitsResult.total_count ?? null;
-
     const recentPortfolioCommits = recentCommitsResult.map((c) => ({
       id: c.sha.slice(0, 7),
       message: c.commit.message.split("\n")[0],
@@ -108,13 +94,22 @@ export const handler = async () => {
       commitCount: r.contributions.nodes[0]?.commitCount ?? null,
     })) ?? [];
 
-    statsCache = { contributions: totalContributions ?? null, weeks: weeks ?? [], totalCommits };
-    statsCacheTime = now;
+    const payload = {
+      contributions: totalContributions ?? null,
+      totalCommits: totalCommitsResult.total_count ?? null,
+      weeks: weeks ?? [],
+      recentPortfolioCommits,
+      recentActivity,
+    };
 
-    activityCache = { recentPortfolioCommits, recentActivity };
-    activityCacheTime = now;
+    await s3.send(new PutObjectCommand({
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: "stats/github.json",
+      Body: JSON.stringify(payload),
+      ContentType: "application/json",
+    }));
 
-    return response(200, { ...statsCache, ...activityCache });
+    return response(200, { ok: true });
   } catch (error) {
     console.error("GitHub Lambda error:", error);
     return response(500, { error: "Internal server error" });
