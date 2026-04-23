@@ -12,9 +12,9 @@ export default function Home() {
   return (
     <PageAnimator>
       <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans py-18 sm:py-18 gap-28">
-        <div className="min-h-[calc(100svh-4rem)] flex flex-col justify-center gap-28 sm:-mt-6 sm:-mb-20">
+        <div className="xl:min-h-[calc(100svh-4rem)] flex flex-col justify-center gap-28 sm:-mt-6 xl:-mb-20">
           {/* Intro, Tagline, Profile */}
-          <AnimatedSection className="mt-24 sm:mt-0">
+          <AnimatedSection className="mt-24 xl:mt-0">
             <Intro />
           </AnimatedSection>
 
