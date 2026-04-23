@@ -9,7 +9,7 @@ jobs:
   track:
     runs-on: ubuntu-latest
     steps:
-      - name: Update Date Created field
+      - name: Update date created field
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
           PROJECT_ID: ${{ vars.PROJECT_ID }}

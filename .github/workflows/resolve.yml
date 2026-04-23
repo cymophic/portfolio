@@ -12,7 +12,7 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Update Date Resolved field
+      - name: Update date resolved field
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
           PROJECT_ID: ${{ vars.PROJECT_ID }}
