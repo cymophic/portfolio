@@ -1,4 +1,3 @@
-// src/components/layout/PageAnimator.tsx
 "use client";
 import { motion, type Variants, type Easing } from "motion/react";
 
@@ -6,7 +5,7 @@ const CONFIG = {
   blur: 12, // starting blur in px
   y: 30, // starting vertical offset in px
   duration: 0.6, // seconds each section takes to animate in
-  stagger: 0.12, // seconds between each section
+  stagger: 0.24, // seconds between each section
   ease: "easeOut" as Easing, // easing curve
 };
 

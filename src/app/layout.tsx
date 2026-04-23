@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Inter, Geist_Mono, Spline_Sans_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 
-import Nav from "@/components/layout/header/Header";
 import ThemeProvider from "@/components/layout/theme/ThemeProvider";
+import { TooltipProvider } from "@/components/ui/Tooltip";
+import Nav from "@/components/layout/header/Header";
+import Footer from "@/components/layout/footer/Footer";
 import ComingSoon from "@/components/pages/ComingSoon";
 import { profileInfo } from "@/lib/site";
-
-const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 import "./globals.css";
 
-import { Inter, Geist_Mono, Spline_Sans_Mono } from "next/font/google";
+const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 
 const inter = Inter({
   variable: "--font-inter",
@@ -45,6 +46,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
       <>
         <Nav />
         <main className="flex flex-1 flex-col">{children}</main>
+        <Footer />
       </>
     );
   }
@@ -53,15 +55,17 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
     <html lang="en" className={`${inter.variable} ${geistMono.variable} ${splineSansMono.variable} h-full antialiased font-sans`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950" suppressHydrationWarning>
         <ThemeProvider>
-          {content}
-          <Toaster
-            position="top-center"
-            toastOptions={{
-              classNames: {
-                toast: "!bg-zinc-100 dark:!bg-zinc-900 !border-zinc-200 dark:!border-zinc-700 !text-zinc-800 dark:!text-zinc-200 !shadow-md !rounded-md",
-              },
-            }}
-          />
+          <TooltipProvider>
+            {content}
+            <Toaster
+              position="top-center"
+              toastOptions={{
+                classNames: {
+                  toast: "!bg-zinc-100 dark:!bg-zinc-900 !border-zinc-200 dark:!border-zinc-700 !text-zinc-800 dark:!text-zinc-200 !shadow-md !rounded-md",
+                },
+              }}
+            />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
       

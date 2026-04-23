@@ -2,14 +2,16 @@
 
 import { useEffect, useState, useMemo, useRef } from "react";
 import { getCalApi } from "@calcom/embed-react";
+import { IconQuoteOpen } from "@tabler/icons-react";
 
 import { profileInfo } from "@/lib/site";
 import SocialLinks from "@/components/ui/SocialLinks";
 import ProfileImage from "@/components/ui/ProfileImage";
-import AnimateText from "@/components/ui/AnimatedText";
+import { ScrambleText } from "@/components/ui/AnimatedText";
 import Button from "@/components/ui/Button";
 
 const CONFIG = {
+  typingSpeed: 50, // time it takes to type each character
   wordsInterval: 3700, // how long each greeting stays before swapping
   deletingSpeed: 20, // time it takes to delete the word
 };
@@ -56,12 +58,12 @@ export default function Intro() {
 
           {/* Name */}
           <h1 className="whitespace-nowrap -mb-2">
-            <AnimateText
+            <ScrambleText 
               words={words}
               className="font-mono text-3xl sm:text-5xl font-semibold leading-tight tracking-wide text-zinc-700 dark:text-zinc-200"
-              variant="scramble"
               cursor="underscore"
               config={{
+                typingSpeedMs: CONFIG.typingSpeed,
                 pauseMs: CONFIG.wordsInterval,
                 deletingSpeedMs: CONFIG.deletingSpeed,
               }}
@@ -69,9 +71,12 @@ export default function Intro() {
           </h1>
 
           {/* Tagline */}
-          <p className="max-w-md text-base text-zinc-600 dark:text-zinc-400">
-            {profileInfo.tagline}
-          </p>
+          <div className="max-w-md flex flex-row gap-1 text-zinc-600 dark:text-zinc-400">
+            <IconQuoteOpen size={14} className="inline-block align-top overflow-clip" />
+            <p className="max-w-md text-base italic">
+              {profileInfo.tagline}
+            </p>
+          </div>
           
           {/* Social Links */}
           <SocialLinks iconSize={24} />

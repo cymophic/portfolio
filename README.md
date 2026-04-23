@@ -7,7 +7,7 @@ Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) wi
 ## 📚 Table of Contents
 
 1. 🌐 [Live Deployment](#-live-deployment)
-2. ⚙️ [Architecture and Tech Stack](#️⃣-architecture-and-tech-stack)
+2. ⚙️ [Architecture and Tech Stack](#️-architecture-and-tech-stack)
 3. 📁 [Project Structure](#-project-structure)
 4. 🚀 [Local Development](#-local-development)
 5. 🏗️ [Infrastructure Setup](#-infrastructure-setup)
@@ -28,7 +28,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **Framework:** Next.js 16
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4
-- **Animations:** GSAP
+- **Animations:** GSAP, Motion
 
 ### Infrastructure
 - **Frontend Hosting:** AWS S3 & AWS CloudFront
@@ -273,6 +273,17 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 ---
 
 ## 🔌 Data Sources
+
+### Site Content
+Static site content is defined in `src/lib/site.ts` and rendered at build time.
+
+### Build-Time Assets
+Assets that are fetched automatically during `prebuild`.
+
+| Asset | Description |
+|---|---|
+| `public/avatar.png` | Profile avatar |
+| `src/app/icon.png` | Site favicon |
 
 ### Live Endpoints
 Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in `NEXT_PUBLIC_API_URL`.

@@ -11,6 +11,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
   const containerRef = useRef<HTMLSpanElement>(null);
   const innerRef = useRef<HTMLSpanElement>(null);
   const animateRef = useRef<() => (() => void) | undefined>(undefined);
+  const isAnimatingRef = useRef(false);
 
   const animate = useCallback(() => {
     const container = containerRef.current;
@@ -27,6 +28,7 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
     let pauseEndTimer: ReturnType<typeof setTimeout> | undefined;
 
     const pauseStartTimer = setTimeout(() => {
+      isAnimatingRef.current = true;
       const interval = setInterval(() => {
         if (cancelled) return clearInterval(interval);
 
@@ -37,9 +39,11 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
           clearInterval(interval);
 
           pauseEndTimer = setTimeout(() => {
+            if (cancelled) return;
+            isAnimatingRef.current = false;
             offset = 0;
             inner.style.transform = `translateX(0px)`;
-            if (!cancelled) animateRef.current?.();
+            animateRef.current?.();
           }, CONFIG.pauseEnd * 1000);
         }
       }, CONFIG.stepInterval);
@@ -59,9 +63,15 @@ export default function useTextMarquee(labelText: string | undefined, ready: boo
     animateRef.current = animate;
 
     let cleanup: (() => void) | undefined;
+    if (!isAnimatingRef.current) {
+      if (innerRef.current) innerRef.current.style.transform = "translateX(0px)";
+      cleanup = animate();
+    }
 
     const observer = new ResizeObserver(() => {
+      if (isAnimatingRef.current) return;
       cleanup?.();
+      if (innerRef.current) innerRef.current.style.transform = "translateX(0px)";
       cleanup = animate();
     });
 

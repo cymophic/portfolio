@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IconMapPin, IconCode, IconClock, IconCalendarEvent, IconKeyboard, IconVolume } from "@tabler/icons-react";
 
 import { profileInfo } from "@/lib/site";
@@ -9,13 +9,15 @@ import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile"
 import { fetchGithubData } from "@/lib/utils/github";
 import type { Week } from "@/lib/utils/github";
 import Skeleton from "@/components/ui/Skeleton";
-import AnimateText from "@/components/ui/AnimatedText";
+import { SlotText } from "@/components/ui/AnimatedText";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
 import Tooltip from "@/components/ui/Tooltip";
 import ContributionGraph from "@/components/sections/common/ContributionGraph";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
+const SONG_REFRESH_INTERVAL = 2.5; // 2 min 30 sec
+const LOADMS_CONTRIBUTION_GRAPH = 1400;
 
 async function fetchWakatimeStats(): Promise<{ today: number; weekly: number; monthly: number; yearly: number } | null> {
   const url = process.env.NEXT_PUBLIC_CDN_URL;
@@ -149,35 +151,58 @@ export default function Stats() {
   const [wakatimeStats, setWakatimeStats] = useState<{ today: number; weekly: number; monthly: number; yearly: number } | null>(null);
   const [spotifyStats, setSpotifyStats] = useState<SpotifyStats | null>(null);
   const [monkeytypeStats, setMonkeytypeStats] = useState<{ wpm: number; acc: number; consistency: number } | null>(null);
+  const [graphReady, setGraphReady] = useState(false);
+  const spotifyIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const nowOrLast = spotifyStats?.nowPlaying ?? spotifyStats?.lastPlayed;
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setAge(getAge(profileInfo.birthDate));
       setTime(getLocalTime(TIMEZONE));
     }, 1000);
 
+    fetchWakatimeStats().then(setWakatimeStats);
+    fetchMonkeytypeStats().then(setMonkeytypeStats);
     fetchGithubData().then((data) =>
       setGithubStats(data ? { contributions: data.contributions, totalCommits: data.totalCommits, weeks: data.weeks ?? [] } : null)
     );
-    fetchWakatimeStats().then(setWakatimeStats);
-    fetchSpotifyStats().then(setSpotifyStats);
-    fetchMonkeytypeStats().then(setMonkeytypeStats);
+    fetchSpotifyStats().then((data) => {
+      setSpotifyStats(data);
+      if (data?.nowPlaying) {
+        spotifyIntervalRef.current = setInterval(() => {
+          fetchSpotifyStats().then((fresh) => {
+            setSpotifyStats(fresh);
+            if (!fresh?.nowPlaying) {
+              clearInterval(spotifyIntervalRef.current!);
+              spotifyIntervalRef.current = null;
+            }
+          });
+        }, SONG_REFRESH_INTERVAL * 60 * 1000);
+      }
+    });
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (spotifyIntervalRef.current) clearInterval(spotifyIntervalRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setGraphReady(true), LOADMS_CONTRIBUTION_GRAPH);
+    return () => clearTimeout(t);
   }, []);
 
   const stats: StatItemType[] = [
     {
       icon: <IconCalendarEvent size={18} />,
-      label: <><span className="font-mono"><AnimateText words={[age]} variant="slot" cursor="none" /></span> years old</>,
-      sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
+      label: <><span className="font-mono"><SlotText value={age} /></span> years old</>,
+      sublabel: <><SlotText value={String(getDaysUntilBirthday(profileInfo.birthDate))} /> days until next birthday</>,
       ready: age !== "—",
     },
     {
       icon: <IconMapPin size={18} />,
       label: `Currently in ${COUNTRY}`,
-      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> <span>({time?.offset})</span></>,
+      sublabel: <><SlotText value={time?.time ?? "—"} /> <span>({time?.offset})</span></>,
       ready: time !== null,
     },
     {
@@ -186,7 +211,7 @@ export default function Stats() {
         ? <><a href={nowOrLast.url} target="_blank" rel="noopener noreferrer" className="underline">{nowOrLast.song}</a> by {nowOrLast.artist}</>
         : "-",
       labelText: nowOrLast ? `${nowOrLast.song} by ${nowOrLast.artist}` : undefined,
-      sublabel: spotifyStats?.nowPlaying ? "Currently playing" : "Song recently listened to",
+      sublabel: spotifyStats?.nowPlaying ? "Listening to right now" : "Recently listened to",
       ready: spotifyStats !== null,
     },
     {
@@ -214,13 +239,10 @@ export default function Stats() {
     <section className="w-full">
       <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Stats" />
-        {githubStats ? (
-          <ContributionGraph
-            weeks={githubStats.weeks}
-            totalContributions={githubStats.contributions}
-          />
+        {githubStats && graphReady ? (
+          <ContributionGraph weeks={githubStats.weeks} totalContributions={githubStats.contributions} />
         ) : (
-          <Skeleton shape="pill" className="h-32.5 w-full" />
+          <Skeleton shape="pill" className="h-31 w-full" />
         )}
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-8 md:w-full">
           {stats.map((stat, i) => (

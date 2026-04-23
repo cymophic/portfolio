@@ -35,6 +35,18 @@ export default function Footer() {
   const [os, setOs] = useState("—");
   const [visitCount, setVisitCount] = useState(0);
   const [commit, setCommit] = useState<{ id: string; url: string; date: string } | null>(null);
+  const hours = Math.floor(session / 3600);
+  const minutes = Math.floor((session % 3600) / 60);
+  const seconds = session % 60;
+  const sessionTime = hours > 0
+    ? `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+    : `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  const visitLabel = process.env.NODE_ENV === "development"
+    ? "dev mode"
+    : visitCount > 0 ? `${getOrdinal(visitCount)} visit` : "—";
+  const lastUpdated = commit ? formatCommitDate(commit.date) : "—";
+  const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors cursor-default";
+  const separator = "font-mono text-xs text-zinc-300 dark:text-zinc-700 mx-2.5";
 
   useEffect(() => {
     const interval = setInterval(() => setSession((s) => s + 1), 1000);
@@ -50,23 +62,8 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
 
-  const hours = Math.floor(session / 3600);
-  const minutes = Math.floor((session % 3600) / 60);
-  const seconds = session % 60;
-  const sessionTime = hours > 0
-    ? `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
-    : `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-
-  const visitLabel = process.env.NODE_ENV === "development"
-    ? "dev mode"
-    : visitCount > 0 ? `${getOrdinal(visitCount)} visit` : "—";
-  const lastUpdated = commit ? formatCommitDate(commit.date) : "—";
-
-  const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors cursor-default";
-  const separator = "font-mono text-xs text-zinc-300 dark:text-zinc-700 mx-2.5";
-
   return (
-    <footer className="flex flex-col items-center text-center gap-6">
+    <footer className="flex flex-col items-center text-center pt-10 pb-18 gap-6">
       {/* Line */}
       <div className="w-px h-16 bg-zinc-300 dark:bg-zinc-700"/>
 
