@@ -75,7 +75,7 @@ export const profileInfo = {
       start: "Mar 2024",
       end: "Jun 2024",
       about: "Third Generation Holdings is a Filipino conglomerate with business interests in security, manpower, and facilities management.",
-      scope: "Served as an intern software developer, building a forms and time log app for the security and roving team.",
+      scope: "Served as an intern software developer, building the company's forms/reporting app for automated data collection, and data visualization.",
     },
     {
       company: "Gingersnaps PH",
