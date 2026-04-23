@@ -12,13 +12,42 @@ export default function Home() {
   return (
     <PageAnimator>
       <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans py-18 sm:py-18 gap-28">
-        <AnimatedSection className="mt-24"><Intro /></AnimatedSection>
-        <AnimatedSection><About /></AnimatedSection>
-        <AnimatedSection><Stats /></AnimatedSection>
-        <AnimatedSection><Work /></AnimatedSection>
-        <AnimatedSection><Education /></AnimatedSection>
-        <AnimatedSection><Projects /></AnimatedSection>
-        <AnimatedSection className="-mb-10"><TechStack /></AnimatedSection>
+        <div className="min-h-[calc(100svh-4rem)] flex flex-col justify-center gap-28 sm:-mt-6 sm:-mb-20">
+          {/* Intro, Tagline, Profile */}
+          <AnimatedSection className="mt-24 sm:mt-0">
+            <Intro />
+          </AnimatedSection>
+
+          {/* Bio */}
+          <AnimatedSection>
+            <About />
+          </AnimatedSection>
+        </div>
+
+        {/* Stats */}
+        <AnimatedSection>
+          <Stats />
+        </AnimatedSection>
+
+        {/* Work Experience */}
+        <AnimatedSection>
+          <Work />
+        </AnimatedSection>
+
+        {/* Education */}
+        <AnimatedSection>
+          <Education />
+        </AnimatedSection>
+
+        {/* Projects */}
+        <AnimatedSection>
+          <Projects />
+        </AnimatedSection>
+
+        {/* Tech Stack */}
+        <AnimatedSection className="-mb-10">
+          <TechStack />
+        </AnimatedSection>
       </div>
     </PageAnimator>
   );
