@@ -9,7 +9,7 @@ import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile"
 import { fetchGithubData } from "@/lib/utils/github";
 import type { Week } from "@/lib/utils/github";
 import Skeleton from "@/components/ui/Skeleton";
-import AnimateText from "@/components/ui/AnimatedText";
+import { SlotText } from "@/components/ui/AnimatedText";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
 import Tooltip from "@/components/ui/Tooltip";
 import ContributionGraph from "@/components/sections/common/ContributionGraph";
@@ -170,14 +170,14 @@ export default function Stats() {
   const stats: StatItemType[] = [
     {
       icon: <IconCalendarEvent size={18} />,
-      label: <><span className="font-mono"><AnimateText words={[age]} variant="slot" cursor="none" /></span> years old</>,
-      sublabel: <><AnimateText words={[String(getDaysUntilBirthday(profileInfo.birthDate))]} variant="slot" cursor="none" /> days until next birthday</>,
+      label: <><span className="font-mono"><SlotText value={age} /></span> years old</>,
+      sublabel: <><SlotText value={String(getDaysUntilBirthday(profileInfo.birthDate))} /> days until next birthday</>,
       ready: age !== "—",
     },
     {
       icon: <IconMapPin size={18} />,
       label: `Currently in ${COUNTRY}`,
-      sublabel: <><AnimateText words={[time?.time ?? "—"]} variant="slot" cursor="none" /> <span>({time?.offset})</span></>,
+      sublabel: <><SlotText value={time?.time ?? "—"} /> <span>({time?.offset})</span></>,
       ready: time !== null,
     },
     {

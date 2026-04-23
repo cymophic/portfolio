@@ -7,7 +7,7 @@ import { IconQuoteOpen } from "@tabler/icons-react";
 import { profileInfo } from "@/lib/site";
 import SocialLinks from "@/components/ui/SocialLinks";
 import ProfileImage from "@/components/ui/ProfileImage";
-import AnimateText from "@/components/ui/AnimatedText";
+import { ScrambleText } from "@/components/ui/AnimatedText";
 import Button from "@/components/ui/Button";
 
 const CONFIG = {
@@ -57,10 +57,9 @@ export default function Intro() {
 
           {/* Name */}
           <h1 className="whitespace-nowrap -mb-2">
-            <AnimateText
+            <ScrambleText 
               words={words}
               className="font-mono text-3xl sm:text-5xl font-semibold leading-tight tracking-wide text-zinc-700 dark:text-zinc-200"
-              variant="scramble"
               cursor="underscore"
               config={{
                 pauseMs: CONFIG.wordsInterval,
