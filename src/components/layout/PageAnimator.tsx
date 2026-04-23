@@ -5,7 +5,7 @@ const CONFIG = {
   blur: 12, // starting blur in px
   y: 30, // starting vertical offset in px
   duration: 0.6, // seconds each section takes to animate in
-  stagger: 0.36, // seconds between each section
+  stagger: 0.24, // seconds between each section
   ease: "easeOut" as Easing, // easing curve
 };
 
