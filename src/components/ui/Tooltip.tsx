@@ -24,14 +24,19 @@ const TooltipContext = createContext<TooltipContextType | null>(null);
 // Provider
 export function TooltipProvider({ children }: { children: ReactNode }) {
   const [tooltip, setTooltip] = useState<TooltipState>(null);
+  const [visible, setVisible] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  const hide = useCallback(() => setTooltip(null), []);
+  const hide = useCallback(() => {
+    setTooltip(null);
+    setVisible(false);
+  }, []);
 
   const show = useCallback((content: string, triggerEl: HTMLDivElement) => {
     const rect = triggerEl.getBoundingClientRect();
     const isTop = window.innerHeight - rect.bottom < 60;
 
+    setVisible(false);
     setTooltip({
       content,
       top: isTop ? rect.top : rect.bottom,
@@ -51,6 +56,8 @@ export function TooltipProvider({ children }: { children: ReactNode }) {
     } else if (left < 0) {
       setTooltip(t => t ? { ...t, left: t.left + Math.abs(left) + 8 } : null);
     }
+
+    setVisible(true);
   }, [tooltip]);
 
   // Hide on scroll or resize
@@ -78,6 +85,7 @@ export function TooltipProvider({ children }: { children: ReactNode }) {
             transform: tooltip.isTop
               ? "translateX(-50%) translateY(-100%)"
               : "translateX(-50%)",
+            opacity: visible ? 1 : 0,
           }}
           className="pointer-events-none z-50 w-max max-w-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1.5 text-xs text-zinc-800 dark:text-zinc-200 shadow-md"
         >
