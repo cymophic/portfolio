@@ -50,8 +50,9 @@ luisabhram.dev/
 ├── .github/
 │   ├── workflows/
 │   │   ├── build.yml                     # Reusable build workflow
+│   │   ├── check.yml                     # PR validation workflow
 │   │   ├── deploy.yml                    # GitHub Actions deployment workflow
-│   │   └── check.yml                     # PR validation workflow
+│   │   └── resolve.yml                   # Resolves linked issues on merge
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── lambda/
 │   ├── spotify/
@@ -240,6 +241,7 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 **Secrets**
 | Name | Description |
 |---|---|
+| `GH_PAT` | GitHub Personal Access Token with relevant scopes |
 | `AWS_ACCESS_KEY_ID` | IAM user access key |
 | `AWS_SECRET_ACCESS_KEY` | IAM user secret key |
 | `CLOUDFRONT_DISTRIBUTION_ID` | CloudFront distribution ID |
@@ -249,6 +251,8 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 **Variables**
 | Name | Description |
 |---|---|
+| `PROJECT_ID` | GitHub Projects node ID |
+| `DATE_RESOLVED_FIELD_ID` | "Date Resolved" field node ID in GitHub Projects |
 | `NEXT_PUBLIC_SITE_MODE` | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
 | `NEXT_PUBLIC_GA_ID` | Google Analytics Measurement ID |
 | `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN for error monitoring |
@@ -268,7 +272,7 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 3. Downloads the `/out` artifact in the deploy job
 4. Syncs `/out` to S3, preserving the `stats/` folder managed by Lambda
 5. Invalidates the CloudFront cache
-6. Changes are live at [luisabhram.dev](https://luisabhram.dev)
+6. Updates the "Date Resolved" field on any linked GitHub Projects issue
 
 ---
 

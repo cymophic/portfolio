@@ -1,0 +1,42 @@
+name: Resolve Linked Issues
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+jobs:
+  resolve:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Date Resolved field
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          PROJECT_ID: ${{ vars.PROJECT_ID }}
+          DATE_FIELD_ID: ${{ vars.DATE_RESOLVED_FIELD_ID }}
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          OWNER=${{ github.repository_owner }}
+          REPO=${{ github.event.repository.name }}
+
+          ISSUE_ITEM_IDS=$(curl -s -H "Authorization: bearer $GH_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\": \"{ repository(owner: \\\"$OWNER\\\", name: \\\"$REPO\\\") { pullRequest(number: $PR_NUMBER) { closingIssuesReferences(first: 10) { nodes { projectItems(first: 1) { nodes { id } } } } } } }\"}" \
+            https://api.github.com/graphql | jq -r '.data.repository.pullRequest.closingIssuesReferences.nodes[].projectItems.nodes[0]?.id // empty')
+
+          if [ -z "$ISSUE_ITEM_IDS" ]; then
+            echo "No linked issues found. Skipping."
+            exit 0
+          fi
+
+          TODAY=$(echo "${{ github.event.pull_request.merged_at }}" | cut -c1-10)
+
+          while IFS= read -r ISSUE_ITEM_ID; do
+            curl -s -H "Authorization: bearer $GH_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"query\": \"mutation { updateProjectV2ItemFieldValue(input: { projectId: \\\"$PROJECT_ID\\\" itemId: \\\"$ISSUE_ITEM_ID\\\" fieldId: \\\"$DATE_FIELD_ID\\\" value: { date: \\\"$TODAY\\\" } }) { projectV2Item { id } } }\"}" \
+              https://api.github.com/graphql
+          done <<< "$ISSUE_ITEM_IDS"
