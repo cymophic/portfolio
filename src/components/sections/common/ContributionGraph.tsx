@@ -52,7 +52,7 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
   return (
     <div className="flex flex-col gap-1">
       {/* Contribution Graph */}
-      <div ref={scrollRef} className="overflow-x-auto pb-2">
+      <div ref={scrollRef} className="overflow-x-auto pb-0.5">
         <div className="mx-auto w-fit">
           <div className="flex gap-0.75">
             {weeks.map((week, wi) => (
