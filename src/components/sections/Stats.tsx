@@ -16,6 +16,7 @@ import ContributionGraph from "@/components/sections/common/ContributionGraph";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
+const LOADMS_CONTRIBUTION_GRAPH = 1400;
 
 async function fetchWakatimeStats(): Promise<{ today: number; weekly: number; monthly: number; yearly: number } | null> {
   const url = process.env.NEXT_PUBLIC_CDN_URL;
@@ -150,7 +151,13 @@ export default function Stats() {
   const [spotifyStats, setSpotifyStats] = useState<SpotifyStats | null>(null);
   const [monkeytypeStats, setMonkeytypeStats] = useState<{ wpm: number; acc: number; consistency: number } | null>(null);
   const nowOrLast = spotifyStats?.nowPlaying ?? spotifyStats?.lastPlayed;
+  const [graphReady, setGraphReady] = useState(false);
   
+  useEffect(() => {
+    const t = setTimeout(() => setGraphReady(true), LOADMS_CONTRIBUTION_GRAPH);
+    return () => clearTimeout(t);
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setAge(getAge(profileInfo.birthDate));
@@ -214,13 +221,10 @@ export default function Stats() {
     <section className="w-full">
       <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Stats" />
-        {githubStats ? (
-          <ContributionGraph
-            weeks={githubStats.weeks}
-            totalContributions={githubStats.contributions}
-          />
+        {githubStats && graphReady ? (
+          <ContributionGraph weeks={githubStats.weeks} totalContributions={githubStats.contributions} />
         ) : (
-          <Skeleton shape="pill" className="h-32.5 w-full" />
+          <Skeleton shape="pill" className="h-31 w-full" />
         )}
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-8 md:w-full">
           {stats.map((stat, i) => (

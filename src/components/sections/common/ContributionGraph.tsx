@@ -1,9 +1,9 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import Tooltip from "@/components/ui/Tooltip";
 import type { Week } from "@/lib/utils/github";
-import { useEffect, useRef } from "react";
 
 const THRESHOLDS = [0, 10, 30, 50];
 const PALETTE = {
@@ -51,7 +51,6 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
 
   return (
     <div className="flex flex-col gap-1">
-      {/* Contribution Graph */}
       <div ref={scrollRef} className="overflow-x-auto pb-0.5">
         <div className="mx-auto w-fit">
           <div className="flex gap-0.75">
@@ -74,11 +73,10 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
         </div>
       </div>
 
-      {/* Labels & Legend */}
       <div className="px-1 flex items-center justify-between gap-x-8 text-xs text-zinc-500 dark:text-zinc-400">
         <span className="truncate">{totalContributions?.toLocaleString() ?? 0} GitHub contributions in the last year</span>
         <span className="flex items-center gap-0.75">
-          {[color.empty, color.low, color.mid, color.high, color.max].map((color, i) => (
+          {[color.empty, color.low, color.mid, color.high, color.max].map((c, i) => (
             <Tooltip
               key={i}
               content={
@@ -89,7 +87,7 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
                   : `${THRESHOLDS[i - 1] + 1} to ${THRESHOLDS[i]} contributions`
               }
             >
-              <div key={i} style={{ backgroundColor: color }} className="h-3 w-3 rounded-xs" />
+              <div style={{ backgroundColor: c }} className="h-3 w-3 rounded-xs" />
             </Tooltip>
           ))}
         </span>
