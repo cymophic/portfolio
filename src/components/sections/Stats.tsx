@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IconMapPin, IconCode, IconClock, IconCalendarEvent, IconKeyboard, IconVolume } from "@tabler/icons-react";
 
 import { profileInfo } from "@/lib/site";
@@ -16,6 +16,7 @@ import ContributionGraph from "@/components/sections/common/ContributionGraph";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
+const SONG_REFRESH_INTERVAL = 2.5; // 2 min 30 sec
 const LOADMS_CONTRIBUTION_GRAPH = 1400;
 
 async function fetchWakatimeStats(): Promise<{ today: number; weekly: number; monthly: number; yearly: number } | null> {
@@ -150,13 +151,9 @@ export default function Stats() {
   const [wakatimeStats, setWakatimeStats] = useState<{ today: number; weekly: number; monthly: number; yearly: number } | null>(null);
   const [spotifyStats, setSpotifyStats] = useState<SpotifyStats | null>(null);
   const [monkeytypeStats, setMonkeytypeStats] = useState<{ wpm: number; acc: number; consistency: number } | null>(null);
-  const nowOrLast = spotifyStats?.nowPlaying ?? spotifyStats?.lastPlayed;
   const [graphReady, setGraphReady] = useState(false);
-  
-  useEffect(() => {
-    const t = setTimeout(() => setGraphReady(true), LOADMS_CONTRIBUTION_GRAPH);
-    return () => clearTimeout(t);
-  }, []);
+  const spotifyIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const nowOrLast = spotifyStats?.nowPlaying ?? spotifyStats?.lastPlayed;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -164,14 +161,35 @@ export default function Stats() {
       setTime(getLocalTime(TIMEZONE));
     }, 1000);
 
+    fetchWakatimeStats().then(setWakatimeStats);
+    fetchMonkeytypeStats().then(setMonkeytypeStats);
     fetchGithubData().then((data) =>
       setGithubStats(data ? { contributions: data.contributions, totalCommits: data.totalCommits, weeks: data.weeks ?? [] } : null)
     );
-    fetchWakatimeStats().then(setWakatimeStats);
-    fetchSpotifyStats().then(setSpotifyStats);
-    fetchMonkeytypeStats().then(setMonkeytypeStats);
+    fetchSpotifyStats().then((data) => {
+      setSpotifyStats(data);
+      if (data?.nowPlaying) {
+        spotifyIntervalRef.current = setInterval(() => {
+          fetchSpotifyStats().then((fresh) => {
+            setSpotifyStats(fresh);
+            if (!fresh?.nowPlaying) {
+              clearInterval(spotifyIntervalRef.current!);
+              spotifyIntervalRef.current = null;
+            }
+          });
+        }, SONG_REFRESH_INTERVAL * 60 * 1000);
+      }
+    });
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (spotifyIntervalRef.current) clearInterval(spotifyIntervalRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setGraphReady(true), LOADMS_CONTRIBUTION_GRAPH);
+    return () => clearTimeout(t);
   }, []);
 
   const stats: StatItemType[] = [
