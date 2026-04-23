@@ -1,86 +1,124 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import {
+  useState, useRef, useCallback, useEffect,
+  createContext, useContext,
+  type ReactNode,
+} from "react";
 import { createPortal } from "react-dom";
 
-type Props = {
+type TooltipState = {
   content: string;
-  disabled?: boolean;
-  children: React.ReactNode;
+  top: number;
+  left: number;
+  isTop: boolean;
+} | null;
+
+type TooltipContextType = {
+  show: (content: string, triggerEl: HTMLDivElement) => void;
+  hide: () => void;
 };
 
-export default function Tooltip({ content, disabled = false, children }: Props) {
-  const [visible, setVisible] = useState(false);
-  const [coords, setCoords] = useState({ top: 0, left: 0, isTop: true });
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const tooltipRef = useRef<HTMLDivElement>(null);
-  const [mounted] = useState(() => typeof window !== "undefined");
+const TooltipContext = createContext<TooltipContextType | null>(null);
 
-  const updatePosition = useCallback(() => {
-    const el = triggerRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
+// Provider
+export function TooltipProvider({ children }: { children: ReactNode }) {
+  const [tooltip, setTooltip] = useState<TooltipState>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+
+  const hide = useCallback(() => setTooltip(null), []);
+
+  const show = useCallback((content: string, triggerEl: HTMLDivElement) => {
+    const rect = triggerEl.getBoundingClientRect();
     const isTop = window.innerHeight - rect.bottom < 60;
 
-    setCoords({
+    setTooltip({
+      content,
       top: isTop ? rect.top : rect.bottom,
       left: rect.left + rect.width / 2,
       isTop,
     });
   }, []);
 
+  // Edge correction after render
   useEffect(() => {
     const tip = tooltipRef.current;
-    if (!tip) return;
+    if (!tip || !tooltip) return;
 
     const { left, right } = tip.getBoundingClientRect();
     if (right > window.innerWidth) {
-      setCoords(c => ({ ...c, left: c.left - (right - window.innerWidth) - 8 }));
+      setTooltip(t => t ? { ...t, left: t.left - (right - window.innerWidth) - 8 } : null);
     } else if (left < 0) {
-      setCoords(c => ({ ...c, left: c.left + Math.abs(left) + 8 }));
+      setTooltip(t => t ? { ...t, left: t.left + Math.abs(left) + 8 } : null);
     }
-  }, [visible]);
+  }, [tooltip]);
 
-  const show = useCallback(() => {
-    if (disabled) return;
-    updatePosition();
-    setVisible(true);
-  }, [disabled, updatePosition]);
-
-  const hide = useCallback(() => setVisible(false), []);
-
+  // Hide on scroll or resize
   useEffect(() => {
-    if (!visible) return;
+    if (!tooltip) return;
     window.addEventListener("scroll", hide, { passive: true });
-    return () => window.removeEventListener("scroll", hide);
-  }, [visible, hide]);
+    window.addEventListener("resize", hide);
+    return () => {
+      window.removeEventListener("scroll", hide);
+      window.removeEventListener("resize", hide);
+    };
+  }, [tooltip, hide]);
 
   return (
-    <div
-      ref={triggerRef}
-      className="relative min-w-0"
-      onMouseEnter={show}
-      onMouseLeave={hide}
-      onFocus={show}
-      onBlur={hide}
-    >
+    <TooltipContext.Provider value={{ show, hide }}>
       {children}
-      {visible && mounted && createPortal(
+      {tooltip && createPortal(
         <div
           ref={tooltipRef}
           role="tooltip"
           style={{
             position: "fixed",
-            top: coords.isTop ? coords.top - 8 : coords.top + 8,
-            left: coords.left,
-            transform: coords.isTop ? "translateX(-50%) translateY(-100%)" : "translateX(-50%)",
+            top: tooltip.isTop ? tooltip.top - 8 : tooltip.top + 8,
+            left: tooltip.left,
+            transform: tooltip.isTop
+              ? "translateX(-50%) translateY(-100%)"
+              : "translateX(-50%)",
           }}
           className="pointer-events-none z-50 w-max max-w-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1.5 text-xs text-zinc-800 dark:text-zinc-200 shadow-md"
         >
-          {content}
+          {tooltip.content}
         </div>,
         document.body
       )}
+    </TooltipContext.Provider>
+  );
+}
+
+// Tooltip
+type Props = {
+  content: string;
+  disabled?: boolean;
+  children: ReactNode;
+};
+
+export default function Tooltip({ content, disabled = false, children }: Props) {
+  const ctx = useContext(TooltipContext);
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = useCallback(() => {
+    if (disabled || !ctx || !triggerRef.current) return;
+    ctx.show(content, triggerRef.current);
+  }, [disabled, content, ctx]);
+
+  const handleMouseLeave = useCallback(() => {
+    ctx?.hide();
+  }, [ctx]);
+
+  return (
+    <div
+      ref={triggerRef}
+      className="relative min-w-0"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleMouseEnter}
+      onBlur={handleMouseLeave}
+    >
+      {children}
     </div>
   );
 }
