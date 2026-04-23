@@ -193,7 +193,7 @@ export default function Stats() {
         ? <><a href={nowOrLast.url} target="_blank" rel="noopener noreferrer" className="underline">{nowOrLast.song}</a> by {nowOrLast.artist}</>
         : "-",
       labelText: nowOrLast ? `${nowOrLast.song} by ${nowOrLast.artist}` : undefined,
-      sublabel: spotifyStats?.nowPlaying ? "Currently playing" : "Song recently listened to",
+      sublabel: spotifyStats?.nowPlaying ? "Listening to right now" : "Recently listened to",
       ready: spotifyStats !== null,
     },
     {
