@@ -5,7 +5,6 @@ import Work from "@/components/sections/Career";
 import Education from "@/components/sections/Education";
 import Projects from "@/components/sections/Projects";
 import TechStack from "@/components/sections/TechStack";
-import Footer from "@/components/layout/footer/Footer";
 
 import PageAnimator, { AnimatedSection } from "@/components/layout/PageAnimator";
 
@@ -20,7 +19,6 @@ export default function Home() {
         <AnimatedSection><Education /></AnimatedSection>
         <AnimatedSection><Projects /></AnimatedSection>
         <AnimatedSection className="-mb-10"><TechStack /></AnimatedSection>
-        <AnimatedSection><Footer /></AnimatedSection>
       </div>
     </PageAnimator>
   );

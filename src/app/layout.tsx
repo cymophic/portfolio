@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Inter, Geist_Mono, Spline_Sans_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 
-import Nav from "@/components/layout/header/Header";
 import ThemeProvider from "@/components/layout/theme/ThemeProvider";
+import { TooltipProvider } from "@/components/ui/Tooltip";
+import Nav from "@/components/layout/header/Header";
+import Footer from "@/components/layout/footer/Footer";
 import ComingSoon from "@/components/pages/ComingSoon";
 import { profileInfo } from "@/lib/site";
-
-const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 import "./globals.css";
 
-import { Inter, Geist_Mono, Spline_Sans_Mono } from "next/font/google";
-import { TooltipProvider } from "@/components/ui/Tooltip";
+const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 
 const inter = Inter({
   variable: "--font-inter",
@@ -46,6 +46,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
       <>
         <Nav />
         <main className="flex flex-1 flex-col">{children}</main>
+        <Footer />
       </>
     );
   }
