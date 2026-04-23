@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo, useRef } from "react";
 import { getCalApi } from "@calcom/embed-react";
+import { IconQuoteOpen } from "@tabler/icons-react";
 
 import { profileInfo } from "@/lib/site";
 import SocialLinks from "@/components/ui/SocialLinks";
@@ -69,9 +70,12 @@ export default function Intro() {
           </h1>
 
           {/* Tagline */}
-          <p className="max-w-md text-base text-zinc-600 dark:text-zinc-400">
-            {profileInfo.tagline}
-          </p>
+          <div className="max-w-md flex flex-row gap-1 text-zinc-600 dark:text-zinc-400">
+            <IconQuoteOpen size={14} className="inline-block align-top overflow-clip" />
+            <p className="max-w-md text-base italic">
+              {profileInfo.tagline}
+            </p>
+          </div>
           
           {/* Social Links */}
           <SocialLinks iconSize={24} />
