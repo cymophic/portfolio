@@ -52,7 +52,8 @@ luisabhram.dev/
 │   │   ├── build.yml                     # Reusable build workflow
 │   │   ├── check.yml                     # PR validation workflow
 │   │   ├── deploy.yml                    # GitHub Actions deployment workflow
-│   │   └── resolve.yml                   # Resolves linked issues on merge
+│   │   ├── resolve.yml                   # Updates fields of linked issues on merge
+│   │   └── track.yml                     # Updates fields from created issues
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── lambda/
 │   ├── spotify/
@@ -252,6 +253,7 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 | Name | Description |
 |---|---|
 | `PROJECT_ID` | GitHub Projects node ID |
+| `DATE_CREATED_FIELD_ID` | "Date Created" field node ID in GitHub Projects |
 | `DATE_RESOLVED_FIELD_ID` | "Date Resolved" field node ID in GitHub Projects |
 | `NEXT_PUBLIC_SITE_MODE` | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
 | `NEXT_PUBLIC_GA_ID` | Google Analytics Measurement ID |

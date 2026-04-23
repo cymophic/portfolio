@@ -1,0 +1,37 @@
+name: Track Issue Creation
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Date Created field
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          PROJECT_ID: ${{ vars.PROJECT_ID }}
+          DATE_CREATED_FIELD_ID: ${{ vars.DATE_CREATED_FIELD_ID }}
+        run: |
+          OWNER=${{ github.repository_owner }}
+          REPO=${{ github.event.repository.name }}
+          ISSUE_NUMBER=${{ github.event.issue.number }}
+
+          ISSUE_ITEM_ID=$(curl -s -H "Authorization: bearer $GH_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\": \"{ repository(owner: \\\"$OWNER\\\", name: \\\"$REPO\\\") { issue(number: $ISSUE_NUMBER) { projectItems(first: 1) { nodes { id } } } } }\"}" \
+            https://api.github.com/graphql | jq -r '.data.repository.issue.projectItems.nodes[0]?.id // empty')
+
+          if [ -z "$ISSUE_ITEM_ID" ] || [ "$ISSUE_ITEM_ID" = "null" ]; then
+            echo "Issue not in project. Skipping."
+            exit 0
+          fi
+
+          CREATED_AT=$(echo "${{ github.event.issue.created_at }}" | cut -c1-10)
+
+          curl -s -H "Authorization: bearer $GH_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\": \"mutation { updateProjectV2ItemFieldValue(input: { projectId: \\\"$PROJECT_ID\\\" itemId: \\\"$ISSUE_ITEM_ID\\\" fieldId: \\\"$DATE_CREATED_FIELD_ID\\\" value: { date: \\\"$CREATED_AT\\\" } }) { projectV2Item { id } } }\"}" \
+            https://api.github.com/graphql
