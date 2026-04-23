@@ -274,6 +274,17 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 
 ## 🔌 Data Sources
 
+### Site Content
+Static site content is defined in `src/lib/site.ts` and rendered at build time.
+
+### Build-Time Assets
+Assets that are fetched automatically during `prebuild`.
+
+| Asset | Description |
+|---|---|
+| `public/avatar.png` | Profile avatar |
+| `src/app/icon.png` | Site favicon |
+
 ### Live Endpoints
 Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in `NEXT_PUBLIC_API_URL`.
 
