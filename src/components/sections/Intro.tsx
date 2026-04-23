@@ -11,6 +11,7 @@ import { ScrambleText } from "@/components/ui/AnimatedText";
 import Button from "@/components/ui/Button";
 
 const CONFIG = {
+  typingSpeed: 50, // time it takes to type each character
   wordsInterval: 3700, // how long each greeting stays before swapping
   deletingSpeed: 20, // time it takes to delete the word
 };
@@ -62,6 +63,7 @@ export default function Intro() {
               className="font-mono text-3xl sm:text-5xl font-semibold leading-tight tracking-wide text-zinc-700 dark:text-zinc-200"
               cursor="underscore"
               config={{
+                typingSpeedMs: CONFIG.typingSpeed,
                 pauseMs: CONFIG.wordsInterval,
                 deletingSpeedMs: CONFIG.deletingSpeed,
               }}
