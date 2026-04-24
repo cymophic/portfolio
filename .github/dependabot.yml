@@ -24,3 +24,7 @@ updates:
       prefix: "chore"
     labels:
       - "dependencies"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
