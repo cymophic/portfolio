@@ -7,6 +7,8 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "chore"
+    labels:
+      - "dependencies"
     groups:
       dependencies:
         patterns:
@@ -18,3 +20,5 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "chore"
+    labels:
+      - "dependencies"
