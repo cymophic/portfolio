@@ -20,7 +20,7 @@ export const profileInfo = {
   birthDate: "2003/03/26",
   image: "/avatar.png",
   emails: [
-    "work.luisabhram@gmail.com"
+    "contact@luisabhram.dev"
   ],
   socialLinks: [
     { label: "GitHub", link: "https://github.com/cymophic" },
