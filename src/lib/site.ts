@@ -11,9 +11,9 @@ export const profileInfo = {
   location: "Pasig City, Philippines",
   tagline: "In coding, simplicity is the ultimate sophistication",
   bio: [
-    "Hi! I'm Luis, a full-stack devops engineer based in the Philippines. Whether it is crafting backend APIs, designing user-friendly frontend interfaces, or optimizing a CI/CD pipeline, I aim for structure that is minimal, automated, and maintainable for the next developer who touches it.",
+    "Hi! I'm Luis, a full-stack DevOps engineer based in the Philippines. I like to code and make things work.",
 
-    "In my recent projects, I managed nationwide on-premise deployments for a retail giant and developed internal systems used daily across 100+ branches. Right now, I'm focused on bringing that same end-to-end ownership to the cloud.",
+    "In my recent project, I've built an on-premise production system that powers 100+ branches of a nationwide retail giant. I automated the entire delivery pipeline to ensure every change is tested, guarded, and safely deployed with a minimal intervention. Right now, I'm focused on bringing that same end-to-end ownership to the cloud.",
 
     "When not building, you'll find me taking photos, hanging out with friends & family, gaming, or traveling when I get the chance. I also enjoy long walks, making pixel art, trying out new food, and spending time with my cats.",
   ],
