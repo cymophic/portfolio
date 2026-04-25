@@ -87,7 +87,7 @@ export function TooltipProvider({ children }: { children: ReactNode }) {
               : "translateX(-50%)",
             opacity: visible ? 1 : 0,
           }}
-          className="pointer-events-none z-50 w-max max-w-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1.5 text-xs text-zinc-800 dark:text-zinc-200 shadow-md"
+          className="pointer-events-none z-100 w-max max-w-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1.5 text-xs text-zinc-800 dark:text-zinc-200 shadow-md"
         >
           {tooltip.content}
         </div>,

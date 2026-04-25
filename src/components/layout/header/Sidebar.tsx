@@ -51,7 +51,7 @@ export default function Sidebar({
         </nav>
 
         <div className="mt-16">
-          <SocialLinks exclude={["Email"]} iconsRef={iconsRef} />
+          <SocialLinks iconsRef={iconsRef} hoverEffect="monochrome" />
         </div>
       </div>
     </div>

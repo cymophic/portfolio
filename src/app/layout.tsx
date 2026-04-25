@@ -5,7 +5,7 @@ import { Toaster } from "sonner";
 
 import ThemeProvider from "@/components/layout/theme/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/Tooltip";
-import Nav from "@/components/layout/header/Header";
+import Header from "@/components/layout/header/Header";
 import Footer from "@/components/layout/footer/Footer";
 import ComingSoon from "@/components/pages/ComingSoon";
 import { profileInfo } from "@/lib/site";
@@ -44,7 +44,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
   } else {
     content = (
       <>
-        <Nav />
+        <Header />
         <main className="flex flex-1 flex-col">{children}</main>
         <Footer />
       </>
