@@ -21,11 +21,33 @@ export default function Nav() {
 
   return (
     <>
-      <header ref={headerRef} className={`mx-auto max-w-4xl w-full fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 pointer-events-none ${isHidden ? "overflow-hidden" : ""}`}>
+      <header ref={headerRef} className={`mx-auto max-w-4xl w-full fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-4 ${isHidden ? "overflow-hidden" : ""}`}>
         {/* Sidebar Toggle Button */}
-        <div className="pointer-events-auto -ml-1">
+        <div className="pointer-events-auto -ml-1 z-50">
           {showNavToggle && <SidebarToggle open={open} onToggle={handleToggle} />}
         </div>
+
+        {/* Sidebar Panel */}
+        {showNavToggle && (
+          <>
+            {/* Overlay */}
+            {visible && (
+              <div
+                onClick={close}
+                className="fixed inset-0 z-10 bg-black/20 dark:bg-black/40"
+              />
+            )}
+
+            {/* Sidebar Panel */}
+            <Sidebar
+              visible={visible}
+              panelRef={panelRef}
+              linksRef={linksRef}
+              iconsRef={iconsRef}
+              onLinkClick={close}
+            />
+          </>
+        )}
 
         {/* Theme Toggle */}
         <div className="pointer-events-auto">
@@ -35,28 +57,6 @@ export default function Nav() {
         {/* Header Background */}
         <div className="absolute top-0 left-0 right-0 -z-10 bg-linear-to-b from-zinc-50 via-zinc-50/98 dark:from-zinc-950 dark:via-zinc-950/96 to-transparent pointer-events-none pb-24"/>
       </header>
-
-      {/* Sidebar Panel */}
-      {showNavToggle && (
-        <>
-          {/* Overlay */}
-          {visible && (
-            <div
-              onClick={close}
-              className="fixed inset-0 z-30 bg-black/20 dark:bg-black/40"
-            />
-          )}
-
-          {/* Sidebar Panel */}
-          <Sidebar
-            visible={visible}
-            panelRef={panelRef}
-            linksRef={linksRef}
-            iconsRef={iconsRef}
-            onLinkClick={close}
-          />
-        </>
-      )}
     </>
   );
 }

@@ -72,6 +72,7 @@ export function useToggleSidebar(): UseSidebarResult {
       onComplete: () => {
         setOpen(false);
         setVisible(false);
+        document.body.classList.remove("overflow-hidden");
       },
     });
   }, []);
@@ -79,6 +80,7 @@ export function useToggleSidebar(): UseSidebarResult {
   const openPanel = () => {
     setOpen(true);
     setVisible(true);
+    document.body.classList.add("overflow-hidden");
   };
 
   const toggle = () => {
