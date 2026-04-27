@@ -13,7 +13,7 @@ export const profileInfo = {
   bio: [
     "Hi! I'm Luis, a full-stack DevOps engineer based in the Philippines. I like to code and make things work.",
 
-    "In my recent project, I've built an on-premise production system that powers 100+ branches of a nationwide retail giant. I automated the entire delivery pipeline to ensure every change is tested, guarded, and safely deployed with a minimal intervention. Right now, I'm focused on bringing that same end-to-end ownership to the cloud.",
+    "In my recent project, I've built an on-premise production system that powers 100+ branches of a nationwide retail giant. I automated the entire delivery pipeline and ensured every change is tested, guarded, and safely deployed with minimal intervention. Right now, I'm focused on bringing that same end-to-end ownership to the cloud.",
 
     "When not building, you'll find me taking photos, hanging out with friends & family, gaming, or traveling when I get the chance. I also enjoy long walks, making pixel art, trying out new food, and spending time with my cats.",
   ],
