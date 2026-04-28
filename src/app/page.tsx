@@ -11,18 +11,16 @@ import PageAnimator, { AnimatedSection } from "@/components/layout/PageAnimator"
 export default function Home() {
   return (
     <PageAnimator>
-      <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans py-18 sm:py-18 gap-28">
-        <div className="xl:min-h-[calc(100svh-4rem)] flex flex-col justify-center gap-28 sm:-mt-6 xl:-mb-20">
-          {/* Intro, Tagline, Profile */}
-          <AnimatedSection className="mt-24 xl:mt-0">
-            <Intro />
-          </AnimatedSection>
+      <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans py-18 gap-24">
+        {/* Intro */}
+        <AnimatedSection className="mt-24">
+          <Intro />
+        </AnimatedSection>
 
-          {/* Bio */}
-          <AnimatedSection>
-            <About />
-          </AnimatedSection>
-        </div>
+        {/* Bio */}
+        <AnimatedSection>
+          <About />
+        </AnimatedSection>
 
         {/* Stats */}
         <AnimatedSection>
@@ -45,7 +43,7 @@ export default function Home() {
         </AnimatedSection>
 
         {/* Tech Stack */}
-        <AnimatedSection className="-mb-10">
+        <AnimatedSection className="-mb-14">
           <TechStack />
         </AnimatedSection>
       </div>

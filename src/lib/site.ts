@@ -11,9 +11,7 @@ export const profileInfo = {
   location: "Pasig City, Philippines",
   tagline: "In coding, simplicity is the ultimate sophistication",
   bio: [
-    "Hi! I'm Luis, a full-stack DevOps engineer based in the Philippines. I like to code and make things work.",
-
-    "In my recent project, I've built an on-premise production system that powers 100+ branches of a nationwide retail giant. I automated the entire delivery pipeline and ensured every change is tested, guarded, and safely deployed with minimal intervention. Right now, I'm focused on bringing that same end-to-end ownership to the cloud.",
+    "I'm an engineer based in the Philippines with experience in full-stack development and on-premise automated deployments. Currently, I'm focused on bringing that same end-to-end ownership to the cloud.",
 
     "When not building, you'll find me taking photos, hanging out with friends & family, gaming, or traveling when I get the chance. I also enjoy long walks, making pixel art, trying out new food, and spending time with my cats.",
   ],
@@ -65,7 +63,7 @@ export const profileInfo = {
       start: "Nov 2024",
       end: "Apr 2026",
       about: "Power Mac Center is the largest Apple Premium Reseller in the Philippines, operating 100+ branches nationwide.",
-      scope: "Served as a DevOps engineer, developing and deploying production systems on-premise and supporting thousands of employees across 100+ branches with minimal to no downtime.",
+      scope: "Served as a DevOps engineer with full-stack responsibilities. Successfully developed and deployed internal production systems, working closely with project management and cybersecurity teams.",
     },
     {
       company: "Third Generation Holdings Co.",
@@ -75,7 +73,7 @@ export const profileInfo = {
       start: "Mar 2024",
       end: "Jun 2024",
       about: "Third Generation Holdings is a Filipino conglomerate with business interests in security, manpower, and facilities management.",
-      scope: "Served as an intern software developer, building the company's forms/reporting app for automated data collection, and data visualization.",
+      scope: "Joined as an intern software developer, contributing to internal development processes. Gained experience in SDLC and cross-functional collaboration within an enterprise environment.",
     },
     {
       company: "Gingersnaps PH",
