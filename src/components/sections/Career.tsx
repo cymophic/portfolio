@@ -16,7 +16,7 @@ export default function Career() {
             <TimelineItem key={i}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start">
                 {/* Left: Work info */}
-                <div className="flex sm:gap-4.5 md:gap-3 items-start">
+                <div className="flex sm:gap-4.5 md:gap-3 items-center">
                   <a href={work.website} target="_blank" rel="noopener noreferrer" className="hidden sm:block shrink-0">
                     {work.logo && (
                       <Image src={work.logo} alt={work.company} width={64} height={64} className="rounded-lg object-cover mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600" />
