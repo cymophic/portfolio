@@ -9,6 +9,7 @@ import SocialLinks from "@/components/ui/SocialLinks";
 import ProfileImage from "@/components/ui/ProfileImage";
 import { ScrambleText } from "@/components/ui/AnimatedText";
 import Button from "@/components/ui/Button";
+import Tooltip from "@/components/ui/Tooltip";
 
 const CONFIG = {
   typingSpeed: 50, // time it takes to type each character
@@ -21,10 +22,11 @@ export default function Intro() {
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [bookingDisabled, setBookingDisabled] = useState(false);
   const words = useMemo(() => ["Luis Abhram"], []);
+  const email = profileInfo.emails[0]
 
   const handleCopyEmail = () => {
     const swapTextSeconds = 3000;
-    navigator.clipboard.writeText(profileInfo.emails[0]);
+    navigator.clipboard.writeText(email);
     setCopied(true);
 
     if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
@@ -96,14 +98,16 @@ export default function Intro() {
             </Button>
             
             {/* Copy Email Button */}
-            <Button
-              variant="secondary"
-              size="md"
-              className="rounded-lg w-40 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
-              onClick={handleCopyEmail}
-            >
-              {copied ? "Copied!" : "Copy Email"}
-            </Button>
+            <Tooltip content={email}>
+              <Button
+                variant="secondary"
+                size="md"
+                className="rounded-lg w-40 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
+                onClick={handleCopyEmail}
+              >
+                {copied ? "Copied!" : "Copy Email"}
+              </Button>
+            </Tooltip>
           </div>
         </div>
 

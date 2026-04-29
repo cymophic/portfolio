@@ -6,22 +6,44 @@ import Tooltip from "@/components/ui/Tooltip";
 import type { Week } from "@/lib/utils/github";
 
 const THRESHOLDS = [0, 10, 30, 50];
-const PALETTE = {
-  light: {
-    empty: "#ebedf0",
-    low:   "#9be9a8",
-    mid:   "#40c463",
-    high:  "#30a14e",
-    max:   "#216e39",
+const PALETTES = {
+  green: {
+    light: { empty: "#ebedf0", low: "#9be9a8", mid: "#40c463", high: "#30a14e", max: "#216e39" },
+    dark:  { empty: "#161b22", low: "#0e4429", mid: "#006d32", high: "#26a641", max: "#39d353" },
   },
-  dark: {
-    empty: "#161b22",
-    low:   "#0e4429",
-    mid:   "#006d32",
-    high:  "#26a641",
-    max:   "#39d353",
+  red: {
+    light: { empty: "#ebedf0", low: "#fecdd3", mid: "#fb7185", high: "#e11d48", max: "#881337" },
+    dark:  { empty: "#161b22", low: "#550000", mid: "#9f1239", high: "#f43f5e", max: "#fda4af" },
   },
-};
+  orange: {
+    light: { empty: "#ebedf0", low: "#ffd8a8", mid: "#ffa94d", high: "#f76707", max: "#c04a00" },
+    dark:  { empty: "#161b22", low: "#4a2400", mid: "#a05000", high: "#d4700a", max: "#ff8c42" },
+  },
+  yellow: {
+    light: { empty: "#ebedf0", low: "#fef08a", mid: "#fbbf24", high: "#d97706", max: "#92400e" },
+    dark:  { empty: "#161b22", low: "#4a3500", mid: "#a06800", high: "#f59e0b", max: "#fde68a" },
+  },
+  blue: {
+    light: { empty: "#ebedf0", low: "#b6d4fe", mid: "#5b9cf6", high: "#2563eb", max: "#1447e6" },
+    dark:  { empty: "#161b22", low: "#1a3a7a", mid: "#2563eb", high: "#3b82f6", max: "#60a5fa" },
+  },
+  cyan: {
+    light: { empty: "#ebedf0", low: "#a5f3fc", mid: "#22d3ee", high: "#0891b2", max: "#155e75" },
+    dark:  { empty: "#161b22", low: "#0a4a5c", mid: "#0e7490", high: "#06b6d4", max: "#7dd3f0" },
+  },
+  violet: {
+    light: { empty: "#ebedf0", low: "#d8b4fe", mid: "#a855f7", high: "#7c3aed", max: "#4c1d95" },
+    dark:  { empty: "#161b22", low: "#3b1f6e", mid: "#6d28d9", high: "#8b5cf6", max: "#c084fc" },
+  },
+  monochrome: {
+    light: { empty: "#ebedf0", low: "#d4d4d4", mid: "#a3a3a3", high: "#525252", max: "#171717" },
+    dark:  { empty: "#161b22", low: "#2a2a2a", mid: "#525252", high: "#a3a3a3", max: "#e5e5e5" },
+  },
+} as const;
+
+type PaletteKey = keyof typeof PALETTES;
+const ACTIVE_PALETTE: PaletteKey = "monochrome";
+const PALETTE = PALETTES[ACTIVE_PALETTE];
 
 type Props = {
   weeks: Week[];

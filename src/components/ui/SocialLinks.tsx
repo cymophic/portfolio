@@ -4,6 +4,7 @@ import Link from "next/link";
 import { IconBrandGithub, IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
 import { Icon } from "@tabler/icons-react";
 import { profileInfo } from "@/lib/site";
+import Tooltip from "@/components/ui/Tooltip";
 
 const iconMap: Record<string, Icon> = {
   GitHub: IconBrandGithub,
@@ -37,25 +38,26 @@ export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, ico
           ["--brand-dark" as string]: color.dark,
         } : {};
         return (
-          <Link
-            key={label}
-            href={link}
-            ref={(el) => {
-              if (iconsRef) iconsRef.current[i] = el;
-            }}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={label}
-            style={brandStyles}
-            className={`
-              transition-colors duration-200
-              ${hoverEffect === "colored" 
-                ? "text-zinc-400 hover:text-(--brand-light) dark:hover:text-(--brand-dark)" 
-                : "text-zinc-400 hover:text-zinc-500 dark:text-zinc-500 dark:hover:text-zinc-300"}
-            `}
-          >
-            <Icon size={iconSize} stroke={1.7} />
-          </Link>
+          <Tooltip key={label} content={label}>
+            <Link
+              href={link}
+              ref={(el) => {
+                if (iconsRef) iconsRef.current[i] = el;
+              }}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              style={brandStyles}
+              className={`
+                transition-colors duration-200
+                ${hoverEffect === "colored" 
+                  ? "text-zinc-400 hover:text-(--brand-light) dark:hover:text-(--brand-dark)" 
+                  : "text-zinc-400 hover:text-zinc-500 dark:text-zinc-500 dark:hover:text-zinc-300"}
+              `}
+            >
+              <Icon size={iconSize} stroke={1.7} />
+            </Link>
+          </Tooltip>
         );
       })}
     </div>

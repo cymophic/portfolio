@@ -12,7 +12,7 @@ bucket_name        = ""
 
 # Budget
 budget_limit_usd   = "100.0"
-budget_alert_email = ["your@email.com"]
+budget_alert_email = ["name@email.com"]
 
 # GitHub
 github_pat         = ""

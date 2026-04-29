@@ -6,7 +6,7 @@ import Education from "@/components/sections/Education";
 import Projects from "@/components/sections/Projects";
 import TechStack from "@/components/sections/TechStack";
 
-import PageAnimator, { AnimatedSection } from "@/components/layout/PageAnimator";
+import PageAnimator, { AnimatedSection } from "@/components/ui/PageAnimator";
 
 export default function Home() {
   return (
