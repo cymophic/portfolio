@@ -102,9 +102,10 @@ type Props = {
   content: string;
   disabled?: boolean;
   children: ReactNode;
+  className?: string;
 };
 
-export default function Tooltip({ content, disabled = false, children }: Props) {
+export default function Tooltip({ content, disabled = false, children, className = "" }: Props) {
   const ctx = useContext(TooltipContext);
   const triggerRef = useRef<HTMLDivElement>(null);
 
@@ -120,7 +121,7 @@ export default function Tooltip({ content, disabled = false, children }: Props) 
   return (
     <div
       ref={triggerRef}
-      className="relative min-w-0"
+      className={`relative min-w-0 ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleMouseEnter}
