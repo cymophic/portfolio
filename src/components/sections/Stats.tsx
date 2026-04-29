@@ -17,7 +17,7 @@ import ContributionGraph from "@/components/sections/Stats/ContributionGraph";
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
 const SONG_REFRESH_INTERVAL = 1.5; // 1 min 30 sec
-const LOADMS_CONTRIBUTION_GRAPH = 1400;
+const LOADMS_CONTRIBUTION_GRAPH = 1000;
 
 async function fetchWakatimeStats(): Promise<{ today: number; weekly: number; monthly: number; yearly: number } | null> {
   const url = process.env.NEXT_PUBLIC_CDN_URL;
