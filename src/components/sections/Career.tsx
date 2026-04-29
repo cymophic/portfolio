@@ -30,7 +30,7 @@ export default function Career() {
                       )}
                     </div>
                     <span className="text-sm text-zinc-600 dark:text-zinc-400">
-                      <a href={work.website} target="_blank" rel="noopener noreferrer" className={work.website ? "underline sm:hover:text-zinc-700 sm:dark:hover:text-zinc-300" : ""}>
+                      <a href={work.website} target="_blank" rel="noopener noreferrer" className={work.website ? "underline sm:hover:text-zinc-900 sm:dark:hover:text-zinc-300" : ""}>
                         {work.company}
                         {work.website && (
                           <IconArrowUpRight size={18} className="inline mb-0.5 overflow-clip  text-zinc-500 dark:text-zinc-500" />
