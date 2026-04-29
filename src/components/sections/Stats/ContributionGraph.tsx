@@ -12,12 +12,16 @@ const PALETTES = {
     dark:  { empty: "#161b22", low: "#0e4429", mid: "#006d32", high: "#26a641", max: "#39d353" },
   },
   red: {
-    light: { empty: "#ebedf0", low: "#ffb3b3", mid: "#ff6666", high: "#e03131", max: "#a80000" },
-    dark:  { empty: "#161b22", low: "#550000", mid: "#a80000", high: "#d63030", max: "#ff4444" },
+    light: { empty: "#ebedf0", low: "#fecdd3", mid: "#fb7185", high: "#e11d48", max: "#881337" },
+    dark:  { empty: "#161b22", low: "#550000", mid: "#9f1239", high: "#f43f5e", max: "#fda4af" },
   },
   orange: {
     light: { empty: "#ebedf0", low: "#ffd8a8", mid: "#ffa94d", high: "#f76707", max: "#c04a00" },
     dark:  { empty: "#161b22", low: "#4a2400", mid: "#a05000", high: "#d4700a", max: "#ff8c42" },
+  },
+  yellow: {
+    light: { empty: "#ebedf0", low: "#fef08a", mid: "#fbbf24", high: "#d97706", max: "#92400e" },
+    dark:  { empty: "#161b22", low: "#4a3500", mid: "#a06800", high: "#f59e0b", max: "#fde68a" },
   },
   blue: {
     light: { empty: "#ebedf0", low: "#b6d4fe", mid: "#5b9cf6", high: "#2563eb", max: "#1447e6" },
@@ -31,10 +35,14 @@ const PALETTES = {
     light: { empty: "#ebedf0", low: "#d8b4fe", mid: "#a855f7", high: "#7c3aed", max: "#4c1d95" },
     dark:  { empty: "#161b22", low: "#3b1f6e", mid: "#6d28d9", high: "#8b5cf6", max: "#c084fc" },
   },
+  monochrome: {
+    light: { empty: "#ebedf0", low: "#d4d4d4", mid: "#a3a3a3", high: "#525252", max: "#171717" },
+    dark:  { empty: "#161b22", low: "#2a2a2a", mid: "#525252", high: "#a3a3a3", max: "#e5e5e5" },
+  },
 } as const;
 
 type PaletteKey = keyof typeof PALETTES;
-const ACTIVE_PALETTE: PaletteKey = "orange";
+const ACTIVE_PALETTE: PaletteKey = "monochrome";
 const PALETTE = PALETTES[ACTIVE_PALETTE];
 
 type Props = {
