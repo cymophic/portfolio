@@ -2,8 +2,8 @@ import Image from "next/image";
 import { IconArrowUpRight } from "@tabler/icons-react";
 
 import { profileInfo } from "@/lib/site";
-import SectionTitle from "@/components/sections/common/SectionTitle";
-import { TimelineItem } from "@/components/sections/common/Timeline";
+import SectionTitle from "@/components/ui/SectionTitle";
+import { TimelineItem } from "@/components/ui/Timeline";
 
 export default function Career() {
   return (

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { IconMapPin, IconCode, IconClock, IconCalendarEvent, IconKeyboard, IconVolume } from "@tabler/icons-react";
 
 import { profileInfo } from "@/lib/site";
-import SectionTitle from "@/components/sections/common/SectionTitle";
+import SectionTitle from "@/components/ui/SectionTitle";
 import { getAge, getDaysUntilBirthday, getLocalTime } from "@/lib/utils/profile";
 import { fetchGithubData } from "@/lib/utils/github";
 import type { Week } from "@/lib/utils/github";
@@ -12,7 +12,7 @@ import Skeleton from "@/components/ui/Skeleton";
 import { SlotText } from "@/components/ui/AnimatedText";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
 import Tooltip from "@/components/ui/Tooltip";
-import ContributionGraph from "@/components/sections/common/ContributionGraph";
+import ContributionGraph from "@/components/sections/Stats/ContributionGraph";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";

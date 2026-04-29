@@ -51,9 +51,9 @@ luisabhram.dev/
 │   ├── workflows/
 │   │   ├── build.yml                     # Reusable build workflow
 │   │   ├── check.yml                     # PR validation workflow
-│   │   ├── deploy.yml                    # GitHub Actions deployment workflow
-│   │   ├── resolve.yml                   # Updates fields of linked issues on merge
-│   │   └── track.yml                     # Updates fields from created issues
+│   │   ├── deploy.yml                    # Deployment workflow
+│   │   ├── resolve.yml                   # Updates project fields of linked issues on merge
+│   │   └── track.yml                     # Updates project fields from created issues
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── lambda/
 │   ├── spotify/
@@ -71,10 +71,8 @@ luisabhram.dev/
 │   │   └── page.tsx                      # Root page
 │   ├── components/
 │   │   ├── layout/                       # App-wide layout components
-│   │   ├── pages/                        # Full page-level components
 │   │   ├── ui/                           # Small reusable UI components
 │   │   └── sections/                     # Page section components
-│   │       └── common/                   # Child components used within sections
 │   ├── hooks/
 │   │   └── animations/                   # GSAP animation hooks
 │   ├── lib/
@@ -154,7 +152,7 @@ luisabhram.dev/
 
 ### Terraform Variables
 
-Create a `terraform/terraform.tfvars` file based on the example below:
+Variables are set up in `terraform/terraform.tfvars` file. An [example](terraform/terraform.tfvars.example) file is provided to assist with the setup:
 
 ```hcl
 # General
@@ -171,7 +169,7 @@ bucket_name        = ""
 
 # Budget
 budget_limit_usd   = "100.0"
-budget_alert_email = ["your@email.com"]
+budget_alert_email = ["name@email.com"]
 
 # GitHub
 github_pat         = ""
@@ -208,19 +206,19 @@ This provisions:
 
 ### DNS Setup
 
-After provisioning, add these records in Cloudflare:
+After provisioning, these records are created in Cloudflare:
 
 | Type | Name | Value |
 |---|---|---|
-| `CNAME` | `@` | Your CloudFront domain (from `terraform output cloudfront_domain`) |
-| `CNAME` | `www` | Your CloudFront domain (from `terraform output cloudfront_domain`) |
+| `CNAME` | `@` | CloudFront domain (from `terraform output cloudfront_domain`) |
+| `CNAME` | `www` | CloudFront domain (from `terraform output cloudfront_domain`) |
 | `CNAME` | ACM validation names | ACM validation values (from `terraform output acm_validation_records`) |
 
-> ⚠️ Set both records to **DNS only** (grey cloud) — not proxied.
+> ⚠️ Both records are set to **DNS only** (grey cloud) — not proxied.
 
 ### Seeding Static Stats
 
-After provisioning, manually invoke each scheduled Lambda once to seed the initial JSON files in S3:
+After provisioning, these commands can invoke each scheduled Lambda and seed the initial JSON files manually in S3:
 
 ```bash
 aws lambda invoke --function-name <project_name>-github /dev/null
@@ -237,7 +235,7 @@ Deployments are fully automated via GitHub Actions.
 
 ### Prerequisites
 
-Ensure the following are configured in **Settings → Secrets and Variables → Actions** before the pipeline will work:
+The following are configured in **Settings → Secrets and Variables → Actions**:
 
 **Secrets**
 | Name | Description |
@@ -261,7 +259,7 @@ Ensure the following are configured in **Settings → Secrets and Variables → 
 | `NEXT_PUBLIC_API_URL` | Lambda + API Gateway URL |
 | `NEXT_PUBLIC_CDN_URL` | CloudFront CDN URL for static stats JSON |
 
-### How it works
+### Process Breakdown
 
 **On pull request to `main`** — `check.yml` runs:
 1. Lints the codebase

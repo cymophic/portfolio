@@ -1,7 +1,7 @@
 "use client";
 
 import { techStack } from "@/lib/site";
-import SectionTitle from "./common/SectionTitle";
+import SectionTitle from "../ui/SectionTitle";
 import { useTechMarquee } from "@/hooks/animations/useTechMarquee";
 import {
   SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiTailwindcss,

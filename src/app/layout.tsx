@@ -7,7 +7,7 @@ import ThemeProvider from "@/components/layout/theme/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/Tooltip";
 import Header from "@/components/layout/header/Header";
 import Footer from "@/components/layout/footer/Footer";
-import ComingSoon from "@/components/pages/ComingSoon";
+import ComingSoon from "@/components/ui/ComingSoon";
 import { profileInfo } from "@/lib/site";
 import "./globals.css";
 

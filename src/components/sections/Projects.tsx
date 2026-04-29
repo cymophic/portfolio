@@ -6,10 +6,10 @@ import { IconFolderFilled, IconChevronLeft, IconWorldShare } from "@tabler/icons
 import { toast } from "sonner";
 
 import { projects, portfolioEasterEggMessages } from "@/lib/site";
-import SectionTitle from "@/components/sections/common/SectionTitle";
+import SectionTitle from "@/components/ui/SectionTitle";
 import { useExpandTags } from "@/hooks/animations/useExpandTags";
 import Tooltip from "@/components/ui/Tooltip";
-import useIsMobile from "@/hooks/browser/useIsMobile";
+import useIsMobile from "@/hooks/utils/useIsMobile";
 
 type TagsSectionProps = {
   tags: string[];
