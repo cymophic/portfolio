@@ -19,7 +19,7 @@ export function useThemeTransition(isDark: boolean): UseThemeTransitionResult {
 
     const rect = button.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
+    const y = rect.top + rect.height / 2 + (window.visualViewport?.offsetTop ?? 0);
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
