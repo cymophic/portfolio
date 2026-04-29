@@ -6,22 +6,36 @@ import Tooltip from "@/components/ui/Tooltip";
 import type { Week } from "@/lib/utils/github";
 
 const THRESHOLDS = [0, 10, 30, 50];
-const PALETTE = {
-  light: {
-    empty: "#ebedf0",
-    low:   "#9be9a8",
-    mid:   "#40c463",
-    high:  "#30a14e",
-    max:   "#216e39",
+const PALETTES = {
+  green: {
+    light: { empty: "#ebedf0", low: "#9be9a8", mid: "#40c463", high: "#30a14e", max: "#216e39" },
+    dark:  { empty: "#161b22", low: "#0e4429", mid: "#006d32", high: "#26a641", max: "#39d353" },
   },
-  dark: {
-    empty: "#161b22",
-    low:   "#0e4429",
-    mid:   "#006d32",
-    high:  "#26a641",
-    max:   "#39d353",
+  red: {
+    light: { empty: "#ebedf0", low: "#ffb3b3", mid: "#ff6666", high: "#e03131", max: "#a80000" },
+    dark:  { empty: "#161b22", low: "#4a0000", mid: "#7d0000", high: "#c00000", max: "#ff4444" },
   },
-};
+  orange: {
+    light: { empty: "#ebedf0", low: "#ffd8a8", mid: "#ffa94d", high: "#f76707", max: "#c04a00" },
+    dark:  { empty: "#161b22", low: "#3d1f00", mid: "#7a3d00", high: "#c25c00", max: "#ff8c42" },
+  },
+  blue: {
+    light: { empty: "#ebedf0", low: "#b6d4fe", mid: "#5b9cf6", high: "#2563eb", max: "#1447e6" },
+    dark:  { empty: "#161b22", low: "#0d1f4a", mid: "#1a3a8f", high: "#2563eb", max: "#60a5fa" },
+  },
+  cyan: {
+    light: { empty: "#ebedf0", low: "#a5f3fc", mid: "#22d3ee", high: "#0891b2", max: "#155e75" },
+    dark:  { empty: "#161b22", low: "#0a3a4a", mid: "#0e7490", high: "#06b6d4", max: "#38bdf8" },
+  },
+  violet: {
+    light: { empty: "#ebedf0", low: "#d8b4fe", mid: "#a855f7", high: "#7c3aed", max: "#4c1d95" },
+    dark:  { empty: "#161b22", low: "#3b1f6e", mid: "#5b21b6", high: "#7c3aed", max: "#c084fc" },
+  },
+} as const;
+
+type PaletteKey = keyof typeof PALETTES;
+const ACTIVE_PALETTE: PaletteKey = "orange";
+const PALETTE = PALETTES[ACTIVE_PALETTE];
 
 type Props = {
   weeks: Week[];
