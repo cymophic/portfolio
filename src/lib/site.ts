@@ -11,7 +11,7 @@ export const profileInfo = {
   location: "Pasig City, Philippines",
   tagline: "In coding, simplicity is the ultimate sophistication",
   bio: [
-    "I'm an engineer based in the Philippines with experience in full-stack development and on-premise automated deployments. Currently, I'm focused on bringing that same end-to-end ownership to the cloud.",
+    "I'm an engineer based in the Philippines with experience in full-stack development and on-premise automated deployments, end-to-end. Currently, I'm focused on bringing that same level of ownership to the cloud.",
 
     "When not building, you'll find me taking photos, hanging out with friends & family, gaming, or traveling when I get the chance. I also enjoy long walks, making pixel art, trying out new food, and spending time with my cats.",
   ],

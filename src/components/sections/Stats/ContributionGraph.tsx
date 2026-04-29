@@ -5,6 +5,12 @@ import { useTheme } from "next-themes";
 import Tooltip from "@/components/ui/Tooltip";
 import type { Week } from "@/lib/utils/github";
 
+type Props = {
+  weeks: Week[];
+  totalContributions?: number;
+};
+type PaletteKey = keyof typeof PALETTES;
+
 const THRESHOLDS = [0, 10, 30, 50];
 const PALETTES = {
   green: {
@@ -40,15 +46,8 @@ const PALETTES = {
     dark:  { empty: "#161b22", low: "#2a2a2a", mid: "#525252", high: "#a3a3a3", max: "#e5e5e5" },
   },
 } as const;
-
-type PaletteKey = keyof typeof PALETTES;
 const ACTIVE_PALETTE: PaletteKey = "monochrome";
 const PALETTE = PALETTES[ACTIVE_PALETTE];
-
-type Props = {
-  weeks: Week[];
-  totalContributions?: number;
-};
 
 function getColor(count: number, isDark: boolean): string {
   const color = isDark ? PALETTE.dark : PALETTE.light;
@@ -73,7 +72,8 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
 
   return (
     <div className="flex flex-col gap-1">
-      <div ref={scrollRef} className="overflow-x-auto pb-0.5">
+      {/* Graph */}
+      <div ref={scrollRef} className="overflow-x-auto pb-1.5">
         <div className="mx-auto w-fit">
           <div className="flex gap-0.75">
             {weeks.map((week, wi) => (
@@ -85,7 +85,7 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
                   >
                     <div
                       style={{ backgroundColor: getColor(day.contributionCount, isDark) }}
-                      className="h-3 w-3 rounded-xs"
+                      className="h-3 w-3 rounded-sm"
                     />
                   </Tooltip>
                 ))}
@@ -94,9 +94,12 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
           </div>
         </div>
       </div>
-
+      
       <div className="px-1 flex items-center justify-between gap-x-8 text-xs text-zinc-500 dark:text-zinc-400">
+        {/* Contribution Count */}
         <span className="truncate">{totalContributions?.toLocaleString() ?? 0} GitHub contributions in the last year</span>
+
+        {/* Legend */}
         <span className="flex items-center gap-0.75">
           {[color.empty, color.low, color.mid, color.high, color.max].map((c, i) => (
             <Tooltip
@@ -109,7 +112,7 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
                   : `${THRESHOLDS[i - 1] + 1} to ${THRESHOLDS[i]} contributions`
               }
             >
-              <div style={{ backgroundColor: c }} className="h-3 w-3 rounded-xs" />
+              <div style={{ backgroundColor: c }} className="h-3 w-3 rounded-sm" />
             </Tooltip>
           ))}
         </span>
