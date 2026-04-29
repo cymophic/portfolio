@@ -85,7 +85,7 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
                   >
                     <div
                       style={{ backgroundColor: getColor(day.contributionCount, isDark) }}
-                      className="h-3 w-3 rounded-xs"
+                      className="h-3 w-3 rounded-sm"
                     />
                   </Tooltip>
                 ))}
@@ -112,7 +112,7 @@ export default function ContributionGraph({ weeks, totalContributions }: Props) 
                   : `${THRESHOLDS[i - 1] + 1} to ${THRESHOLDS[i]} contributions`
               }
             >
-              <div style={{ backgroundColor: c }} className="h-3 w-3 rounded-xs" />
+              <div style={{ backgroundColor: c }} className="h-3 w-3 rounded-sm" />
             </Tooltip>
           ))}
         </span>
