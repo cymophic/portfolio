@@ -9,12 +9,43 @@
 
 @layer base {
   * {
-    scrollbar-gutter: stable;
     user-select: none;
+    scrollbar-gutter: stable;
   }
 
   button {
     cursor: pointer;
+  }
+
+  /* Firefox Scrollbar */
+  @-moz-document url-prefix() {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #888 transparent;
+    }
+  }
+
+  /* Chromium Scrollbars */
+  ::-webkit-scrollbar {
+    width: 3px !important;
+    height: 3px !important;
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 
   ::view-transition-image-pair(root) {
