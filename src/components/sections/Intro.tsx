@@ -88,7 +88,7 @@ export default function Intro() {
               className="rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
               onClick={handleCopyEmail}
             >
-              {copied ? "Copied!" : "Copy Email"}
+              {copied ? "Email Copied!" : "Copy Email"}
             </Button>
           </Tooltip>
         </div>
