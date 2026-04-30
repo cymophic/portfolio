@@ -5,8 +5,7 @@ const glitchChars = ["4", "0", "4"];
 
 export default function NotFound() {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center px-6 gap-10 text-center">
-
+    <div className="flex flex-1 flex-col items-center justify-center gap-10 text-center">
       {/* 404 display */}
       <div className="font-mono text-8xl font-bold tracking-widest text-zinc-200 dark:text-zinc-800 select-none">
         {glitchChars.map((char, i) => (
@@ -30,8 +29,8 @@ export default function NotFound() {
       </p>
 
       {/* Home button */}
-      <Link href="/">
-        <Button variant="secondary" size="md" className="rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70">
+      <Link href="/" className="w-full px-6 sm:px-0 sm:w-auto">
+        <Button variant="secondary" size="md" className="rounded-lg w-full max-w-88 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70">
           Back to Main
         </Button>
       </Link>
