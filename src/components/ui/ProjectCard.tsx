@@ -1,5 +1,5 @@
   import Link from "next/link";
-  import { IconArrowRight } from "@tabler/icons-react";
+  import { IconArrowRight, IconArrowUpRight } from "@tabler/icons-react";
 
   import type { Project } from "@/lib/types/site";
 
@@ -25,7 +25,8 @@
               </span>
             </div>
 
-            <IconArrowRight size={18} className="overflow-clip transition-transform group-hover:-rotate-45 duration-280 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0"/>
+            <IconArrowUpRight size={18} className="inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500" />
+            <IconArrowRight size={18} className="hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-280 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0"/>
           </div>
 
           {/* Description */}
