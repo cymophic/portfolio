@@ -2,7 +2,6 @@
   import { IconArrowRight } from "@tabler/icons-react";
 
   import type { Project } from "@/lib/types/site";
-  import Tooltip from "@/components/ui/Tooltip"
 
   const tagPillClass =
     "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300/80";
@@ -26,7 +25,7 @@
               </span>
             </div>
 
-            <IconArrowRight size={18} className="overflow-clip transition-transform shrink-0 group-hover:-rotate-45 duration-280 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0"/>
+            <IconArrowRight size={18} className="overflow-clip transition-transform group-hover:-rotate-45 duration-280 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0"/>
           </div>
 
           {/* Description */}
