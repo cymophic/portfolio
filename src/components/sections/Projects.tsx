@@ -10,7 +10,7 @@ export default function Projects() {
       <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Projects" href="/projects" tooltip="View All Projects" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch auto-rows-[1fr]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 items-stretch auto-rows-[1fr]">
           {pinned.map((project, i) => (
             <ProjectCard key={i} project={project} />
           ))}

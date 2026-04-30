@@ -9,9 +9,12 @@
 
   export default function ProjectCard({ project }: { project: Project }) {
     return (
-      <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:scale-102 transition-transform duration-100 cursor-pointer group">
-        {/* Cover placeholder */}
-        <div className="h-28 bg-zinc-100 dark:bg-zinc-800/60 rounded-2xl" />
+      <Link 
+        href={`/projects/${project.slug}`}
+        className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 hover:dark:border-zinc-500 hover:scale-102 transition-transform duration-50 cursor-pointer group"
+      >
+        {/* Cover Image */}
+        {/* <div className="h-28 bg-zinc-100 dark:bg-zinc-800/60 rounded-2xl" /> */}
 
         {/* Content */}
         <div className="flex flex-col flex-1 gap-2 p-4">
@@ -22,14 +25,8 @@
                 {project.title}
               </span>
             </div>
-            <Tooltip content="View Project Details">
-              <Link 
-                href={`/projects/${project.slug}`}
-                className="text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors shrink-0"
-              >
-                <IconArrowRight size={18} className="overflow-clip transition-transform group-hover:-rotate-45 duration-280"/>
-              </Link>
-            </Tooltip>
+
+            <IconArrowRight size={18} className="overflow-clip transition-transform shrink-0 group-hover:-rotate-45 duration-280 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0"/>
           </div>
 
           {/* Description */}
@@ -48,6 +45,6 @@
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
