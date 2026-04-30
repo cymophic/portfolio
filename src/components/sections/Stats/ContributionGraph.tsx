@@ -43,7 +43,7 @@ const PALETTES = {
   },
   monochrome: {
     light: { empty: "#ebedf0", low: "#d4d4d4", mid: "#a3a3a3", high: "#525252", max: "#171717" },
-    dark:  { empty: "#161b22", low: "#2a2a2a", mid: "#525252", high: "#a3a3a3", max: "#e5e5e5" },
+    dark:  { empty: "#161b22", low: "#333333", mid: "#525252", high: "#a3a3a3", max: "#e5e5e5" },
   },
 } as const;
 const ACTIVE_PALETTE: PaletteKey = "monochrome";
