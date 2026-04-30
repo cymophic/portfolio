@@ -96,7 +96,9 @@ export default function Intro() {
         </div>
 
         {/* Social Links */}
-        <SocialLinks iconSize={24} />
+        <div className="mt-1">
+          <SocialLinks iconSize={24} />
+        </div>
       </div>
     </section>
   );
