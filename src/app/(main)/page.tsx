@@ -11,9 +11,9 @@ import PageAnimator, { AnimatedSection } from "@/components/ui/PageAnimator";
 export default function Home() {
   return (
     <PageAnimator>
-      <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans pb-18 gap-24">
+      <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans gap-24">
         {/* Intro */}
-        <AnimatedSection className="mt-24">
+        <AnimatedSection>
           <Intro />
         </AnimatedSection>
 
