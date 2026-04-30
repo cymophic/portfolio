@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { IconHeart, IconGitCommit } from "@tabler/icons-react";
+import { usePathname, useRouter } from "next/navigation";
 
 import ProfileImage from "@/components/ui/ProfileImage";
 import { profileInfo } from "@/lib/site";
@@ -47,6 +48,8 @@ export default function Footer() {
   const lastUpdated = commit ? formatCommitDate(commit.date) : "—";
   const metaItem = "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors cursor-default";
   const separator = "font-mono text-xs text-zinc-300 dark:text-zinc-700 mx-2.5";
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => setSession((s) => s + 1), 1000);
@@ -62,6 +65,14 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
 
+  function handleImageClick() {
+    if (pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      router.push("/");
+    }
+  }
+
   return (
     <footer className="flex flex-col items-center text-center pt-10 pb-18 gap-6">
       {/* Line */}
@@ -74,20 +85,12 @@ export default function Footer() {
         </p>
       </div>
 
-      {/* Mobile Image */}
-      <div className="sm:hidden">
-        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <ProfileImage width={48} height={48} />
+      {/* Profile Image */}
+      <Tooltip content={pathname === "/" ? "Back to top" : "Go to main"}>
+        <button onClick={handleImageClick}>
+          <ProfileImage width={48} height={48} className="hover:scale-112 transition-transform"/>
         </button>
-      </div>
-      {/* Desktop Image */}
-      <div className="hidden sm:block">
-        <Tooltip content="Back to top">
-          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-            <ProfileImage width={48} height={48} className="hover:scale-112 transition-transform"/>
-          </button>
-        </Tooltip>
-      </div>
+      </Tooltip>
 
       {/* Social Links */}
       <SocialLinks iconSize={18} hoverEffect="monochrome" />
