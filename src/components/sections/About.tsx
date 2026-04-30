@@ -13,7 +13,7 @@ export default function About() {
               className={
                 index === 0 
                 ? "text-zinc-700 dark:text-zinc-300"
-                : "text-zinc-500 dark:text-zinc-500"
+                : "text-zinc-700/78 dark:text-zinc-300/88"
               }
             >
               {paragraph}
