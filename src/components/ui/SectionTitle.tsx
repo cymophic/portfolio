@@ -26,8 +26,8 @@ export default function SectionTitle({ title, href, tooltip }: Props) {
   );
 
   return (
-    <p className="font-console text-xs font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">
+    <div className="font-console text-xs font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">
       / {content}
-    </p>
+    </div>
   );
 }
