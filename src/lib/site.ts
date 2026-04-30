@@ -1,4 +1,4 @@
-import type { Career, Education } from "@/lib/types/site";
+import type { Career, Education, Project } from "@/lib/types/site";
 
 // Navigation links for the website
 export const navLinks: { href: string; label: string }[] = [
@@ -112,9 +112,11 @@ export const certifications = [
 ];
 
 // Projects
-export const projects = [
+export const projects: Project[] = [
   {
-    title: "Personal Portfolio",
+    title: "Digital Portfolio",
+    slug: "digital-portfolio",
+    pinned: true,
     description: "The website where you're currently reading this right now.",
     tags: ["Live", "Open Source", "CI/CD", "IaC", "Cloud", "Monitoring"],
     url: "https://luisabhram.dev",
@@ -122,13 +124,17 @@ export const projects = [
   },
   {
     title: "L2C Portal",
-    description: "An internal Lead-to-Cash (L2C) platform built for Power Mac Center to centralize retail lead tracking and digitize post-sale service workflows across all 100+ branches in the Philippines.",
+    slug: "l2c-portal",
+    pinned: true,
+    description: "A Lead-to-Cash (L2C) platform built to centralize retail lead tracking and digitize post-sale service workflows.",
     tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted", "Containerization", "Monitoring", "Scheduled Tasks"],
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
   },
   {
     title: "PMC Business",
+    slug: "pmc-business",
+    pinned: true,
     description: "The official lead generation website of Power Mac Center for business-level clients.",
     tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted"],
     url: "https://business.powermaccenter.com",
@@ -136,13 +142,17 @@ export const projects = [
   },
   {
     title: "Mobile Care PH",
-    description: "The official service portal of Power Mac Center for after-sales support and real-time status tracking.",
+    slug: "mobilecare-ph",
+    pinned: true,
+    description: "The official service portal for after-sales support and real-time status tracking.",
     tags: ["Live", "Enterprise", "Migration", "Self-Hosted"],
     url: "https://mobilecareph.com",
     repo: null,
   },
   {
     title: "Cymo GPT",
+    slug: "cymo-gpt",
+    pinned: false,
     description: "A simple Discord AI bot powered by GPT-4o for personal use.",
     tags: ["Open Source", "AI Integration"],
     url: null,

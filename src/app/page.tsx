@@ -27,6 +27,11 @@ export default function Home() {
           <Stats />
         </AnimatedSection>
 
+        {/* Projects */}
+        <AnimatedSection>
+          <Projects />
+        </AnimatedSection>
+
         {/* Work Experience */}
         <AnimatedSection>
           <Work />
@@ -35,11 +40,6 @@ export default function Home() {
         {/* Education */}
         <AnimatedSection>
           <Education />
-        </AnimatedSection>
-
-        {/* Projects */}
-        <AnimatedSection>
-          <Projects />
         </AnimatedSection>
 
         {/* Tech Stack */}

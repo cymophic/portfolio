@@ -8,14 +8,6 @@ export interface Education {
   details?: EducationDetails;
 }
 
-export interface EducationDetails {
-  grade?: string;
-  awards?: string[];
-  clubs?: string[];
-  honor?: string[];
-  description?: string;
-}
-
 export interface Career {
   company: string;
   logo?: string;
@@ -26,4 +18,22 @@ export interface Career {
   end: string;
   about?: string;
   scope?: string;
+}
+
+export interface Project {
+  title: string;
+  slug: string;
+  pinned: boolean;
+  description?: string;
+  tags: string[];
+  url?: string | null;
+  repo?: string | null;
+}
+
+export interface EducationDetails {
+  grade?: string;
+  awards?: string[];
+  clubs?: string[];
+  honor?: string[];
+  description?: string;
 }
