@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@wrksz/themes/client";
 import Tooltip from "@/components/ui/Tooltip";
 import type { Week } from "@/lib/utils/github";
 
