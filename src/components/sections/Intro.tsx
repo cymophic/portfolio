@@ -58,12 +58,14 @@ export default function Intro() {
         </h1>
 
         {/* Tagline */}
-        <div className="max-w-md flex flex-row gap-2 justify-center text-zinc-600 dark:text-zinc-400">
-          <IconQuoteOpen size={14} className="inline align-top overflow-clip" />
-          <p className="max-w-md text-base italic">
-            {profileInfo.tagline}
-          </p>
-        </div>
+        {profileInfo.tagline && 
+          <div className="flex justify-center text-zinc-600 dark:text-zinc-400">
+            <p className="italic text-base text-center">
+              <IconQuoteOpen size={14} className="inline -ml-5.75 mr-2 align-top" />
+              {profileInfo.tagline}
+            </p>
+          </div>
+        }
 
         {/* Buttons */}
         <div className="flex flex-col gap-4 w-full sm:w-fit sm:flex-row">
