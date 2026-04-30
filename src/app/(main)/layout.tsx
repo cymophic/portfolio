@@ -1,6 +1,7 @@
 import Header from "@/components/layout/header/Header";
 import Footer from "@/components/layout/footer/Footer";
 import ComingSoon from "@/components/ui/ComingSoon";
+import PageAnimator from "@/components/ui/PageAnimator";
 
 const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 
@@ -16,7 +17,11 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Header />
-      <main className="flex flex-1 flex-col mt-24 py-18">{children}</main>
+      <main className="flex flex-1 flex-col mt-24 py-18">
+        <PageAnimator>
+          {children}
+        </PageAnimator>
+      </main>
       <Footer />
     </>
   );
