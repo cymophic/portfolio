@@ -242,7 +242,7 @@ export default function Stats() {
         {githubStats && graphReady ? (
           <ContributionGraph weeks={githubStats.weeks} totalContributions={githubStats.contributions} />
         ) : (
-          <Skeleton shape="pill" className="h-31 w-full" />
+          <Skeleton shape="pill" className="h-32.25 w-full" />
         )}
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-8 md:w-full">
           {stats.map((stat, i) => (
