@@ -53,7 +53,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
 
   return (
     <html lang="en" className={`${inter.variable} ${geistMono.variable} ${splineSansMono.variable} h-full antialiased font-sans`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950 py-18" suppressHydrationWarning>
         <ThemeProvider>
           <TooltipProvider>
             {content}
