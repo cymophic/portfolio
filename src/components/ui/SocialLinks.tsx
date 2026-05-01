@@ -6,18 +6,11 @@ import { Icon } from "@tabler/icons-react";
 import { profileInfo } from "@/lib/site";
 import Tooltip from "@/components/ui/Tooltip";
 
-const iconMap: Record<string, Icon> = {
-  GitHub: IconBrandGithub,
-  LinkedIn: IconBrandLinkedin,
-  Instagram: IconBrandInstagram,
-  Spotify: IconBrandSpotify
-};
-
-const colorMap: Record<string, { light: string; dark: string }> = {
-  GitHub:    { light: "#333333", dark: "#ffffff"  },
-  LinkedIn:  { light: "#0A66C2", dark: "#0A66C2"  },
-  Instagram: { light: "#E1306C", dark: "#E1306C"  },
-  Spotify:   { light: "#1DB954", dark: "#1DB954"  },
+const socialConfig: Record<string, { icon: Icon; light: string; dark: string }> = {
+  GitHub:    { icon: IconBrandGithub,    light: "#333333", dark: "#ffffff" },
+  LinkedIn:  { icon: IconBrandLinkedin,  light: "#0A66C2", dark: "#0A66C2" },
+  Instagram: { icon: IconBrandInstagram, light: "#E1306C", dark: "#E1306C" },
+  Spotify:   { icon: IconBrandSpotify,   light: "#1DB954", dark: "#1DB954" },
 };
 
 type SocialLinksProps = {
@@ -29,39 +22,39 @@ type SocialLinksProps = {
 };
 
 export default function SocialLinks({ exclude = [], iconsRef, opacity = 100, iconSize = 20, hoverEffect = "colored" }: SocialLinksProps) {
-  const filtered = profileInfo.socialLinks.filter(({ label }) => !exclude.includes(label));
   return (
     <div className="flex items-center gap-4" style={{ opacity: opacity / 100 }}>
-      {filtered.map(({ label, link }, i) => {
-        const color = colorMap[label];
-        const Icon = iconMap[label];
-        const brandStyles = hoverEffect === "colored" ? {
-          ["--brand-light" as string]: color.light,
-          ["--brand-dark" as string]: color.dark,
-        } : {};
-        return (
-          <Tooltip key={label} content={label}>
-            <Link
-              href={link}
-              ref={(el) => {
-                if (iconsRef) iconsRef.current[i] = el;
-              }}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              style={brandStyles}
-              className={`
-                transition-colors duration-200
-                ${hoverEffect === "colored" 
-                  ? "text-zinc-400 hover:text-(--brand-light) dark:hover:text-(--brand-dark)" 
-                  : "text-zinc-400 hover:text-zinc-500 dark:text-zinc-500 dark:hover:text-zinc-300"}
-              `}
-            >
-              <Icon size={iconSize} stroke={1.7} />
-            </Link>
-          </Tooltip>
-        );
-      })}
+      {profileInfo.socialLinks
+        .filter(({ label }) => !exclude.includes(label))
+        .map(({ label, link }, i) => {
+          const { icon: Icon, ...color } = socialConfig[label];
+          const brandStyles = hoverEffect === "colored" ? {
+            ["--brand-light" as string]: color.light,
+            ["--brand-dark" as string]: color.dark,
+          } : {};
+          return (
+            <Tooltip key={label} content={label}>
+              <Link
+                href={link}
+                ref={(el) => {
+                  if (iconsRef) iconsRef.current[i] = el;
+                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                style={brandStyles}
+                className={`
+                  transition-colors duration-200
+                  ${hoverEffect === "colored"
+                    ? "text-zinc-400 hover:text-(--brand-light) dark:hover:text-(--brand-dark)"
+                    : "text-zinc-400 hover:text-zinc-500 dark:text-zinc-500 dark:hover:text-zinc-300"}
+                `}
+              >
+                <Icon size={iconSize} stroke={1.7} />
+              </Link>
+            </Tooltip>
+          );
+        })}
     </div>
   );
 }
