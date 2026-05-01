@@ -11,7 +11,7 @@ export default function Projects() {
             Projects
           </h1>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Projects I&apos;ve built over the years, from small personal side-projects to full-scale production systems for enterprise companies. 
+            Projects I&#39;ve built over the years, from small personal side-projects to full-scale production systems for enterprise companies. 
           </p>
         </AnimatedSection>
         <AnimatedSection className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch auto-rows-[1fr]">
