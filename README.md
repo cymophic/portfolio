@@ -70,6 +70,7 @@ luisabhram.dev/
 │   │   │   ├── layout.tsx                # Main layout component
 │   │   │   ├── page.tsx                  # Homepage
 │   │   │   └── projects/                 # Projects subpages
+│   │   ├── coming-soon.tsx               # Work in progress page
 │   │   ├── global-error.tsx              # Global error boundary
 │   │   ├── globals.css                   # Global styles and Tailwind imports
 │   │   ├── icon.png                      # Site favicon
