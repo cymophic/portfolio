@@ -4,7 +4,6 @@ import Stats from "@/components/sections/Stats";
 import Work from "@/components/sections/Career";
 import Education from "@/components/sections/Education";
 import Projects from "@/components/sections/Projects";
-import TechStack from "@/components/sections/TechStack";
 
 import { AnimatedSection } from "@/components/ui/PageAnimator";
 
@@ -39,11 +38,6 @@ export default function Home() {
         {/* Education */}
         <AnimatedSection>
           <Education />
-        </AnimatedSection>
-
-        {/* Tech Stack */}
-        <AnimatedSection className="-mb-14">
-          <TechStack />
         </AnimatedSection>
       </div>
   );

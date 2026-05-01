@@ -1,7 +1,6 @@
 "use client";
 
 import { techStack } from "@/lib/site";
-import SectionTitle from "../ui/SectionTitle";
 import { useTechMarquee } from "@/hooks/animations/useTechMarquee";
 import {
   SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiTailwindcss,
@@ -116,10 +115,6 @@ export default function TechStack() {
 
   return (
     <section className="w-full">
-      <div className="flex flex-col gap-10 px-6 sm:px-10">
-        <SectionTitle title="Tech Stack" />
-      </div>
-
       <div
         ref={wrapperRef}
         className="relative max-w-210 mx-auto w-full overflow-hidden px-6"
