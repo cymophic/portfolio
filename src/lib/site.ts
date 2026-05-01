@@ -155,9 +155,18 @@ export const projects: Project[] = [
     slug: "cymo-gpt",
     pinned: false,
     description: "A simple Discord AI bot powered by GPT-4o for personal use.",
-    tags: ["Open Source", "AI Integration"],
+    tags: ["Personal", "Open Source", "AI Integration"],
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
+  },
+  {
+    title: "Hangman",
+    slug: "hangman",
+    pinned: false,
+    description: "A simple hangman game created for fun using Java Swing.",
+    tags: ["Personal", "Open Source"],
+    url: "https://cymophic.itch.io/hangman-game",
+    repo: "https://github.com/cymophic/hangman",
   },
 ];
 
