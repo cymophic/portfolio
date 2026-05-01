@@ -12,7 +12,7 @@ export default async function Project({ params }: { params: Promise<{ slug: stri
 
   return (
     <section className="w-full">
-      <div className="mx-auto max-w-4xl flex flex-col px-6 sm:px-10 text-center gap-2">
+      <div className="mx-auto max-w-4xl flex flex-col px-6 sm:px-10 text-center gap-3">
         <h1 className="text-2xl font-semibold text-zinc-700 dark:text-zinc-300">
           {project.title}
         </h1>
