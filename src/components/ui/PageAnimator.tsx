@@ -1,4 +1,5 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { motion, type Variants, type Easing } from "motion/react";
 
 const CONFIG = {
@@ -31,8 +32,10 @@ export function AnimatedSection({ children, className }: { children: React.React
 }
 
 export default function PageAnimator({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   return (
     <motion.div
+      key={pathname}
       initial="hidden"
       animate="visible"
       transition={{ staggerChildren: CONFIG.stagger }}
