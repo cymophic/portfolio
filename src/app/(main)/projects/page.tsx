@@ -3,6 +3,7 @@ import ProjectCard from "@/components/ui/ProjectCard";
 import { AnimatedSection } from "@/components/ui/PageAnimator";
 
 export default function Projects() {
+  const isOdd = projects.length % 2 !== 0;
   return (
     <section className="w-full">
       <div className="mx-auto max-w-4xl flex flex-col gap-12 px-6 sm:px-10">
@@ -14,11 +15,13 @@ export default function Projects() {
             Projects I&#39;ve built over the years, from small personal side-projects to full-scale production systems for enterprise companies. 
           </p>
         </AnimatedSection>
-        <AnimatedSection className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch auto-rows-[1fr]">
+        <div className={`grid gap-6 items-stretch auto-rows-[1fr] ${isOdd ? "grid-cols-1 max-w-2xl mx-auto" : "grid-cols-1 sm:grid-cols-2"}`}>
           {projects.map((project, i) => (
-            <ProjectCard key={i} project={project} />
+            <AnimatedSection key={i}>
+              <ProjectCard project={project} />
+            </AnimatedSection>
           ))}
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );
