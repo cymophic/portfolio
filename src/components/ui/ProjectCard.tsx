@@ -10,7 +10,7 @@
     return (
       <Link 
         href={`/projects/${project.slug}`}
-        className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 hover:dark:border-zinc-500 hover:scale-102 transition-transform duration-50 cursor-pointer group"
+        className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 hover:dark:border-zinc-500 cursor-pointer group"
       >
         {/* Cover Image */}
         {/* <div className="h-28 bg-zinc-100 dark:bg-zinc-800/60 rounded-2xl" /> */}
@@ -26,7 +26,7 @@
             </div>
 
             <IconArrowUpRight size={18} className="inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500" />
-            <IconArrowRight size={18} className="hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-280 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0"/>
+            <IconArrowRight size={18} className="hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-180 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0"/>
           </div>
 
           {/* Description */}
