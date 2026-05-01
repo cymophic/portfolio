@@ -1,50 +1,111 @@
-  import Link from "next/link";
-  import { IconArrowRight, IconArrowUpRight } from "@tabler/icons-react";
+"use client";
 
-  import type { Project } from "@/lib/types/site";
+import { useRouter } from "next/navigation";
+import { IconWorldShare, IconArrowRight, IconArrowUpRight } from "@tabler/icons-react";
+import { FaGithub } from "react-icons/fa";
+import { toast } from "sonner";
 
-  const tagPillClass =
-    "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300/80";
+import type { Project } from "@/lib/types/site";
+import Tooltip from "@/components/ui/Tooltip";
+import useIsMobile from "@/hooks/utils/useIsMobile";
+import usePortfolioURLEasterEgg from "@/hooks/utils/usePortfolioURLEasterEgg";
 
-  export default function ProjectCard({ project }: { project: Project }) {
-    return (
-      <Link 
-        href={`/projects/${project.slug}`}
-        className="h-full flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 hover:dark:border-zinc-500 cursor-pointer group"
+const PORTFOLIO_URL = "https://luisabhram.dev";
+
+const tagPillClass =
+  "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300/80";
+
+function LiveLink({ project }: { project: Project }) {
+  const { disabled, trigger } = usePortfolioURLEasterEgg();
+  const isMobile = useIsMobile();
+  const isPortfolio = project.url === PORTFOLIO_URL;
+
+  return (
+    <Tooltip content="View Live" disabled={isPortfolio || isMobile}>
+      <a
+        href={project.url!}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => {
+          e.stopPropagation();
+          if (isPortfolio) {
+            e.preventDefault();
+            const current = trigger();
+            if (current.type === "action") {
+              toast(<span className="font-sans italic text-sm text-zinc-400 dark:text-zinc-500">{current.text}</span>);
+            } else {
+              toast(<span className="font-sans text-sm">{current.text}</span>);
+            }
+          }
+        }}
+        className={`transition-colors text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-300 ${disabled ? "pointer-events-none" : ""}`}
       >
-        {/* Cover Image */}
-        {/* <div className="h-28 bg-zinc-100 dark:bg-zinc-800/60 rounded-2xl" /> */}
+        {disabled
+          ? <span className="text-base leading-none">💥</span>
+          : <IconWorldShare size={18} className="overflow-clip" />
+        }
+      </a>
+    </Tooltip>
+  );
+}
 
-        {/* Content */}
-        <div className="flex flex-col flex-1 gap-2 p-4">
-          {/* Title + Links */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="text-base font-semibold text-zinc-700 dark:text-zinc-300">
-                {project.title}
-              </span>
-            </div>
+function RepoLink({ project }: { project: Project }) {
+  const isMobile = useIsMobile();
 
-            <IconArrowUpRight size={18} className="inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500" />
-            <IconArrowRight size={18} className="hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-180 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0"/>
+  return (
+    <Tooltip content="View Code" disabled={isMobile}>
+      <a
+        href={project.repo!}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => e.stopPropagation()}
+        className="transition-colors text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-300"
+      >
+        <FaGithub size={17} className="overflow-clip" />
+      </a>
+    </Tooltip>
+  );
+}
+
+export default function ProjectCard({ project }: { project: Project }) {
+  const router = useRouter();
+  return (
+    <div
+      onClick={() => router.push(`/projects/${project.slug}`)}
+      className="h-full flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 hover:dark:border-zinc-500 cursor-pointer group"
+    >
+      {/* Content */}
+      <div className="flex flex-col flex-1 gap-2 p-4">
+        {/* Title + Links */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-base font-semibold text-zinc-700 dark:text-zinc-300">
+              {project.title}
+            </span>
+            {project.url && <LiveLink project={project} />}
+            {project.repo && <RepoLink project={project} />}
           </div>
 
-          {/* Description */}
-          {project.description && (
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              {project.description}
-            </p>
-          )}
+          <IconArrowUpRight size={18} className="inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500" />
+          <IconArrowRight size={18} className="hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-180 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0" />
+        </div>
 
-          {/* Tags */}
-          <div className="flex items-center justify-between gap-2 mt-auto pt-6">
-            <div className="flex flex-wrap gap-1.5">
-              {project.tags.slice(0, 3).map((tag, i) => (
-                <span key={i} className={tagPillClass}>{tag}</span>
-              ))}
-            </div>
+        {/* Description */}
+        {project.description && (
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            {project.description}
+          </p>
+        )}
+
+        {/* Tags */}
+        <div className="flex items-center justify-between gap-2 mt-auto pt-6">
+          <div className="flex flex-wrap gap-1.5">
+            {project.tags.slice(0, 3).map((tag, i) => (
+              <span key={i} className={tagPillClass}>{tag}</span>
+            ))}
           </div>
         </div>
-      </Link>
-    );
-  }
+      </div>
+    </div>
+  );
+}
