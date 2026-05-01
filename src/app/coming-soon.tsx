@@ -6,12 +6,12 @@ import Button from "@/components/ui/Button";
 const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 
 const wip = new Set([
-  "/projects/digital-portfolio",
-  "/projects/l2c-portal",
-  "/projects/hangman",
-  "/projects/cymo-gpt",
-  "/projects/pmc-business",
-  "/projects/mobilecare-ph",
+  "/projects/digital-portfolio/",
+  "/projects/l2c-portal/",
+  "/projects/hangman/",
+  "/projects/cymo-gpt/",
+  "/projects/pmc-business/",
+  "/projects/mobilecare-ph/",
 ]);
 
 export default function ComingSoon({ children }: { children?: React.ReactNode }) {
