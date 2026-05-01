@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { IconBrandGithub, IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandLinkedin, IconBrandInstagram, IconBrandSpotify } from "@tabler/icons-react";
 import { Icon } from "@tabler/icons-react";
 import { profileInfo } from "@/lib/site";
 import Tooltip from "@/components/ui/Tooltip";
@@ -10,12 +10,14 @@ const iconMap: Record<string, Icon> = {
   GitHub: IconBrandGithub,
   LinkedIn: IconBrandLinkedin,
   Instagram: IconBrandInstagram,
+  Spotify: IconBrandSpotify
 };
 
 const colorMap: Record<string, { light: string; dark: string }> = {
   GitHub:    { light: "#333333", dark: "#ffffff"  },
   LinkedIn:  { light: "#0A66C2", dark: "#0A66C2"  },
   Instagram: { light: "#E1306C", dark: "#E1306C"  },
+  Spotify:   { light: "#1DB954", dark: "#1DB954"  },
 };
 
 type SocialLinksProps = {
