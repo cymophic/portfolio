@@ -10,7 +10,7 @@
     return (
       <Link 
         href={`/projects/${project.slug}`}
-        className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 hover:dark:border-zinc-500 cursor-pointer group"
+        className="h-full flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 hover:dark:border-zinc-500 cursor-pointer group"
       >
         {/* Cover Image */}
         {/* <div className="h-28 bg-zinc-100 dark:bg-zinc-800/60 rounded-2xl" /> */}
