@@ -19,11 +19,9 @@ export default function NotFound() {
           Page not found
         </h1>
         <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm">
-          This page doesn&apos;t exist or may have been moved. Happens to the best deployments.
+          This page doesn&#39;t exist or may have been moved. Happens to the best deployments.
         </p>
       </div>
-
-      {/* Fun detail */}
       <p className="font-console text-xs uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-600">
         / error 404
       </p>
@@ -31,7 +29,7 @@ export default function NotFound() {
       {/* Home button */}
       <Link href="/" className="w-full px-6 sm:px-0 sm:w-auto">
         <Button variant="secondary" size="md" className="rounded-lg w-full max-w-88 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70">
-          Back to Main
+          Back to Home
         </Button>
       </Link>
     </div>

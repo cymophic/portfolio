@@ -1,13 +1,38 @@
+import Link from "next/link";
+import Button from "@/components/ui/Button";
+
+const glitchChars = ["0", "0", "0"];
+
 export default function ComingSoon() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center font-sans">
-      <section className="flex flex-1 w-full max-w-3xl flex-col items-center justify-center py-32 px-16 sm:items-start">
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            Coming soon...
-          </h1>
-        </div>
-      </section>
+    <div className="flex flex-1 flex-col items-center justify-center gap-10 text-center">
+      {/* 000 display */}
+      <div className="font-mono text-8xl font-bold tracking-widest text-zinc-200 dark:text-zinc-800 select-none">
+        {glitchChars.map((char, i) => (
+          <span key={i}>{char}</span>
+        ))}
+      </div>
+
+      {/* Message */}
+      <div className="flex flex-col gap-2">
+        <h1 className="text-xl font-semibold text-zinc-700 dark:text-zinc-300">
+          Coming soon
+        </h1>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm">
+          I&#39;m still writing the code for this one.<br />
+          Check it out again later.
+        </p>
+      </div>
+      <p className="font-console text-xs uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-600">
+        / work in progress
+      </p>
+
+      {/* Home button */}
+      <Link href="/" className="w-full px-6 sm:px-0 sm:w-auto">
+        <Button variant="secondary" size="md" className="rounded-lg w-full max-w-88 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70">
+          Back to Home
+        </Button>
+      </Link>
     </div>
   );
 }
