@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { IconQuoteOpen } from "@tabler/icons-react";
 
@@ -14,7 +14,6 @@ export default function Intro() {
   const [copied, setCopied] = useState(false);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [bookingDisabled, setBookingDisabled] = useState(false);
-  const words = useMemo(() => ["Luis Abhram"], []);
   const email = profileInfo.emails[0]
 
   const handleCopyEmail = () => {
@@ -53,14 +52,14 @@ export default function Intro() {
         {/* Name */}
         <h1 className="whitespace-nowrap -mb-2">
           <span className="font-mono text-4xl font-semibold leading-tight tracking-wide text-zinc-700 dark:text-zinc-200">
-            {words}
+            {profileInfo.name}
           </span>
         </h1>
 
         {/* Tagline */}
         {profileInfo.tagline && 
           <div className="flex justify-center text-zinc-600 dark:text-zinc-400">
-            <p className="italic text-base text-center">
+            <p className="italic text-base text-center pl-4 sm:pl-0">
               <IconQuoteOpen size={14} className="inline -ml-5.75 mr-2 align-top" />
               {profileInfo.tagline}
             </p>

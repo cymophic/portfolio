@@ -28,6 +28,8 @@ export interface Project {
   tags: string[];
   url?: string | null;
   repo?: string | null;
+  cover?: string | null;
+  images?: string[];
 }
 
 export interface EducationDetails {

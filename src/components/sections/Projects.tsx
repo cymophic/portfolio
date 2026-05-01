@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { projects } from "@/lib/site";
 import SectionTitle from "@/components/ui/SectionTitle";
 import ProjectCard from "@/components/ui/ProjectCard";
@@ -7,12 +9,18 @@ export default function Projects() {
 
   return (
     <section className="w-full">
-      <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
-        <SectionTitle title="Projects" href="/projects" tooltip="View All Projects" />
+      <div className="mx-auto flex flex-col gap-8 px-6 sm:px-10">
+        <div className="flex flex-col gap-6">
+          <SectionTitle title="Projects" href="/projects" />
+
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            Here are my featured works. Visit the <Link href="/projects" className="underline underline-offset-2 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">project catalogue</Link>{" "} for the full list.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch auto-rows-[1fr]">
           {pinned.map((project, i) => (
-            <ProjectCard key={i} project={project} />
+            <ProjectCard key={i} project={project} showImage={false} />
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IconWorldShare, IconArrowRight, IconArrowUpRight } from "@tabler/icons-react";
 import { FaGithub } from "react-icons/fa";
@@ -13,7 +14,7 @@ import usePortfolioURLEasterEgg from "@/hooks/utils/usePortfolioURLEasterEgg";
 const PORTFOLIO_URL = "https://luisabhram.dev";
 
 const tagPillClass =
-  "inline-flex items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300/80";
+  "inline-flex items-center rounded-full border border-zinc-300 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-600 dark:text-zinc-300/80";
 
 function LiveLink({ project }: { project: Project }) {
   const { disabled, trigger } = usePortfolioURLEasterEgg();
@@ -38,7 +39,7 @@ function LiveLink({ project }: { project: Project }) {
             }
           }
         }}
-        className={`transition-colors text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-300 ${disabled ? "pointer-events-none" : ""}`}
+        className={`transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300 ${disabled ? "pointer-events-none" : ""}`}
       >
         {disabled
           ? <span className="text-base leading-none">💥</span>
@@ -59,7 +60,7 @@ function RepoLink({ project }: { project: Project }) {
         target="_blank"
         rel="noopener noreferrer"
         onClick={(e) => e.stopPropagation()}
-        className="transition-colors text-zinc-400 dark:text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-300"
+        className="transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
       >
         <FaGithub size={17} className="overflow-clip" />
       </a>
@@ -67,15 +68,28 @@ function RepoLink({ project }: { project: Project }) {
   );
 }
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({ project, showImage = true }: { project: Project; showImage?: boolean }) {
   const router = useRouter();
   return (
     <div
       onClick={() => router.push(`/projects/${project.slug}`)}
-      className="h-full flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 hover:dark:border-zinc-500 cursor-pointer group"
+      className="h-full flex flex-col rounded-2xl border border-zinc-300 dark:border-zinc-600 hover:border-zinc-400 hover:dark:border-zinc-500 cursor-pointer group p-4 gap-6"
     >
+      {/* Cover Image */}
+      {showImage && project.cover && (
+        <div className="hidden sm:block">
+          <Image
+            src={project.cover}
+            alt={`${project.title} cover`}
+            width={800}
+            height={450}
+            className="hidden sm:block rounded-xl w-full object-cover sm:h-64 md:h-86 bg-zinc-100 dark:bg-zinc-800/60"
+          />
+        </div>
+      )}
+
       {/* Content */}
-      <div className="flex flex-col flex-1 gap-2 p-4">
+      <div className="flex flex-col flex-1 gap-2 sm:pb-2">
         {/* Title + Links */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -86,8 +100,8 @@ export default function ProjectCard({ project }: { project: Project }) {
             {project.repo && <RepoLink project={project} />}
           </div>
 
-          <IconArrowUpRight size={18} className="inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500" />
-          <IconArrowRight size={18} className="hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-180 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0" />
+          <IconArrowUpRight size={20} className="inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500" />
+          <IconArrowRight size={20} className="hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-180 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0" />
         </div>
 
         {/* Description */}

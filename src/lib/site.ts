@@ -122,6 +122,8 @@ export const projects: Project[] = [
     tags: ["Live", "Open Source", "CI/CD", "IaC", "Cloud", "Monitoring"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
+    cover: "/projects/digital-portfolio/cover.png",
+
   },
   {
     title: "L2C Portal",
@@ -131,6 +133,7 @@ export const projects: Project[] = [
     tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted", "Containerization", "Monitoring", "Scheduled Tasks"],
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
+    cover: "/projects/l2c-portal/cover.png",
   },
   {
     title: "PMC Business",
@@ -140,6 +143,7 @@ export const projects: Project[] = [
     tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted"],
     url: "https://business.powermaccenter.com",
     repo: null,
+    cover: "/projects/pmc-business/cover.png",
   },
   {
     title: "Mobile Care PH",
@@ -149,6 +153,7 @@ export const projects: Project[] = [
     tags: ["Live", "Enterprise", "Migration", "Self-Hosted"],
     url: "https://mobilecareph.com",
     repo: null,
+    cover: "/projects/mobilecare-ph/cover.png",
   },
   {
     title: "Cymo GPT",
@@ -158,15 +163,7 @@ export const projects: Project[] = [
     tags: ["Personal", "Open Source", "AI Integration"],
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
-  },
-  {
-    title: "Hangman",
-    slug: "hangman",
-    pinned: false,
-    description: "A simple hangman game created for fun using Java Swing.",
-    tags: ["Personal", "Open Source"],
-    url: "https://cymophic.itch.io/hangman-game",
-    repo: "https://github.com/cymophic/hangman",
+    cover: "/projects/cymo-gpt/cover.png",
   },
 ];
 

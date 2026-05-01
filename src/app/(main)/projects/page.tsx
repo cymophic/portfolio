@@ -11,7 +11,7 @@ export default function Projects() {
         {/* Section Title & Description */}
         <AnimatedSection className="mx-auto max-w-xl flex flex-col px-6 sm:px-10 text-center gap-3">
           <h1 className="text-2xl font-semibold text-zinc-700 dark:text-zinc-300">
-            Projects
+            Project Catalogue
           </h1>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             Projects I&#39;ve built over the years, from small personal side-projects to full-scale production systems for enterprise companies. 
@@ -19,12 +19,12 @@ export default function Projects() {
         </AnimatedSection>
 
         {/* Tech Stack */}
-        <AnimatedSection className="-my-8">
+        <AnimatedSection className="-my-16">
           <TechStack />
         </AnimatedSection>
 
         {/* Projects */}
-        <div className={`grid gap-6 items-stretch auto-rows-[1fr] ${isOdd ? "grid-cols-1 max-w-2xl mx-auto" : "grid-cols-1 sm:grid-cols-2"}`}>
+        <div className={`grid gap-6 items-stretch ${isOdd ? "grid-cols-1 sm:max-w-132 md:max-w-152 mx-auto" : "grid-cols-1 md:grid-cols-2"}`}>
           {projects.map((project, i) => (
             <AnimatedSection key={i}>
               <ProjectCard project={project} />

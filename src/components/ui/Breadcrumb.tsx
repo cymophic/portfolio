@@ -16,7 +16,7 @@ export default function Breadcrumb({ separator = "/" }: Props) {
   const ellipsisHref = "/" + segments.slice(0, -2).join("/");
 
   return (
-    <nav className="font-console text-xs font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 flex items-center gap-2">
+    <nav className="font-console text-[11px] sm:text-xs font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 flex items-center gap-2">
       {!showEllipsis && (
         <Link href="/" className="hover:text-zinc-600 dark:hover:text-zinc-300">
           Home
