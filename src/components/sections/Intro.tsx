@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { IconQuoteOpen } from "@tabler/icons-react";
 
@@ -14,7 +14,6 @@ export default function Intro() {
   const [copied, setCopied] = useState(false);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [bookingDisabled, setBookingDisabled] = useState(false);
-  const words = useMemo(() => ["Luis Abhram"], []);
   const email = profileInfo.emails[0]
 
   const handleCopyEmail = () => {
@@ -53,17 +52,19 @@ export default function Intro() {
         {/* Name */}
         <h1 className="whitespace-nowrap -mb-2">
           <span className="font-mono text-4xl font-semibold leading-tight tracking-wide text-zinc-700 dark:text-zinc-200">
-            {words}
+            {profileInfo.name}
           </span>
         </h1>
 
         {/* Tagline */}
-        <div className="max-w-md flex flex-row gap-2 justify-center text-zinc-600 dark:text-zinc-400">
-          <IconQuoteOpen size={14} className="inline align-top overflow-clip" />
-          <p className="max-w-md text-base italic">
-            {profileInfo.tagline}
-          </p>
-        </div>
+        {profileInfo.tagline && 
+          <div className="flex justify-center text-zinc-600 dark:text-zinc-400">
+            <p className="italic text-base text-center pl-4 sm:pl-0">
+              <IconQuoteOpen size={14} className="inline -ml-5.75 mr-2 align-top" />
+              {profileInfo.tagline}
+            </p>
+          </div>
+        }
 
         {/* Buttons */}
         <div className="flex flex-col gap-4 w-full sm:w-fit sm:flex-row">
@@ -71,7 +72,7 @@ export default function Intro() {
           <Button
             variant="primary"
             size="md"
-            className="sm:mt-0 mx-auto rounded-lg w-full max-w-94 sm:w-60 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
+            className="sm:mt-0 mx-auto rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
             disabled={bookingDisabled}
             data-cal-namespace="book-a-meeting"
             data-cal-link="luisabhram"
@@ -85,16 +86,18 @@ export default function Intro() {
             <Button
               variant="secondary"
               size="md"
-              className="rounded-lg w-full max-w-94 sm:w-60 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
+              className="rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
               onClick={handleCopyEmail}
             >
-              {copied ? "Copied!" : "Copy Email"}
+              {copied ? "Email Copied!" : "Copy Email"}
             </Button>
           </Tooltip>
         </div>
 
         {/* Social Links */}
-        <SocialLinks iconSize={24} />
+        <div className="mt-1">
+          <SocialLinks iconSize={24} />
+        </div>
       </div>
     </section>
   );

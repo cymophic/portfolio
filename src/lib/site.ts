@@ -1,4 +1,4 @@
-import type { Career, Education } from "@/lib/types/site";
+import type { Career, Education, Project } from "@/lib/types/site";
 
 // Navigation links for the website
 export const navLinks: { href: string; label: string }[] = [
@@ -11,7 +11,7 @@ export const profileInfo = {
   location: "Pasig City, Philippines",
   tagline: "In coding, simplicity is the ultimate sophistication",
   bio: [
-    "I'm an engineer based in the Philippines with experience in full-stack development and on-premise automated deployments, end-to-end. Currently, I'm focused on bringing that same level of ownership to the cloud.",
+    "I'm an engineer based in the Philippines with experience in full-stack development and on-premise automated deployments end-to-end. Currently, I'm focused on bringing that same level of ownership to the cloud.",
 
     "When not building, you'll find me taking photos, hanging out with friends & family, gaming, or traveling when I get the chance. I also enjoy long walks, making pixel art, trying out new food, and spending time with my cats.",
   ],
@@ -24,6 +24,7 @@ export const profileInfo = {
     { label: "GitHub", link: "https://github.com/cymophic" },
     { label: "LinkedIn", link: "https://linkedin.com/in/luisabhram" },
     { label: "Instagram", link: "https://instagram.com/cymophic" },
+    { label: "Spotify", link: "https://open.spotify.com/user/m3ej0vdb558lib2vmmpm77wqr?si=1102a92486e24076" }
   ],
   education: [
     {
@@ -112,41 +113,57 @@ export const certifications = [
 ];
 
 // Projects
-export const projects = [
+export const projects: Project[] = [
   {
-    title: "Personal Portfolio",
+    title: "Digital Portfolio",
+    slug: "digital-portfolio",
+    pinned: true,
     description: "The website where you're currently reading this right now.",
     tags: ["Live", "Open Source", "CI/CD", "IaC", "Cloud", "Monitoring"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
+    cover: "/projects/digital-portfolio/cover.png",
+
   },
   {
     title: "L2C Portal",
-    description: "An internal Lead-to-Cash (L2C) platform built for Power Mac Center to centralize retail lead tracking and digitize post-sale service workflows across all 100+ branches in the Philippines.",
+    slug: "l2c-portal",
+    pinned: true,
+    description: "A Lead-to-Cash (L2C) platform built to digitize retail lead and post-sale service tracking.",
     tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted", "Containerization", "Monitoring", "Scheduled Tasks"],
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
+    cover: "/projects/l2c-portal/cover.png",
   },
   {
     title: "PMC Business",
+    slug: "pmc-business",
+    pinned: true,
     description: "The official lead generation website of Power Mac Center for business-level clients.",
     tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted"],
     url: "https://business.powermaccenter.com",
     repo: null,
+    cover: "/projects/pmc-business/cover.png",
   },
   {
     title: "Mobile Care PH",
-    description: "The official service portal of Power Mac Center for after-sales support and real-time status tracking.",
+    slug: "mobilecare-ph",
+    pinned: true,
+    description: "A service portal for after-sales support and real-time status tracking.",
     tags: ["Live", "Enterprise", "Migration", "Self-Hosted"],
     url: "https://mobilecareph.com",
     repo: null,
+    cover: "/projects/mobilecare-ph/cover.png",
   },
   {
     title: "Cymo GPT",
+    slug: "cymo-gpt",
+    pinned: false,
     description: "A simple Discord AI bot powered by GPT-4o for personal use.",
-    tags: ["Open Source", "AI Integration"],
+    tags: ["Personal", "Open Source", "AI Integration"],
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
+    cover: "/projects/cymo-gpt/cover.png",
   },
 ];
 

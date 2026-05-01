@@ -10,7 +10,7 @@ Personal portfolio site built with Next.js, deployed on AWS (S3 + CloudFront) wi
 2. ⚙️ [Architecture and Tech Stack](#️-architecture-and-tech-stack)
 3. 📁 [Project Structure](#-project-structure)
 4. 🚀 [Local Development](#-local-development)
-5. 🏗️ [Infrastructure Setup](#-infrastructure-setup)
+5. 🏗️ [Infrastructure Setup](#️-infrastructure-setup)
 6. 🔄 [Deployment Process](#-deployment-process)
 7. 🔌 [Data Sources](#-data-sources)
 
@@ -65,22 +65,29 @@ luisabhram.dev/
 ├── public/                               # Static assets
 ├── scripts/                              # Build-time scripts
 ├── src/
-│   ├── app/                              # App routes
+│   ├── app/
+│   │   ├── (main)/                       # Main route group
+│   │   │   ├── layout.tsx                # Main layout component
+│   │   │   ├── page.tsx                  # Homepage
+│   │   │   └── projects/                 # Projects subpages
+│   │   ├── global-error.tsx              # Global error boundary
 │   │   ├── globals.css                   # Global styles and Tailwind imports
+│   │   ├── icon.png                      # Site favicon
 │   │   ├── layout.tsx                    # Root layout component
-│   │   └── page.tsx                      # Root page
+│   │   └── not-found.tsx                 # 404 page
 │   ├── components/
 │   │   ├── layout/                       # App-wide layout components
 │   │   ├── ui/                           # Small reusable UI components
 │   │   └── sections/                     # Page section components
 │   ├── hooks/
-│   │   └── animations/                   # GSAP animation hooks
-│   ├── lib/
-│   │   ├── types/                        # Type definitions
-│   │   ├── utils/                        # Utilities
-│   │   └── site.ts                       # Site configurations
+│   │   ├── animations/                   # GSAP animation hooks
+│   │   └── utils/                        # Utility hooks
+│   └── lib/
+│       ├── types/                        # Type definitions
+│       ├── utils/                        # Utilities
+│       └── site.ts                       # Site configurations
 ├── terraform/                            # AWS infrastructure as code
-│   ├── acm.tf                            # ACM SSL certificate 
+│   ├── acm.tf                            # ACM SSL certificate
 │   ├── budgets.tf                        # AWS budget alerts
 │   ├── cloudfront.tf                     # CloudFront distribution, OAC, and functions
 │   ├── eventbridge.tf                    # EventBridge scheduled triggers for Lambda

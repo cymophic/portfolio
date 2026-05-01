@@ -4,16 +4,14 @@ import Stats from "@/components/sections/Stats";
 import Work from "@/components/sections/Career";
 import Education from "@/components/sections/Education";
 import Projects from "@/components/sections/Projects";
-import TechStack from "@/components/sections/TechStack";
 
-import PageAnimator, { AnimatedSection } from "@/components/ui/PageAnimator";
+import { AnimatedSection } from "@/components/ui/PageAnimator";
 
 export default function Home() {
   return (
-    <PageAnimator>
-      <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans py-18 gap-24">
+      <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans gap-24">
         {/* Intro */}
-        <AnimatedSection className="mt-24">
+        <AnimatedSection>
           <Intro />
         </AnimatedSection>
 
@@ -27,6 +25,11 @@ export default function Home() {
           <Stats />
         </AnimatedSection>
 
+        {/* Projects */}
+        <AnimatedSection>
+          <Projects />
+        </AnimatedSection>
+
         {/* Work Experience */}
         <AnimatedSection>
           <Work />
@@ -36,17 +39,6 @@ export default function Home() {
         <AnimatedSection>
           <Education />
         </AnimatedSection>
-
-        {/* Projects */}
-        <AnimatedSection>
-          <Projects />
-        </AnimatedSection>
-
-        {/* Tech Stack */}
-        <AnimatedSection className="-mb-14">
-          <TechStack />
-        </AnimatedSection>
       </div>
-    </PageAnimator>
   );
 }
