@@ -19,7 +19,7 @@ export default function Projects() {
         </AnimatedSection>
 
         {/* Tech Stack */}
-        <AnimatedSection className="-my-16">
+        <AnimatedSection className="-my-16 sm:-my-12">
           <TechStack />
         </AnimatedSection>
 
