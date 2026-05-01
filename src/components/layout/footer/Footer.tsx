@@ -86,7 +86,7 @@ export default function Footer() {
       </div>
 
       {/* Profile Image */}
-      <Tooltip content={pathname === "/" ? "Back to the top" : "Go back to home"}>
+      <Tooltip content={pathname === "/" ? "Jump to Top" : "Return to Home"}>
         <button onClick={handleImageClick}>
           <ProfileImage width={48} height={48} className="hover:scale-112 transition-transform"/>
         </button>
