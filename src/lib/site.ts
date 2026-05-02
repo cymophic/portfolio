@@ -2,8 +2,8 @@ import type { Career, Education, Project } from "@/lib/types/site";
 
 // Navigation links for the website
 export const navLinks: { href: string; label: string }[] = [
-  {label: "Home", href: "/"},
-  {label: "Projects", href: "/projects/"},
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/projects/" },
 ];
 
 // Profile information
@@ -19,14 +19,15 @@ export const profileInfo = {
   ],
   birthDate: "2003/03/26",
   image: "/avatar.png",
-  emails: [
-    "contact@luisabhram.dev"
-  ],
+  emails: ["contact@luisabhram.dev"],
   socialLinks: [
     { label: "GitHub", link: "https://github.com/cymophic" },
     { label: "LinkedIn", link: "https://linkedin.com/in/luisabhram" },
     { label: "Instagram", link: "https://instagram.com/cymophic" },
-    { label: "Spotify", link: "https://open.spotify.com/user/m3ej0vdb558lib2vmmpm77wqr?si=1102a92486e24076" }
+    {
+      label: "Spotify",
+      link: "https://open.spotify.com/user/m3ej0vdb558lib2vmmpm77wqr?si=1102a92486e24076",
+    },
   ],
   education: [
     {
@@ -40,7 +41,10 @@ export const profileInfo = {
         honor: ["President's Lister (2020-2024)", "Magna Cum Laude"],
         awards: ["Best Capstone Research", "Best in Communication"],
         grade: "1.18 GWA",
-        clubs: ["Institute of Computer Engineers of the Philippines (ISCpE)", "STI Engineering Community"],
+        clubs: [
+          "Institute of Computer Engineers of the Philippines (ISCpE)",
+          "STI Engineering Community",
+        ],
       },
     },
     {
@@ -50,7 +54,7 @@ export const profileInfo = {
       degree: "Mobile App & Web Development",
       start: "Jun 2018",
       end: "Mar 2020",
-      details: {  
+      details: {
         honor: ["High Honors"],
         clubs: ["Developers of Next Advanced Technology (DoNAT)"],
       },
@@ -65,8 +69,10 @@ export const profileInfo = {
       type: "Full-time",
       start: "Nov 2024",
       end: "Apr 2026",
-      about: "Power Mac Center is the largest Apple Premium Reseller in the Philippines, operating 100+ branches nationwide.",
-      scope: "Served as a DevOps engineer with full-stack responsibilities. Successfully developed and deployed internal production systems, working closely with project management and cybersecurity teams.",
+      about:
+        "Power Mac Center is the largest Apple Premium Reseller in the Philippines, operating 100+ branches nationwide.",
+      scope:
+        "Served as a DevOps engineer with full-stack responsibilities. Successfully developed and deployed internal production systems, working closely with project management and cybersecurity teams.",
     },
     {
       company: "Third Generation Holdings Co.",
@@ -75,8 +81,10 @@ export const profileInfo = {
       type: "Internship",
       start: "Mar 2024",
       end: "Jun 2024",
-      about: "Third Generation Holdings is a Filipino conglomerate with business interests in security, manpower, and facilities management.",
-      scope: "Joined as an intern software developer, contributing to internal development processes. Gained experience in SDLC and cross-functional collaboration within an enterprise environment.",
+      about:
+        "Third Generation Holdings is a Filipino conglomerate with business interests in security, manpower, and facilities management.",
+      scope:
+        "Joined as an intern software developer, contributing to internal development processes. Gained experience in SDLC and cross-functional collaboration within an enterprise environment.",
     },
     {
       company: "Gingersnaps PH",
@@ -86,19 +94,37 @@ export const profileInfo = {
       type: "Internship",
       start: "Nov 2019",
       end: "Dec 2019",
-      about: "Gingersnaps is a Filipino children's fashion brand known for its playful and colorful clothing line.",
-      scope: "Served as a QA intern, conducting inventory checks and developing error reports from quality checks.",
+      about:
+        "Gingersnaps is a Filipino children's fashion brand known for its playful and colorful clothing line.",
+      scope:
+        "Served as a QA intern, conducting inventory checks and developing error reports from quality checks.",
     },
   ] as Career[],
-}
+};
 
 // Tech stack
 export const techStack = {
   os: ["Linux", "Windows", "MacOS"],
-  frontend: ["JavaScript", "TypeScript", "React", "Next.js", "TailwindCSS", "Bootstrap", "GSAP"],
+  frontend: [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Next.js",
+    "TailwindCSS",
+    "Bootstrap",
+    "GSAP",
+  ],
   backend: ["Python", "Django", "Django Ninja", "REST APIs"],
   databases: ["PostgreSQL", "SQLite", "NeonDB", "Supabase"],
-  devops: ["Docker", "Nginx", "Gunicorn", "Celery", "Redis", "Ansible", "Kubernetes"],
+  devops: [
+    "Docker",
+    "Nginx",
+    "Gunicorn",
+    "Celery",
+    "Redis",
+    "Ansible",
+    "Kubernetes",
+  ],
   cloud: ["AWS", "Cloudflare"],
   cicd: ["Git", "GitHub Actions"],
   scripting: ["Python", "Bash", "Makefile"],
@@ -121,18 +147,18 @@ export const projects: Project[] = [
     slug: "digital-portfolio",
     pinned: true,
     description: "The website where you're currently reading this right now.",
-    tags: ["Live", "Open Source", "CI/CD", "IaC", "Cloud", "Monitoring"],
+    tags: ["Live", "Personal"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
     cover: "/projects/digital-portfolio/cover.png",
-
   },
   {
     title: "L2C Portal",
     slug: "l2c-portal",
     pinned: true,
-    description: "A Lead-to-Cash (L2C) platform built to digitize retail lead and post-sale service tracking.",
-    tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted", "Containerization", "Monitoring", "Scheduled Tasks"],
+    description:
+      "A Lead-to-Cash (L2C) platform built to digitize retail lead and post-sale service tracking.",
+    tags: ["Live", "Enterprise"],
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
     cover: "/projects/l2c-portal/cover.png",
@@ -141,8 +167,9 @@ export const projects: Project[] = [
     title: "PMC Business",
     slug: "pmc-business",
     pinned: true,
-    description: "The official lead generation website of Power Mac Center for business-level clients.",
-    tags: ["Live", "Enterprise", "CI/CD", "Self-Hosted"],
+    description:
+      "The official lead generation website of Power Mac Center for business-level clients.",
+    tags: ["Live", "Enterprise"],
     url: "https://business.powermaccenter.com",
     repo: null,
     cover: "/projects/pmc-business/cover.png",
@@ -151,8 +178,9 @@ export const projects: Project[] = [
     title: "Mobile Care PH",
     slug: "mobilecare-ph",
     pinned: true,
-    description: "A service portal for after-sales support and real-time status tracking.",
-    tags: ["Live", "Enterprise", "Migration", "Self-Hosted"],
+    description:
+      "A service portal for after-sales support and real-time status tracking.",
+    tags: ["Live", "Enterprise"],
     url: "https://mobilecareph.com",
     repo: null,
     cover: "/projects/mobilecare-ph/cover.png",
@@ -162,10 +190,29 @@ export const projects: Project[] = [
     slug: "cymo-gpt",
     pinned: false,
     description: "A simple Discord AI bot powered by GPT-4o for personal use.",
-    tags: ["Personal", "Open Source", "AI Integration"],
+    tags: ["Personal", "AI"],
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
     cover: "/projects/cymo-gpt/cover.png",
+  },
+  {
+    title: "Guessing Game",
+    slug: "number-guesser",
+    pinned: false,
+    description: "A quick number guessing game I spun in my early years.",
+    tags: ["Personal", "Game"],
+    url: "https://cymophic.github.io/number-guesser/",
+    repo: "https://github.com/cymophic/number-guesser",
+  },
+  {
+    title: "Hangman",
+    slug: "hangman",
+    pinned: false,
+    description:
+      "A simple hangman game with GUI created using Java Swing for practicing Java.",
+    tags: ["Personal", "Game"],
+    url: "https://cymophic.itch.io/hangman-game",
+    repo: "https://github.com/cymophic/hangman",
   },
 ];
 
