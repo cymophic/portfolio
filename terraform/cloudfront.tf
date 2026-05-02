@@ -78,7 +78,15 @@ resource "aws_cloudfront_function" "rewrite_uri" {
       var request = event.request;
       var uri = request.uri;
 
-      uri = uri.replace(/\/+/g, '/');
+      var cleaned = uri.replace(/\/+/g, '/');
+      if (cleaned !== uri) {
+        return {
+          statusCode: 301,
+          headers: {
+            location: { value: cleaned }
+          }
+        };
+      }
 
       if (uri.endsWith('/')) {
         request.uri = uri + 'index.html';
