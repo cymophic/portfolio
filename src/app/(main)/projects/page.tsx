@@ -4,10 +4,9 @@ import { AnimatedSection } from "@/components/ui/PageAnimator";
 import TechStack from "@/components/sections/TechStack";
 
 export default function Projects() {
-  const isOdd = projects.length % 2 !== 0;
   return (
     <section className="w-full">
-      <div className="mx-auto max-w-4xl flex flex-col gap-18 px-6 sm:px-10">
+      <div className="mx-auto max-w-3xl xl:max-w-6xl flex flex-col gap-18 sm:gap-16 px-6 sm:px-10">
         {/* Section Title & Description */}
         <AnimatedSection className="mx-auto max-w-xl flex flex-col px-6 sm:px-10 text-center gap-3">
           <h1 className="text-2xl font-semibold text-zinc-700 dark:text-zinc-300">
@@ -24,12 +23,14 @@ export default function Projects() {
         </AnimatedSection>
 
         {/* Projects */}
-        <div className={`grid gap-6 items-stretch ${isOdd ? "grid-cols-1 sm:max-w-132 md:max-w-152 mx-auto" : "grid-cols-1 md:grid-cols-2"}`}>
-          {projects.map((project, i) => (
-            <AnimatedSection key={i}>
-              <ProjectCard project={project} />
-            </AnimatedSection>
-          ))}
+        <div className="flex justify-center">
+          <div className="grid gap-6 items-stretch max-w-124 sm:max-w-none sm:grid-cols-2 xl:grid-cols-3">
+            {projects.map((project, i) => (
+              <AnimatedSection key={i}>
+                <ProjectCard project={project} />
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -72,8 +72,8 @@ export default function ProjectCard({ project, showImage = true }: { project: Pr
   const router = useRouter();
   return (
     <div
-      onClick={() => router.push(`/projects/${project.slug}`)}
-      className="h-full flex flex-col rounded-2xl border border-zinc-300 dark:border-zinc-600 hover:border-zinc-400 hover:dark:border-zinc-500 cursor-pointer group p-4 gap-6"
+      onClick={() => { if (project.page) router.push(`/projects/${project.slug}`); }}
+      className={`h-full flex flex-col rounded-2xl border border-zinc-300 dark:border-zinc-600 group ${project.page ? "cursor-pointer hover:border-zinc-400 hover:dark:border-zinc-500" : "cursor-default"}`}
     >
       {/* Cover Image */}
       {showImage && project.cover && (
@@ -83,25 +83,29 @@ export default function ProjectCard({ project, showImage = true }: { project: Pr
             alt={`${project.title} cover`}
             width={800}
             height={450}
-            className="hidden sm:block rounded-xl w-full object-cover sm:h-64 md:h-86 bg-zinc-100 dark:bg-zinc-800/60"
+            className="hidden sm:block rounded-t-2xl w-full object-cover"
           />
         </div>
       )}
 
       {/* Content */}
-      <div className="flex flex-col flex-1 gap-2 sm:pb-2">
+      <div className="flex flex-col flex-1 justify-center gap-2 p-6 -mt-1">
         {/* Title + Links */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-base font-semibold text-zinc-700 dark:text-zinc-300">
+            <span className="text-lg font-semibold text-zinc-700 dark:text-zinc-300">
               {project.title}
             </span>
             {project.url && <LiveLink project={project} />}
             {project.repo && <RepoLink project={project} />}
           </div>
 
-          <IconArrowUpRight size={20} className="inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500" />
-          <IconArrowRight size={20} className="hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-180 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0" />
+          {project.page &&
+            <>
+              <IconArrowUpRight size={20} className={`inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500`} />
+              <IconArrowRight size={20} className={`hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-180 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0`} />
+            </>
+          } 
         </div>
 
         {/* Description */}

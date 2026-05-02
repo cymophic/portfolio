@@ -21,10 +21,17 @@ export default function Nav() {
 
   return (
     <>
-      <header ref={headerRef} className={`mx-auto max-w-4xl w-full fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-4 ${isHidden ? "overflow-hidden" : ""}`}>
-        {/* Sidebar Toggle Button */}
-        <div className="pointer-events-auto -ml-1 z-50">
-          {showNavToggle && <SidebarToggle open={open} onToggle={handleToggle} />}
+      <header ref={headerRef} className={`w-full fixed top-0 left-0 right-0 z-10 p-4 ${isHidden ? "overflow-hidden" : ""}`}>
+        <div className="flex items-center justify-between">
+          {/* Sidebar Toggle Button */}
+          <div className="pointer-events-auto -ml-1 z-50">
+            {showNavToggle && <SidebarToggle open={open} onToggle={handleToggle} />}
+          </div>
+
+          {/* Theme Toggle */}
+          <div className="pointer-events-auto">
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Sidebar Panel */}
@@ -48,11 +55,6 @@ export default function Nav() {
             />
           </>
         )}
-
-        {/* Theme Toggle */}
-        <div className="pointer-events-auto">
-          <ThemeToggle />
-        </div>
 
         {/* Header Background */}
         <div className="absolute top-0 left-0 right-0 -z-10 bg-linear-to-b from-zinc-50 via-zinc-50/98 dark:from-zinc-950 dark:via-zinc-950/96 to-transparent pointer-events-none pb-24"/>

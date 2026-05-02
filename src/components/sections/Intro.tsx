@@ -72,7 +72,7 @@ export default function Intro() {
           <Button
             variant="primary"
             size="md"
-            className="sm:mt-0 mx-auto rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
+            className="sm:mt-0 mx-auto rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-4 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
             disabled={bookingDisabled}
             data-cal-namespace="book-a-meeting"
             data-cal-link="luisabhram"
@@ -86,7 +86,7 @@ export default function Intro() {
             <Button
               variant="secondary"
               size="md"
-              className="rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-5 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
+              className="rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-4 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
               onClick={handleCopyEmail}
             >
               {copied ? "Email Copied!" : "Copy Email"}

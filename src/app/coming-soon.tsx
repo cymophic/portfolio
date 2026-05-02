@@ -23,7 +23,7 @@ export default function ComingSoon({ children }: { children?: React.ReactNode })
 
   return (
     <main className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col items-center justify-center gap-10 text-center">
+      <div className="flex flex-1 flex-col items-center justify-center gap-10 px-6 text-center">
         {/* 000 display */}
         <div className="font-mono text-8xl font-bold tracking-widest text-zinc-200 dark:text-zinc-800 select-none">
           000
@@ -44,8 +44,8 @@ export default function ComingSoon({ children }: { children?: React.ReactNode })
         </p>
 
         {/* Home button */}
-        <Link href="/" className="w-full px-6 sm:px-0">
-          <Button variant="secondary" size="md" className="rounded-lg w-full max-w-66 sm:h-11 sm:px-4 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70">
+        <Link href="/" className="w-full sm:px-0">
+          <Button variant="secondary" size="md" className="rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-4 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70">
             Back to Home
           </Button>
         </Link>
