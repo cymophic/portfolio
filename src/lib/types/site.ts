@@ -29,6 +29,7 @@ export interface Project {
   url?: string | null;
   repo?: string | null;
   cover?: string | null;
+  page?: boolean;
   images?: string[];
 }
 
