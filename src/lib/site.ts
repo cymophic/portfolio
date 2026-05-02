@@ -195,6 +195,25 @@ export const projects: Project[] = [
     repo: "https://github.com/cymophic/cymo-gpt",
     cover: "/projects/cymo-gpt/cover.png",
   },
+  {
+    title: "Guessing Game",
+    slug: "number-guesser",
+    pinned: false,
+    description: "A quick number guessing game I spun in my early years.",
+    tags: ["Personal", "Game"],
+    url: "https://cymophic.github.io/number-guesser/",
+    repo: "https://github.com/cymophic/number-guesser",
+  },
+  {
+    title: "Hangman",
+    slug: "hangman",
+    pinned: false,
+    description:
+      "A simple hangman game with GUI created using Java Swing for practicing Java.",
+    tags: ["Personal", "Game"],
+    url: "https://cymophic.itch.io/hangman-game",
+    repo: "https://github.com/cymophic/hangman",
+  },
 ];
 
 // Easter egg messages for the portfolio URL
