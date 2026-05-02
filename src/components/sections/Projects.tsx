@@ -9,12 +9,12 @@ export default function Projects() {
 
   return (
     <section className="w-full">
-      <div className="mx-auto flex flex-col gap-8 px-6 sm:px-10">
+      <div className="mx-auto flex flex-col gap-6 px-6 sm:px-10">
         <div className="flex flex-col gap-6">
           <SectionTitle title="Projects" href="/projects" />
 
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Here are my featured works. Visit the <Link href="/projects" className="underline underline-offset-2 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">project catalogue</Link>{" "} for the full list.
+            Here are my featured works. You can check out the full list <Link href="/projects" className="underline underline-offset-2 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">here</Link>.
           </p>
         </div>
 
