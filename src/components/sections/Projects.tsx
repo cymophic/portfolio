@@ -14,7 +14,7 @@ export default function Projects() {
           <SectionTitle title="Projects" href="/projects" />
 
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Here are my featured works. Visit the <Link href="/projects" className="underline underline-offset-2 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">project catalogue</Link>{" "} for the full list.
+            Here are my featured works. You can check out the full list <Link href="/projects" className="underline underline-offset-2 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">here</Link>.
           </p>
         </div>
 
