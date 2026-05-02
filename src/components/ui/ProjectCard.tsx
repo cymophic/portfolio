@@ -73,7 +73,7 @@ export default function ProjectCard({ project, showImage = true }: { project: Pr
   return (
     <div
       onClick={() => { if (project.page) router.push(`/projects/${project.slug}`); }}
-      className="h-full flex flex-col rounded-2xl border border-zinc-300 dark:border-zinc-600 hover:border-zinc-400 hover:dark:border-zinc-500 cursor-pointer group p-4 gap-"
+      className={`h-full flex flex-col rounded-2xl border border-zinc-300 dark:border-zinc-600 group ${project.page ? "cursor-pointer hover:border-zinc-400 hover:dark:border-zinc-500" : "cursor-default"}`}
     >
       {/* Cover Image */}
       {showImage && project.cover && (
@@ -83,13 +83,13 @@ export default function ProjectCard({ project, showImage = true }: { project: Pr
             alt={`${project.title} cover`}
             width={800}
             height={450}
-            className="hidden sm:block rounded-xl w-full object-cover sm:h-64 md:h-86 bg-zinc-100 dark:bg-zinc-800/60"
+            className="hidden sm:block rounded-t-2xl w-full object-cover"
           />
         </div>
       )}
 
       {/* Content */}
-      <div className="flex flex-col flex-1 gap-2 sm:pb-2">
+      <div className="flex flex-col flex-1 justify-center gap-2 p-6 -mt-1">
         {/* Title + Links */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
