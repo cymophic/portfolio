@@ -13,7 +13,9 @@ export default function Projects() {
             Project Catalogue
           </h1>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Projects I&#39;ve built over the years, from small personal side-projects to full-scale production systems for enterprise companies. 
+            Projects I&#39;ve built over the years, from small personal
+            side-projects to full-scale production systems for enterprise
+            companies.
           </p>
         </AnimatedSection>
 
@@ -23,14 +25,12 @@ export default function Projects() {
         </AnimatedSection>
 
         {/* Projects */}
-        <div className="flex justify-center">
-          <div className="grid gap-6 items-stretch max-w-124 sm:max-w-none sm:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project, i) => (
-              <AnimatedSection key={i}>
-                <ProjectCard project={project} />
-              </AnimatedSection>
-            ))}
-          </div>
+        <div className="columns-1 sm:columns-2 xl:columns-3 gap-6">
+          {projects.map((project, i) => (
+            <AnimatedSection key={i} className="break-inside-avoid mb-6">
+              <ProjectCard project={project} />
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>
