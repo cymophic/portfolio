@@ -78,10 +78,14 @@ resource "aws_cloudfront_function" "rewrite_uri" {
       var request = event.request;
       var uri = request.uri;
 
+      uri = uri.replace(/\/+/g, '/');
+
       if (uri.endsWith('/')) {
-        request.uri += 'index.html';
+        request.uri = uri + 'index.html';
       } else if (!uri.includes('.')) {
-        request.uri += '/index.html';
+        request.uri = uri + '/index.html';
+      } else {
+        request.uri = uri;
       }
 
       return request;
