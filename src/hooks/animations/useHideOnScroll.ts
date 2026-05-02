@@ -30,13 +30,25 @@ export function useHideOnScroll(mobileOnly = true) {
         if (hidden.current) {
           gsap.killTweensOf(ref.current);
           setIsHidden(false);
-          gsap.to(ref.current, { y: 0, duration: CONFIG.showDuration, ease: CONFIG.showEase, delay: 0.025 });
+          gsap.to(ref.current, {
+            y: 0,
+            duration: CONFIG.showDuration,
+            ease: CONFIG.showEase,
+            delay: 0.025,
+            onComplete: () =>
+              gsap.set(ref.current, { clearProps: "transform" }),
+          });
           hidden.current = false;
         }
       } else {
         if (!hidden.current) {
           gsap.killTweensOf(ref.current);
-          gsap.to(ref.current, { y: "-100%", duration: CONFIG.hideDuration, ease: CONFIG.hideEase, onComplete: () => setIsHidden(true) });
+          gsap.to(ref.current, {
+            y: "-100%",
+            duration: CONFIG.hideDuration,
+            ease: CONFIG.hideEase,
+            onComplete: () => setIsHidden(true),
+          });
           hidden.current = true;
         }
       }
@@ -49,4 +61,4 @@ export function useHideOnScroll(mobileOnly = true) {
   }, [mobileOnly]);
 
   return { ref, isHidden };
-} 
+}
