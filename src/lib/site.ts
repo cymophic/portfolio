@@ -2,6 +2,8 @@ import type { Career, Education, Project } from "@/lib/types/site";
 
 // Navigation links for the website
 export const navLinks: { href: string; label: string }[] = [
+  {label: "Home", href: "/"},
+  {label: "Projects", href: "/projects/"},
 ];
 
 // Profile information
