@@ -42,7 +42,7 @@ const PALETTES = {
     dark:  { empty: "#161b22", low: "#3b1f6e", mid: "#6d28d9", high: "#8b5cf6", max: "#c084fc" },
   },
   monochrome: {
-    light: { empty: "#ebedf0", low: "#d4d4d4", mid: "#a3a3a3", high: "#525252", max: "#171717" },
+    light: { empty: "#ebedf0", low: "#d4d4d4", mid: "#a3a3a3", high: "#626262", max: "#171717" },
     dark:  { empty: "#161b22", low: "#333333", mid: "#525252", high: "#a3a3a3", max: "#e5e5e5" },
   },
 } as const;
