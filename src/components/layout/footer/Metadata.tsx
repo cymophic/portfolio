@@ -1,37 +1,52 @@
+import React from "react";
 import { IconGitCommit } from "@tabler/icons-react";
 
-import { cn } from "@/lib/utils/cn";
+import Tooltip from "@/components/ui/Tooltip";
 import useMetadata from "@/hooks/utils/useMetadata";
+import { cn } from "@/lib/utils/cn";
 
 export default function Metadata() {
   const { sessionTime, visitCount, deviceOS, latestCommit, lastUpdated } =
     useMetadata();
 
+  const items = [
+    {
+      label: "Visit Count",
+      content: visitCount,
+      suppressHydrationWarning: true,
+    },
+    {
+      label: "Device OS",
+      content: deviceOS.toLowerCase(),
+      suppressHydrationWarning: true,
+    },
+    { label: "Session Time", content: sessionTime },
+    {
+      label: "Commit Version",
+      content: latestCommit?.id ?? "-",
+      icon: IconGitCommit,
+    },
+    { label: "Last Updated", content: lastUpdated },
+  ];
+
   return (
     <div className="flex flex-wrap justify-center items-center">
-      <Data suppressHydrationWarning>{visitCount}</Data>
-      <Separator />
-      <Data suppressHydrationWarning>{deviceOS.toLowerCase()}</Data>
-      <Separator />
-      <Data>{sessionTime}</Data>
-      <Separator />
-      {latestCommit ? (
-        <a
-          href={latestCommit.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            "font-mono text-xs tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors cursor-pointer hover:text-zinc-600 dark:hover:text-zinc-300",
-          )}
-        >
-          <IconGitCommit size={12} className="inline overflow-clip -mt-0.5" />
-          {latestCommit.id}
-        </a>
-      ) : (
-        <Data>-</Data>
-      )}
-      <Separator />
-      <Data>{lastUpdated}</Data>
+      {items.map(({ label, content, suppressHydrationWarning, icon }, i) => {
+        const Icon = icon;
+        return (
+          <React.Fragment key={i}>
+            <Tooltip content={label}>
+              <Data suppressHydrationWarning={suppressHydrationWarning}>
+                {Icon && (
+                  <Icon size={12} className="inline overflow-clip -mt-0.5" />
+                )}
+                {content}
+              </Data>
+            </Tooltip>
+            {i < items.length - 1 && <Separator />}
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 }
