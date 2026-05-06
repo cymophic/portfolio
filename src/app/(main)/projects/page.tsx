@@ -13,7 +13,7 @@ export default function Projects() {
             Project Catalogue
           </h1>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Projects I&#39;ve built over the years, from small personal
+            Projects I&#39;ve built over the years, from unpolished
             side-projects to full-scale production systems for enterprise
             companies.
           </p>
