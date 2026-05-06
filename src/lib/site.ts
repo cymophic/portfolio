@@ -21,10 +21,10 @@ export const profileInfo = {
 
     "When not building, you'll find me taking photos, hanging out with friends & family, gaming, or traveling when I get the chance. I also enjoy long walks, making pixel art, trying out new food, and spending time with my cats.",
   ],
-  birthDate: "2003/03/26",
+  birthday: "2003/03/26",
   image: "/avatar.png",
   emails: ["contact@luisabhram.dev"],
-  socialLinks: [
+  socials: [
     { label: "GitHub", link: "https://github.com/cymophic" },
     { label: "LinkedIn", link: "https://linkedin.com/in/luisabhram" },
     { label: "Instagram", link: "https://instagram.com/cymophic" },
