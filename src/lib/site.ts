@@ -13,7 +13,11 @@ export const profileInfo = {
   location: "Pasig City, Philippines",
   tagline: "In coding, simplicity is the ultimate sophistication",
   bio: [
-    "I'm an engineer based in the Philippines with experience in full-stack development and on-premise automated deployments end-to-end. Currently, I'm focused on bringing that same level of ownership to the cloud.",
+    "I'm an engineer experienced in full-stack development and owning full end-to-end deployment pipelines.",
+
+    "I got into programming at 16 when I enrolled in a beginner course in high school, where I grew an interest in systems and how they're made. What started as a tiny curiosity grew to become an interest, then a hobby, and eventually a career path.",
+
+    "Now at 23, I know how to navigate through the whole development lifecycle: designing frontends, building backends, automating deployments, and keeping systems running in production. Along the way, I've landed on a simple belief: code should be as clean as it is functional.",
 
     "When not building, you'll find me taking photos, hanging out with friends & family, gaming, or traveling when I get the chance. I also enjoy long walks, making pixel art, trying out new food, and spending time with my cats.",
   ],
@@ -38,7 +42,7 @@ export const profileInfo = {
       start: "Sep 2020",
       end: "Jul 2024",
       details: {
-        honor: ["President's Lister (2020-2024)", "Magna Cum Laude"],
+        honor: ["Magna Cum Laude", "President's Lister (2020-2024)"],
         awards: ["Best Capstone Research", "Best in Communication"],
         grade: "1.18 GWA",
         clubs: [
