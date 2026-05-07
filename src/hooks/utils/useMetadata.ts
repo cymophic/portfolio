@@ -50,7 +50,13 @@ export function useVisitCount() {
 
 // Detects and returns the visitor's operating system on mount
 export function useDeviceOS() {
-  const [os] = useState(() => getDeviceOS());
+  const [os, setOs] = useState("—");
+
+  useEffect(() => {
+    /* eslint-disable-next-line react-hooks/set-state-in-effect -- one-time client-side initialization */
+    setOs(getDeviceOS());
+  }, []);
+
   return os;
 }
 

@@ -26,7 +26,7 @@ export default function Metadata() {
       content: latestCommit?.id ?? "-",
       icon: IconGitCommit,
     },
-    { label: "Last Updated", content: lastUpdated },
+    { label: "Last Updated", content: lastUpdated.toLowerCase() },
   ];
 
   return (
