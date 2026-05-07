@@ -21,7 +21,7 @@ const tagPillClass =
 
 export default function ProjectCard({
   project,
-  showImage,
+  showImage=true,
   priority,
 }: {
   project: Project;
