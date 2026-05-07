@@ -1,7 +1,6 @@
 import { projects } from "@/lib/site";
 import ProjectCard from "@/components/ui/ProjectCard";
 import { AnimatedSection } from "@/components/ui/PageAnimator";
-import TechStack from "@/components/sections/home/TechStack";
 
 export default function Projects() {
   return (
@@ -17,11 +16,6 @@ export default function Projects() {
             side-projects to full-scale production systems for enterprise
             companies.
           </p>
-        </AnimatedSection>
-
-        {/* Tech Stack */}
-        <AnimatedSection className="-my-16 sm:-my-12">
-          <TechStack />
         </AnimatedSection>
 
         {/* Projects */}
