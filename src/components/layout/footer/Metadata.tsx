@@ -4,7 +4,7 @@ import { IconGitCommit } from "@tabler/icons-react";
 import Tooltip from "@/components/ui/Tooltip";
 import useMetadata from "@/hooks/utils/useMetadata";
 import { cn } from "@/lib/utils/cn";
-import useIsMobile from "@/hooks/utils/useIsMobile";
+import { useIsMobile } from "@/hooks/utils/useEnvironment";
 
 export default function Metadata() {
   const { sessionTime, visitCount, deviceOS, latestCommit, lastUpdated } =

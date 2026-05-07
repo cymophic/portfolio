@@ -2,13 +2,17 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { IconWorldShare, IconArrowRight, IconArrowUpRight } from "@tabler/icons-react";
+import {
+  IconWorldShare,
+  IconArrowRight,
+  IconArrowUpRight,
+} from "@tabler/icons-react";
 import { FaGithub } from "react-icons/fa";
 import { toast } from "sonner";
 
 import type { Project } from "@/lib/types/site";
 import Tooltip from "@/components/ui/Tooltip";
-import useIsMobile from "@/hooks/utils/useIsMobile";
+import { useIsMobile } from "@/hooks/utils/useEnvironment";
 import usePortfolioURLEasterEgg from "@/hooks/utils/usePortfolioURLEasterEgg";
 
 const PORTFOLIO_URL = "https://luisabhram.dev";
@@ -33,7 +37,11 @@ function LiveLink({ project }: { project: Project }) {
             e.preventDefault();
             const current = trigger();
             if (current.type === "action") {
-              toast(<span className="font-sans italic text-sm text-zinc-400 dark:text-zinc-500">{current.text}</span>);
+              toast(
+                <span className="font-sans italic text-sm text-zinc-400 dark:text-zinc-500">
+                  {current.text}
+                </span>,
+              );
             } else {
               toast(<span className="font-sans text-sm">{current.text}</span>);
             }
@@ -41,10 +49,11 @@ function LiveLink({ project }: { project: Project }) {
         }}
         className={`transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300 ${disabled ? "pointer-events-none" : ""}`}
       >
-        {disabled
-          ? <span className="text-base leading-none">💥</span>
-          : <IconWorldShare size={18} className="overflow-clip" />
-        }
+        {disabled ? (
+          <span className="text-base leading-none">💥</span>
+        ) : (
+          <IconWorldShare size={18} className="overflow-clip" />
+        )}
       </a>
     </Tooltip>
   );
@@ -68,11 +77,19 @@ function RepoLink({ project }: { project: Project }) {
   );
 }
 
-export default function ProjectCard({ project, showImage = true }: { project: Project; showImage?: boolean }) {
+export default function ProjectCard({
+  project,
+  showImage = true,
+}: {
+  project: Project;
+  showImage?: boolean;
+}) {
   const router = useRouter();
   return (
     <div
-      onClick={() => { if (project.page) router.push(`/projects/${project.slug}`); }}
+      onClick={() => {
+        if (project.page) router.push(`/projects/${project.slug}`);
+      }}
       className={`h-full flex flex-col rounded-2xl border border-zinc-300 dark:border-zinc-600 group ${project.page ? "cursor-pointer hover:border-zinc-400 hover:dark:border-zinc-500" : "cursor-default"}`}
     >
       {/* Cover Image */}
@@ -100,12 +117,18 @@ export default function ProjectCard({ project, showImage = true }: { project: Pr
             {project.repo && <RepoLink project={project} />}
           </div>
 
-          {project.page &&
+          {project.page && (
             <>
-              <IconArrowUpRight size={20} className={`inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500`} />
-              <IconArrowRight size={20} className={`hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-180 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0`} />
+              <IconArrowUpRight
+                size={20}
+                className={`inline sm:hidden overflow-clip text-zinc-400 dark:text-zinc-500`}
+              />
+              <IconArrowRight
+                size={20}
+                className={`hidden sm:inline overflow-clip transition-transform group-hover:-rotate-45 duration-180 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 shrink-0`}
+              />
             </>
-          } 
+          )}
         </div>
 
         {/* Description */}
@@ -119,7 +142,9 @@ export default function ProjectCard({ project, showImage = true }: { project: Pr
         <div className="flex items-center justify-between gap-2 mt-auto pt-6">
           <div className="flex flex-wrap gap-1.5">
             {project.tags.slice(0, 3).map((tag, i) => (
-              <span key={i} className={tagPillClass}>{tag}</span>
+              <span key={i} className={tagPillClass}>
+                {tag}
+              </span>
             ))}
           </div>
         </div>
