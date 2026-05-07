@@ -222,8 +222,6 @@ After provisioning, these records are created in Cloudflare:
 | `CNAME` | `www` | CloudFront domain (from `terraform output cloudfront_domain`) |
 | `CNAME` | ACM validation names | ACM validation values (from `terraform output acm_validation_records`) |
 
-> ⚠️ Both records are set to **DNS only** (grey cloud) — not proxied.
-
 ### Seeding Static Stats
 
 After provisioning, these commands can invoke each scheduled Lambda and seed the initial JSON files manually in S3:
@@ -254,6 +252,8 @@ The following are configured in **Settings → Secrets and Variables → Actions
 | `CLOUDFRONT_DISTRIBUTION_ID` | CloudFront distribution ID |
 | `S3_BUCKET_NAME` | S3 bucket name |
 | `SENTRY_AUTH_TOKEN` | Sentry auth token for source map uploads |
+| `CLOUDFLARE_ZONE_ID` | Cloudflare Zone ID |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API Token |
 
 **Variables**
 | Name | Description |
