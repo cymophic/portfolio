@@ -343,9 +343,9 @@ export default function Stats() {
       sublabel: (
         <>
           <span className="font-mono">
-            {wakatimeStats?.yearly.toLocaleString()}
+            {wakatimeStats?.monthly.toLocaleString()}
           </span>{" "}
-          hours coded this year
+          hours coded this month
         </>
       ),
       ready: wakatimeStats !== null,
