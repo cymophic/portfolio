@@ -12,82 +12,12 @@ import { FaGithub } from "react-icons/fa";
 import { toast } from "sonner";
 
 import type { Project } from "@/lib/types/site";
-import { portfolioEasterEggMessages } from "@/lib/site";
+import { websiteURL, portfolioEasterEggMessages } from "@/lib/site";
 import Tooltip from "@/components/ui/Tooltip";
 import { useIsMobile } from "@/hooks/utils/useEnvironment";
 
-const PORTFOLIO_URL = "https://luisabhram.dev";
-
 const tagPillClass =
   "inline-flex items-center rounded-full border border-zinc-300 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-600 dark:text-zinc-300/80";
-
-function LiveLink({ project }: { project: Project }) {
-  const [index, setIndex] = useState(0);
-  const [disabled, setDisabled] = useState(false);
-  const isMobile = useIsMobile();
-  const isPortfolio = project.url === PORTFOLIO_URL;
-
-  const trigger = () => {
-    const current = portfolioEasterEggMessages[index];
-    if (current.type === "action") {
-      setDisabled(true);
-      return current;
-    }
-    setIndex((prev) => prev + 1);
-    return current;
-  };
-
-  return (
-    <Tooltip content="View Live" disabled={isPortfolio || isMobile}>
-      <a
-        href={project.url!}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={(e) => {
-          e.stopPropagation();
-          if (isPortfolio) {
-            e.preventDefault();
-            const current = trigger();
-            if (current.type === "action") {
-              toast(
-                <span className="font-sans italic text-sm text-zinc-400 dark:text-zinc-500">
-                  {current.text}
-                </span>,
-              );
-            } else {
-              toast(<span className="font-sans text-sm">{current.text}</span>);
-            }
-          }
-        }}
-        className={`transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300 ${disabled ? "pointer-events-none" : ""}`}
-      >
-        {disabled ? (
-          <span className="text-base leading-none">💥</span>
-        ) : (
-          <IconWorldShare size={18} className="overflow-clip" />
-        )}
-      </a>
-    </Tooltip>
-  );
-}
-
-function RepoLink({ project }: { project: Project }) {
-  const isMobile = useIsMobile();
-
-  return (
-    <Tooltip content="View Code" disabled={isMobile}>
-      <a
-        href={project.repo!}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={(e) => e.stopPropagation()}
-        className="transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
-      >
-        <FaGithub size={17} className="overflow-clip" />
-      </a>
-    </Tooltip>
-  );
-}
 
 export default function ProjectCard({
   project,
@@ -97,11 +27,15 @@ export default function ProjectCard({
   showImage?: boolean;
 }) {
   const router = useRouter();
+
+  // Navigates to the detail page if it has one
+  const handleClick = () => {
+    if (project.page) router.push(`/projects/${project.slug}`);
+  };
+
   return (
     <div
-      onClick={() => {
-        if (project.page) router.push(`/projects/${project.slug}`);
-      }}
+      onClick={handleClick}
       className={`h-full flex flex-col rounded-2xl border border-zinc-300 dark:border-zinc-600 group ${project.page ? "cursor-pointer hover:border-zinc-400 hover:dark:border-zinc-500" : "cursor-default"}`}
     >
       {/* Cover Image */}
@@ -162,5 +96,78 @@ export default function ProjectCard({
         </div>
       </div>
     </div>
+  );
+}
+
+// Live site link of the project
+function LiveLink({ project }: { project: Project }) {
+  const isMobile = useIsMobile();
+  const isPortfolio = project.url === websiteURL;
+  const [index, setIndex] = useState(0);
+  const [disabled, setDisabled] = useState(false);
+
+  // Shows the next easter egg toast
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.stopPropagation();
+    if (isPortfolio) {
+      e.preventDefault();
+      const current = trigger();
+      if (current.type === "action") {
+        toast(
+          <span className="font-sans italic text-sm text-zinc-400 dark:text-zinc-500">
+            {current.text}
+          </span>,
+        );
+      } else {
+        toast(<span className="font-sans text-sm">{current.text}</span>);
+      }
+    }
+  };
+  // Gets the next easter egg message; disables the button on action type
+  const trigger = () => {
+    const current = portfolioEasterEggMessages[index];
+    if (current.type === "action") {
+      setDisabled(true);
+      return current;
+    }
+    setIndex((prev) => prev + 1);
+    return current;
+  };
+
+  return (
+    <Tooltip content="View Live" disabled={isPortfolio || isMobile}>
+      <a
+        href={project.url!}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={handleClick}
+        className={`transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300 ${disabled ? "pointer-events-none" : ""}`}
+      >
+        {disabled ? (
+          <span className="text-base leading-none">💥</span>
+        ) : (
+          <IconWorldShare size={18} className="overflow-clip" />
+        )}
+      </a>
+    </Tooltip>
+  );
+}
+
+// GitHub repository link of the project
+function RepoLink({ project }: { project: Project }) {
+  const isMobile = useIsMobile();
+
+  return (
+    <Tooltip content="View Code" disabled={isMobile}>
+      <a
+        href={project.repo!}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => e.stopPropagation()}
+        className="transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
+      >
+        <FaGithub size={17} className="overflow-clip" />
+      </a>
+    </Tooltip>
   );
 }
