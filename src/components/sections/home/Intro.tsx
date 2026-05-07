@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { IconQuoteOpen, IconBriefcase, IconMapPin } from "@tabler/icons-react";
 
@@ -77,29 +77,31 @@ export function Location() {
 // Schedule Button
 export function ScheduleButton() {
   const [bookingDisabled, setBookingDisabled] = useState(false);
+  const calLoaded = useRef(false);
 
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace: "book-a-meeting" });
-      cal("ui", {
-        hideEventTypeDetails: false,
-      });
-      cal("on", {
-        action: "bookingSuccessful",
-        callback: () => setBookingDisabled(true),
-      });
-    })();
-  }, []);
+  const loadCal = async () => {
+    if (calLoaded.current) return;
+    calLoaded.current = true;
+    const cal = await getCalApi({ namespace: "book-a-meeting" });
+    cal("ui", { hideEventTypeDetails: false });
+    cal("on", {
+      action: "bookingSuccessful",
+      callback: () => setBookingDisabled(true),
+    });
+  };
 
   return (
     <Button
       variant="primary"
       size="md"
       className="sm:mt-0 mx-auto rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-4 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
-      disabled={bookingDisabled}
       data-cal-namespace="book-a-meeting"
       data-cal-link="luisabhram"
       data-cal-config='{"layout":"month_view"}'
+      onMouseEnter={loadCal}
+      onFocus={loadCal}
+      onClick={loadCal}
+      disabled={bookingDisabled}
     >
       {bookingDisabled ? "Meeting Scheduled" : "Schedule a Meeting"}
     </Button>

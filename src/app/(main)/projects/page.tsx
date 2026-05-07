@@ -1,7 +1,6 @@
 import { projects } from "@/lib/site";
 import ProjectCard from "@/components/ui/ProjectCard";
 import { AnimatedSection } from "@/components/ui/PageAnimator";
-import TechStack from "@/components/sections/home/TechStack";
 
 export default function Projects() {
   return (
@@ -19,16 +18,11 @@ export default function Projects() {
           </p>
         </AnimatedSection>
 
-        {/* Tech Stack */}
-        <AnimatedSection className="-my-16 sm:-my-12">
-          <TechStack />
-        </AnimatedSection>
-
         {/* Projects */}
         <div className="columns-1 sm:columns-2 xl:columns-3 gap-6">
           {projects.map((project, i) => (
             <AnimatedSection key={i} className="break-inside-avoid mb-6">
-              <ProjectCard project={project} />
+              <ProjectCard project={project} priority={i === 0} />
             </AnimatedSection>
           ))}
         </div>
