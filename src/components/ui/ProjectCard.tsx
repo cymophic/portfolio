@@ -21,10 +21,12 @@ const tagPillClass =
 
 export default function ProjectCard({
   project,
-  showImage = true,
+  showImage,
+  priority,
 }: {
   project: Project;
   showImage?: boolean;
+  priority?: boolean;
 }) {
   const router = useRouter();
 
@@ -43,6 +45,7 @@ export default function ProjectCard({
         <div className="hidden sm:block">
           <Image
             src={project.cover}
+            priority={priority}
             alt={`${project.title} cover`}
             width={800}
             height={450}
