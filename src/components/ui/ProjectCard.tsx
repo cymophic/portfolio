@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
@@ -11,9 +12,9 @@ import { FaGithub } from "react-icons/fa";
 import { toast } from "sonner";
 
 import type { Project } from "@/lib/types/site";
+import { portfolioEasterEggMessages } from "@/lib/site";
 import Tooltip from "@/components/ui/Tooltip";
 import { useIsMobile } from "@/hooks/utils/useEnvironment";
-import usePortfolioURLEasterEgg from "@/hooks/utils/usePortfolioURLEasterEgg";
 
 const PORTFOLIO_URL = "https://luisabhram.dev";
 
@@ -21,9 +22,20 @@ const tagPillClass =
   "inline-flex items-center rounded-full border border-zinc-300 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-600 dark:text-zinc-300/80";
 
 function LiveLink({ project }: { project: Project }) {
-  const { disabled, trigger } = usePortfolioURLEasterEgg();
+  const [index, setIndex] = useState(0);
+  const [disabled, setDisabled] = useState(false);
   const isMobile = useIsMobile();
   const isPortfolio = project.url === PORTFOLIO_URL;
+
+  const trigger = () => {
+    const current = portfolioEasterEggMessages[index];
+    if (current.type === "action") {
+      setDisabled(true);
+      return current;
+    }
+    setIndex((prev) => prev + 1);
+    return current;
+  };
 
   return (
     <Tooltip content="View Live" disabled={isPortfolio || isMobile}>
