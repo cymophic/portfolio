@@ -4,12 +4,14 @@ import { IconGitCommit } from "@tabler/icons-react";
 import Tooltip from "@/components/ui/Tooltip";
 import useMetadata from "@/hooks/utils/useMetadata";
 import { cn } from "@/lib/utils/cn";
+import { useIsMobile } from "@/hooks/utils/useEnvironment";
 
 export default function Metadata() {
   const { sessionTime, visitCount, deviceOS, latestCommit, lastUpdated } =
     useMetadata();
+  const isMobile = useIsMobile();
 
-  const items = [
+  let items = [
     {
       label: "Visit Count",
       content: visitCount,
@@ -28,25 +30,56 @@ export default function Metadata() {
     },
     { label: "Last Updated", content: lastUpdated.toLowerCase() },
   ];
+  const desktopOrder = [0, 1, 2, 3, 4];
+  const mobileOrder = [0, 2, 1, 3, 4];
+  items = (isMobile ? mobileOrder : desktopOrder).map((i) => items[i]);
 
   return (
     <div className="flex flex-wrap justify-center items-center">
-      {items.map(({ label, content, suppressHydrationWarning, icon }, i) => {
-        const Icon = icon;
-        return (
-          <React.Fragment key={i}>
-            <Tooltip content={label}>
-              <Data suppressHydrationWarning={suppressHydrationWarning}>
-                {Icon && (
-                  <Icon size={12} className="inline overflow-clip -mt-0.5" />
-                )}
-                {content}
-              </Data>
-            </Tooltip>
-            {i < items.length - 1 && <Separator />}
-          </React.Fragment>
-        );
-      })}
+      {items
+        .slice(0, -2)
+        .map(({ label, content, suppressHydrationWarning, icon }, i) => {
+          const Icon = icon;
+          return (
+            <React.Fragment key={i}>
+              <Tooltip content={label}>
+                <Data suppressHydrationWarning={suppressHydrationWarning}>
+                  {Icon && (
+                    <Icon size={12} className="inline overflow-clip -mt-0.5" />
+                  )}
+                  {content}
+                </Data>
+              </Tooltip>
+              {/* Show separator between items; then on mobile, hide the last one since it line-breaks */}
+              {i < items.slice(0, -2).length - 1 ? (
+                <Separator />
+              ) : (
+                <span className="hidden sm:inline">
+                  <Separator />
+                </span>
+              )}
+            </React.Fragment>
+          );
+        })}
+      <div className="w-full sm:hidden" />
+      {items
+        .slice(-2)
+        .map(({ label, content, suppressHydrationWarning, icon }, i) => {
+          const Icon = icon;
+          return (
+            <React.Fragment key={i}>
+              <Tooltip content={label}>
+                <Data suppressHydrationWarning={suppressHydrationWarning}>
+                  {Icon && (
+                    <Icon size={12} className="inline overflow-clip -mt-0.5" />
+                  )}
+                  {content}
+                </Data>
+              </Tooltip>
+              {i < 1 && <Separator />}
+            </React.Fragment>
+          );
+        })}
     </div>
   );
 }
@@ -62,7 +95,7 @@ export function Separator() {
 }
 
 // Styled wrapper for each metadata value
-export function Data({
+function Data({
   children,
   className,
   ...props

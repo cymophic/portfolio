@@ -1,7 +1,7 @@
 import { projects } from "@/lib/site";
 import ProjectCard from "@/components/ui/ProjectCard";
 import { AnimatedSection } from "@/components/ui/PageAnimator";
-import TechStack from "@/components/sections/TechStack";
+import TechStack from "@/components/sections/home/TechStack";
 
 export default function Projects() {
   return (

@@ -23,7 +23,7 @@ import Skeleton from "@/components/ui/Skeleton";
 import { SlotText } from "@/components/ui/AnimatedText";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
 import Tooltip from "@/components/ui/Tooltip";
-import ContributionGraph from "@/components/sections/Stats/ContributionGraph";
+import ContributionGraph from "@/components/sections/home/Stats/ContributionGraph";
 
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";

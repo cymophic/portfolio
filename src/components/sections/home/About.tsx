@@ -1,4 +1,4 @@
-import SectionTitle from "../ui/SectionTitle";
+import SectionTitle from "../../ui/SectionTitle";
 import { profileInfo } from "@/lib/site";
 
 export default function About() {

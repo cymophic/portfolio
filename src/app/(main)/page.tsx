@@ -1,9 +1,9 @@
-import Intro from "@/components/sections/Intro";
-import About from "@/components/sections/About";
-import Stats from "@/components/sections/Stats";
-import Work from "@/components/sections/Career";
-import Education from "@/components/sections/Education";
-import Projects from "@/components/sections/Projects";
+import Intro from "@/components/sections/home/Intro";
+import About from "@/components/sections/home/About";
+import Stats from "@/components/sections/home/Stats";
+import Work from "@/components/sections/home/Career";
+import Education from "@/components/sections/home/Education";
+import Projects from "@/components/sections/home/Projects";
 
 import { AnimatedSection } from "@/components/ui/PageAnimator";
 

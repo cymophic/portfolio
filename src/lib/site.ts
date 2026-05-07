@@ -1,5 +1,8 @@
 import type { Career, Education, Project } from "@/lib/types/site";
 
+// The site's public URL
+export const websiteURL = "https://luisabhram.dev";
+
 // Navigation links for the website
 export const navLinks: { href: string; label: string }[] = [
   { label: "Home", href: "/" },
