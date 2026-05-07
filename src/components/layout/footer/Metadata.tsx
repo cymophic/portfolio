@@ -4,12 +4,14 @@ import { IconGitCommit } from "@tabler/icons-react";
 import Tooltip from "@/components/ui/Tooltip";
 import useMetadata from "@/hooks/utils/useMetadata";
 import { cn } from "@/lib/utils/cn";
+import useIsMobile from "@/hooks/utils/useIsMobile";
 
 export default function Metadata() {
   const { sessionTime, visitCount, deviceOS, latestCommit, lastUpdated } =
     useMetadata();
+  const isMobile = useIsMobile();
 
-  const items = [
+  let items = [
     {
       label: "Visit Count",
       content: visitCount,
@@ -28,6 +30,9 @@ export default function Metadata() {
     },
     { label: "Last Updated", content: lastUpdated.toLowerCase() },
   ];
+  const desktopOrder = [0, 1, 2, 3, 4];
+  const mobileOrder = [0, 2, 1, 3, 4];
+  items = (isMobile ? mobileOrder : desktopOrder).map((i) => items[i]);
 
   return (
     <div className="flex flex-wrap justify-center items-center">
