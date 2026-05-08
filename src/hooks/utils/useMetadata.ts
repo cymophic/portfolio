@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { getOrdinal, formatMonthYear } from "@/lib/utils/format";
-import { fetchGithubData } from "@/lib/utils/github";
+import { fetchGithubData } from "@/lib/services/github";
 import { getDeviceOS } from "@/lib/utils/visitor";
 
 export default function useMetadata() {
