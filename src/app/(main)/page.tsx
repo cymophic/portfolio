@@ -5,40 +5,15 @@ import Work from "@/components/sections/home/Career";
 import Education from "@/components/sections/home/Education";
 import Projects from "@/components/sections/home/Projects";
 
-import { AnimatedSection } from "@/components/ui/PageAnimator";
-
 export default function Home() {
   return (
-      <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans gap-24">
-        {/* Intro */}
-        <AnimatedSection>
-          <Intro />
-        </AnimatedSection>
-
-        {/* Bio */}
-        <AnimatedSection>
-          <About />
-        </AnimatedSection>
-
-        {/* Stats */}
-        <AnimatedSection>
-          <Stats />
-        </AnimatedSection>
-
-        {/* Projects */}
-        <AnimatedSection>
-          <Projects />
-        </AnimatedSection>
-
-        {/* Work Experience */}
-        <AnimatedSection>
-          <Work />
-        </AnimatedSection>
-
-        {/* Education */}
-        <AnimatedSection>
-          <Education />
-        </AnimatedSection>
-      </div>
+    <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans gap-24">
+      <Intro />
+      <About />
+      <Stats />
+      <Projects />
+      <Work />
+      <Education />
+    </div>
   );
 }
