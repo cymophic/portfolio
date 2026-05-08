@@ -36,7 +36,7 @@ import ContributionGraph from "@/components/sections/home/Stats/ContributionGrap
 const TIMEZONE = "Asia/Manila";
 const COUNTRY = "Philippines";
 const SONG_REFRESH_INTERVAL = 1.5; // minutes
-const LOADMS_CONTRIBUTION_GRAPH = 800; // milliseconds
+const LOADMS_CONTRIBUTION_GRAPH = 200; // milliseconds
 
 // Types
 type StatItemType = {
