@@ -207,7 +207,7 @@ export const projects: Project[] = [
     slug: "number-guesser",
     pinned: false,
     description: "A quick number guessing game I spun in my early years.",
-    tags: ["Personal", "Game"],
+    tags: ["Live", "Personal", "Game"],
     url: "https://cymophic.github.io/number-guesser/",
     repo: "https://github.com/cymophic/number-guesser",
   },
