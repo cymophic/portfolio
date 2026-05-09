@@ -1,6 +1,31 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { projects } from "@/lib/site";
+import { websiteURL, projects } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+  if (!project) return {};
+
+  return {
+    title: `${project.title}`,
+    description: project.description,
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      url: `${websiteURL}/projects/${slug}`,
+      ...(project.cover && { images: [{ url: project.cover }] }),
+    },
+  };
+}
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
