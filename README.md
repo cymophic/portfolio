@@ -297,6 +297,7 @@ Assets that are fetched automatically during `prebuild`.
 |---|---|
 | `public/avatar.png` | Profile avatar |
 | `src/app/icon.png` | Site favicon |
+| `public/**/*.webp` | WebP versions of project covers and logos |
 
 ### Live Endpoints
 Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in `NEXT_PUBLIC_API_URL`.

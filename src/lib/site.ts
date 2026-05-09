@@ -42,7 +42,7 @@ export const profileInfo = {
     {
       school: "Systems Technology Institute College",
       website: "https://sti.edu/",
-      logo: "/logos/edu_sti.png",
+      logo: "/logos/edu_sti.webp",
       degree: "B.S. in Computer Engineering",
       start: "Sep 2020",
       end: "Jul 2024",
@@ -59,7 +59,7 @@ export const profileInfo = {
     {
       school: "Systems Technology Institute College",
       website: "https://sti.edu/",
-      logo: "/logos/edu_sti.png",
+      logo: "/logos/edu_sti.webp",
       degree: "Mobile App & Web Development",
       start: "Jun 2018",
       end: "Mar 2020",
@@ -73,7 +73,7 @@ export const profileInfo = {
     {
       company: "Power Mac Center Inc.",
       website: "https://powermaccenter.com/",
-      logo: "/logos/work_pmc.png",
+      logo: "/logos/work_pmc.webp",
       role: "DevOps Engineer",
       type: "Full-time",
       start: "Nov 2024",
@@ -85,7 +85,7 @@ export const profileInfo = {
     },
     {
       company: "Third Generation Holdings Co.",
-      logo: "/logos/work_tghc.png",
+      logo: "/logos/work_tghc.webp",
       role: "Software Developer",
       type: "Internship",
       start: "Mar 2024",
@@ -98,7 +98,7 @@ export const profileInfo = {
     {
       company: "Gingersnaps PH",
       website: "https://gingersnaps.com.ph/",
-      logo: "/logos/work_gk.png",
+      logo: "/logos/work_gk.webp",
       role: "QA Analyst",
       type: "Internship",
       start: "Nov 2019",
@@ -159,7 +159,7 @@ export const projects: Project[] = [
     tags: ["Live", "Personal"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
-    cover: "/projects/digital-portfolio/cover.png",
+    cover: "/projects/digital-portfolio/cover.webp",
   },
   {
     title: "L2C Portal",
@@ -170,7 +170,7 @@ export const projects: Project[] = [
     tags: ["Live", "Enterprise"],
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
-    cover: "/projects/l2c-portal/cover.png",
+    cover: "/projects/l2c-portal/cover.webp",
   },
   {
     title: "PMC Business",
@@ -181,7 +181,7 @@ export const projects: Project[] = [
     tags: ["Live", "Enterprise"],
     url: "https://business.powermaccenter.com",
     repo: null,
-    cover: "/projects/pmc-business/cover.png",
+    cover: "/projects/pmc-business/cover.webp",
   },
   {
     title: "Mobile Care PH",
@@ -192,7 +192,7 @@ export const projects: Project[] = [
     tags: ["Live", "Enterprise"],
     url: "https://mobilecareph.com",
     repo: null,
-    cover: "/projects/mobilecare-ph/cover.png",
+    cover: "/projects/mobilecare-ph/cover.webp",
   },
   {
     title: "Cymo GPT",
@@ -202,7 +202,7 @@ export const projects: Project[] = [
     tags: ["Personal", "AI"],
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
-    cover: "/projects/cymo-gpt/cover.png",
+    cover: "/projects/cymo-gpt/cover.webp",
   },
   {
     title: "Guessing Game",

@@ -19,6 +19,7 @@
 
 # Production
 /build
+public/**/*.webp
 
 # Misc
 .DS_Store
