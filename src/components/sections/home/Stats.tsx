@@ -21,11 +21,8 @@ import type { MonkeytypeStats } from "@/lib/services/monkeytype";
 
 import { timezone, country, profileInfo } from "@/lib/site";
 import SectionTitle from "@/components/ui/SectionTitle";
-import {
-  getAge,
-  getDaysUntilBirthday,
-  getLocalTime,
-} from "@/lib/utils/profile";
+import { getAge, getDaysUntilBirthday } from "@/lib/utils/profile";
+import { getLocalTime } from "@/lib/utils/locale";
 import { SlotText } from "@/components/ui/AnimatedText";
 import Skeleton from "@/components/ui/Skeleton";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
