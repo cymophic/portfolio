@@ -84,6 +84,7 @@ luisabhram.dev/
 │   │   ├── animations/                   # GSAP animation hooks
 │   │   └── utils/                        # Utility hooks
 │   └── lib/
+│       ├── services/                     # External integrations
 │       ├── types/                        # Type definitions
 │       ├── utils/                        # Utilities
 │       └── site.ts                       # Site configurations

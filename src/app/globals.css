@@ -9,12 +9,18 @@
 
 @layer base {
   * {
-    user-select: none;
     scrollbar-gutter: stable;
   }
 
-  button {
+  button,
+  [role="button"] {
     cursor: pointer;
+    user-select: none;
+  }
+
+  ::selection {
+    background-color: rgb(113 113 122 / 0.25);
+    color: inherit;
   }
 
   /* Firefox Scrollbar */
@@ -34,7 +40,7 @@
   ::-webkit-scrollbar-button {
     display: none;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: transparent;
   }

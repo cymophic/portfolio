@@ -3,10 +3,10 @@
 import { IconHeart } from "@tabler/icons-react";
 import { usePathname, useRouter } from "next/navigation";
 
+import { profileInfo } from "@/lib/site";
 import Metadata from "./Metadata";
 import ProfileImage from "@/components/ui/ProfileImage";
-import { profileInfo } from "@/lib/site";
-import SocialLinks from "../../ui/SocialLinks";
+import SocialLinks from "@/components/ui/SocialLinks";
 import Tooltip from "@/components/ui/Tooltip";
 
 export default function Footer() {
@@ -38,19 +38,13 @@ export default function Footer() {
       <Metadata />
 
       {/* Copyright */}
-      <p className="text-xs text-zinc-400 dark:text-zinc-500">
-        © 2026
-        {new Date().getFullYear() !== 2026
-          ? ` - ${new Date().getFullYear()}`
-          : ""}
-        . All rights reserved.
-      </p>
+      <Copyright />
     </footer>
   );
 }
 
-// Website Icon in Footer
-export function FooterLogo() {
+// Footer Website Icon
+function FooterLogo() {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -72,5 +66,18 @@ export function FooterLogo() {
         />
       </button>
     </Tooltip>
+  );
+}
+
+// Copyright
+function Copyright() {
+  const startYear = 2026;
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <p className="text-xs text-zinc-400 dark:text-zinc-500">
+      © {currentYear > startYear ? `${startYear} - ${currentYear}` : startYear}.
+      All rights reserved.
+    </p>
   );
 }
