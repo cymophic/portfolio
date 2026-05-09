@@ -21,7 +21,7 @@ const tagPillClass =
 
 export default function ProjectCard({
   project,
-  showImage=true,
+  showImage = true,
   priority,
 }: {
   project: Project;
@@ -46,7 +46,7 @@ export default function ProjectCard({
           <Image
             src={project.cover}
             priority={priority}
-            alt={`${project.title} cover`}
+            alt={`${project.title} cover image`}
             width={800}
             height={450}
             className="hidden sm:block rounded-t-2xl w-full object-cover"
@@ -109,6 +109,8 @@ function LiveLink({ project }: { project: Project }) {
   const [index, setIndex] = useState(0);
   const [disabled, setDisabled] = useState(false);
 
+  if (!project.url) return null;
+
   // Shows the next easter egg toast
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.stopPropagation();
@@ -140,6 +142,7 @@ function LiveLink({ project }: { project: Project }) {
   return (
     <Tooltip content="View Live" disabled={isPortfolio || isMobile}>
       <a
+        aria-label={`View ${project.title} live`}
         href={project.url!}
         target="_blank"
         rel="noopener noreferrer"
@@ -160,9 +163,12 @@ function LiveLink({ project }: { project: Project }) {
 function RepoLink({ project }: { project: Project }) {
   const isMobile = useIsMobile();
 
+  if (!project.repo) return null;
+
   return (
     <Tooltip content="View Code" disabled={isMobile}>
       <a
+        aria-label={`View ${project.title} repository`}
         href={project.repo!}
         target="_blank"
         rel="noopener noreferrer"

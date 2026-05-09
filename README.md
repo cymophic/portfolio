@@ -75,7 +75,9 @@ luisabhram.dev/
 │   │   ├── globals.css                   # Global styles and Tailwind imports
 │   │   ├── icon.png                      # Site favicon
 │   │   ├── layout.tsx                    # Root layout component
-│   │   └── not-found.tsx                 # 404 page
+│   │   ├── not-found.tsx                 # 404 page
+│   │   ├── robots.ts                     # Crawler instructions
+│   │   └── sitemap.ts                    # Sitemap
 │   ├── components/
 │   │   ├── layout/                       # App-wide layout components
 │   │   ├── ui/                           # Small reusable UI components
@@ -297,6 +299,7 @@ Assets that are fetched automatically during `prebuild`.
 |---|---|
 | `public/avatar.png` | Profile avatar |
 | `src/app/icon.png` | Site favicon |
+| `public/**/*.webp` | WebP versions of project covers and logos |
 
 ### Live Endpoints
 Serverless endpoints powered by AWS Lambda & API Gateway. Base URL is stored in `NEXT_PUBLIC_API_URL`.

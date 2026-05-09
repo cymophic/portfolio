@@ -1,5 +1,22 @@
-import { projects } from "@/lib/site";
+import { Metadata } from "next";
+import { profileInfo, projects } from "@/lib/site";
 import ProjectCard from "@/components/ui/ProjectCard";
+
+const description =
+  "A detailed catalogue of enterprise systems, DevOps tooling, and full-stack applications built by Luis Abhram.";
+export const metadata: Metadata = {
+  title: "Projects",
+  description,
+  alternates: {
+    canonical: "/projects",
+  },
+  openGraph: {
+    title: `Projects | ${profileInfo.name}`,
+    description,
+    url: "/projects",
+    type: "website",
+  },
+};
 
 export default function Projects() {
   return (

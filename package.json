@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "tsx scripts/generate-favicon.ts",
+    "prebuild": "tsx scripts/generate-favicon.ts && tsx scripts/convert-to-webp.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -30,6 +30,7 @@
     "@types/react-dom": "^19",
     "eslint": "^10.3.0",
     "eslint-config-next": "^16.2.6",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^6"
