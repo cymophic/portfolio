@@ -58,7 +58,10 @@ function FooterLogo() {
 
   return (
     <Tooltip content={pathname === "/" ? "Jump to Top" : "Return to Home"}>
-      <button onClick={handleImageClick}>
+      <button
+        onClick={handleImageClick}
+        aria-label={pathname === "/" ? "Jump to Top" : "Return to Home"}
+      >
         <ProfileImage
           width={48}
           height={48}

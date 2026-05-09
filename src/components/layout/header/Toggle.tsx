@@ -11,6 +11,7 @@ type Props = {
 export default function SidebarToggle({ open, onToggle }: Props) {
   return (
     <button
+      aria-label={open ? "Close sidebar" : "Open sidebar"}
       onClick={onToggle}
       className="p-2 text-sm text-zinc-500 hover:text-zinc-600 dark:text-zinc-300 dark:hover:text-zinc-300 cursor-pointer"
     >
@@ -19,9 +20,12 @@ export default function SidebarToggle({ open, onToggle }: Props) {
           open ? "rotate-90" : "rotate-0"
         }`}
       >
-        {open ? <IconX size={16} stroke={3} /> : <IconMenu size={16} stroke={3} />}
+        {open ? (
+          <IconX size={16} stroke={3} />
+        ) : (
+          <IconMenu size={16} stroke={3} />
+        )}
       </span>
     </button>
   );
 }
-

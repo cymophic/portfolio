@@ -17,15 +17,21 @@ export default function ThemeToggle() {
     return () => clearTimeout(timeout);
   }, []);
 
-  if (!mounted) return <IconMoonFilled size={iconSize} className="m-2 text-zinc-500" />;
+  if (!mounted)
+    return <IconMoonFilled size={iconSize} className="m-2 text-zinc-500" />;
 
   return (
     <button
       ref={buttonRef}
       onClick={toggleTheme}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       className="p-2 text-sm text-zinc-500 hover:text-zinc-600 dark:text-zinc-300 dark:hover:text-zinc-300 cursor-pointer active:scale-85 sm:active:scale-120 sm:hover:scale-120 transition-transform duration-100"
     >
-      {isDark ? <IconSunHighFilled size={iconSize} /> : <IconMoonFilled size={iconSize} />}
+      {isDark ? (
+        <IconSunHighFilled size={iconSize} />
+      ) : (
+        <IconMoonFilled size={iconSize} />
+      )}
     </button>
   );
 }

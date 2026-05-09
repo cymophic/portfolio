@@ -21,7 +21,7 @@ const tagPillClass =
 
 export default function ProjectCard({
   project,
-  showImage=true,
+  showImage = true,
   priority,
 }: {
   project: Project;
@@ -140,6 +140,7 @@ function LiveLink({ project }: { project: Project }) {
   return (
     <Tooltip content="View Live" disabled={isPortfolio || isMobile}>
       <a
+        aria-label={`View ${project.title} live`}
         href={project.url!}
         target="_blank"
         rel="noopener noreferrer"
@@ -163,6 +164,7 @@ function RepoLink({ project }: { project: Project }) {
   return (
     <Tooltip content="View Code" disabled={isMobile}>
       <a
+        aria-label={`View ${project.title} repository`}
         href={project.repo!}
         target="_blank"
         rel="noopener noreferrer"
