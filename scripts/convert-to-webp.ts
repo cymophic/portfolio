@@ -27,7 +27,7 @@ async function main() {
 
       const output = file.replace(".png", ".webp");
       await sharp(file).webp({ quality: 85 }).toFile(output);
-      console.log(`✓ converted ${file}`);
+      console.log(`\x1b[32m✓\x1b[0m converted \x1b[36m${file}\x1b[0m to webp`);
     }
   }
 }
