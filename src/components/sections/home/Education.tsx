@@ -21,46 +21,59 @@ export default function Education() {
                   {/* Left: School info */}
                   <div className="flex sm:gap-4.5 md:gap-3 items-center">
                     {edu.logo && (
-                      <a
-                        aria-label={`Visit ${edu.school} website`}
-                        href={edu.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hidden sm:block shrink-0"
-                      >
-                        <Image
-                          src={edu.logo}
-                          alt={edu.school}
-                          width={64}
-                          height={64}
-                          className="rounded-lg object-cover mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600"
-                        />
-                      </a>
+                      <>
+                        {edu.website ? (
+                          <a
+                            aria-label={`Visit ${edu.school} website`}
+                            href={edu.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hidden sm:block shrink-0"
+                          >
+                            <Image
+                              src={edu.logo}
+                              alt={edu.school}
+                              width={64}
+                              height={64}
+                              className="rounded-lg object-cover mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600"
+                            />
+                          </a>
+                        ) : (
+                          // Render just the image if no website exists
+                          <div className="hidden sm:block shrink-0">
+                            <Image
+                              src={edu.logo}
+                              alt={edu.school}
+                              width={64}
+                              height={64}
+                              className="rounded-lg object-cover mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600"
+                            />
+                          </div>
+                        )}
+                      </>
                     )}
                     <div className="flex flex-col gap-0.5">
                       <span className="text-base font-semibold text-zinc-700 dark:text-zinc-300">
                         {edu.degree}
                       </span>
                       <span className="text-sm text-zinc-600 dark:text-zinc-400">
-                        <a
-                          aria-label={`Visit ${edu.school} website`}
-                          href={edu.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={
-                            edu.website
-                              ? "underline sm:hover:text-zinc-900 sm:dark:hover:text-zinc-300"
-                              : ""
-                          }
-                        >
-                          {edu.school}
-                          {edu.website && (
+                        {edu.website ? (
+                          <a
+                            href={edu.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline sm:hover:text-zinc-900 sm:dark:hover:text-zinc-100"
+                          >
+                            {edu.school}
                             <IconArrowUpRight
                               size={18}
-                              className="inline mb-0.5 overflow-clip text-zinc-500 dark:text-zinc-500"
+                              className="inline mb-0.5 text-zinc-500"
                             />
-                          )}
-                        </a>
+                          </a>
+                        ) : (
+                          /* Render just the text if there is no website */
+                          edu.school
+                        )}
                       </span>
                       <span className="text-sm text-zinc-500">
                         {edu.start} - {edu.end}

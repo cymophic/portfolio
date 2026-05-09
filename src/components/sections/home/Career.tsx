@@ -17,23 +17,37 @@ export default function Career() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start">
                 {/* Left: Work info */}
                 <div className="flex sm:gap-4.5 md:gap-3 items-center">
-                  <a
-                    aria-label={`Visit ${work.company} website`}
-                    href={work.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hidden sm:block shrink-0"
-                  >
-                    {work.logo && (
-                      <Image
-                        src={work.logo}
-                        alt={work.company}
-                        width={64}
-                        height={64}
-                        className="rounded-lg object-cover mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600"
-                      />
-                    )}
-                  </a>
+                  {work.logo && (
+                    <>
+                      {work.website ? (
+                        <a
+                          aria-label={`Visit ${work.company} website`}
+                          href={work.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hidden sm:block shrink-0"
+                        >
+                          <Image
+                            src={work.logo}
+                            alt={work.company}
+                            width={64}
+                            height={64}
+                            className="rounded-lg object-cover mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600"
+                          />
+                        </a>
+                      ) : (
+                        <div className="hidden sm:block shrink-0">
+                          <Image
+                            src={work.logo}
+                            alt={work.company}
+                            width={64}
+                            height={64}
+                            className="rounded-lg object-cover mt-0.5 p-1 -ml-1 border border-zinc-300 dark:border-zinc-600"
+                          />
+                        </div>
+                      )}
+                    </>
+                  )}
                   <div className="flex flex-col gap-0.5">
                     <div className="flex items-center gap-3">
                       <span className="text-base font-semibold text-zinc-700 dark:text-zinc-300 whitespace-nowrap">
@@ -46,25 +60,23 @@ export default function Career() {
                       )}
                     </div>
                     <span className="text-sm text-zinc-600 dark:text-zinc-400">
-                      <a
-                        aria-label={`Visit ${work.company} website`}
-                        href={work.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={
-                          work.website
-                            ? "underline sm:hover:text-zinc-900 sm:dark:hover:text-zinc-300"
-                            : ""
-                        }
-                      >
-                        {work.company}
-                        {work.website && (
+                      {work.website ? (
+                        <a
+                          href={work.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline sm:hover:text-zinc-900 sm:dark:hover:text-zinc-300"
+                        >
+                          {work.company}
                           <IconArrowUpRight
                             size={18}
-                            className="inline mb-0.5 overflow-clip  text-zinc-500 dark:text-zinc-500"
+                            className="inline mb-0.5 overflow-clip text-zinc-500 dark:text-zinc-500"
                           />
-                        )}
-                      </a>
+                        </a>
+                      ) : (
+                        /* Render just the text if there is no website */
+                        work.company
+                      )}
                     </span>
                     <span className="text-sm text-zinc-500">
                       {work.start} - {work.end}
