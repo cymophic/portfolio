@@ -19,7 +19,7 @@ import type { WakatimeStats } from "@/lib/services/wakatime";
 import type { SpotifyStats } from "@/lib/services/spotify";
 import type { MonkeytypeStats } from "@/lib/services/monkeytype";
 
-import { profileInfo } from "@/lib/site";
+import { timezone, country, profileInfo } from "@/lib/site";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {
   getAge,
@@ -33,8 +33,6 @@ import Tooltip from "@/components/ui/Tooltip";
 import ContributionGraph from "@/components/sections/home/Stats/ContributionGraph";
 
 // Constants
-const TIMEZONE = "Asia/Manila";
-const COUNTRY = "Philippines";
 const SONG_REFRESH_INTERVAL = 1.5; // minutes
 const LOADMS_CONTRIBUTION_GRAPH = 200; // milliseconds
 
@@ -76,7 +74,7 @@ function ageStat(age: string, birthday: string): StatItemType {
 function locationStat(time: Time | null): StatItemType {
   return {
     icon: <IconMapPin size={18} />,
-    label: `Currently in ${COUNTRY}`,
+    label: `Currently in ${country}`,
     sublabel: (
       <>
         <SlotText value={time?.time ?? "—"} /> <span>({time?.offset})</span>
@@ -194,13 +192,14 @@ export default function Stats() {
     null,
   );
 
-  const nowOrLast = spotifyStats?.nowPlaying ?? spotifyStats?.lastPlayed;
+  const nowOrLast =
+    spotifyStats?.nowPlaying ?? spotifyStats?.lastPlayed ?? null;
 
   // Fetch all stats on mount and start live update intervals
   useEffect(() => {
     const interval = setInterval(() => {
       setAge(getAge(profileInfo.birthday));
-      setTime(getLocalTime(TIMEZONE));
+      setTime(getLocalTime(timezone));
     }, 1000);
 
     fetchWakatimeStats().then(setWakatimeStats);

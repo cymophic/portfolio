@@ -1,7 +1,9 @@
 import type { Career, Education, Project } from "@/lib/types/site";
 
-// The site's public URL
+// Site details
 export const websiteURL = "https://luisabhram.dev";
+export const timezone = "Asia/Manila";
+export const country = "Philippines";
 
 // Navigation links for the website
 export const navLinks: { href: string; label: string }[] = [
