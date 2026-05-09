@@ -34,14 +34,23 @@ export function useSessionTime() {
 
 // Fetches and formats the visitor's visit count for this site
 export function useVisitCount() {
-  const [visitCount, setVisitCount] = useState(0);
+  const [visitCount, setVisitCount] = useState(() => {
+    if (typeof window === "undefined" || process.env.NODE_ENV === "development")
+      return 0;
+    const cached = localStorage.getItem("visitCount");
+    return cached ? Number(cached) : 0;
+  });
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== "development") {
-      fetch("https://abacus.jasoncameron.dev/hit/luisabhram.dev/visits")
-        .then((res) => res.json())
-        .then((data) => setVisitCount(data.value));
-    }
+    if (process.env.NODE_ENV === "development") return;
+
+    fetch("https://abacus.jasoncameron.dev/hit/luisabhram.dev/visits")
+      .then((res) => res.json())
+      .then((data) => {
+        setVisitCount(data.value);
+        localStorage.setItem("visitCount", String(data.value));
+      })
+      .catch(() => {});
   }, []);
 
   if (process.env.NODE_ENV === "development") return "dev mode";
