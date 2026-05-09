@@ -1,5 +1,7 @@
 import { websiteURL, projects } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export default function sitemap() {
   return [
     { url: websiteURL, lastModified: new Date() },
