@@ -47,130 +47,11 @@ type NowOrLast = NonNullable<
   SpotifyStats["nowPlaying"] | SpotifyStats["lastPlayed"]
 >;
 
-// Stat builder functions
-function ageStat(age: string, birthday: string): StatItemType {
-  return {
-    icon: <IconCalendarEvent size={18} />,
-    label: (
-      <>
-        <span className="font-mono">
-          <SlotText value={age} />
-        </span>{" "}
-        years old
-      </>
-    ),
-    sublabel: (
-      <>
-        <SlotText value={String(getDaysUntilBirthday(birthday))} /> days until
-        next birthday
-      </>
-    ),
-    ready: age !== "—",
-  };
-}
-function locationStat(time: Time | null): StatItemType {
-  return {
-    icon: <IconMapPin size={18} />,
-    label: `Currently in ${country}`,
-    sublabel: (
-      <>
-        <SlotText value={time?.time ?? "—"} /> <span>({time?.offset})</span>
-      </>
-    ),
-    ready: time !== null,
-  };
-}
-function spotifyStat(
-  spotifyStats: SpotifyStats | null,
-  nowOrLast: NowOrLast | null,
-): StatItemType {
-  return {
-    icon: spotifyStats?.nowPlaying ? <SoundWave /> : <IconVolume size={18} />,
-    label: nowOrLast ? (
-      <>
-        <a
-          href={nowOrLast.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
-        >
-          {nowOrLast.song}
-        </a>{" "}
-        by {nowOrLast.artist}
-      </>
-    ) : (
-      "-"
-    ),
-    labelText: nowOrLast
-      ? `${nowOrLast.song} by ${nowOrLast.artist}`
-      : undefined,
-    sublabel: spotifyStats?.nowPlaying
-      ? "Listening to right now"
-      : "Recently listened to",
-    ready: spotifyStats !== null,
-  };
-}
-function githubStat(githubStats: GithubStats | null): StatItemType {
-  return {
-    icon: <IconCode size={18} />,
-    label: (
-      <>
-        <span className="font-mono">
-          {githubStats?.totalCommits.toLocaleString()}
-        </span>{" "}
-        total commits
-      </>
-    ),
-    sublabel: "On GitHub in the last year",
-    ready: githubStats !== null,
-  };
-}
-function wakatimeStat(wakatimeStats: WakatimeStats | null): StatItemType {
-  return {
-    icon: <IconClock size={18} />,
-    label: (
-      <>
-        <span className="font-mono">
-          {wakatimeStats?.weekly.toLocaleString()}
-        </span>{" "}
-        hours coded this week
-      </>
-    ),
-    sublabel: (
-      <>
-        <span className="font-mono">
-          {wakatimeStats?.monthly.toLocaleString()}
-        </span>{" "}
-        hours coded this month
-      </>
-    ),
-    ready: wakatimeStats !== null,
-  };
-}
-function monkeytypeStat(monkeytypeStats: MonkeytypeStats | null): StatItemType {
-  return {
-    icon: <IconKeyboard size={20} />,
-    label: monkeytypeStats ? (
-      <>
-        <span className="font-mono">{Math.floor(monkeytypeStats.wpm)}</span>{" "}
-        words per minute
-      </>
-    ) : (
-      "-"
-    ),
-    labelText: monkeytypeStats
-      ? `${monkeytypeStats.wpm} 60s typing speed`
-      : undefined,
-    sublabel: "Record typing speed in 60s",
-    ready: monkeytypeStats !== null,
-  };
-}
-
 // Stats section
 export default function Stats() {
   // Local time and age update every second
-  const [age, setAge] = useState("—");
-  const [time, setTime] = useState<Time | null>(null);
+  const [age, setAge] = useState(() => getAge(profileInfo.birthday));
+  const [time, setTime] = useState<Time | null>(() => getLocalTime(timezone));
 
   // External service stats
   const [githubStats, setGithubStats] = useState<GithubStats | null>(null);
@@ -351,4 +232,123 @@ function StatItem({ stat }: { stat: StatItemType }) {
       </div>
     </li>
   );
+}
+
+// Stat builder functions
+function ageStat(age: string, birthday: string): StatItemType {
+  return {
+    icon: <IconCalendarEvent size={18} />,
+    label: (
+      <>
+        <span className="font-mono">
+          <SlotText value={age} />
+        </span>{" "}
+        years old
+      </>
+    ),
+    sublabel: (
+      <>
+        <SlotText value={String(getDaysUntilBirthday(birthday))} /> days until
+        next birthday
+      </>
+    ),
+    ready: age !== "—",
+  };
+}
+function locationStat(time: Time | null): StatItemType {
+  return {
+    icon: <IconMapPin size={18} />,
+    label: `Currently in ${country}`,
+    sublabel: (
+      <>
+        <SlotText value={time?.time ?? "—"} /> <span>({time?.offset})</span>
+      </>
+    ),
+    ready: time !== null,
+  };
+}
+function spotifyStat(
+  spotifyStats: SpotifyStats | null,
+  nowOrLast: NowOrLast | null,
+): StatItemType {
+  return {
+    icon: spotifyStats?.nowPlaying ? <SoundWave /> : <IconVolume size={18} />,
+    label: nowOrLast ? (
+      <>
+        <a
+          href={nowOrLast.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          {nowOrLast.song}
+        </a>{" "}
+        by {nowOrLast.artist}
+      </>
+    ) : (
+      "-"
+    ),
+    labelText: nowOrLast
+      ? `${nowOrLast.song} by ${nowOrLast.artist}`
+      : undefined,
+    sublabel: spotifyStats?.nowPlaying
+      ? "Listening to right now"
+      : "Recently listened to",
+    ready: spotifyStats !== null,
+  };
+}
+function githubStat(githubStats: GithubStats | null): StatItemType {
+  return {
+    icon: <IconCode size={18} />,
+    label: (
+      <>
+        <span className="font-mono">
+          {githubStats?.totalCommits.toLocaleString()}
+        </span>{" "}
+        total commits
+      </>
+    ),
+    sublabel: "On GitHub in the last year",
+    ready: githubStats !== null,
+  };
+}
+function wakatimeStat(wakatimeStats: WakatimeStats | null): StatItemType {
+  return {
+    icon: <IconClock size={18} />,
+    label: (
+      <>
+        <span className="font-mono">
+          {wakatimeStats?.weekly.toLocaleString()}
+        </span>{" "}
+        hours coded this week
+      </>
+    ),
+    sublabel: (
+      <>
+        <span className="font-mono">
+          {wakatimeStats?.monthly.toLocaleString()}
+        </span>{" "}
+        hours coded this month
+      </>
+    ),
+    ready: wakatimeStats !== null,
+  };
+}
+function monkeytypeStat(monkeytypeStats: MonkeytypeStats | null): StatItemType {
+  return {
+    icon: <IconKeyboard size={20} />,
+    label: monkeytypeStats ? (
+      <>
+        <span className="font-mono">{Math.floor(monkeytypeStats.wpm)}</span>{" "}
+        words per minute
+      </>
+    ) : (
+      "-"
+    ),
+    labelText: monkeytypeStats
+      ? `${monkeytypeStats.wpm} 60s typing speed`
+      : undefined,
+    sublabel: "Record typing speed in 60s",
+    ready: monkeytypeStats !== null,
+  };
 }
