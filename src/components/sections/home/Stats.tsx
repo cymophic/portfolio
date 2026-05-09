@@ -50,8 +50,8 @@ type NowOrLast = NonNullable<
 // Stats section
 export default function Stats() {
   // Local time and age update every second
-  const [age, setAge] = useState(() => getAge(profileInfo.birthday));
-  const [time, setTime] = useState<Time | null>(() => getLocalTime(timezone));
+  const [age, setAge] = useState("—");
+  const [time, setTime] = useState<Time | null>(null);
 
   // External service stats
   const [githubStats, setGithubStats] = useState<GithubStats | null>(null);
