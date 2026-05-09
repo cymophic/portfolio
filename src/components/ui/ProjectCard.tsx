@@ -46,7 +46,7 @@ export default function ProjectCard({
           <Image
             src={project.cover}
             priority={priority}
-            alt={`${project.title} cover`}
+            alt={`${project.title} cover image`}
             width={800}
             height={450}
             className="hidden sm:block rounded-t-2xl w-full object-cover"
@@ -109,6 +109,8 @@ function LiveLink({ project }: { project: Project }) {
   const [index, setIndex] = useState(0);
   const [disabled, setDisabled] = useState(false);
 
+  if (!project.url) return null;
+
   // Shows the next easter egg toast
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.stopPropagation();
@@ -160,6 +162,8 @@ function LiveLink({ project }: { project: Project }) {
 // GitHub repository link of the project
 function RepoLink({ project }: { project: Project }) {
   const isMobile = useIsMobile();
+
+  if (!project.repo) return null;
 
   return (
     <Tooltip content="View Code" disabled={isMobile}>
