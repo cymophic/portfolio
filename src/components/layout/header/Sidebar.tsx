@@ -30,6 +30,7 @@ export default function Sidebar({
       className="fixed top-0 left-0 h-full w-full md:w-64 z-40 bg-zinc-50 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 flex flex-col justify-between py-4 px-6 invisible"
     >
       <div className="mt-16">
+        {/* Navigation */}
         <nav className="flex flex-col gap-1.5">
           {navLinks.map((link, i) => (
             <Link
@@ -50,6 +51,7 @@ export default function Sidebar({
           ))}
         </nav>
 
+        {/* Socials */}
         <div className="mt-16">
           <SocialLinks iconsRef={iconsRef} hoverEffect="monochrome" />
         </div>
