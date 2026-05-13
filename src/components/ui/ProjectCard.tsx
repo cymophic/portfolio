@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import type { Project } from "@/lib/types/site";
 import { websiteURL, portfolioEasterEggMessages } from "@/lib/site";
 import Tooltip from "@/components/ui/Tooltip";
+import Skeleton from "@/components/ui/Skeleton";
 import { useIsMobile } from "@/hooks/utils/useEnvironment";
 
 const tagPillClass =
@@ -41,15 +42,12 @@ export default function ProjectCard({
       className={`h-full flex flex-col rounded-2xl border border-zinc-300 dark:border-zinc-600 group ${project.page ? "cursor-pointer hover:border-zinc-400 hover:dark:border-zinc-500" : "cursor-default"}`}
     >
       {/* Cover Image */}
-      {showImage && project.cover && (
-        <div className="hidden sm:block">
-          <Image
+      {project.cover && (
+        <div className={showImage ? "" : "hidden"}>
+          <CoverImage
             src={project.cover}
+            title={project.title}
             priority={priority}
-            alt={`${project.title} cover image`}
-            width={800}
-            height={450}
-            className="hidden sm:block rounded-t-2xl w-full object-cover"
           />
         </div>
       )}
@@ -178,5 +176,37 @@ function RepoLink({ project }: { project: Project }) {
         <FaGithub size={17} className="overflow-clip" />
       </a>
     </Tooltip>
+  );
+}
+
+// Cover image of the project
+function CoverImage({
+  src,
+  title,
+  priority,
+}: {
+  src: string;
+  title: string;
+  priority?: boolean;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div className="hidden sm:block rounded-t-2xl">
+      {!loaded && (
+        <Skeleton
+          shape="pill"
+          className="h-45 sm:h-46.5 xl:h-47.75 w-full rounded-none rounded-t-xl"
+        />
+      )}
+      <Image
+        src={src}
+        priority={priority}
+        alt={`${title} cover image`}
+        width={800}
+        height={450}
+        onLoad={() => setLoaded(true)}
+        className={`w-full rounded-t-2xl ${loaded ? "visible" : "invisible h-0"}`}
+      />
+    </div>
   );
 }
