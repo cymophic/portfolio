@@ -146,4 +146,12 @@ resource "aws_cloudfront_response_headers_policy" "cors" {
       protection = true
     }
   }
+
+  custom_headers_config {
+    items {
+      header   = "Cross-Origin-Opener-Policy"
+      value    = "same-origin"
+      override = true
+    }
+  }
 }
