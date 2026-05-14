@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   IconExternalLink,
-  IconSourceCode,
+  IconCodeblock,
   IconArrowRight,
   IconArrowUpRight,
 } from "@tabler/icons-react";
@@ -175,7 +175,7 @@ function RepoLink({ project }: { project: Project }) {
         onClick={(e) => e.stopPropagation()}
         className="transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
       >
-        <IconSourceCode size={20} className="overflow-clip" />
+        <IconCodeblock size={20} className="overflow-clip" />
       </a>
     </Tooltip>
   );
