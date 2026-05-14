@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Inter, Geist_Mono, Spline_Sans_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 
@@ -84,7 +83,6 @@ export default function RootLayout({
           </TooltipProvider>
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </html>
   );
 }

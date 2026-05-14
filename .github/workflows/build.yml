@@ -9,9 +9,6 @@ on:
       NEXT_PUBLIC_SITE_MODE:
         required: true
         type: string
-      NEXT_PUBLIC_GA_ID:
-        required: true
-        type: string
       NEXT_PUBLIC_SENTRY_DSN:
         required: true
         type: string
@@ -33,7 +30,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: 'npm'
+          cache: "npm"
 
       - name: Cache Next.js build
         uses: actions/cache@v5
@@ -50,7 +47,6 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_MODE: ${{ inputs.NEXT_PUBLIC_SITE_MODE }}
-          NEXT_PUBLIC_GA_ID: ${{ inputs.NEXT_PUBLIC_GA_ID }}
           NEXT_PUBLIC_SENTRY_DSN: ${{ inputs.NEXT_PUBLIC_SENTRY_DSN }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           NEXT_PUBLIC_API_URL: ${{ inputs.NEXT_PUBLIC_API_URL }}
