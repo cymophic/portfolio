@@ -3,12 +3,12 @@ import { readdirSync, statSync } from "fs";
 import { join, extname, basename } from "path";
 
 // Directories to convert
-const CONVERT_DIRS = ["public/projects", "public/logos"];
+const CONVERT_DIRS = ["src/assets/projects", "src/assets/logos"];
 
 // Size map for each directory
 const SIZE_MAP: Record<string, { width: number; height: number }> = {
-  "public/logos": { width: 128, height: 128 },
-  "public/projects": { width: 800, height: 450 },
+  "src/assets/logos": { width: 128, height: 128 },
+  "src/assets/projects": { width: 800, height: 450 },
 };
 
 // Files to skip
@@ -31,7 +31,9 @@ async function main() {
       if (extname(file) !== ".png") continue;
       if (SKIP.includes(basename(file))) continue;
 
-      const output = file.replace(".png", ".webp");
+      const output = file
+        .replace("src/assets", "public")
+        .replace(".png", ".webp");
       await sharp(file)
         .resize(size.width, size.height, {
           fit: "inside",
