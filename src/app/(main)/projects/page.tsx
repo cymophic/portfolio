@@ -38,7 +38,7 @@ export default function Projects() {
         <div className="columns-1 sm:columns-2 xl:columns-3 gap-6">
           {projects.map((project, i) => (
             <div key={i} className="break-inside-avoid mb-6">
-              <ProjectCard project={project} priority={i === 0} />
+              <ProjectCard project={project} priority={i <= 4} />
             </div>
           ))}
         </div>

@@ -4,11 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
-  IconWorldShare,
+  IconExternalLink,
+  IconSourceCode,
   IconArrowRight,
   IconArrowUpRight,
 } from "@tabler/icons-react";
-import { FaGithub } from "react-icons/fa";
 import { toast } from "sonner";
 
 import type { Project } from "@/lib/types/site";
@@ -60,8 +60,10 @@ export default function ProjectCard({
             <span className="text-lg font-semibold text-zinc-700 dark:text-zinc-300">
               {project.title}
             </span>
-            {project.url && <LiveLink project={project} />}
-            {project.repo && <RepoLink project={project} />}
+            <div className="flex items-center gap-1 mb-0.5">
+              {project.url && <LiveLink project={project} />}
+              {project.repo && <RepoLink project={project} />}
+            </div>
           </div>
 
           {project.page && (
@@ -150,7 +152,7 @@ function LiveLink({ project }: { project: Project }) {
         {disabled ? (
           <span className="text-base leading-none">💥</span>
         ) : (
-          <IconWorldShare size={18} className="overflow-clip" />
+          <IconExternalLink size={20} className="overflow-clip" />
         )}
       </a>
     </Tooltip>
@@ -164,7 +166,7 @@ function RepoLink({ project }: { project: Project }) {
   if (!project.repo) return null;
 
   return (
-    <Tooltip content="View Code" disabled={isMobile}>
+    <Tooltip content="View Source Code" disabled={isMobile}>
       <a
         aria-label={`View ${project.title} repository`}
         href={project.repo!}
@@ -173,7 +175,7 @@ function RepoLink({ project }: { project: Project }) {
         onClick={(e) => e.stopPropagation()}
         className="transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
       >
-        <FaGithub size={17} className="overflow-clip" />
+        <IconSourceCode size={20} className="overflow-clip" />
       </a>
     </Tooltip>
   );
@@ -201,6 +203,7 @@ function CoverImage({
       <Image
         src={src}
         priority={priority}
+        loading={priority ? "eager" : "lazy"}
         alt={`${title} cover image`}
         width={800}
         height={450}
