@@ -203,6 +203,7 @@ function CoverImage({
       <Image
         src={src}
         priority={priority}
+        loading={priority ? "eager" : "lazy"}
         alt={`${title} cover image`}
         width={800}
         height={450}
