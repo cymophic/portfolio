@@ -78,6 +78,7 @@ luisabhram.dev/
 │   │   ├── not-found.tsx                 # 404 page
 │   │   ├── robots.ts                     # Crawler instructions
 │   │   └── sitemap.ts                    # Sitemap
+│   ├── assets/                           # Source images
 │   ├── components/
 │   │   ├── layout/                       # App-wide layout components
 │   │   ├── ui/                           # Small reusable UI components
