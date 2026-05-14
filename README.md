@@ -37,7 +37,6 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **DNS & Security:** Cloudflare (DNS) & AWS ACM (SSL)
 - **IaC:** Terraform
 - **Observability:** Sentry (Errors), AWS CloudWatch (Logs + Metrics)
-- **Analytics:** Google Analytics
 
 ### CI/CD
 - **Pipeline:** GitHub Actions
@@ -266,7 +265,6 @@ The following are configured in **Settings → Secrets and Variables → Actions
 | `DATE_CREATED_FIELD_ID` | "Date Created" field node ID in GitHub Projects |
 | `DATE_RESOLVED_FIELD_ID` | "Date Resolved" field node ID in GitHub Projects |
 | `NEXT_PUBLIC_SITE_MODE` | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
-| `NEXT_PUBLIC_GA_ID` | Google Analytics Measurement ID |
 | `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN for error monitoring |
 | `NEXT_PUBLIC_API_URL` | Lambda + API Gateway URL |
 | `NEXT_PUBLIC_CDN_URL` | CloudFront CDN URL for static stats JSON |

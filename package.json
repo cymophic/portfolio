@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
-    "@next/third-parties": "^16.2.6",
     "@sentry/nextjs": "^10.52.0",
     "@tabler/icons-react": "^3.43.0",
     "@wrksz/themes": "^0.9.2",
