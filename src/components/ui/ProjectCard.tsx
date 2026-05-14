@@ -150,7 +150,7 @@ function LiveLink({ project }: { project: Project }) {
         className={`transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300 ${disabled ? "pointer-events-none" : ""}`}
       >
         {disabled ? (
-          <span className="text-base leading-none">💥</span>
+          <span className="text-base leading-none select-none">💥</span>
         ) : (
           <IconExternalLink size={20} className="overflow-clip" />
         )}
