@@ -11,8 +11,8 @@ export default function TechStack() {
           <SectionTitle title="Tech Stack" />
 
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            A collection of tools and technologies I&#39;ve worked with. Hover
-            over each to see the name.
+            A collection of tools and technologies I&#39;ve worked with. You can
+            hover over each item to see the name.
           </p>
         </div>
 
@@ -33,7 +33,7 @@ export default function TechStack() {
               <div className="flex flex-wrap gap-2">
                 {items.map((tech) => (
                   <Tooltip key={tech} content={tech}>
-                    <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-900 text-[10px] font-medium text-zinc-500 dark:text-zinc-400 cursor-default">
+                    <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-200/60 dark:bg-zinc-900 text-[10px] font-medium text-zinc-500 dark:text-zinc-400 cursor-default active:scale-85 sm:active:scale-120 sm:hover:scale-120 transition-transform duration-100">
                       {tech.slice(0, 2)}
                     </span>
                   </Tooltip>
