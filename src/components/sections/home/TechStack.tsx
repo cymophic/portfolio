@@ -1,7 +1,5 @@
-// src/components/sections/home/TechStack.tsx
 import { techStack } from "@/lib/site";
 import SectionTitle from "@/components/ui/SectionTitle";
-import Tooltip from "@/components/ui/Tooltip";
 
 export default function TechStack() {
   return (
@@ -17,12 +15,12 @@ export default function TechStack() {
         </div>
 
         {/* Tech Stack */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {techStack.map(({ category, items }, i) => (
             <div
               key={category}
               className={`flex flex-col gap-3 rounded-2xl p-4 border border-zinc-300 dark:border-zinc-600
-                ${i === techStack.length - 1 && techStack.length % 2 !== 0 ? "hidden sm:flex" : ""}`}
+                ${i === techStack.length - 1 && techStack.length % 2 !== 0 ? "hidden md:flex" : ""}`}
             >
               {/* Category Title */}
               <span className="text-xs font-medium uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
@@ -32,11 +30,9 @@ export default function TechStack() {
               {/* Tech Items */}
               <div className="flex flex-wrap gap-2">
                 {items.map((tech) => (
-                  <Tooltip key={tech} content={tech}>
-                    <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-200/60 dark:bg-zinc-900 text-[10px] font-medium text-zinc-500 dark:text-zinc-400 cursor-default active:scale-85 sm:active:scale-120 sm:hover:scale-120 transition-transform duration-100">
-                      {tech.slice(0, 2)}
-                    </span>
-                  </Tooltip>
+                  <span className="inline-flex items-center rounded-full border border-zinc-300 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-600 dark:text-zinc-300/80">
+                    {tech}
+                  </span>
                 ))}
               </div>
             </div>
