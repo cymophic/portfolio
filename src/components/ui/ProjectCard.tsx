@@ -15,10 +15,8 @@ import type { Project } from "@/lib/types/site";
 import { websiteURL, portfolioEasterEggMessages } from "@/lib/site";
 import Tooltip from "@/components/ui/Tooltip";
 import Skeleton from "@/components/ui/Skeleton";
+import Pill from "@/components/ui/Pill";
 import { useIsMobile } from "@/hooks/utils/useEnvironment";
-
-const tagPillClass =
-  "inline-flex items-center rounded-full border border-zinc-300 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-600 dark:text-zinc-300/80";
 
 export default function ProjectCard({
   project,
@@ -91,9 +89,7 @@ export default function ProjectCard({
         <div className="flex items-center justify-between gap-2 mt-auto pt-6">
           <div className="flex flex-wrap gap-1.5">
             {project.tags.slice(0, 3).map((tag, i) => (
-              <span key={i} className={tagPillClass}>
-                {tag}
-              </span>
+              <Pill key={i} text={tag} />
             ))}
           </div>
         </div>
@@ -150,7 +146,7 @@ function LiveLink({ project }: { project: Project }) {
         className={`transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300 ${disabled ? "pointer-events-none" : ""}`}
       >
         {disabled ? (
-          <span className="text-base leading-none">💥</span>
+          <span className="text-base leading-none select-none">💥</span>
         ) : (
           <IconExternalLink size={20} className="overflow-clip" />
         )}
@@ -193,11 +189,14 @@ function CoverImage({
 }) {
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className="hidden sm:block rounded-t-2xl">
+    <div
+      className="hidden sm:block rounded-t-2xl"
+      style={{ aspectRatio: "16/9" }}
+    >
       {!loaded && (
         <Skeleton
           shape="pill"
-          className="h-45 sm:h-46.5 xl:h-47.75 w-full rounded-none rounded-t-xl"
+          className="w-full h-full rounded-none rounded-t-xl"
         />
       )}
       <Image
@@ -208,7 +207,7 @@ function CoverImage({
         width={800}
         height={450}
         onLoad={() => setLoaded(true)}
-        className={`w-full rounded-t-2xl ${loaded ? "visible" : "invisible h-0"}`}
+        className={`w-full h-full object-cover rounded-t-2xl ${loaded ? "visible" : "invisible absolute inset-0"}`}
       />
     </div>
   );

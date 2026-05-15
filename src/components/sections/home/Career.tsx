@@ -3,6 +3,7 @@ import { IconArrowUpRight } from "@tabler/icons-react";
 
 import { profileInfo } from "@/lib/site";
 import SectionTitle from "@/components/ui/SectionTitle";
+import Pill from "@/components/ui/Pill";
 import { TimelineItem } from "@/components/ui/Timeline";
 
 export default function Career() {
@@ -53,11 +54,7 @@ export default function Career() {
                       <span className="text-base font-semibold text-zinc-700 dark:text-zinc-300 whitespace-nowrap">
                         {work.role}
                       </span>
-                      {work.type && (
-                        <span className="items-center rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-600 whitespace-nowrap dark:border-zinc-700 dark:text-zinc-300">
-                          {work.type}
-                        </span>
-                      )}
+                      {work.type && <Pill text={work.type} />}
                     </div>
                     <span className="text-sm text-zinc-600 dark:text-zinc-400">
                       {work.website ? (

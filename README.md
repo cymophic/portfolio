@@ -36,7 +36,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **Scheduled Jobs:** AWS EventBridge Scheduler
 - **DNS & Security:** Cloudflare (DNS) & AWS ACM (SSL)
 - **IaC:** Terraform
-- **Observability:** Sentry (Errors), AWS CloudWatch (Logs + Metrics)
+- **Observability:** AWS CloudWatch
 
 ### CI/CD
 - **Pipeline:** GitHub Actions
@@ -70,7 +70,6 @@ luisabhram.dev/
 │   │   │   ├── page.tsx                  # Homepage
 │   │   │   └── projects/                 # Projects subpages
 │   │   ├── coming-soon.tsx               # Work in progress page
-│   │   ├── global-error.tsx              # Global error boundary
 │   │   ├── globals.css                   # Global styles and Tailwind imports
 │   │   ├── icon.png                      # Site favicon
 │   │   ├── layout.tsx                    # Root layout component
@@ -254,7 +253,6 @@ The following are configured in **Settings → Secrets and Variables → Actions
 | `AWS_SECRET_ACCESS_KEY` | IAM user secret key |
 | `CLOUDFRONT_DISTRIBUTION_ID` | CloudFront distribution ID |
 | `S3_BUCKET_NAME` | S3 bucket name |
-| `SENTRY_AUTH_TOKEN` | Sentry auth token for source map uploads |
 | `CLOUDFLARE_ZONE_ID` | Cloudflare Zone ID |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API Token |
 
@@ -265,7 +263,6 @@ The following are configured in **Settings → Secrets and Variables → Actions
 | `DATE_CREATED_FIELD_ID` | "Date Created" field node ID in GitHub Projects |
 | `DATE_RESOLVED_FIELD_ID` | "Date Resolved" field node ID in GitHub Projects |
 | `NEXT_PUBLIC_SITE_MODE` | Controls which page is displayed (`live`, `coming_soon`, `maintenance`) |
-| `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN for error monitoring |
 | `NEXT_PUBLIC_API_URL` | Lambda + API Gateway URL |
 | `NEXT_PUBLIC_CDN_URL` | CloudFront CDN URL for static stats JSON |
 

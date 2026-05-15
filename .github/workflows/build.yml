@@ -2,14 +2,8 @@ name: Build the App
 
 on:
   workflow_call:
-    secrets:
-      SENTRY_AUTH_TOKEN:
-        required: true
     inputs:
       NEXT_PUBLIC_SITE_MODE:
-        required: true
-        type: string
-      NEXT_PUBLIC_SENTRY_DSN:
         required: true
         type: string
       NEXT_PUBLIC_API_URL:
@@ -47,8 +41,6 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_MODE: ${{ inputs.NEXT_PUBLIC_SITE_MODE }}
-          NEXT_PUBLIC_SENTRY_DSN: ${{ inputs.NEXT_PUBLIC_SENTRY_DSN }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           NEXT_PUBLIC_API_URL: ${{ inputs.NEXT_PUBLIC_API_URL }}
           NEXT_PUBLIC_CDN_URL: ${{ inputs.NEXT_PUBLIC_CDN_URL }}
 

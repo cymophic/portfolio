@@ -112,33 +112,48 @@ export const profileInfo = {
 };
 
 // Tech stack
-export const techStack = {
-  os: ["Linux", "Windows", "MacOS"],
-  frontend: [
-    "JavaScript",
-    "TypeScript",
-    "React",
-    "Next.js",
-    "TailwindCSS",
-    "Bootstrap",
-    "GSAP",
-  ],
-  backend: ["Python", "Django", "Django Ninja", "REST APIs"],
-  databases: ["PostgreSQL", "SQLite", "NeonDB", "Supabase"],
-  devops: [
-    "Docker",
-    "Nginx",
-    "Gunicorn",
-    "Celery",
-    "Redis",
-    "Ansible",
-    "Kubernetes",
-  ],
-  cloud: ["AWS", "Cloudflare"],
-  cicd: ["Git", "GitHub Actions"],
-  scripting: ["Python", "Bash", "Makefile"],
-  monitoring: ["Sentry", "Google Analytics", "Grafana", "Prometheus", "Loki"],
-};
+export const techStack = [
+  {
+    category: "Frontend",
+    items: [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "TailwindCSS",
+      "Bootstrap",
+      "GSAP",
+    ],
+  },
+  {
+    category: "Backend",
+    items: ["Python", "Django", "Django Ninja", "REST APIs"],
+  },
+  {
+    category: "Databases",
+    items: ["PostgreSQL", "SQLite", "NeonDB", "Supabase"],
+  },
+  {
+    category: "DevOps",
+    items: [
+      "Docker",
+      "Nginx",
+      "Gunicorn",
+      "Celery",
+      "Redis",
+      "Ansible",
+      "Terraform",
+    ],
+  },
+  { category: "Cloud", items: ["AWS", "Cloudflare"] },
+  { category: "CI/CD", items: ["Git", "GitHub Actions"] },
+  { category: "Scripting", items: ["Python", "Bash", "Makefile"] },
+  {
+    category: "Monitoring",
+    items: ["Sentry", "Google Analytics", "Grafana", "Prometheus", "Loki"],
+  },
+  { category: "Operating Systems", items: ["Linux", "Windows", "MacOS"] },
+];
 
 // Certifications
 export const certifications = [
@@ -156,7 +171,7 @@ export const projects: Project[] = [
     slug: "digital-portfolio",
     pinned: true,
     description: "The website where you're currently reading this right now.",
-    tags: ["Live", "Personal"],
+    tags: ["Next.js", "AWS", "Terraform", "Cloudflare"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
     cover: "/projects/digital-portfolio/cover.webp",
@@ -167,7 +182,7 @@ export const projects: Project[] = [
     pinned: true,
     description:
       "A Lead-to-Cash (L2C) platform built to digitize retail lead and post-sale service tracking.",
-    tags: ["Live", "Enterprise"],
+    tags: ["Docker", "Ansible", "Monitoring", "Django"],
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
     cover: "/projects/l2c-portal/cover.webp",
@@ -178,7 +193,7 @@ export const projects: Project[] = [
     pinned: true,
     description:
       "The official lead generation website of Power Mac Center for business-level clients.",
-    tags: ["Live", "Enterprise"],
+    tags: ["Django", "Celery", "GitHub Actions"],
     url: "https://business.powermaccenter.com",
     repo: null,
     cover: "/projects/pmc-business/cover.webp",
@@ -189,7 +204,7 @@ export const projects: Project[] = [
     pinned: true,
     description:
       "A service portal for after-sales support and real-time status tracking.",
-    tags: ["Live", "Enterprise"],
+    tags: ["Django", "Bootstrap"],
     url: "https://mobilecareph.com",
     repo: null,
     cover: "/projects/mobilecare-ph/cover.webp",
@@ -199,7 +214,7 @@ export const projects: Project[] = [
     slug: "cymo-gpt",
     pinned: false,
     description: "A simple Discord AI bot powered by GPT-4o for personal use.",
-    tags: ["Personal", "AI"],
+    tags: ["JavaScript", "AI"],
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
     cover: "/projects/cymo-gpt/cover.webp",
@@ -209,7 +224,7 @@ export const projects: Project[] = [
     slug: "number-guesser",
     pinned: false,
     description: "A quick number guessing game I spun in my early years.",
-    tags: ["Live", "Personal", "Game"],
+    tags: ["JavaScript"],
     url: "https://cymophic.github.io/number-guesser/",
     repo: "https://github.com/cymophic/number-guesser",
   },
@@ -219,7 +234,7 @@ export const projects: Project[] = [
     pinned: false,
     description:
       "A simple hangman game with GUI created using Java Swing for practicing Java.",
-    tags: ["Personal", "Game"],
+    tags: ["Java Swing"],
     url: "https://cymophic.itch.io/hangman-game",
     repo: "https://github.com/cymophic/hangman",
   },
