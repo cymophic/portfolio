@@ -189,11 +189,14 @@ function CoverImage({
 }) {
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className="hidden sm:block rounded-t-2xl">
+    <div
+      className="hidden sm:block rounded-t-2xl"
+      style={{ aspectRatio: "16/9" }}
+    >
       {!loaded && (
         <Skeleton
           shape="pill"
-          className="h-45 sm:h-46.5 xl:h-47.75 w-full rounded-none rounded-t-xl"
+          className="w-full h-full rounded-none rounded-t-xl"
         />
       )}
       <Image
@@ -204,7 +207,7 @@ function CoverImage({
         width={800}
         height={450}
         onLoad={() => setLoaded(true)}
-        className={`w-full rounded-t-2xl ${loaded ? "visible" : "invisible h-0"}`}
+        className={`w-full h-full object-cover rounded-t-2xl ${loaded ? "visible" : "invisible absolute inset-0"}`}
       />
     </div>
   );

@@ -10,8 +10,7 @@ export default function TechStack() {
           <SectionTitle title="Tech Stack" />
 
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            A collection of tools and technologies I&#39;ve worked with. You can
-            hover over each item to see the name.
+            A collection of tools and technologies I&#39;ve worked with.
           </p>
         </div>
 
