@@ -15,10 +15,8 @@ import type { Project } from "@/lib/types/site";
 import { websiteURL, portfolioEasterEggMessages } from "@/lib/site";
 import Tooltip from "@/components/ui/Tooltip";
 import Skeleton from "@/components/ui/Skeleton";
+import Pill from "@/components/ui/Pill";
 import { useIsMobile } from "@/hooks/utils/useEnvironment";
-
-const tagPillClass =
-  "inline-flex items-center rounded-full border border-zinc-300 px-2.5 py-0.5 text-xs text-zinc-700 whitespace-nowrap dark:border-zinc-600 dark:text-zinc-300/80";
 
 export default function ProjectCard({
   project,
@@ -91,9 +89,7 @@ export default function ProjectCard({
         <div className="flex items-center justify-between gap-2 mt-auto pt-6">
           <div className="flex flex-wrap gap-1.5">
             {project.tags.slice(0, 3).map((tag, i) => (
-              <span key={i} className={tagPillClass}>
-                {tag}
-              </span>
+              <Pill key={i} text={tag} />
             ))}
           </div>
         </div>
