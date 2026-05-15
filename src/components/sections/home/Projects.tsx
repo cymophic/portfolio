@@ -27,7 +27,7 @@ export default function Projects() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch auto-rows-[1fr]">
           {pinned.map((project, i) => (
-            <ProjectCard key={i} project={project} showImage={false} />
+            <ProjectCard key={i} project={project} />
           ))}
         </div>
       </div>
