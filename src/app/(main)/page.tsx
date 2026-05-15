@@ -4,6 +4,7 @@ import Stats from "@/components/sections/home/Stats";
 import Work from "@/components/sections/home/Career";
 import Education from "@/components/sections/home/Education";
 import Projects from "@/components/sections/home/Projects";
+import TechStack from "@/components/sections/home/TechStack";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <About />
       <Stats />
       <Projects />
+      <TechStack />
       <Work />
       <Education />
     </div>

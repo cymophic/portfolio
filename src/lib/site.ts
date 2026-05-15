@@ -112,33 +112,48 @@ export const profileInfo = {
 };
 
 // Tech stack
-export const techStack = {
-  os: ["Linux", "Windows", "MacOS"],
-  frontend: [
-    "JavaScript",
-    "TypeScript",
-    "React",
-    "Next.js",
-    "TailwindCSS",
-    "Bootstrap",
-    "GSAP",
-  ],
-  backend: ["Python", "Django", "Django Ninja", "REST APIs"],
-  databases: ["PostgreSQL", "SQLite", "NeonDB", "Supabase"],
-  devops: [
-    "Docker",
-    "Nginx",
-    "Gunicorn",
-    "Celery",
-    "Redis",
-    "Ansible",
-    "Kubernetes",
-  ],
-  cloud: ["AWS", "Cloudflare"],
-  cicd: ["Git", "GitHub Actions"],
-  scripting: ["Python", "Bash", "Makefile"],
-  monitoring: ["Sentry", "Google Analytics", "Grafana", "Prometheus", "Loki"],
-};
+export const techStack = [
+  {
+    category: "Frontend",
+    items: [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "TailwindCSS",
+      "Bootstrap",
+      "GSAP",
+    ],
+  },
+  {
+    category: "Backend",
+    items: ["Python", "Django", "Django Ninja", "REST APIs"],
+  },
+  {
+    category: "Databases",
+    items: ["PostgreSQL", "SQLite", "NeonDB", "Supabase"],
+  },
+  {
+    category: "DevOps",
+    items: [
+      "Docker",
+      "Nginx",
+      "Gunicorn",
+      "Celery",
+      "Redis",
+      "Ansible",
+      "Kubernetes",
+    ],
+  },
+  { category: "Cloud", items: ["AWS", "Cloudflare"] },
+  { category: "CI/CD", items: ["Git", "GitHub Actions"] },
+  { category: "Scripting", items: ["Python", "Bash", "Makefile"] },
+  {
+    category: "Monitoring",
+    items: ["Sentry", "Google Analytics", "Grafana", "Prometheus", "Loki"],
+  },
+  { category: "Operating Systems", items: ["Linux", "Windows", "MacOS"] },
+];
 
 // Certifications
 export const certifications = [
