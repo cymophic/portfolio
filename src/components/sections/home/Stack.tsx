@@ -47,59 +47,51 @@ export default function TechStack() {
 function getStackColor(tech: string, isDark: boolean): string | undefined {
   const colors: Record<string, { light: string; dark: string }> = {
     // Frontend
-    JavaScript: { light: "#b59100", dark: "#F7DF1E" },
+    JavaScript: { light: "#d97706", dark: "#F7DF1E" },
     TypeScript: { light: "#2563b0", dark: "#5a9fd4" },
-    React: { light: "#0891b2", dark: "#61DAFB" },
-    "Next.js": { light: "#171717", dark: "#FFFFFF" },
-    TailwindCSS: { light: "#0369a1", dark: "#38bdf8" },
-    Bootstrap: { light: "#6d28d9", dark: "#A370F7" },
-    GSAP: { light: "#4a7c00", dark: "#88CE02" },
-
+    React: { light: "#0284c7", dark: "#61DAFB" },
+    "Next.js": { light: "#6b7280", dark: "#CCCCCC" },
+    TailwindCSS: { light: "#0891b2", dark: "#38bdf8" },
+    Bootstrap: { light: "#7c3aed", dark: "#A370F7" },
+    GSAP: { light: "#65a30d", dark: "#88CE02" },
     // Backend
-    Python: { light: "#1d4ed8", dark: "#4B8BBE" },
-    Django: { light: "#065f46", dark: "#44B78B" },
-    "Django Ninja": { light: "#065f46", dark: "#44B78B" },
-    "REST APIs": { light: "#4338ca", dark: "#818CF8" },
-
+    Python: { light: "#2563b0", dark: "#4B8BBE" },
+    Django: { light: "#059669", dark: "#44B78B" },
+    "Django Ninja": { light: "#059669", dark: "#44B78B" },
+    "REST APIs": { light: "#6366f1", dark: "#818CF8" },
     // Databases
-    PostgreSQL: { light: "#1d4ed8", dark: "#4f8ef7" },
-    SQLite: { light: "#0369a1", dark: "#44A8CC" },
-    NeonDB: { light: "#047857", dark: "#00E699" },
-    Supabase: { light: "#15803d", dark: "#3ECF8E" },
-
+    PostgreSQL: { light: "#3b82f6", dark: "#4f8ef7" },
+    SQLite: { light: "#0ea5e9", dark: "#44A8CC" },
+    NeonDB: { light: "#10b981", dark: "#00E699" },
+    Supabase: { light: "#22c55e", dark: "#3ECF8E" },
     // DevOps
-    Docker: { light: "#0369a1", dark: "#2496ED" },
-    Nginx: { light: "#166534", dark: "#00C44F" },
-    Gunicorn: { light: "#166534", dark: "#6DC96C" },
-    Celery: { light: "#15803d", dark: "#4CAF6A" },
-    Redis: { light: "#b91c1c", dark: "#FF6B6B" },
-    Ansible: { light: "#b91c1c", dark: "#EE0000" },
-    Terraform: { light: "#5b21b6", dark: "#a78bfa" },
-    Kubernetes: { light: "#1d4ed8", dark: "#6b9ff7" },
-
+    Docker: { light: "#0ea5e9", dark: "#2496ED" },
+    Nginx: { light: "#16a34a", dark: "#00C44F" },
+    Gunicorn: { light: "#65a30d", dark: "#6DC96C" },
+    Celery: { light: "#10b981", dark: "#4CAF6A" },
+    Redis: { light: "#ef4444", dark: "#FF6B6B" },
+    Ansible: { light: "#dc2626", dark: "#EE0000" },
+    Terraform: { light: "#7c3aed", dark: "#a78bfa" },
+    Kubernetes: { light: "#3b82f6", dark: "#6b9ff7" },
     // Cloud
-    AWS: { light: "#b45309", dark: "#FF9900" },
-    Cloudflare: { light: "#c2410c", dark: "#F48120" },
-
+    AWS: { light: "#d97706", dark: "#FF9900" },
+    Cloudflare: { light: "#ea580c", dark: "#F48120" },
     // CI/CD
-    Git: { light: "#c2410c", dark: "#F05032" },
-    "GitHub Actions": { light: "#171717", dark: "#FFFFFF" },
-
+    Git: { light: "#ea580c", dark: "#F05032" },
+    "GitHub Actions": { light: "#6b7280", dark: "#CCCCCC" },
     // Scripting
-    Bash: { light: "#166534", dark: "#4EAA25" },
-    Makefile: { light: "#4b5563", dark: "#A0A0A0" },
-
+    Bash: { light: "#16a34a", dark: "#4EAA25" },
+    Makefile: { light: "#a855f7", dark: "#A0A0A0" },
     // Monitoring
-    Sentry: { light: "#4c1d95", dark: "#7B6BE0" },
-    "Google Analytics": { light: "#b45309", dark: "#F9AB00" },
-    Grafana: { light: "#c2410c", dark: "#F46800" },
-    Prometheus: { light: "#c2410c", dark: "#E6522C" },
-    Loki: { light: "#b45309", dark: "#F0A824" },
-
+    Sentry: { light: "#7c3aed", dark: "#7B6BE0" },
+    "Google Analytics": { light: "#d97706", dark: "#F9AB00" },
+    Grafana: { light: "#ea580c", dark: "#F46800" },
+    Prometheus: { light: "#ef4444", dark: "#E6522C" },
+    Loki: { light: "#d97706", dark: "#F0A824" },
     // Operating Systems
-    Linux: { light: "#374151", dark: "#FCC624" },
-    Windows: { light: "#1d4ed8", dark: "#0078D4" },
-    MacOS: { light: "#374151", dark: "#CCCCCC" },
+    Linux: { light: "#ca8a04", dark: "#FCC624" },
+    Windows: { light: "#3b82f6", dark: "#0078D4" },
+    MacOS: { light: "#9ca3af", dark: "#CCCCCC" },
   };
   return colors[tech]?.[isDark ? "dark" : "light"];
 }
