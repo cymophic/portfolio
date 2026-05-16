@@ -30,12 +30,24 @@ export const profileInfo = {
   image: "/avatar.png",
   emails: ["contact@luisabhram.dev"],
   socials: [
-    { label: "GitHub", link: "https://github.com/cymophic" },
-    { label: "LinkedIn", link: "https://linkedin.com/in/luisabhram" },
-    { label: "Instagram", link: "https://instagram.com/cymophic" },
+    {
+      label: "GitHub",
+      link: "https://github.com/cymophic",
+      handle: "cymophic",
+    },
+    {
+      label: "LinkedIn",
+      link: "https://linkedin.com/in/luisabhram",
+      handle: "in/luisabhram",
+    },
+    {
+      label: "Instagram",
+      link: "https://instagram.com/cymophic",
+      handle: "cymophic",
+    },
     {
       label: "Spotify",
-      link: "https://open.spotify.com/user/m3ej0vdb558lib2vmmpm77wqr?si=1102a92486e24076",
+      link: "https://open.spotify.com/user/...",
       handle: "cymophic",
     },
   ],

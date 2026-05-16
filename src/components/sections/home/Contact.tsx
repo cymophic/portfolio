@@ -7,18 +7,19 @@ export default function Contact() {
   return (
     <section className="w-full">
       <div className="flex flex-col gap-10 px-6 sm:px-10">
-        <SectionTitle title="Contact" />
+        <SectionTitle title="Connect" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {/* Left — CTA */}
+          {/* Call to Action */}
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
               <h2 className="text-3xl font-semibold text-zinc-700 dark:text-zinc-300">
                 Let&#39;s work together
               </h2>
-              <p className="text-base text-zinc-500 dark:text-zinc-400 max-w-sm">
-                Have a project in mind, want to collaborate, or just want to say
-                hi? I&#39;m always open to new opportunities.
+              <p className="text-base text-zinc-500 dark:text-zinc-400 max-w-prose">
+                Feel free to reach out if you&#39;re hiring, building something
+                cool, or just need an extra set of hands. I&#39;m always open to
+                new opportunities.
               </p>
             </div>
             <div className="flex flex-col gap-4 w-full sm:flex-row">
@@ -31,28 +32,21 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right — Get in Touch */}
+          {/* Socials */}
           <div>
             <ul className="flex flex-col">
               {[
-                ...profileInfo.socials.map((s) => ({
-                  label: s.label,
-                  handle: s.handle
-                    ? `/${s.handle}`
-                    : s.label === "Instagram"
-                      ? "@" + s.link.replace(/https?:\/\/[^/]+\//, "")
-                      : "/" + s.link.replace(/https?:\/\/[^/]+\//, ""),
-                  href: s.link,
-                })),
-                {
-                  label: "Email",
-                  handle: profileInfo.emails[0],
-                  href: `mailto:${profileInfo.emails[0]}`,
-                },
+                ...profileInfo.socials
+                  .filter((s) => !["Spotify", "Email"].includes(s.label))
+                  .map((s) => ({
+                    label: s.label,
+                    handle:
+                      s.label === "Instagram" ? `@${s.handle}` : `/${s.handle}`,
+                  })),
               ].map((item, i) => (
                 <li
                   key={i}
-                  className="flex flex-col py-3 gap-1 border-b border-zinc-100 dark:border-zinc-900 last:border-0"
+                  className="flex flex-col md:px-3 py-3 gap-1 border-b border-zinc-200 dark:border-zinc-800 last:border-0"
                 >
                   <span className="text-sm font-medium text-zinc-400 dark:text-zinc-500">
                     {item.label}
