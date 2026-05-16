@@ -1,14 +1,10 @@
-"use client";
-
-import { useState, useRef } from "react";
-import { getCalApi } from "@calcom/embed-react";
 import { IconQuoteOpen, IconBriefcase, IconMapPin } from "@tabler/icons-react";
 
 import { profileInfo } from "@/lib/site";
 import SocialLinks from "@/components/ui/SocialLinks";
 import ProfileImage from "@/components/ui/ProfileImage";
-import Button from "@/components/ui/Button";
-import Tooltip from "@/components/ui/Tooltip";
+import { ScheduleButton } from "@/components/ui/ScheduleButton";
+import { CopyEmailButton } from "@/components/ui/CopyEmailButton";
 
 export default function Intro() {
   return (
@@ -27,11 +23,13 @@ export default function Intro() {
         {/* Subline */}
         {profileInfo.title && <Title />}
         {/* Buttons */}
-        <div className="flex flex-col gap-4 w-full sm:w-fit sm:flex-row">
-          {/* Booking Button */}
-          <ScheduleButton />
-          {/* Copy Email Button */}
-          <CopyEmailButton />
+        <div className="flex flex-col items-center gap-4 w-full sm:w-fit sm:flex-row">
+          <div className="w-full max-w-94 sm:w-fit">
+            <ScheduleButton />
+          </div>
+          <div className="w-full max-w-94 sm:w-fit">
+            <CopyEmailButton />
+          </div>
         </div>
         {/* Social Links */}
         <div className="mt-1">
@@ -71,71 +69,5 @@ export function Location() {
       <IconMapPin size={18} className="inline mr-1.5 shrink-0" />
       {profileInfo.location}
     </p>
-  );
-}
-
-// Schedule Button
-export function ScheduleButton() {
-  const [bookingDisabled, setBookingDisabled] = useState(false);
-  const calLoaded = useRef(false);
-
-  const loadCal = async () => {
-    if (calLoaded.current) return;
-    calLoaded.current = true;
-    const cal = await getCalApi({ namespace: "book-a-meeting" });
-    cal("ui", { hideEventTypeDetails: false });
-    cal("on", {
-      action: "bookingSuccessful",
-      callback: () => setBookingDisabled(true),
-    });
-  };
-
-  return (
-    <Button
-      variant="primary"
-      size="md"
-      className="sm:mt-0 mx-auto rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-4 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
-      data-cal-namespace="book-a-meeting"
-      data-cal-link="luisabhram"
-      data-cal-config='{"layout":"month_view"}'
-      onMouseEnter={loadCal}
-      onFocus={loadCal}
-      onClick={loadCal}
-      disabled={bookingDisabled}
-    >
-      {bookingDisabled ? "Meeting Scheduled" : "Schedule a Meeting"}
-    </Button>
-  );
-}
-
-// Copy Email Button
-export function CopyEmailButton() {
-  const [copied, setCopied] = useState(false);
-  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const email = profileInfo.emails[0];
-
-  const handleCopyEmail = () => {
-    const swapTextSeconds = 3000;
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-
-    if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
-
-    copyTimeoutRef.current = setTimeout(() => {
-      requestAnimationFrame(() => setCopied(false));
-    }, swapTextSeconds);
-  };
-
-  return (
-    <Tooltip content={email} className="flex justify-center">
-      <Button
-        variant="secondary"
-        size="md"
-        className="rounded-lg w-full max-w-94 sm:w-54 sm:h-11 sm:px-4 sm:text-sm whitespace-nowrap active:scale-93 transition-transform duration-70"
-        onClick={handleCopyEmail}
-      >
-        {copied ? "Email Copied!" : "Copy Email"}
-      </Button>
-    </Tooltip>
   );
 }

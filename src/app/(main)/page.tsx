@@ -5,6 +5,7 @@ import Work from "@/components/sections/home/Career";
 import Education from "@/components/sections/home/Education";
 import Projects from "@/components/sections/home/Projects";
 import Stack from "@/components/sections/home/Stack";
+import Contact from "@/components/sections/home/Contact";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Projects />
       <Stack />
       <Stats />
+      <Contact />
     </div>
   );
 }

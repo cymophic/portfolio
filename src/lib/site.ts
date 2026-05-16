@@ -36,6 +36,7 @@ export const profileInfo = {
     {
       label: "Spotify",
       link: "https://open.spotify.com/user/m3ej0vdb558lib2vmmpm77wqr?si=1102a92486e24076",
+      handle: "cymophic",
     },
   ],
   education: [
