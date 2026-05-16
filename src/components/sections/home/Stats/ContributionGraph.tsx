@@ -142,7 +142,7 @@ const PALETTES = {
     },
   },
 } as const;
-const ACTIVE_PALETTE: PaletteKey = "monochrome";
+const ACTIVE_PALETTE: PaletteKey = "orange";
 const PALETTE = PALETTES[ACTIVE_PALETTE];
 
 function getColor(count: number, isDark: boolean): string {
