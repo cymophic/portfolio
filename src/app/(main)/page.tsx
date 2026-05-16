@@ -4,18 +4,20 @@ import Stats from "@/components/sections/home/Stats";
 import Work from "@/components/sections/home/Career";
 import Education from "@/components/sections/home/Education";
 import Projects from "@/components/sections/home/Projects";
-import TechStack from "@/components/sections/home/TechStack";
+import Stack from "@/components/sections/home/Stack";
+import Contact from "@/components/sections/home/Contact";
 
 export default function Home() {
   return (
     <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans gap-24">
       <Intro />
       <About />
-      <Stats />
-      <Projects />
-      <TechStack />
       <Work />
       <Education />
+      <Projects />
+      <Stack />
+      <Stats />
+      <Contact />
     </div>
   );
 }
