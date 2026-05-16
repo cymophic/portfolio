@@ -148,7 +148,7 @@ export default function Stats() {
         ) : (
           <Skeleton shape="pill" className="h-32.25 w-full" />
         )}
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-8 md:w-full">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-8 gap-y-6 md:w-full">
           {stats.map((stat, i) => (
             <StatItem key={i} stat={stat} />
           ))}
@@ -203,10 +203,13 @@ function StatItem({ stat }: { stat: StatItemType }) {
   }, [stat.ready, containerRef]);
 
   return (
-    <li className="break-inside-avoid mb-6 flex items-start gap-4 text-zinc-600 dark:text-zinc-400">
+    <li className="break-inside-avoid flex items-start text-zinc-600 dark:text-zinc-400 gap-4">
+      {/* Icon */}
       <span className="flex h-5 w-5 shrink-0 items-center justify-center text-zinc-400">
         {stat.icon}
       </span>
+
+      {/* Label */}
       <div className="flex min-w-0 flex-col gap-1">
         {stat.ready ? (
           <Tooltip content={stat.labelText ?? ""} disabled={!isOverflowing}>
