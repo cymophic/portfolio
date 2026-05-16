@@ -4,7 +4,7 @@ import Stats from "@/components/sections/home/Stats";
 import Work from "@/components/sections/home/Career";
 import Education from "@/components/sections/home/Education";
 import Projects from "@/components/sections/home/Projects";
-import TechStack from "@/components/sections/home/TechStack";
+import Stack from "@/components/sections/home/Stack";
 
 export default function Home() {
   return (
@@ -12,8 +12,8 @@ export default function Home() {
       <Intro />
       <About />
       <Stats />
+      <Stack />
       <Projects />
-      <TechStack />
       <Work />
       <Education />
     </div>
