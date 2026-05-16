@@ -11,11 +11,11 @@ export default function Home() {
     <div className="mx-auto max-w-4xl w-full flex flex-1 flex-col font-sans gap-24">
       <Intro />
       <About />
-      <Stats />
-      <Stack />
-      <Projects />
       <Work />
       <Education />
+      <Projects />
+      <Stack />
+      <Stats />
     </div>
   );
 }
