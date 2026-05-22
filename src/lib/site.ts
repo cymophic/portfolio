@@ -175,6 +175,11 @@ export const certifications = [
     issuer: "Amazon Web Services",
     date: "Dec 2023",
   },
+  {
+    title: "Red Hat System Administration I (RH124)",
+    issuer: "Red Hat",
+    date: "Sep 2023",
+  },
 ];
 
 // Projects
