@@ -30,7 +30,7 @@ export default function Nav() {
           {/* Sidebar Toggle Button */}
           <div className="pointer-events-auto -ml-1 z-50">
             {showNavToggle && (
-              <SidebarToggle open={open} onToggle={handleToggle} />
+              <SidebarToggle open={open} onToggleAction={handleToggle} />
             )}
           </div>
 
