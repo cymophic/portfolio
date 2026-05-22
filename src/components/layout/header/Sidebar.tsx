@@ -11,7 +11,7 @@ type Props = {
   panelRef: React.RefObject<HTMLDivElement | null>;
   linksRef: React.RefObject<(HTMLAnchorElement | null)[]>;
   iconsRef: React.RefObject<(HTMLAnchorElement | null)[]>;
-  onLinkClick: () => void;
+  onLinkClickAction: () => void;
 };
 
 export default function Sidebar({
@@ -19,7 +19,7 @@ export default function Sidebar({
   panelRef,
   linksRef,
   iconsRef,
-  onLinkClick,
+  onLinkClickAction,
 }: Props) {
   const pathname = usePathname();
 
@@ -39,7 +39,7 @@ export default function Sidebar({
               ref={(el) => {
                 if (el) linksRef.current[i] = el;
               }}
-              onClick={onLinkClick}
+              onClick={onLinkClickAction}
               className={`text-lg py-2 transition-colors font-semibold ${
                 pathname === link.href
                   ? "text-zinc-700 dark:text-zinc-100"
