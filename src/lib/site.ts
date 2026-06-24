@@ -280,5 +280,5 @@ export const portfolioEasterEggMessages = [
   { text: "You have a lot of time in your hands." },
   { text: "You can stop now." },
   { text: "Stop, it's gonna break." },
-  { text: "Explodes to countless fragments", type: "action" },
+  { text: "Button explodes to countless fragments", type: "action" },
 ];
