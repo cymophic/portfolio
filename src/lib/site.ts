@@ -228,7 +228,7 @@ export const projects: Project[] = [
   {
     title: "PMC Business",
     slug: "pmc-business",
-    pinned: true,
+    pinned: false,
     description:
       "The official lead generation website of Power Mac Center for business-level clients.",
     tags: ["Django", "Celery", "GitHub Actions"],
