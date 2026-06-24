@@ -206,6 +206,15 @@ export const projects: Project[] = [
     cover: "/projects/vap-site/cover.webp",
   },
   {
+    title: "Guessing Game",
+    slug: "number-guesser",
+    pinned: false,
+    description: "A quick number guessing game I spun in my early years.",
+    tags: ["JavaScript"],
+    url: "https://cymophic.github.io/number-guesser/",
+    repo: "https://github.com/cymophic/number-guesser",
+  },
+  {
     title: "L2C Portal",
     slug: "l2c-portal",
     pinned: true,
@@ -247,15 +256,6 @@ export const projects: Project[] = [
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
     cover: "/projects/cymo-gpt/cover.webp",
-  },
-  {
-    title: "Guessing Game",
-    slug: "number-guesser",
-    pinned: false,
-    description: "A quick number guessing game I spun in my early years.",
-    tags: ["JavaScript"],
-    url: "https://cymophic.github.io/number-guesser/",
-    repo: "https://github.com/cymophic/number-guesser",
   },
   {
     title: "Hangman",
