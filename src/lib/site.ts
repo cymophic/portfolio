@@ -195,6 +195,17 @@ export const projects: Project[] = [
     cover: "/projects/digital-portfolio/cover.webp",
   },
   {
+    title: "Jenny Ann VAP",
+    slug: "vap-site",
+    pinned: true,
+    description:
+      "Website migration of a Virtual Assistant Provider website from Wordpress to Next.js.",
+    tags: ["Next.js", "AWS", "Terraform", "Cloudflare"],
+    url: "https://jennyannvalenciano.com",
+    repo: "https://github.com/cymophic/vap-site",
+    cover: "/projects/vap-site/cover.webp",
+  },
+  {
     title: "L2C Portal",
     slug: "l2c-portal",
     pinned: true,
