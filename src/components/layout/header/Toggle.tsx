@@ -5,14 +5,14 @@ import { IconMenu, IconX } from "@tabler/icons-react";
 
 type Props = {
   open: boolean;
-  onToggle: MouseEventHandler<HTMLButtonElement>;
+  onToggleAction: MouseEventHandler<HTMLButtonElement>;
 };
 
-export default function SidebarToggle({ open, onToggle }: Props) {
+export default function SidebarToggle({ open, onToggleAction }: Props) {
   return (
     <button
       aria-label={open ? "Close sidebar" : "Open sidebar"}
-      onClick={onToggle}
+      onClick={onToggleAction}
       className="p-2 text-sm text-zinc-500 hover:text-zinc-600 dark:text-zinc-300 dark:hover:text-zinc-300 cursor-pointer"
     >
       <span

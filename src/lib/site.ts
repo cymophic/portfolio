@@ -175,6 +175,11 @@ export const certifications = [
     issuer: "Amazon Web Services",
     date: "Dec 2023",
   },
+  {
+    title: "Red Hat System Administration I (RH124)",
+    issuer: "Red Hat",
+    date: "Sep 2023",
+  },
 ];
 
 // Projects
@@ -188,6 +193,26 @@ export const projects: Project[] = [
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
     cover: "/projects/digital-portfolio/cover.webp",
+  },
+  {
+    title: "Jenny Ann VAP",
+    slug: "vap-site",
+    pinned: true,
+    description:
+      "Website migration of a Virtual Assistant Provider website from Wordpress to Next.js.",
+    tags: ["Next.js", "AWS", "Terraform", "Cloudflare"],
+    url: "https://jennyannvalenciano.com",
+    repo: "https://github.com/cymophic/vap-site",
+    cover: "/projects/vap-site/cover.webp",
+  },
+  {
+    title: "Guessing Game",
+    slug: "number-guesser",
+    pinned: false,
+    description: "A quick number guessing game I spun in my early years.",
+    tags: ["JavaScript"],
+    url: "https://cymophic.github.io/number-guesser/",
+    repo: "https://github.com/cymophic/number-guesser",
   },
   {
     title: "L2C Portal",
@@ -231,15 +256,6 @@ export const projects: Project[] = [
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
     cover: "/projects/cymo-gpt/cover.webp",
-  },
-  {
-    title: "Guessing Game",
-    slug: "number-guesser",
-    pinned: false,
-    description: "A quick number guessing game I spun in my early years.",
-    tags: ["JavaScript"],
-    url: "https://cymophic.github.io/number-guesser/",
-    repo: "https://github.com/cymophic/number-guesser",
   },
   {
     title: "Hangman",
