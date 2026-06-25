@@ -14,22 +14,22 @@
     "@tabler/icons-react": "^3.44.0",
     "@wrksz/themes": "^0.9.3",
     "gsap": "^3.15.0",
-    "next": "^16.2.6",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "next": "^16.2.9",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "sonner": "^2.0.7"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.0",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^25",
+    "@types/node": "^26",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^10.4.0",
-    "eslint-config-next": "^16.2.6",
-    "sharp": "^0.34.5",
+    "eslint": "^10.5.0",
+    "eslint-config-next": "^16.2.9",
+    "sharp": "^0.35.2",
     "tailwindcss": "^4",
-    "tsx": "^4.22.3",
+    "tsx": "^4.22.4",
     "typescript": "^6"
   }
 }
