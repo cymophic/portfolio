@@ -215,6 +215,17 @@ export const projects: Project[] = [
     repo: "https://github.com/cymophic/number-guesser",
   },
   {
+    title: "Mobile Care PH",
+    slug: "mobilecare-ph",
+    pinned: true,
+    description:
+      "A service portal for after-sales support and real-time status tracking.",
+    tags: ["Django", "Bootstrap"],
+    url: "https://mobilecareph.com",
+    repo: null,
+    cover: "/projects/mobilecare-ph/cover.webp",
+  },
+  {
     title: "L2C Portal",
     slug: "l2c-portal",
     pinned: true,
@@ -235,17 +246,6 @@ export const projects: Project[] = [
     url: "https://business.powermaccenter.com",
     repo: null,
     cover: "/projects/pmc-business/cover.webp",
-  },
-  {
-    title: "Mobile Care PH",
-    slug: "mobilecare-ph",
-    pinned: true,
-    description:
-      "A service portal for after-sales support and real-time status tracking.",
-    tags: ["Django", "Bootstrap"],
-    url: "https://mobilecareph.com",
-    repo: null,
-    cover: "/projects/mobilecare-ph/cover.webp",
   },
   {
     title: "Cymo GPT",
