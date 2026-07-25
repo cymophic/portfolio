@@ -48,11 +48,12 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 luisabhram.dev/
 ├── .github/
 │   ├── workflows/
-│   │   ├── build.yml                     # Reusable build workflow
-│   │   ├── check.yml                     # PR validation workflow
-│   │   ├── deploy.yml                    # Deployment workflow
-│   │   ├── resolve.yml                   # Updates project fields of linked issues on merge
-│   │   └── track.yml                     # Updates project fields from created issues
+│   │   ├── build-app.yml                 # Reusable build workflow
+│   │   ├── check-pr.yml                  # PR validation workflow
+│   │   ├── deploy-site.yml               # Deployment workflow
+│   │   ├── mirror-gitlab.yml             # Mirrors repo to GitLab
+│   │   ├── resolve-issues.yml            # Updates project fields of linked issues on merge
+│   │   └── track-issues.yml              # Updates project fields from created issues
 │   └── dependabot.yml                    # Dependabot for automatic dependency updates
 ├── lambda/
 │   ├── spotify/
@@ -255,6 +256,7 @@ The following are configured in **Settings → Secrets and Variables → Actions
 | `S3_BUCKET_NAME` | S3 bucket name |
 | `CLOUDFLARE_ZONE_ID` | Cloudflare Zone ID |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API Token |
+| `GITLAB_TOKEN` | GitLab project access token |
 
 **Variables**
 | Name | Description |
@@ -268,18 +270,21 @@ The following are configured in **Settings → Secrets and Variables → Actions
 
 ### Process Breakdown
 
-**On pull request to `main`** — `check.yml` runs:
+**On pull request to `main`** — `check-pr.yml` runs:
 1. Lints the codebase
-2. Calls the reusable `build.yml` workflow to build the Next.js static export
+2. Calls the reusable `build-app.yml` workflow to build the Next.js static export
 3. Runs security analysis with CodeQL
 
-**On merge to `main`** — `deploy.yml` runs:
-1. Calls the reusable `build.yml` workflow
+**On merge to `main`** — `deploy-site.yml` runs:
+1. Calls the reusable `build-app.yml` workflow
 2. Uploads the `/out` build artifact
 3. Downloads the `/out` artifact in the deploy job
 4. Syncs `/out` to S3, preserving the `stats/` folder managed by Lambda
 5. Invalidates the CloudFront cache
 6. Updates the "Date Resolved" field on any linked GitHub Projects issue
+
+**On any push** — `mirror-gitlab.yml` runs:
+1. Mirrors all branches to the GitLab read-only mirror
 
 ---
 
