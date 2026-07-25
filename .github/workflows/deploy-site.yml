@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-app.yml
     with:
       NEXT_PUBLIC_SITE_MODE: ${{ vars.NEXT_PUBLIC_SITE_MODE }}
       NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
