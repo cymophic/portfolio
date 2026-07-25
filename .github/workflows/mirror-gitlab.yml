@@ -1,8 +1,6 @@
 name: Mirror to GitLab
 
-on:
-  push:
-    branches: [main]
+on: push
 
 jobs:
   mirror:
