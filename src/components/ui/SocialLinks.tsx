@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {
   IconBrandGithub,
+  IconBrandGitlab,
   IconBrandLinkedin,
   IconBrandInstagram,
   IconBrandSpotify,
@@ -16,6 +17,7 @@ const socialConfig: Record<
   { icon: Icon; light: string; dark: string }
 > = {
   GitHub: { icon: IconBrandGithub, light: "#333333", dark: "#ffffff" },
+  GitLab: { icon: IconBrandGitlab, light: "#FC6D26", dark: "#FC6D26" },
   LinkedIn: { icon: IconBrandLinkedin, light: "#0A66C2", dark: "#0A66C2" },
   Instagram: { icon: IconBrandInstagram, light: "#E1306C", dark: "#E1306C" },
   Spotify: { icon: IconBrandSpotify, light: "#1DB954", dark: "#1DB954" },

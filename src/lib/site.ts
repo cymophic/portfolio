@@ -36,6 +36,11 @@ export const profileInfo = {
       handle: "cymophic",
     },
     {
+      label: "GitLab",
+      link: "https://gitlab.com/cymophic",
+      handle: "cymophic",
+    },
+    {
       label: "LinkedIn",
       link: "https://linkedin.com/in/luisabhram",
       handle: "in/luisabhram",
