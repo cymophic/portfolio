@@ -89,6 +89,19 @@ export const profileInfo = {
   ] as Education[],
   career: [
     {
+      company: "Accenture",
+      website: "https://www.accenture.com/",
+      logo: "/logos/work_accenture.webp",
+      role: "DevOps Engineer",
+      type: "Full-time",
+      start: "Aug 2026",
+      end: "Present",
+      about:
+        "Accenture is a massive global professional services company specializing in IT services, strategy and consulting, and digital operations.",
+      scope:
+        "Currently serving as a DevOps Engineer.",
+    },
+    {
       company: "PGX Group",
       website: "https://pgx.group/",
       logo: "/logos/work_pgx.webp",
