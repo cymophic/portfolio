@@ -222,7 +222,7 @@ export const projects: Project[] = [
   {
     title: "Mobile Care PH",
     slug: "mobilecare-ph",
-    pinned: true,
+    pinned: false,
     description:
       "A service portal for after-sales support and real-time status tracking.",
     tags: ["Django", "Bootstrap"],
@@ -244,7 +244,7 @@ export const projects: Project[] = [
   {
     title: "PMC Business",
     slug: "pmc-business",
-    pinned: false,
+    pinned: true,
     description:
       "The official lead generation website of Power Mac Center for business-level clients.",
     tags: ["Django", "Celery", "GitHub Actions"],
