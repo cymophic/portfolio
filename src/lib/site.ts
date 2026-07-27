@@ -89,6 +89,19 @@ export const profileInfo = {
   ] as Education[],
   career: [
     {
+      company: "PGX Group",
+      website: "https://pgx.group/",
+      logo: "/logos/work_pgx.webp",
+      role: "DevOps Engineer",
+      type: "Contract",
+      start: "Jul 2026",
+      end: "Present",
+      about:
+        "PGX Group is a technology ideas company that builds tech-driven solutions and businesses.",
+      scope:
+        "Serving as a project-based DevOps Engineer.",
+    },
+    {
       company: "Power Mac Center Inc.",
       website: "https://powermaccenter.com/",
       logo: "/logos/work_pmc.webp",
