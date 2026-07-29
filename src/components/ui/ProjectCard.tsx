@@ -190,7 +190,7 @@ function CoverImage({
   const [loaded, setLoaded] = useState(false);
   return (
     <div
-      className="hidden sm:block rounded-xl"
+      className="block rounded-xl"
       style={{ aspectRatio: "16/9" }}
     >
       {!loaded && (
