@@ -224,6 +224,7 @@ export const projects: Project[] = [
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
     cover: "/projects/digital-portfolio/cover.webp",
+    page: false,
   },
   {
     title: "Jenny Ann VAP",
@@ -235,15 +236,7 @@ export const projects: Project[] = [
     url: "https://jennyannvalenciano.com",
     repo: "https://github.com/cymophic/vap-site",
     cover: "/projects/vap-site/cover.webp",
-  },
-  {
-    title: "Guessing Game",
-    slug: "number-guesser",
-    pinned: false,
-    description: "A quick number guessing game I spun in my early years.",
-    tags: ["JavaScript"],
-    url: "https://cymophic.github.io/number-guesser/",
-    repo: "https://github.com/cymophic/number-guesser",
+    page: false,
   },
   {
     title: "Mobile Care PH",
@@ -255,6 +248,7 @@ export const projects: Project[] = [
     url: "https://mobilecareph.com",
     repo: null,
     cover: "/projects/mobilecare-ph/cover.webp",
+    page: false,
   },
   {
     title: "L2C Portal",
@@ -266,6 +260,7 @@ export const projects: Project[] = [
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
     cover: "/projects/l2c-portal/cover.webp",
+    page: false,
   },
   {
     title: "PMC Business",
@@ -277,6 +272,7 @@ export const projects: Project[] = [
     url: "https://business.powermaccenter.com",
     repo: null,
     cover: "/projects/pmc-business/cover.webp",
+    page: false,
   },
   {
     title: "Cymo GPT",
@@ -287,6 +283,7 @@ export const projects: Project[] = [
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
     cover: "/projects/cymo-gpt/cover.webp",
+    page: false,
   },
   {
     title: "Hangman",
@@ -297,6 +294,19 @@ export const projects: Project[] = [
     tags: ["Java Swing"],
     url: "https://cymophic.itch.io/hangman-game",
     repo: "https://github.com/cymophic/hangman",
+    cover: "/projects/hangman/cover.webp",
+    page: false,
+  },
+  {
+    title: "Guessing Game",
+    slug: "number-guesser",
+    pinned: false,
+    description: "A quick number guessing game I spun in my early years.",
+    tags: ["JavaScript"],
+    url: "https://cymophic.github.io/number-guesser/",
+    repo: "https://github.com/cymophic/number-guesser",
+    cover: "/projects/number-guesser/cover.webp",
+    page: false,
   },
 ];
 
