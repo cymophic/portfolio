@@ -48,11 +48,22 @@ function FooterLogo() {
   const pathname = usePathname();
   const router = useRouter();
 
+  // Scrolls to the top of the page
+  function handleScrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // Returns to the home page
+  function handleReturnToHome() {
+    router.push("/");
+  }
+
+  // Handles the image click event
   function handleImageClick() {
     if (pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      handleScrollToTop();
     } else {
-      router.push("/");
+      handleReturnToHome();
     }
   }
 
