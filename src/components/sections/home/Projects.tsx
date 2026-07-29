@@ -9,7 +9,7 @@ export default function Projects() {
 
   return (
     <section className="w-full">
-      <div className="mx-auto flex flex-col gap-6 px-6 sm:px-10">
+      <div className="mx-auto flex flex-col gap-8 px-6 sm:px-10">
         {/* Section Title & Description */}
         <div className="flex flex-col gap-6">
           <SectionTitle title="Projects" href="/projects" />
