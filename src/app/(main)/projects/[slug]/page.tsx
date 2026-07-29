@@ -28,7 +28,7 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+  return projects.filter((p) => p.visible !== false).map((p) => ({ slug: p.slug }));
 }
 
 export default async function Project({
@@ -37,7 +37,7 @@ export default async function Project({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = projects.find((p) => p.slug === slug && p.visible !== false);
   if (!project) notFound();
 
   return (

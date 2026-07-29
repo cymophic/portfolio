@@ -31,6 +31,7 @@ export interface Project {
   cover?: string | null;
   page?: boolean;
   images?: string[];
+  visible?: boolean;
 }
 
 export interface EducationDetails {

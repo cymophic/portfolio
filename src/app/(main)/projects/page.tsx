@@ -35,9 +35,9 @@ export default function Projects() {
         </div>
 
         {/* Projects */}
-        <div className="columns-1 sm:columns-2 xl:columns-3 gap-6">
-          {projects.map((project, i) => (
-            <div key={i} className="break-inside-avoid mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-12">
+          {projects.filter((p) => p.visible !== false).map((project, i) => (
+            <div key={i} className="break-inside-avoid">
               <ProjectCard project={project} priority={i <= 4} />
             </div>
           ))}
