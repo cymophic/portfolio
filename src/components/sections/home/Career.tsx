@@ -13,7 +13,7 @@ export default function Career() {
         <SectionTitle title="Career" />
 
         <div className="flex flex-col">
-          {profileInfo.career.map((work, i) => (
+          {profileInfo.career.filter((e) => e.visible !== false).map((work, i) => (
             <TimelineItem key={i}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start">
                 {/* Left: Work info */}

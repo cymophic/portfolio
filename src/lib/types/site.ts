@@ -6,6 +6,7 @@ export interface Education {
   start: string;
   end: string;
   details?: EducationDetails;
+  visible?: boolean;
 }
 
 export interface Career {
@@ -18,6 +19,7 @@ export interface Career {
   end: string;
   about?: string;
   scope?: string;
+  visible?: boolean;
 }
 
 export interface Project {
