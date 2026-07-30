@@ -235,7 +235,6 @@ export const projects: Project[] = [
       "Website migration of a Virtual Assistant Provider website from Wordpress to Next.js.",
     tags: ["Next.js", "AWS", "Terraform", "Cloudflare"],
     url: "https://jennyannvalenciano.com",
-    repo: "https://github.com/cymophic/vap-site",
     cover: "/projects/vap-site/cover.webp",
     page: false,
   },
