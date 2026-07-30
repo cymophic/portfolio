@@ -112,7 +112,7 @@ export const profileInfo = {
       about:
         "PGX Group is a technology ideas company that builds tech-driven solutions and businesses.",
       scope:
-        "Serving as a project-based DevOps Engineer.",
+        "Serving as a project-based DevOps Engineer, provisioning and maintaining cloud infrastructure on AWS. Responsible for debugging production issues, containerizing development environments, and managing CI/CD pipelines.",
     },
     {
       company: "Power Mac Center Inc.",
