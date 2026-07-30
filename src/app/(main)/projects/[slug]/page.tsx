@@ -1,7 +1,21 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import fs from "fs";
+import path from "path";
+import Image from "next/image";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import type { Components } from "react-markdown";
 
 import { websiteURL, projects } from "@/lib/site";
+import Pill from "@/components/ui/Pill";
+import Tooltip from "@/components/ui/Tooltip";
+import {
+  IconExternalLink,
+  IconCodeblock,
+  IconArrowLeft,
+} from "@tabler/icons-react";
+import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -28,7 +42,7 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  return projects.filter((p) => p.visible !== false).map((p) => ({ slug: p.slug }));
+  return projects.map((p) => ({ slug: p.slug }));
 }
 
 export default async function Project({
@@ -37,22 +51,175 @@ export default async function Project({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug && p.visible !== false);
+  const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
+
+  const contentPath = path.join(
+    process.cwd(),
+    "src/content/projects",
+    `${slug}.md`
+  );
+  let markdownContent: string | null = null;
+  try {
+    markdownContent = fs.readFileSync(contentPath, "utf-8");
+  } catch {
+    // No markdown file — fall back to simple view
+  }
 
   return (
     <section className="w-full">
-      <div className="mx-auto max-w-4xl flex flex-col px-6 sm:px-10 text-center gap-3">
-        <h1 className="text-2xl font-semibold text-zinc-700 dark:text-zinc-300">
-          {project.title}
-        </h1>
+      <div className="mx-auto max-w-3xl flex flex-col px-6 sm:px-10">
+        {/* Back link */}
+        <Link
+          href="/projects/"
+          className="flex items-center gap-1.5 text-sm text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors mb-8 w-fit"
+        >
+          <IconArrowLeft size={16} className="overflow-clip" />
+          Back to projects
+        </Link>
 
-        {project.description && (
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            {project.description}
+        {/* Cover Image */}
+        {project.cover && (
+          <div className="rounded-2xl mb-8">
+            <Image
+              src={project.cover}
+              alt={`${project.title} cover`}
+              width={800}
+              height={450}
+              priority
+              className="w-full h-auto object-cover rounded-2xl"
+            />
+          </div>
+        )}
+
+        {/* Title + Tags + Links */}
+        <div className="flex flex-col gap-3 mb-10">
+          <h1 className="text-2xl font-semibold text-zinc-700 dark:text-zinc-300">
+            {project.title}
+          </h1>
+
+          {project.description && (
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              {project.description}
+            </p>
+          )}
+
+          <div className="flex items-center gap-3 mt-2">
+            <div className="flex flex-wrap gap-1.5">
+              {project.tags.map((tag, i) => (
+                <Pill key={i} text={tag} />
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2 ml-auto">
+              {project.url && (
+                <Tooltip content="View Live">
+                  <a
+                    aria-label={`View ${project.title} live`}
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
+                  >
+                    <IconExternalLink size={20} className="overflow-clip" />
+                  </a>
+                </Tooltip>
+              )}
+              {project.repo && (
+                <Tooltip content="View Source Code">
+                  <a
+                    aria-label={`View ${project.title} repository`}
+                    href={project.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
+                  >
+                    <IconCodeblock size={20} className="overflow-clip" />
+                  </a>
+                </Tooltip>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Markdown Content or Simple Fallback */}
+        {markdownContent ? (
+          <div className="prose-custom pb-20">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={markdownComponents}
+            >
+              {markdownContent}
+            </ReactMarkdown>
+          </div>
+        ) : (
+          <p className="text-sm text-zinc-500 dark:text-zinc-400 pb-20">
+            No additional content yet.
           </p>
         )}
       </div>
     </section>
   );
 }
+
+const markdownComponents: Components = {
+  h2: ({ children }) => (
+    <h2 className="text-xl font-semibold text-zinc-700 dark:text-zinc-300 mt-10 mb-4 first:mt-0">
+      {children}
+    </h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="text-lg font-semibold text-zinc-700 dark:text-zinc-300 mt-8 mb-3">
+      {children}
+    </h3>
+  ),
+  p: ({ children }) => (
+    <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4 last:mb-0">
+      {children}
+    </p>
+  ),
+  img: ({ src, alt }) => (
+    <img
+      src={src}
+      alt={alt ?? ""}
+      className="w-full rounded-xl my-6"
+      loading="lazy"
+    />
+  ),
+  a: ({ href, children }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-zinc-600 dark:text-zinc-400 underline decoration-zinc-300 dark:decoration-zinc-600 underline-offset-2 hover:text-zinc-800 dark:hover:text-zinc-200 hover:decoration-zinc-500 transition-colors"
+    >
+      {children}
+    </a>
+  ),
+  ul: ({ children }) => (
+    <ul className="list-disc list-outside text-sm text-zinc-600 dark:text-zinc-400 ml-5 mb-4 space-y-1.5">
+      {children}
+    </ul>
+  ),
+  ol: ({ children }) => (
+    <ol className="list-decimal list-outside text-sm text-zinc-600 dark:text-zinc-400 ml-5 mb-4 space-y-1.5">
+      {children}
+    </ol>
+  ),
+  code: ({ children }) => (
+    <code className="font-mono text-sm bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-700 dark:text-zinc-300">
+      {children}
+    </code>
+  ),
+  pre: ({ children }) => (
+    <pre className="bg-zinc-100 dark:bg-zinc-800 rounded-xl p-4 mb-4 overflow-x-auto text-sm border border-zinc-200 dark:border-zinc-700">
+      {children}
+    </pre>
+  ),
+  blockquote: ({ children }) => (
+    <blockquote className="border-l-4 border-zinc-300 dark:border-zinc-600 pl-4 italic text-zinc-500 dark:text-zinc-400 mb-4">
+      {children}
+    </blockquote>
+  ),
+  hr: () => <hr className="border-zinc-200 dark:border-zinc-700 my-8" />,
+};
