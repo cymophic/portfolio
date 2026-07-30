@@ -34,7 +34,7 @@ export default function Contact() {
 
           {/* Socials */}
           <div>
-            <ul className="flex flex-col">
+            <ul className="flex flex-col gap-3">
               {[
                 ...profileInfo.socials
                   .filter((s) => !["Spotify", "Email"].includes(s.label))
@@ -46,7 +46,7 @@ export default function Contact() {
               ].map((item, i) => (
                 <li
                   key={i}
-                  className="flex flex-col md:px-3 py-3 gap-1 border-b border-zinc-200 dark:border-zinc-800 last:border-0"
+                  className="flex flex-col md:px-3 pb-3 gap-1 border-b border-zinc-200 dark:border-zinc-800 last:border-0 last:pb-0"
                 >
                   <span className="text-sm font-medium text-zinc-400 dark:text-zinc-500">
                     {item.label}
