@@ -12,7 +12,7 @@ export default function Education() {
         <SectionTitle title="Education" />
 
         <div className="flex flex-col">
-          {profileInfo.education.map((edu, i) => {
+          {profileInfo.education.filter((e) => e.visible !== false).map((edu, i) => {
             const { details } = edu;
 
             return (

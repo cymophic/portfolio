@@ -37,7 +37,7 @@ export default function ProjectCard({
   return (
     <div
       onClick={handleClick}
-      className={`h-full flex flex-col rounded-2xl border border-zinc-300 dark:border-zinc-600 group ${project.page ? "cursor-pointer hover:border-zinc-400 hover:dark:border-zinc-500" : "cursor-default"}`}
+      className={`h-full flex flex-col gap-4 rounded-2xl group ${project.page ? "cursor-pointer" : "cursor-default"}`}
     >
       {/* Cover Image */}
       {project.cover && (
@@ -51,7 +51,7 @@ export default function ProjectCard({
       )}
 
       {/* Content */}
-      <div className="flex flex-col flex-1 justify-center gap-2 p-6 -mt-1">
+      <div className={`flex flex-col flex-1 justify-center gap-2`}>
         {/* Title + Links */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -86,7 +86,7 @@ export default function ProjectCard({
         )}
 
         {/* Tags */}
-        <div className="flex items-center justify-between gap-2 mt-auto pt-6">
+        <div className="flex items-center justify-between gap-2 mt-auto pt-2">
           <div className="flex flex-wrap gap-1.5">
             {project.tags.slice(0, 3).map((tag, i) => (
               <Pill key={i} text={tag} />
@@ -190,13 +190,13 @@ function CoverImage({
   const [loaded, setLoaded] = useState(false);
   return (
     <div
-      className="hidden sm:block rounded-t-2xl"
+      className="block rounded-xl"
       style={{ aspectRatio: "16/9" }}
     >
       {!loaded && (
         <Skeleton
           shape="pill"
-          className="w-full h-full rounded-none rounded-t-xl"
+          className="w-full h-full rounded-xl"
         />
       )}
       <Image
@@ -207,7 +207,7 @@ function CoverImage({
         width={800}
         height={450}
         onLoad={() => setLoaded(true)}
-        className={`w-full h-full object-cover rounded-t-2xl ${loaded ? "visible" : "invisible absolute inset-0"}`}
+        className={`w-full h-full object-cover rounded-xl ${loaded ? "visible" : "invisible absolute inset-0"}`}
       />
     </div>
   );

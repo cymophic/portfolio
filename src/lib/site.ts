@@ -89,6 +89,33 @@ export const profileInfo = {
   ] as Education[],
   career: [
     {
+      company: "Accenture",
+      website: "https://www.accenture.com/",
+      logo: "/logos/work_accenture.webp",
+      role: "DevOps Engineer",
+      type: "Full-time",
+      start: "Aug 2026",
+      end: "Present",
+      visible: false,
+      about:
+        "Accenture is a massive global professional services company specializing in IT services, strategy and consulting, and digital operations.",
+      scope:
+        "Currently serving as a DevOps Engineer.",
+    },
+    {
+      company: "PGX Group",
+      website: "https://pgx.group/",
+      logo: "/logos/work_pgx.webp",
+      role: "DevOps Engineer",
+      type: "Contract",
+      start: "Jul 2026",
+      end: "Present",
+      about:
+        "PGX Group is a technology ideas company that builds tech-driven solutions and businesses.",
+      scope:
+        "Serving as a project-based DevOps Engineer, provisioning and maintaining cloud infrastructure on AWS. Responsible for debugging production issues, containerizing development environments, and managing CI/CD pipelines.",
+    },
+    {
       company: "Power Mac Center Inc.",
       website: "https://powermaccenter.com/",
       logo: "/logos/work_pmc.webp",
@@ -198,6 +225,7 @@ export const projects: Project[] = [
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
     cover: "/projects/digital-portfolio/cover.webp",
+    page: false,
   },
   {
     title: "Jenny Ann VAP",
@@ -209,26 +237,19 @@ export const projects: Project[] = [
     url: "https://jennyannvalenciano.com",
     repo: "https://github.com/cymophic/vap-site",
     cover: "/projects/vap-site/cover.webp",
-  },
-  {
-    title: "Guessing Game",
-    slug: "number-guesser",
-    pinned: false,
-    description: "A quick number guessing game I spun in my early years.",
-    tags: ["JavaScript"],
-    url: "https://cymophic.github.io/number-guesser/",
-    repo: "https://github.com/cymophic/number-guesser",
+    page: false,
   },
   {
     title: "Mobile Care PH",
     slug: "mobilecare-ph",
-    pinned: true,
+    pinned: false,
     description:
       "A service portal for after-sales support and real-time status tracking.",
     tags: ["Django", "Bootstrap"],
     url: "https://mobilecareph.com",
     repo: null,
     cover: "/projects/mobilecare-ph/cover.webp",
+    page: false,
   },
   {
     title: "L2C Portal",
@@ -240,17 +261,19 @@ export const projects: Project[] = [
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
     cover: "/projects/l2c-portal/cover.webp",
+    page: false,
   },
   {
     title: "PMC Business",
     slug: "pmc-business",
-    pinned: false,
+    pinned: true,
     description:
       "The official lead generation website of Power Mac Center for business-level clients.",
     tags: ["Django", "Celery", "GitHub Actions"],
     url: "https://business.powermaccenter.com",
     repo: null,
     cover: "/projects/pmc-business/cover.webp",
+    page: false,
   },
   {
     title: "Cymo GPT",
@@ -261,6 +284,7 @@ export const projects: Project[] = [
     url: null,
     repo: "https://github.com/cymophic/cymo-gpt",
     cover: "/projects/cymo-gpt/cover.webp",
+    page: false,
   },
   {
     title: "Hangman",
@@ -271,6 +295,19 @@ export const projects: Project[] = [
     tags: ["Java Swing"],
     url: "https://cymophic.itch.io/hangman-game",
     repo: "https://github.com/cymophic/hangman",
+    cover: "/projects/hangman/cover.webp",
+    page: false,
+  },
+  {
+    title: "Guessing Game",
+    slug: "number-guesser",
+    pinned: false,
+    description: "A quick number guessing game I spun in my early years.",
+    tags: ["JavaScript"],
+    url: "https://cymophic.github.io/number-guesser/",
+    repo: "https://github.com/cymophic/number-guesser",
+    cover: "/projects/number-guesser/cover.webp",
+    page: false,
   },
 ];
 
