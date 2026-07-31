@@ -207,7 +207,7 @@ const markdownComponents: Components = {
     );
   },
   pre: ({ children }) => (
-    <pre className="bg-zinc-100 dark:bg-zinc-800 rounded-xl p-4 mb-4 overflow-hidden text-sm border border-zinc-200 dark:border-zinc-700 [&>code]:block [&>code]:overflow-x-auto" style={{ clipPath: "inset(0 round 0.75rem)" }}>
+    <pre className="rounded-xl mb-4 border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 overflow-x-auto p-4 text-sm [&>code]:block" style={{ clipPath: "inset(0 round 0.75rem)" }}>
       {children}
     </pre>
   ),
