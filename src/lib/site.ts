@@ -222,7 +222,7 @@ export const projects: Project[] = [
     pinned: true,
     page: true,
     description: "The website where you're currently reading this right now.",
-    tags: ["Next.js", "AWS", "Terraform", "Cloudflare"],
+    tags: ["AWS", "Terraform", "Cloudflare", "Next.js", "Tailwind CSS"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
     cover: "/projects/digital-portfolio/cover.webp",
@@ -233,7 +233,7 @@ export const projects: Project[] = [
     pinned: true,
     description:
       "Website migration of a Virtual Assistant Provider website from Wordpress to Next.js.",
-    tags: ["Next.js", "AWS", "Terraform", "Cloudflare"],
+    tags: ["AWS", "Terraform", "Cloudflare", "Next.js", "Tailwind CSS"],
     url: "https://jennyannvalenciano.com",
     cover: "/projects/vap-site/cover.webp",
     page: false,
