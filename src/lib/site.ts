@@ -260,7 +260,7 @@ export const projects: Project[] = [
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
     cover: "/projects/l2c-portal/cover.webp",
-    page: false,
+    page: true,
   },
   {
     title: "PMC Business",

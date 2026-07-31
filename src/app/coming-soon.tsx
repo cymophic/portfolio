@@ -6,7 +6,6 @@ import Button from "@/components/ui/Button";
 const SITE_MODE = process.env.NEXT_PUBLIC_SITE_MODE;
 
 const wip = new Set([
-  "/projects/l2c-portal/",
   "/projects/hangman/",
   "/projects/cymo-gpt/",
   "/projects/pmc-business/",

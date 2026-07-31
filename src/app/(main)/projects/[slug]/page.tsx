@@ -187,15 +187,53 @@ const markdownComponents: Components = {
       {children}
     </ol>
   ),
-  code: ({ children }) => (
-    <code className="font-mono text-xs bg-zinc-200 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-700 dark:text-zinc-300">
-      {children}
-    </code>
-  ),
+  code: ({ children, className }) => {
+    // Code blocks contain newlines; inline code does not
+    const text = children?.toString() ?? "";
+    const isBlock = text.includes("\n");
+
+    if (isBlock) {
+      return (
+        <code className={`font-mono text-xs ${className ?? ""}`}>
+          {children}
+        </code>
+      );
+    }
+
+    return (
+      <code className="font-mono text-xs bg-zinc-200 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-700 dark:text-zinc-300">
+        {children}
+      </code>
+    );
+  },
   pre: ({ children }) => (
-    <pre className="bg-zinc-100 dark:bg-zinc-800 rounded-xl p-4 mb-4 overflow-x-auto text-sm border border-zinc-200 dark:border-zinc-700">
+    <pre className="bg-zinc-100 dark:bg-zinc-800 rounded-xl p-4 mb-4 overflow-hidden text-sm border border-zinc-200 dark:border-zinc-700 [&>code]:block [&>code]:overflow-x-auto" style={{ clipPath: "inset(0 round 0.75rem)" }}>
       {children}
     </pre>
+  ),
+  table: ({ children }) => (
+    <div className="overflow-x-auto mb-4">
+      <table className="w-full text-sm text-zinc-600 dark:text-zinc-400 border-collapse border border-zinc-200 dark:border-zinc-700">
+        {children}
+      </table>
+    </div>
+  ),
+  thead: ({ children }) => (
+    <thead className="bg-zinc-100 dark:bg-zinc-800/50">{children}</thead>
+  ),
+  tbody: ({ children }) => <tbody>{children}</tbody>,
+  tr: ({ children }) => (
+    <tr className="border-b border-zinc-200 dark:border-zinc-700 last:border-none">
+      {children}
+    </tr>
+  ),
+  th: ({ children }) => (
+    <th className="text-left font-semibold text-zinc-700 dark:text-zinc-300 px-3 py-2.5 whitespace-nowrap">
+      {children}
+    </th>
+  ),
+  td: ({ children }) => (
+    <td className="px-3 py-2.5 text-sm">{children}</td>
   ),
   blockquote: ({ children }) => (
     <blockquote className="border-l-4 border-zinc-300 dark:border-zinc-600 pl-4 italic text-zinc-500 dark:text-zinc-400 mb-4">
