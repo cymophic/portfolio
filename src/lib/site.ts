@@ -236,7 +236,7 @@ export const projects: Project[] = [
     tags: ["AWS", "Terraform", "Cloudflare", "Next.js", "Tailwind CSS"],
     url: "https://jennyannvalenciano.com",
     cover: "/projects/vap-site/cover.webp",
-    page: false,
+    page: true,
   },
   {
     title: "Mobile Care PH",
