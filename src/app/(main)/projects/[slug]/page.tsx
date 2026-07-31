@@ -9,7 +9,6 @@ import type { Components } from "react-markdown";
 
 import { websiteURL, projects } from "@/lib/site";
 import Pill from "@/components/ui/Pill";
-import Tooltip from "@/components/ui/Tooltip";
 import {
   IconExternalLink,
   IconCodeblock,
@@ -69,15 +68,6 @@ export default async function Project({
   return (
     <section className="w-full">
       <div className="mx-auto max-w-3xl flex flex-col px-6 sm:px-10">
-        {/* Back link */}
-        <Link
-          href="/projects/"
-          className="flex items-center gap-1.5 text-sm text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors mb-8 w-fit"
-        >
-          <IconArrowLeft size={16} className="overflow-clip" />
-          Back to projects
-        </Link>
-
         {/* Cover Image */}
         {project.cover && (
           <div className="rounded-2xl mb-8">
@@ -92,59 +82,48 @@ export default async function Project({
           </div>
         )}
 
-        {/* Title + Tags + Links */}
-        <div className="flex flex-col gap-3 mb-10">
+        {/* Title + Links */}
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between mb-6 md:mb-4">
           <h1 className="text-2xl font-semibold text-zinc-700 dark:text-zinc-300">
             {project.title}
           </h1>
 
-          {project.description && (
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              {project.description}
-            </p>
-          )}
-
-          <div className="flex items-center gap-3 mt-2">
-            <div className="flex flex-wrap gap-1.5">
-              {project.tags.map((tag, i) => (
-                <Pill key={i} text={tag} />
-              ))}
-            </div>
-
-            <div className="flex items-center gap-2 ml-auto">
-              {project.url && (
-                <Tooltip content="View Live">
-                  <a
-                    aria-label={`View ${project.title} live`}
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
-                  >
-                    <IconExternalLink size={20} className="overflow-clip" />
-                  </a>
-                </Tooltip>
-              )}
-              {project.repo && (
-                <Tooltip content="View Source Code">
-                  <a
-                    aria-label={`View ${project.title} repository`}
-                    href={project.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors text-zinc-400 dark:text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
-                  >
-                    <IconCodeblock size={20} className="overflow-clip" />
-                  </a>
-                </Tooltip>
-              )}
-            </div>
+          <div className="flex items-center gap-4 shrink-0 sm:mt-1">
+            {project.url && (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm text-zinc-500 dark:text-zinc-400 underline decoration-zinc-300 dark:decoration-zinc-600 underline-offset-2 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors"
+              >
+                <IconExternalLink size={13} className="overflow-clip" />
+                View Live
+              </a>
+            )}
+            {project.repo && (
+              <a
+                href={project.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm text-zinc-500 dark:text-zinc-400 underline decoration-zinc-300 dark:decoration-zinc-600 underline-offset-2 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors"
+              >
+                <IconCodeblock size={13} className="overflow-clip" />
+                View Repository
+              </a>
+            )}
           </div>
+        </div>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5 mb-16 max-w-md">
+          {project.tags.map((tag, i) => (
+            <Pill key={i} text={tag} />
+          ))}
         </div>
 
         {/* Markdown Content or Simple Fallback */}
         {markdownContent ? (
-          <div className="prose-custom pb-20">
+          <div className="prose-custom">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={markdownComponents}
@@ -164,12 +143,12 @@ export default async function Project({
 
 const markdownComponents: Components = {
   h2: ({ children }) => (
-    <h2 className="text-xl font-semibold text-zinc-700 dark:text-zinc-300 mt-10 mb-4 first:mt-0">
+    <h2 className="text-xl font-semibold text-zinc-700 dark:text-zinc-300 mt-10 mb-4 pb-3 border-b border-zinc-300 dark:border-zinc-800 first:mt-0">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="text-lg font-semibold text-zinc-700 dark:text-zinc-300 mt-8 mb-3">
+    <h3 className="text-base font-medium text-zinc-700 dark:text-zinc-300 mt-6 mb-2">
       {children}
     </h3>
   ),
@@ -179,10 +158,12 @@ const markdownComponents: Components = {
     </p>
   ),
   img: ({ src, alt }) => (
-    <img
-      src={src}
+    <Image
+      src={src as string}
       alt={alt ?? ""}
-      className="w-full rounded-xl my-6"
+      width={800}
+      height={450}
+      className="w-full h-auto rounded-xl my-6"
       loading="lazy"
     />
   ),
@@ -207,7 +188,7 @@ const markdownComponents: Components = {
     </ol>
   ),
   code: ({ children }) => (
-    <code className="font-mono text-sm bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-700 dark:text-zinc-300">
+    <code className="font-mono text-xs bg-zinc-200 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-700 dark:text-zinc-300">
       {children}
     </code>
   ),
