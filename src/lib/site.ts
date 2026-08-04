@@ -220,7 +220,7 @@ export const projects: Project[] = [
     title: "Digital Portfolio",
     slug: "digital-portfolio",
     pinned: true,
-    page: true,
+    page: false,
     description: "The website where you're currently reading this right now.",
     tags: ["AWS", "Terraform", "Cloudflare", "Next.js", "Tailwind CSS"],
     url: "https://luisabhram.dev",
@@ -236,7 +236,7 @@ export const projects: Project[] = [
     tags: ["AWS", "Terraform", "Cloudflare", "Next.js", "Tailwind CSS"],
     url: "https://jennyannvalenciano.com",
     cover: "/projects/vap-site/cover.webp",
-    page: true,
+    page: false,
   },
   {
     title: "Mobile Care PH",
@@ -260,7 +260,7 @@ export const projects: Project[] = [
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
     cover: "/projects/l2c-portal/cover.webp",
-    page: true,
+    page: false,
   },
   {
     title: "PMC Business",
