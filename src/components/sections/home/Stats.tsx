@@ -329,9 +329,9 @@ function wakatimeStat(wakatimeStats: WakatimeStats | null): StatItemType {
     sublabel: (
       <>
         <span className="font-mono">
-          {wakatimeStats?.monthly.toLocaleString()}
+          {wakatimeStats?.yearly.toLocaleString()}
         </span>{" "}
-        hours coded this month
+        hours coded this year
       </>
     ),
     ready: wakatimeStats !== null,

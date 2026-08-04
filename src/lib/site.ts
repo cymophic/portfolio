@@ -191,7 +191,7 @@ export const techStack = [
     ],
   },
   { category: "Cloud", items: ["AWS", "Cloudflare"] },
-  { category: "CI/CD", items: ["Git", "GitHub Actions"] },
+  { category: "CI/CD", items: ["Git", "GitHub Actions", "GitLab CI"] },
   { category: "Scripting", items: ["Python", "Bash", "Makefile"] },
   {
     category: "Monitoring",
@@ -220,12 +220,12 @@ export const projects: Project[] = [
     title: "Digital Portfolio",
     slug: "digital-portfolio",
     pinned: true,
+    page: false,
     description: "The website where you're currently reading this right now.",
-    tags: ["Next.js", "AWS", "Terraform", "Cloudflare"],
+    tags: ["AWS", "Terraform", "Cloudflare", "Next.js", "Tailwind CSS"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
     cover: "/projects/digital-portfolio/cover.webp",
-    page: false,
   },
   {
     title: "Jenny Ann VAP",
@@ -233,7 +233,7 @@ export const projects: Project[] = [
     pinned: true,
     description:
       "Website migration of a Virtual Assistant Provider website from Wordpress to Next.js.",
-    tags: ["Next.js", "AWS", "Terraform", "Cloudflare"],
+    tags: ["AWS", "Terraform", "Cloudflare", "Next.js", "Tailwind CSS"],
     url: "https://jennyannvalenciano.com",
     cover: "/projects/vap-site/cover.webp",
     page: false,

@@ -79,6 +79,7 @@ function getStackColor(tech: string, isDark: boolean): string | undefined {
     // CI/CD
     Git: { light: "#ea580c", dark: "#F05032" },
     "GitHub Actions": { light: "#6b7280", dark: "#CCCCCC" },
+    "GitLab CI": { light: "#d97706", dark: "#FC6D26" },
     // Scripting
     Bash: { light: "#16a34a", dark: "#4EAA25" },
     Makefile: { light: "#a855f7", dark: "#A0A0A0" },
