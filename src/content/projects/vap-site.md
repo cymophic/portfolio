@@ -2,8 +2,6 @@
 
 Client website for a Virtual Assistant provider — built as a freelance project. Static marketing site deployed on AWS with a serverless contact form.
 
----
-
 ## My Contribution
 
 Full ownership from development through infrastructure and CI/CD.
@@ -19,8 +17,6 @@ Infrastructure as Code with Terraform — S3 for hosting, CloudFront with HTTPS 
 ### CI/CD
 
 GitHub Actions with pull request validation (lint, build check) and automated deployments. On merge to main, the pipeline builds the static export, syncs to S3, and invalidates cache at both CloudFront and Cloudflare.
-
----
 
 ## Technologies
 

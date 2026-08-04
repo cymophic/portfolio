@@ -2,8 +2,6 @@
 
 Enterprise CRM platform built for a retail company serving 1–2K users across a 3-tier location hierarchy. The system manages leads, waivers, product configurations, and customer data with role-based dashboards at each tier.
 
----
-
 ## My Contribution
 
 Sole infrastructure engineer and backend lead. Delivered MVP in two weeks.
@@ -22,13 +20,9 @@ CI/CD via self-hosted GitHub Actions runners with pull request checks, linting, 
 
 Sentry for real-time error tracking with full stack traces across environments. Grafana, Prometheus, and Loki for metrics and log aggregation. Automated daily PostgreSQL backups with tiered retention.
 
----
-
 ## What I Learned
 
 End-to-end ownership of a production system — database design, API architecture, server provisioning, CI/CD, and monitoring. Working without a senior on the infrastructure side required independent research, cross-referencing multiple sources, and deliberate architectural decisions.
-
----
 
 ## Technologies
 
