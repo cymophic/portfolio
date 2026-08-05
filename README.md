@@ -296,8 +296,8 @@ The following are configured in **Settings → Secrets and Variables → Actions
 1. Runs a Terraform plan against the existing remote state
 2. Applies the changes only if the plan reports infrastructure changes
 
-**On any push** — `mirror-gitlab.yml` runs:
-1. Mirrors all branches to the GitLab read-only mirror
+**On push to `main` or `dev`** — `mirror-gitlab.yml` runs:
+1. Mirrors both branches to the GitLab read-only mirror
 
 ---
 
