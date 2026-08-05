@@ -150,7 +150,7 @@ luisabhram.dev/
 | `npm run dev` | Start local development server |
 | `npm run build` | Build static export to `/out` |
 | `npm run lint` | Run ESLint |
-| `npm run update-tfvars` | Sync `terraform/terraform.tfvars` to the `TERRAFORM_TFVARS` GitHub secret |
+| `npm run set-tfvars` | Sync `terraform/terraform.tfvars` to the `TERRAFORM_TFVARS` GitHub secret |
 
 ---
 
@@ -199,7 +199,7 @@ spotify_refresh_token = ""
 monkeytype_api_key = ""
 ```
 
-> This file is gitignored and never committed. The CI workflows read the same values from the `TERRAFORM_TFVARS` GitHub secret — after editing `terraform/terraform.tfvars`, sync it with `npm run update-tfvars`.
+> This file is gitignored and never committed. The CI workflows read the same values from the `TERRAFORM_TFVARS` GitHub secret — after editing `terraform/terraform.tfvars`, sync it with `npm run set-tfvars`.
 
 ### Remote State
 
@@ -264,7 +264,7 @@ The following are configured in **Settings → Secrets and Variables → Actions
 | `CLOUDFLARE_ZONE_ID` | Cloudflare Zone ID |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API Token |
 | `GITLAB_TOKEN` | GitLab project access token |
-| `TERRAFORM_TFVARS` | Base64-encoded `terraform/terraform.tfvars` (set via `npm run update-tfvars`) |
+| `TERRAFORM_TFVARS` | Base64-encoded `terraform/terraform.tfvars` (set via `npm run set-tfvars`) |
 
 **Variables**
 | Name | Description |
