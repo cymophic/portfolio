@@ -7,7 +7,8 @@
     "prebuild": "tsx scripts/generate-favicon.ts && tsx scripts/convert-to-webp.ts",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "set-tfvars": "tsx scripts/set-tfvars.ts"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

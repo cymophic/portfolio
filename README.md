@@ -47,14 +47,14 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 ```
 luisabhram.dev/
 ├── .github/
-│   ├── workflows/
-│   │   ├── build-app.yml                 # Reusable build workflow
-│   │   ├── check-pr.yml                  # PR validation workflow
-│   │   ├── deploy-site.yml               # Deployment workflow
-│   │   ├── mirror-gitlab.yml             # Mirrors repo to GitLab
-│   │   ├── resolve-issues.yml            # Updates project fields of linked issues on merge
-│   │   └── track-issues.yml              # Updates project fields from created issues
-│   └── dependabot.yml                    # Dependabot for automatic dependency updates
+│   └── workflows/
+│       ├── build-app.yml                 # Reusable build workflow
+│       ├── check-pr.yml                  # PR validation workflow
+│       ├── deploy-infra.yml              # Infrastructure deployment workflow
+│       ├── deploy-site.yml               # Website deployment workflow
+│       ├── mirror-gitlab.yml             # Mirrors repo to GitLab
+│       ├── resolve-issues.yml            # Updates project fields of linked issues on merge
+│       └── track-issues.yml              # Updates project fields from created issues
 ├── lambda/
 │   ├── spotify/
 │   │   ├── now-playing.mjs               # Spotify now playing Lambda (live, API Gateway)
@@ -63,7 +63,7 @@ luisabhram.dev/
 │   ├── monkeytype.mjs                    # Monkeytype personal bests Lambda function
 │   └── wakatime.mjs                      # Wakatime coding stats Lambda function
 ├── public/                               # Static assets
-├── scripts/                              # Build-time scripts
+├── scripts/                              # Build-time and maintenance scripts
 ├── src/
 │   ├── app/
 │   │   ├── (main)/                       # Main route group
@@ -150,6 +150,7 @@ luisabhram.dev/
 | `npm run dev` | Start local development server |
 | `npm run build` | Build static export to `/out` |
 | `npm run lint` | Run ESLint |
+| `npm run set-tfvars` | Sync `terraform/terraform.tfvars` to the `TERRAFORM_TFVARS` GitHub secret |
 
 ---
 
@@ -197,6 +198,8 @@ spotify_refresh_token = ""
 # Monkeytype
 monkeytype_api_key = ""
 ```
+
+> This file is gitignored and never committed. The CI workflows read the same values from the `TERRAFORM_TFVARS` GitHub secret — after editing `terraform/terraform.tfvars`, sync it with `npm run set-tfvars`.
 
 ### Remote State
 
@@ -261,6 +264,7 @@ The following are configured in **Settings → Secrets and Variables → Actions
 | `CLOUDFLARE_ZONE_ID` | Cloudflare Zone ID |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API Token |
 | `GITLAB_TOKEN` | GitLab project access token |
+| `TERRAFORM_TFVARS` | Base64-encoded `terraform/terraform.tfvars` (set via `npm run set-tfvars`) |
 
 **Variables**
 | Name | Description |
@@ -278,6 +282,7 @@ The following are configured in **Settings → Secrets and Variables → Actions
 1. Lints the codebase
 2. Calls the reusable `build-app.yml` workflow to build the Next.js static export
 3. Runs security analysis with CodeQL
+4. Validates infrastructure with Terraform (format, validate, and plan)
 
 **On merge to `main`** — `deploy-site.yml` runs:
 1. Calls the reusable `build-app.yml` workflow
@@ -287,8 +292,12 @@ The following are configured in **Settings → Secrets and Variables → Actions
 5. Invalidates the CloudFront cache
 6. Updates the "Date Resolved" field on any linked GitHub Projects issue
 
-**On any push** — `mirror-gitlab.yml` runs:
-1. Mirrors all branches to the GitLab read-only mirror
+**On merge to `main` (infra changes only)** — `deploy-infra.yml` runs:
+1. Runs a Terraform plan against the existing remote state
+2. Applies the changes only if the plan reports infrastructure changes
+
+**On push to `main` or `dev`** — `mirror-gitlab.yml` runs:
+1. Mirrors both branches to the GitLab read-only mirror
 
 ---
 
