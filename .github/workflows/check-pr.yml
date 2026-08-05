@@ -70,7 +70,7 @@ jobs:
         if: steps.changes.outputs.infra == 'true'
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.14"
+          terraform_version: "1.15.8"
 
       - name: Configure AWS credentials
         if: steps.changes.outputs.infra == 'true'

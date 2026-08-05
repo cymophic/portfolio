@@ -66,7 +66,7 @@ resource "aws_lambda_function" "github" {
   role             = aws_iam_role.lambda_shared.arn
   handler          = "github.handler"
   runtime          = "nodejs22.x"
-  source_code_hash = data.archive_file.github.output_base64sha256
+  source_code_hash = filebase64sha256(data.archive_file.github.source_file)
   timeout          = 10
 
   environment {
@@ -97,7 +97,7 @@ resource "aws_lambda_function" "wakatime" {
   role             = aws_iam_role.lambda_shared.arn
   handler          = "wakatime.handler"
   runtime          = "nodejs22.x"
-  source_code_hash = data.archive_file.wakatime.output_base64sha256
+  source_code_hash = filebase64sha256(data.archive_file.wakatime.source_file)
   timeout          = 10
 
   environment {
@@ -127,7 +127,7 @@ resource "aws_lambda_function" "monkeytype" {
   role             = aws_iam_role.lambda_shared.arn
   handler          = "monkeytype.handler"
   runtime          = "nodejs22.x"
-  source_code_hash = data.archive_file.monkeytype.output_base64sha256
+  source_code_hash = filebase64sha256(data.archive_file.monkeytype.source_file)
   timeout          = 10
 
   environment {
@@ -157,7 +157,7 @@ resource "aws_lambda_function" "spotify_now_playing" {
   role             = aws_iam_role.lambda_shared.arn
   handler          = "now-playing.handler"
   runtime          = "nodejs22.x"
-  source_code_hash = data.archive_file.spotify_now_playing.output_base64sha256
+  source_code_hash = filebase64sha256(data.archive_file.spotify_now_playing.source_file)
   timeout          = 15
 
   environment {
@@ -202,7 +202,7 @@ resource "aws_lambda_function" "spotify_stats" {
   role             = aws_iam_role.lambda_shared.arn
   handler          = "stats.handler"
   runtime          = "nodejs22.x"
-  source_code_hash = data.archive_file.spotify_stats.output_base64sha256
+  source_code_hash = filebase64sha256(data.archive_file.spotify_stats.source_file)
   timeout          = 15
 
   environment {
