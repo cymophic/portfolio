@@ -4,6 +4,16 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    archive = {
+      source  = "hashicorp/archive"
+      version = "~> 2.7"
+    }
+  }
+
+  backend "s3" {
+    bucket = "cymo-tfstate-storage"
+    key    = "portfolio/terraform.tfstate"
+    region = "ap-southeast-1"
   }
 }
 

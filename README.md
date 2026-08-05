@@ -97,7 +97,7 @@ luisabhram.dev/
 │   ├── eventbridge.tf                    # EventBridge scheduled triggers for Lambda
 │   ├── lambda.tf                         # Lambda functions and IAM roles
 │   ├── locals.tf                         # Centralized logic and data transformation layer
-│   ├── main.tf                           # Terraform and provider configuration
+│   ├── main.tf                           # Terraform, providers, and S3 backend config
 │   ├── outputs.tf                        # Terraform output values
 │   ├── s3.tf                             # S3 bucket, policy, and access configuration
 │   ├── variables.tf                      # Input definitions
@@ -197,6 +197,10 @@ spotify_refresh_token = ""
 # Monkeytype
 monkeytype_api_key = ""
 ```
+
+### Remote State
+
+Terraform state is stored remotely in S3 and configured in `terraform/main.tf` — no extra setup needed. Just run `terraform init`.
 
 ### Provision AWS Resources
 
