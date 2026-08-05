@@ -12,9 +12,7 @@ import Pill from "@/components/ui/Pill";
 import {
   IconExternalLink,
   IconCodeblock,
-  IconArrowLeft,
 } from "@tabler/icons-react";
-import Link from "next/link";
 
 export async function generateMetadata({
   params,
