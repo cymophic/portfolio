@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 jobs:
   lint:
@@ -58,7 +61,7 @@ jobs:
 
       - name: Detect infrastructure changes
         id: changes
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         with:
           filters: |
             infra:
@@ -68,7 +71,7 @@ jobs:
 
       - name: Setup Terraform
         if: steps.changes.outputs.infra == 'true'
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: "1.15.8"
 
