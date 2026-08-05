@@ -47,3 +47,49 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
+
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.14"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-1
+
+      - name: Write terraform.tfvars
+        run: echo "${{ secrets.TERRAFORM_TFVARS }}" | base64 --decode > "$RUNNER_TEMP/terraform.tfvars"
+
+      - name: Terraform init
+        working-directory: terraform
+        run: terraform init -input=false -no-color
+
+      - name: Terraform format
+        working-directory: terraform
+        run: terraform fmt -check -recursive
+
+      - name: Terraform validate
+        working-directory: terraform
+        run: terraform validate -no-color
+
+      - name: Terraform plan
+        working-directory: terraform
+        run: |
+          set +e
+          terraform plan -input=false -no-color -detailed-exitcode -var-file="$RUNNER_TEMP/terraform.tfvars"
+          plan_exit=$?
+          set -e
+          case "$plan_exit" in
+            0) echo "No infrastructure changes." ;;
+            2) echo "Infrastructure changes detected." ;;
+            *) exit "$plan_exit" ;;
+          esac
