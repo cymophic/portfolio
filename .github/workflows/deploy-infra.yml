@@ -18,7 +18,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.14"
+          terraform_version: "1.15.8"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
@@ -37,15 +37,10 @@ jobs:
       - name: Terraform plan and apply
         working-directory: terraform
         run: |
-          set +e
-          terraform plan -input=false -no-color -detailed-exitcode -out=tfplan -var-file="$RUNNER_TEMP/terraform.tfvars"
-          plan_exit=$?
-          set -e
-          if [ "$plan_exit" -eq 1 ]; then
-            exit 1
-          fi
-          if [ "$plan_exit" -eq 2 ]; then
-            echo "Infrastructure changes detected - applying."
+          terraform plan -input=false -no-color -out=tfplan -var-file="$RUNNER_TEMP/terraform.tfvars"
+          changes=$(terraform show -json tfplan | jq '[.resource_changes[] | select(.change.actions | any(. != "no-op"))] | length')
+          if [ "$changes" -gt 0 ]; then
+            echo "Infrastructure changes detected ($changes) - applying."
             terraform apply -input=false -no-color -auto-approve tfplan
           else
             echo "No infrastructure changes - skipping apply."
