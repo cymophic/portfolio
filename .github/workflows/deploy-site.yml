@@ -66,7 +66,9 @@ jobs:
             paths=$(echo "$output" | grep "upload:\|delete:" | sed -E \
               -e 's/^upload: .* to s3:\/\/[^/]+\///' \
               -e 's/^delete: s3:\/\/[^/]+\///' \
-              | sed 's#^#/#')
+              | sed 's#^#/#' \
+              | grep -v '^/_next/static/' \
+              | grep '^/[A-Za-z0-9._/-]*$' || true)
             echo "paths<<EOF" >> "$GITHUB_OUTPUT"
             echo "$paths" >> "$GITHUB_OUTPUT"
             echo "EOF" >> "$GITHUB_OUTPUT"
