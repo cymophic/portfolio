@@ -221,11 +221,11 @@ spotify_refresh_token = ""
 monkeytype_api_key    = ""
 ```
 
-> `terraform/secrets.auto.tfvars` is gitignored and never committed. CI workflows supply the same values via `TF_VAR_*` environment variables mapped to GitHub secrets — no manual syncing needed.
+> `terraform/secrets.auto.tfvars` is gitignored and never committed.
 
 ### Remote State
 
-Terraform state is stored remotely in S3 and configured in `terraform/main.tf` — no extra setup needed. Just run `terraform init`.
+Terraform state is stored remotely in S3.
 
 ### Provision AWS Resources
 
