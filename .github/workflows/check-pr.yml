@@ -34,6 +34,38 @@ jobs:
       NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
       NEXT_PUBLIC_CDN_URL: ${{ vars.NEXT_PUBLIC_CDN_URL }}
 
+  codeql:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Detect JavaScript changes
+        id: changes
+        uses: dorny/paths-filter@v4
+        with:
+          filters: |
+            js:
+              - 'src/**'
+              - 'lambda/**'
+              - 'scripts/**'
+              - '**/*.ts'
+              - '**/*.mjs'
+              - '**/*.js'
+
+      - name: Initialize CodeQL
+        if: steps.changes.outputs.js == 'true'
+        uses: github/codeql-action/init@v4
+        with:
+          languages: javascript
+
+      - name: Perform CodeQL Analysis
+        if: steps.changes.outputs.js == 'true'
+        uses: github/codeql-action/analyze@v4
+
   terraform:
     runs-on: ubuntu-latest
     env:
@@ -58,7 +90,6 @@ jobs:
               - 'terraform/**'
               - 'lambda/**'
               - '.github/workflows/check-pr.yml'
-              - '.github/workflows/scan-code.yml'
 
       - name: Setup Terraform
         if: steps.changes.outputs.infra == 'true'
