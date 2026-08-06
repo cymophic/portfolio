@@ -63,6 +63,13 @@ jobs:
           if [ "$changed" -gt 0 ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "Uploaded/removed $changed file(s)."
+            paths=$(echo "$output" | grep "upload:\|delete:" | sed -E \
+              -e 's/^upload: .* to s3:\/\/[^/]+\///' \
+              -e 's/^delete: s3:\/\/[^/]+\///' \
+              | sed 's#^#/#')
+            echo "paths<<EOF" >> "$GITHUB_OUTPUT"
+            echo "$paths" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No site changes - skipping cache invalidation."
@@ -70,7 +77,17 @@ jobs:
 
       - name: Invalidate CloudFront cache
         if: steps.sync.outputs.changed == 'true'
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+        run: |
+          items=()
+          while IFS= read -r line; do
+            if [ -n "$line" ]; then
+              items+=("$line")
+            fi
+          done <<< "${{ steps.sync.outputs.paths }}"
+          if [ "${#items[@]}" -le 0 ] || [ "${#items[@]}" -gt 3000 ]; then
+            items=("/*")
+          fi
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "${items[@]}"
 
       - name: Purge Cloudflare cache
         if: steps.sync.outputs.changed == 'true'
