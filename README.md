@@ -100,8 +100,9 @@ luisabhram.dev/
 │   ├── main.tf                           # Terraform, providers, and S3 backend config
 │   ├── outputs.tf                        # Terraform output values
 │   ├── s3.tf                             # S3 bucket, policy, and access configuration
-│   ├── variables.tf                      # Input definitions
-│   └── terraform.tfvars.example          # Terraform variable template
+│   ├── secrets.auto.tfvars               # Terraform secret variables (gitignored)
+│   ├── terraform.tfvars                  # Terraform variables (non-sensitive values)
+│   └── variables.tf                      # Input definitions
 ├── .env.example                          # Required environment variables
 ├── .gitignore
 ├── eslint.config.mjs
@@ -119,6 +120,10 @@ luisabhram.dev/
 
 - **Node.js** v22+
 - **npm** v10+
+- **Terraform** v1.14+
+- **AWS CLI** configured with valid credentials (`aws configure`)
+- **GitHub CLI** authenticated (`gh auth login`)
+- An AWS IAM user with S3, CloudFront, ACM, IAM, Lambda, API Gateway, and EventBridge permissions
 
 ### Setup
 
@@ -143,6 +148,28 @@ luisabhram.dev/
 
     Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Terraform Setup
+
+The Terraform config loads values from two files — the non-sensitive ones ship with the repo (`terraform/terraform.tfvars`), but the secrets are gitignored and only exist locally:
+
+1. **Create the local secrets file** from your password manager:
+
+    ```bash
+    cd terraform
+    # create secrets.auto.tfvars containing the 6 sensitive values:
+    # github_pat, wakatime_api_key, spotify_client_id,
+    # spotify_client_secret, spotify_refresh_token, monkeytype_api_key
+    ```
+
+2. **Initialize and verify against the deployed infrastructure:**
+
+    ```bash
+    terraform init
+    terraform plan
+    ```
+
+> `terraform/secrets.auto.tfvars` is gitignored and never committed. If you get a "variable is required" error from `terraform plan`, the file is missing a value.
+
 ### Available Scripts
 
 | Command | Description |
@@ -150,21 +177,16 @@ luisabhram.dev/
 | `npm run dev` | Start local development server |
 | `npm run build` | Build static export to `/out` |
 | `npm run lint` | Run ESLint |
-| `npm run set-tfvars` | Sync `terraform/terraform.tfvars` to the `TERRAFORM_TFVARS` GitHub secret |
 
 ---
 
 ## 🏗️ Infrastructure Setup
 
-### Prerequisites
-
-- **Terraform** v1.14+
-- **AWS CLI** configured with valid credentials (`aws configure`)
-- An AWS IAM user with S3, CloudFront, ACM, IAM, Lambda, API Gateway, and EventBridge permissions
-
 ### Terraform Variables
 
-Variables are set up in `terraform/terraform.tfvars` file. An [example](terraform/terraform.tfvars.example) file is provided to assist with the setup:
+Variables are set in two places:
+
+**`terraform/terraform.tfvars`** — committed, holds only non-sensitive values:
 
 ```hcl
 # General
@@ -184,22 +206,21 @@ budget_limit_usd   = "100.0"
 budget_alert_email = ["name@email.com"]
 
 # GitHub
-github_pat         = ""
 github_username    = ""
+```
 
-# WakaTime
-wakatime_api_key   = ""
+**`terraform/secrets.auto.tfvars`** — holds the sensitive values for local runs (auto-loaded by Terraform):
 
-# Spotify
+```hcl
+github_pat            = ""
+wakatime_api_key      = ""
 spotify_client_id     = ""
 spotify_client_secret = ""
 spotify_refresh_token = ""
-
-# Monkeytype
-monkeytype_api_key = ""
+monkeytype_api_key    = ""
 ```
 
-> This file is gitignored and never committed. The CI workflows read the same values from the `TERRAFORM_TFVARS` GitHub secret — after editing `terraform/terraform.tfvars`, sync it with `npm run set-tfvars`.
+> `terraform/secrets.auto.tfvars` is gitignored and never committed. CI workflows supply the same values via `TF_VAR_*` environment variables mapped to GitHub secrets — no manual syncing needed.
 
 ### Remote State
 
@@ -264,7 +285,11 @@ The following are configured in **Settings → Secrets and Variables → Actions
 | `CLOUDFLARE_ZONE_ID` | Cloudflare Zone ID |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API Token |
 | `GITLAB_TOKEN` | GitLab project access token |
-| `TERRAFORM_TFVARS` | Base64-encoded `terraform/terraform.tfvars` (set via `npm run set-tfvars`) |
+| `WAKATIME_API_KEY` | WakaTime API key |
+| `SPOTIFY_CLIENT_ID` | Spotify client ID |
+| `SPOTIFY_CLIENT_SECRET` | Spotify client secret |
+| `SPOTIFY_REFRESH_TOKEN` | Spotify refresh token |
+| `MONKEYTYPE_API_KEY` | Monkeytype API key |
 
 **Variables**
 | Name | Description |
