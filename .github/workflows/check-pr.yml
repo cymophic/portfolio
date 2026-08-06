@@ -11,6 +11,9 @@ on:
 jobs:
   changes:
     runs-on: ubuntu-latest
+    outputs:
+      js: ${{ steps.filter.outputs.js }}
+      infra: ${{ steps.filter.outputs.infra }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
