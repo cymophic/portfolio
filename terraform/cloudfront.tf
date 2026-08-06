@@ -37,6 +37,26 @@ resource "aws_cloudfront_distribution" "portfolio" {
     }
   }
 
+  ordered_cache_behavior {
+    path_pattern               = "_next/static/*"
+    allowed_methods            = ["GET", "HEAD"]
+    cached_methods             = ["GET", "HEAD"]
+    target_origin_id           = "S3-${var.bucket_name}"
+    viewer_protocol_policy     = "redirect-to-https"
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cors.id
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+
+    min_ttl     = 31536000
+    default_ttl = 31536000
+    max_ttl     = 31536000
+  }
+
   custom_error_response {
     error_code            = 403
     response_code         = 404
