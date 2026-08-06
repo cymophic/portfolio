@@ -101,10 +101,12 @@ luisabhram.dev/
 │   ├── outputs.tf                        # Terraform output values
 │   ├── s3.tf                             # S3 bucket, policy, and access configuration
 │   ├── secrets.auto.tfvars               # Terraform secret variables (gitignored)
+│   ├── secrets.tfvars.tmpl               # Infisical export template for secrets.auto.tfvars
 │   ├── terraform.tfvars                  # Terraform variables (non-sensitive values)
 │   └── variables.tf                      # Input definitions
 ├── .env.example                          # Required environment variables
 ├── .gitignore
+├── .infisical.json                       # Links the repo to the Infisical project
 ├── eslint.config.mjs
 ├── next.config.ts                        # Next.js configuration (static export)
 ├── package.json
@@ -123,6 +125,7 @@ luisabhram.dev/
 - **Terraform** v1.14+
 - **AWS CLI** configured with valid credentials (`aws configure`)
 - **GitHub CLI** authenticated (`gh auth login`)
+- **Infisical CLI** authenticated (`infisical login`)
 - An AWS IAM user with S3, CloudFront, ACM, IAM, Lambda, API Gateway, and EventBridge permissions
 
 ### Setup
@@ -152,14 +155,14 @@ luisabhram.dev/
 
 The Terraform config loads values from two files — the non-sensitive ones ship with the repo (`terraform/terraform.tfvars`), but the secrets are gitignored and only exist locally:
 
-1. **Create the local secrets file** from your password manager:
+1. **Pull the local secrets file from Infisical**:
 
     ```bash
     cd terraform
-    # create secrets.auto.tfvars containing the 6 sensitive values:
-    # github_pat, wakatime_api_key, spotify_client_id,
-    # spotify_client_secret, spotify_refresh_token, monkeytype_api_key
+    infisical export --template=secrets.tfvars.tmpl > secrets.auto.tfvars
     ```
+
+    > `terraform/secrets.auto.tfvars` is gitignored and never committed. If you get a "variable is required" error from `terraform plan`, re-run the export above.
 
 2. **Initialize and verify against the deployed infrastructure:**
 
@@ -167,8 +170,6 @@ The Terraform config loads values from two files — the non-sensitive ones ship
     terraform init
     terraform plan
     ```
-
-> `terraform/secrets.auto.tfvars` is gitignored and never committed. If you get a "variable is required" error from `terraform plan`, the file is missing a value.
 
 ### Available Scripts
 
@@ -209,7 +210,7 @@ budget_alert_email = ["name@email.com"]
 github_username    = ""
 ```
 
-**`terraform/secrets.auto.tfvars`** — holds the sensitive values for local runs (auto-loaded by Terraform):
+**`terraform/secrets.auto.tfvars`** — holds the sensitive values for local runs (auto-loaded by Terraform, generated from Infisical via `terraform/secrets.tfvars.tmpl`):
 
 ```hcl
 github_pat            = ""
@@ -220,11 +221,11 @@ spotify_refresh_token = ""
 monkeytype_api_key    = ""
 ```
 
-> `terraform/secrets.auto.tfvars` is gitignored and never committed. CI workflows supply the same values via `TF_VAR_*` environment variables mapped to GitHub secrets — no manual syncing needed.
+> `terraform/secrets.auto.tfvars` is gitignored and never committed.
 
 ### Remote State
 
-Terraform state is stored remotely in S3 and configured in `terraform/main.tf` — no extra setup needed. Just run `terraform init`.
+Terraform state is stored remotely in S3.
 
 ### Provision AWS Resources
 
