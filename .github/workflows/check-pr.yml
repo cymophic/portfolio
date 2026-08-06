@@ -58,7 +58,7 @@ jobs:
               - 'terraform/**'
               - 'lambda/**'
               - '.github/workflows/check-pr.yml'
-              - '.github/workflows/codeql.yml'
+              - '.github/workflows/scan-code.yml'
 
       - name: Setup Terraform
         if: steps.changes.outputs.infra == 'true'

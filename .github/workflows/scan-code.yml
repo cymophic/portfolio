@@ -1,4 +1,4 @@
-name: CodeQL
+name: Scan Code with CodeQL
 
 on:
   pull_request:
