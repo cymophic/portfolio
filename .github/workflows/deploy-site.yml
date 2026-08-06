@@ -4,6 +4,24 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "src/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
+      - "next.config.ts"
+      - "tsconfig.json"
+      - "postcss.config.mjs"
+      - "eslint.config.mjs"
+      - ".github/workflows/deploy-site.yml"
+      - ".github/workflows/build-app.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -31,13 +49,32 @@ jobs:
           aws-region: ap-southeast-1
 
       - name: Deploy to S3
-        run: aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }} --delete --exclude "stats/*"
+        id: sync
+        run: |
+          set +e
+          output=$(aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }} --delete --exclude "stats/*")
+          sync_exit=$?
+          set -e
+          if [ "$sync_exit" -ne 0 ]; then
+            echo "$output"
+            exit "$sync_exit"
+          fi
+          changed=$(echo "$output" | grep -c "upload:\|delete:" || true)
+          if [ "$changed" -gt 0 ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Uploaded/removed $changed file(s)."
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No site changes - skipping cache invalidation."
+          fi
 
       - name: Invalidate CloudFront cache
+        if: steps.sync.outputs.changed == 'true'
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
 
       - name: Purge Cloudflare cache
-        uses: jakejarvis/cloudflare-purge-action@master
+        if: steps.sync.outputs.changed == 'true'
+        uses: jakejarvis/cloudflare-purge-action@eee6dba0236093358f25bb1581bd615dc8b3d8e3
         env:
           CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
