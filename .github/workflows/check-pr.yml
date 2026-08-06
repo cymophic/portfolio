@@ -9,7 +9,34 @@ on:
       - main
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed paths
+        id: filter
+        uses: dorny/paths-filter@v4
+        with:
+          filters: |
+            js:
+              - 'src/**'
+              - 'lambda/**'
+              - 'scripts/**'
+              - '**/*.ts'
+              - '**/*.mjs'
+              - '**/*.js'
+            infra:
+              - 'terraform/**'
+              - 'lambda/**'
+              - '.github/workflows/check-pr.yml'
+
   lint:
+    needs: changes
+    if: needs.changes.outputs.js == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -28,6 +55,8 @@ jobs:
         run: npm run lint
 
   build:
+    needs: changes
+    if: needs.changes.outputs.js == 'true'
     uses: ./.github/workflows/build-app.yml
     with:
       NEXT_PUBLIC_SITE_MODE: ${{ vars.NEXT_PUBLIC_SITE_MODE }}
@@ -35,6 +64,8 @@ jobs:
       NEXT_PUBLIC_CDN_URL: ${{ vars.NEXT_PUBLIC_CDN_URL }}
 
   codeql:
+    needs: changes
+    if: needs.changes.outputs.js == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -43,30 +74,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Detect JavaScript changes
-        id: changes
-        uses: dorny/paths-filter@v4
-        with:
-          filters: |
-            js:
-              - 'src/**'
-              - 'lambda/**'
-              - 'scripts/**'
-              - '**/*.ts'
-              - '**/*.mjs'
-              - '**/*.js'
-
       - name: Initialize CodeQL
-        if: steps.changes.outputs.js == 'true'
         uses: github/codeql-action/init@v4
         with:
           languages: javascript
 
       - name: Perform CodeQL Analysis
-        if: steps.changes.outputs.js == 'true'
         uses: github/codeql-action/analyze@v4
 
   terraform:
+    needs: changes
+    if: needs.changes.outputs.infra == 'true'
     runs-on: ubuntu-latest
     env:
       TF_VAR_github_pat: ${{ secrets.GH_PAT }}
@@ -81,24 +99,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Detect infrastructure changes
-        id: changes
-        uses: dorny/paths-filter@v4
-        with:
-          filters: |
-            infra:
-              - 'terraform/**'
-              - 'lambda/**'
-              - '.github/workflows/check-pr.yml'
-
       - name: Setup Terraform
-        if: steps.changes.outputs.infra == 'true'
         uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: "1.15.8"
 
       - name: Configure AWS credentials
-        if: steps.changes.outputs.infra == 'true'
         uses: aws-actions/configure-aws-credentials@v6
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -106,22 +112,18 @@ jobs:
           aws-region: ap-southeast-1
 
       - name: Terraform init
-        if: steps.changes.outputs.infra == 'true'
         working-directory: terraform
         run: terraform init -input=false -no-color
 
       - name: Terraform format
-        if: steps.changes.outputs.infra == 'true'
         working-directory: terraform
         run: terraform fmt -check -recursive
 
       - name: Terraform validate
-        if: steps.changes.outputs.infra == 'true'
         working-directory: terraform
         run: terraform validate -no-color
 
       - name: Terraform plan
-        if: steps.changes.outputs.infra == 'true'
         working-directory: terraform
         run: |
           set +e
