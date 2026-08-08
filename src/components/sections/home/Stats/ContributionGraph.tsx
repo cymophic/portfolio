@@ -202,8 +202,8 @@ export default function ContributionGraph({
       <div className="px-1 flex items-center justify-between gap-x-8 text-xs text-zinc-500 dark:text-zinc-400">
         {/* Contribution Count */}
         <span className="truncate">
-          {totalContributions?.toLocaleString() ?? 0} GitHub contributions in
-          the last year
+          {totalContributions?.toLocaleString() ?? 0} contributions in the
+          last year
         </span>
 
         {/* Legend */}
