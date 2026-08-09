@@ -28,7 +28,7 @@ The site is live at [luisabhram.dev](https://luisabhram.dev)
 - **Framework:** Next.js 16
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4
-- **Animations:** GSAP, Motion
+- **Animations:** GSAP
 
 ### Infrastructure
 - **Frontend Hosting:** AWS S3 & AWS CloudFront

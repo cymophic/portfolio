@@ -5,10 +5,6 @@ resource "aws_acm_certificate" "portfolio" {
 
   subject_alternative_names = [for domain in local.all_domains : domain if domain != var.domain_name]
 
-  tags = {
-    Project = var.project_name
-  }
-
   lifecycle {
     create_before_destroy = true
   }
