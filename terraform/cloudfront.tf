@@ -82,10 +82,6 @@ resource "aws_cloudfront_distribution" "portfolio" {
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
-
-  tags = {
-    Project = var.project_name
-  }
 }
 
 resource "aws_cloudfront_function" "rewrite_uri" {
