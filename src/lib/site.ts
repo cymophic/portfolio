@@ -96,7 +96,6 @@ export const profileInfo = {
       type: "Full-time",
       start: "Oct 2026",
       end: "Present",
-      visible: false,
       about:
         "Accenture is a massive global professional services company specializing in IT services, strategy and consulting, and digital operations.",
       scope:
