@@ -21,6 +21,14 @@ function dateOf(iso) {
   return iso.slice(0, 10);
 }
 
+function mergeMax(existing, incoming) {
+  const merged = { ...existing };
+  for (const [date, count] of Object.entries(incoming)) {
+    merged[date] = Math.max(merged[date] || 0, count);
+  }
+  return merged;
+}
+
 async function getJson(baseUrl, path, token) {
   return fetch(`${baseUrl}/api/v4${path}`, {
     headers: { "PRIVATE-TOKEN": token },
@@ -102,18 +110,28 @@ async function checkTokenExpiry(baseUrl, token, name) {
 
 function buildOutput(history, startDate) {
   const byDate = {};
+  const commitsByDate = {};
 
   for (const days of Object.values(history)) {
-    for (const [date, count] of Object.entries(days)) {
+    const contributions = days.contributions ?? days;
+    const commits = days.commits ?? {};
+    for (const [date, count] of Object.entries(contributions)) {
+      if (date >= startDate) byDate[date] = (byDate[date] || 0) + count;
+    }
+    for (const [date, count] of Object.entries(commits)) {
       if (date >= startDate) {
-        byDate[date] = (byDate[date] || 0) + count;
+        commitsByDate[date] = (commitsByDate[date] || 0) + count;
       }
     }
   }
 
-  const weeks = [];
   let contributions = 0;
   for (const count of Object.values(byDate)) contributions += count;
+
+  let commits = 0;
+  for (const count of Object.values(commitsByDate)) commits += count;
+
+  const weeks = [];
 
   if (Object.keys(byDate).length > 0) {
     const cursor = new Date(`${startDate}T00:00:00Z`);
@@ -137,7 +155,7 @@ function buildOutput(history, startDate) {
     }
   }
 
-  return { contributions, weeks };
+  return { contributions, commits, weeks };
 }
 
 export const handler = async () => {
@@ -164,20 +182,33 @@ export const handler = async () => {
       const events = await fetchEvents(baseUrl, user.id, token, startDate);
 
       const dayCounts = {};
+      const commitCounts = {};
       for (const event of events) {
         const date = dateOf(event.created_at);
         dayCounts[date] = (dayCounts[date] || 0) + 1;
+        const pushCommits = event.push_data?.commit_count;
+        if (Number.isInteger(pushCommits) && pushCommits > 0) {
+          commitCounts[date] = (commitCounts[date] || 0) + pushCommits;
+        }
       }
 
       history[name] = history[name] || {};
-      for (const [date, count] of Object.entries(dayCounts)) {
-        history[name][date] = Math.max(history[name][date] || 0, count);
+      let stored = history[name];
+      if (!stored.contributions) {
+        stored = { contributions: stored, commits: {} };
       }
+      stored.contributions = mergeMax(stored.contributions, dayCounts);
+      stored.commits = mergeMax(stored.commits ?? {}, commitCounts);
+      history[name] = stored;
 
       await checkTokenExpiry(baseUrl, token, name);
 
+      const totalCommits = Object.values(commitCounts).reduce(
+        (sum, count) => sum + count,
+        0,
+      );
       console.log(
-        `[gitlab-${name}] ${events.length} events, ${Object.keys(dayCounts).length} active days`,
+        `[gitlab-${name}] ${events.length} events, ${totalCommits} commits, ${Object.keys(dayCounts).length} active days`,
       );
     } catch (error) {
       console.error(`[gitlab-${name}] failed: ${error.message}`);

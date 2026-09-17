@@ -359,7 +359,7 @@ Pre-generated JSON files served from CloudFront, updated on a schedule via Event
 | File | Description | Schedule | Response |
 |---|---|---|---|
 | `/stats/github.json` | GitHub profile stats | Hourly | `{ contributions, totalCommits, weeks, recentPortfolioCommits, recentActivity }` |
-| `/stats/gitlab.json` | GitLab contribution stats (all instances merged) | Daily | `{ contributions, weeks }` |
+| `/stats/gitlab.json` | GitLab contribution stats (all instances merged) | Daily | `{ contributions, commits, weeks }` |
 | `/stats/wakatime.json` | WakaTime coding hours | Hourly | `{ today, weekly, monthly, yearly }` |
 | `/stats/spotify.json` | Spotify static stats | Hourly | `{ topTrack, topArtist, lastPlayed }` |
 | `/stats/monkeytype.json` | Monkeytype personal bests | Daily | `{ time: { 15, 60: { wpm, acc, consistency, timestamp } } }` |
