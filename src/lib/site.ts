@@ -92,14 +92,14 @@ export const profileInfo = {
       company: "Accenture",
       website: "https://www.accenture.com/",
       logo: "/logos/work_accenture.webp",
-      role: "Senior DevOps Analyst",
+      role: "Senior Analyst Devops Engineer",
       type: "Full-time",
       start: "Oct 2026",
       end: "Present",
       about:
         "Accenture is a massive global professional services company specializing in IT services, strategy and consulting, and digital operations.",
       scope:
-        "Currently serving as a Senior DevOps Analyst.",
+        "Currently serving as a Senior Analyst Devops Engineer.",
     },
     {
       company: "PGX Group",
