@@ -26,6 +26,7 @@ resource "aws_iam_role_policy" "eventbridge_scheduler_invoke" {
         aws_lambda_function.wakatime.arn,
         aws_lambda_function.spotify_stats.arn,
         aws_lambda_function.monkeytype.arn,
+        aws_lambda_function.gitlab.arn,
       ]
     }]
   })
@@ -77,6 +78,18 @@ resource "aws_scheduler_schedule" "monkeytype" {
 
   target {
     arn      = aws_lambda_function.monkeytype.arn
+    role_arn = aws_iam_role.eventbridge_scheduler.arn
+  }
+}
+
+resource "aws_scheduler_schedule" "gitlab" {
+  name = "${var.project_name}-gitlab"
+
+  schedule_expression = "rate(24 hours)"
+  flexible_time_window { mode = "OFF" }
+
+  target {
+    arn      = aws_lambda_function.gitlab.arn
     role_arn = aws_iam_role.eventbridge_scheduler.arn
   }
 }
