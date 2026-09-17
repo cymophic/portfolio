@@ -11,13 +11,16 @@ import {
 } from "@tabler/icons-react";
 
 import { fetchGithubData } from "@/lib/services/github";
+import { fetchGitlabData } from "@/lib/services/gitlab";
 import { fetchWakatimeStats } from "@/lib/services/wakatime";
 import { fetchSpotifyStats } from "@/lib/services/spotify";
 import { fetchMonkeytypeStats } from "@/lib/services/monkeytype";
 import type { GithubData } from "@/lib/services/github";
+import type { GitlabData } from "@/lib/services/gitlab";
 import type { WakatimeStats } from "@/lib/services/wakatime";
 import type { SpotifyStats } from "@/lib/services/spotify";
 import type { MonkeytypeStats } from "@/lib/services/monkeytype";
+import type { ContributionDay, Week } from "@/lib/services/github";
 
 import { timezone, country, profileInfo } from "@/lib/site";
 import SectionTitle from "@/components/ui/SectionTitle";
@@ -47,6 +50,55 @@ type NowOrLast = NonNullable<
   SpotifyStats["nowPlaying"] | SpotifyStats["lastPlayed"]
 >;
 
+function mergeContributionWeeks(weeksList: Week[][]): {
+  weeks: Week[];
+  totalContributions: number;
+} {
+  const byDate = new Map<string, number>();
+  let totalContributions = 0;
+  let minTime = Infinity;
+  let maxTime = -Infinity;
+
+  for (const weeks of weeksList) {
+    for (const week of weeks) {
+      for (const day of week.contributionDays) {
+        byDate.set(day.date, (byDate.get(day.date) ?? 0) + day.contributionCount);
+        totalContributions += day.contributionCount;
+        const t = Date.parse(day.date);
+        if (t < minTime) minTime = t;
+        if (t > maxTime) maxTime = t;
+      }
+    }
+  }
+
+  if (byDate.size === 0) return { weeks: [], totalContributions: 0 };
+
+  const cursor = new Date(minTime);
+  cursor.setUTCHours(0, 0, 0, 0);
+  cursor.setUTCDate(cursor.getUTCDate() - cursor.getUTCDay());
+
+  const last = new Date(maxTime);
+  last.setUTCHours(0, 0, 0, 0);
+  const lastSunday = new Date(last);
+  lastSunday.setUTCDate(lastSunday.getUTCDate() - lastSunday.getUTCDay());
+
+  const weeks: Week[] = [];
+  while (cursor <= lastSunday) {
+    const contributionDays: ContributionDay[] = [];
+    for (let i = 0; i < 7; i++) {
+      const date = cursor.toISOString().slice(0, 10);
+      contributionDays.push({
+        date,
+        contributionCount: byDate.get(date) ?? 0,
+      });
+      cursor.setUTCDate(cursor.getUTCDate() + 1);
+    }
+    weeks.push({ contributionDays });
+  }
+
+  return { weeks, totalContributions };
+}
+
 // Stats section
 export default function Stats() {
   // Local time and age update every second
@@ -55,6 +107,7 @@ export default function Stats() {
 
   // External service stats
   const [githubStats, setGithubStats] = useState<GithubStats | null>(null);
+  const [gitlabStats, setGitlabStats] = useState<GitlabData | null>(null);
   const [wakatimeStats, setWakatimeStats] = useState<WakatimeStats | null>(
     null,
   );
@@ -93,6 +146,7 @@ export default function Stats() {
           : null,
       ),
     );
+    fetchGitlabData().then(setGitlabStats);
 
     // Poll Spotify every SONG_REFRESH_INTERVAL minutes while a song is playing
     fetchSpotifyStats().then((data) => {
@@ -135,15 +189,20 @@ export default function Stats() {
     monkeytypeStat(monkeytypeStats),
   ];
 
+  const merged = mergeContributionWeeks([
+    githubStats?.weeks ?? [],
+    gitlabStats?.weeks ?? [],
+  ]);
+
   // Render
   return (
     <section className="w-full">
       <div className="mx-auto flex flex-col gap-10 px-6 sm:px-10">
         <SectionTitle title="Stats" />
-        {githubStats && graphReady ? (
+        {merged.weeks.length > 0 && graphReady ? (
           <ContributionGraph
-            weeks={githubStats.weeks}
-            totalContributions={githubStats.contributions}
+            weeks={merged.weeks}
+            totalContributions={merged.totalContributions}
           />
         ) : (
           <Skeleton shape="pill" className="h-32.25 w-full" />
