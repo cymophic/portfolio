@@ -45,11 +45,18 @@ resource "aws_iam_role_policy" "lambda_shared_s3" {
 
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{
-      Effect   = "Allow"
-      Action   = ["s3:GetObject", "s3:PutObject"]
-      Resource = "${aws_s3_bucket.portfolio.arn}/stats/*"
-    }]
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = ["s3:ListBucket"]
+        Resource = aws_s3_bucket.portfolio.arn
+      },
+      {
+        Effect   = "Allow"
+        Action   = ["s3:GetObject", "s3:PutObject"]
+        Resource = "${aws_s3_bucket.portfolio.arn}/stats/*"
+      },
+    ]
   })
 }
 
