@@ -92,15 +92,14 @@ export const profileInfo = {
       company: "Accenture",
       website: "https://www.accenture.com/",
       logo: "/logos/work_accenture.webp",
-      role: "Senior DevOps Analyst",
+      role: "Senior Analyst Devops Engineer",
       type: "Full-time",
       start: "Oct 2026",
       end: "Present",
-      visible: false,
       about:
         "Accenture is a massive global professional services company specializing in IT services, strategy and consulting, and digital operations.",
       scope:
-        "Currently serving as a Senior DevOps Analyst.",
+        "Currently serving as a Senior Analyst Devops Engineer.",
     },
     {
       company: "PGX Group",
@@ -113,7 +112,7 @@ export const profileInfo = {
       about:
         "PGX Group is a technology ideas company that builds tech-driven solutions and businesses.",
       scope:
-        "Serving as a project-based DevOps Engineer, provisioning and maintaining cloud infrastructure on AWS. Responsible for debugging production issues, containerizing development environments, and managing CI/CD pipelines.",
+        "Serving as a project-based DevOps Engineer. Responsible for provisioning and maintaining cloud infrastructure, and managing CI/CD pipelines.",
     },
     {
       company: "Power Mac Center Inc.",

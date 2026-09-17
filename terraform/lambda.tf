@@ -47,7 +47,7 @@ resource "aws_iam_role_policy" "lambda_shared_s3" {
     Version = "2012-10-17"
     Statement = [{
       Effect   = "Allow"
-      Action   = "s3:PutObject"
+      Action   = ["s3:GetObject", "s3:PutObject"]
       Resource = "${aws_s3_bucket.portfolio.arn}/stats/*"
     }]
   })
@@ -81,6 +81,36 @@ resource "aws_lambda_function" "github" {
 resource "aws_lambda_permission" "github_eventbridge" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.github.function_name
+  principal     = "scheduler.amazonaws.com"
+}
+
+# GitLab Lambda
+data "archive_file" "gitlab" {
+  type        = "zip"
+  source_file = "${path.module}/../lambda/gitlab.mjs"
+  output_path = "${path.module}/../lambda/gitlab.zip"
+}
+
+resource "aws_lambda_function" "gitlab" {
+  filename         = data.archive_file.gitlab.output_path
+  function_name    = "${var.project_name}-gitlab"
+  role             = aws_iam_role.lambda_shared.arn
+  handler          = "gitlab.handler"
+  runtime          = "nodejs22.x"
+  source_code_hash = filebase64sha256(data.archive_file.gitlab.source_file)
+  timeout          = 60
+
+  environment {
+    variables = {
+      GITLAB_INSTANCES = jsonencode(local.gitlab_instances)
+      S3_BUCKET_NAME   = var.bucket_name
+    }
+  }
+}
+
+resource "aws_lambda_permission" "gitlab_eventbridge" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.gitlab.function_name
   principal     = "scheduler.amazonaws.com"
 }
 

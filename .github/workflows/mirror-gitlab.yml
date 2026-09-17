@@ -14,5 +14,5 @@ jobs:
 
       - name: Push to GitLab
         run: |
-          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/cymophic/portfolio.git
+          git remote add gitlab https://oauth2:${{ secrets.GITLAB_PROJECT_TOKEN }}@gitlab.com/cymophic/portfolio.git
           git push gitlab --all

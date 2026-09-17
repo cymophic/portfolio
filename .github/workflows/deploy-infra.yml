@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths: ["terraform/**", "lambda/**", ".github/workflows/deploy-infra.yml"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -22,6 +23,8 @@ jobs:
       TF_VAR_spotify_client_secret: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
       TF_VAR_spotify_refresh_token: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
       TF_VAR_monkeytype_api_key: ${{ secrets.MONKEYTYPE_API_KEY }}
+      TF_VAR_gitlab_personal_token: ${{ secrets.GITLAB_PERSONAL_TOKEN }}
+      TF_VAR_gitlab_pgx_token: ${{ secrets.GITLAB_PGX_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
