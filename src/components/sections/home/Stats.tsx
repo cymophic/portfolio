@@ -184,7 +184,7 @@ export default function Stats() {
     ageStat(age, profileInfo.birthday),
     locationStat(time),
     spotifyStat(spotifyStats, nowOrLast),
-    githubStat(githubStats, gitlabStats),
+    commitStat(githubStats, gitlabStats),
     wakatimeStat(wakatimeStats),
     monkeytypeStat(monkeytypeStats),
   ];
@@ -359,7 +359,7 @@ function spotifyStat(
     ready: spotifyStats !== null,
   };
 }
-function githubStat(
+function commitStat(
   githubStats: GithubStats | null,
   gitlabStats: GitlabData | null,
 ): StatItemType {
