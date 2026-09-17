@@ -219,6 +219,8 @@ spotify_client_id     = ""
 spotify_client_secret = ""
 spotify_refresh_token = ""
 monkeytype_api_key    = ""
+gitlab_personal_token = ""
+gitlab_pgx_token      = ""
 ```
 
 > `terraform/secrets.auto.tfvars` is gitignored and never committed.
@@ -260,6 +262,7 @@ After provisioning, these commands can invoke each scheduled Lambda and seed the
 
 ```bash
 aws lambda invoke --function-name <project_name>-github /dev/null
+aws lambda invoke --function-name <project_name>-gitlab /dev/null
 aws lambda invoke --function-name <project_name>-wakatime /dev/null
 aws lambda invoke --function-name <project_name>-spotify-stats /dev/null
 aws lambda invoke --function-name <project_name>-monkeytype /dev/null
@@ -285,7 +288,9 @@ The following are configured in **Settings → Secrets and Variables → Actions
 | `S3_BUCKET_NAME` | S3 bucket name |
 | `CLOUDFLARE_ZONE_ID` | Cloudflare Zone ID |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API Token |
-| `GITLAB_TOKEN` | GitLab project access token |
+| `GITLAB_PROJECT_TOKEN` | GitLab PAT for the read-only mirror push |
+| `GITLAB_PERSONAL_TOKEN` | Personal PAT for contribution graph |
+| `GITLAB_PGX_TOKEN` | Personal PAT for contribution graph |
 | `WAKATIME_API_KEY` | WakaTime API key |
 | `SPOTIFY_CLIENT_ID` | Spotify client ID |
 | `SPOTIFY_CLIENT_SECRET` | Spotify client secret |
@@ -354,6 +359,7 @@ Pre-generated JSON files served from CloudFront, updated on a schedule via Event
 | File | Description | Schedule | Response |
 |---|---|---|---|
 | `/stats/github.json` | GitHub profile stats | Hourly | `{ contributions, totalCommits, weeks, recentPortfolioCommits, recentActivity }` |
+| `/stats/gitlab.json` | GitLab contribution stats (all instances merged) | Daily | `{ contributions, weeks }` |
 | `/stats/wakatime.json` | WakaTime coding hours | Hourly | `{ today, weekly, monthly, yearly }` |
 | `/stats/spotify.json` | Spotify static stats | Hourly | `{ topTrack, topArtist, lastPlayed }` |
 | `/stats/monkeytype.json` | Monkeytype personal bests | Daily | `{ time: { 15, 60: { wpm, acc, consistency, timestamp } } }` |
