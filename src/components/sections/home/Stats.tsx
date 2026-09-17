@@ -184,7 +184,7 @@ export default function Stats() {
     ageStat(age, profileInfo.birthday),
     locationStat(time),
     spotifyStat(spotifyStats, nowOrLast),
-    githubStat(githubStats),
+    githubStat(githubStats, gitlabStats),
     wakatimeStat(wakatimeStats),
     monkeytypeStat(monkeytypeStats),
   ];
@@ -359,18 +359,21 @@ function spotifyStat(
     ready: spotifyStats !== null,
   };
 }
-function githubStat(githubStats: GithubStats | null): StatItemType {
+function githubStat(
+  githubStats: GithubStats | null,
+  gitlabStats: GitlabData | null,
+): StatItemType {
+  const totalCommits =
+    (githubStats?.totalCommits ?? 0) + (gitlabStats?.commits ?? 0);
   return {
     icon: <IconCode size={18} />,
     label: (
       <>
-        <span className="font-mono">
-          {githubStats?.totalCommits.toLocaleString()}
-        </span>{" "}
-        total commits
+        <span className="font-mono">{totalCommits.toLocaleString()}</span> total
+        commits
       </>
     ),
-    sublabel: "On GitHub in the last year",
+    sublabel: "Across GitHub and GitLab",
     ready: githubStats !== null,
   };
 }
