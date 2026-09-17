@@ -221,6 +221,7 @@ export const handler = async () => {
       Key: HISTORY_KEY,
       Body: JSON.stringify(history),
       ContentType: "application/json",
+      CacheControl: "max-age=1800",
     }),
   );
 
@@ -235,6 +236,7 @@ export const handler = async () => {
         Key: OUTPUT_KEY,
         Body: JSON.stringify(output),
         ContentType: "application/json",
+        CacheControl: "max-age=1800",
       }),
     );
   }
