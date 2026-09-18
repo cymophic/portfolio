@@ -17,8 +17,37 @@ function response(statusCode, body) {
   return { statusCode, body: JSON.stringify(body) };
 }
 
-function dateOf(iso) {
-  return iso.slice(0, 10);
+const DEFAULT_TIMEZONE = "Asia/Manila";
+// Marker for re-bucketing history when the timezone config changes
+const SCHEMA_META = "__meta__";
+
+const timeZone = process.env.GITLAB_TIMEZONE || DEFAULT_TIMEZONE;
+
+const localDateFormatter = new Intl.DateTimeFormat("en-CA", {
+  timeZone,
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+
+const weekdayFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone,
+  weekday: "short",
+});
+
+// Local calendar date (YYYY-MM-DD) for a given ISO timestamp
+function localDateOf(iso) {
+  return localDateFormatter.format(new Date(iso));
+}
+
+// Midnight UTC of the Sunday that starts the local week for a YYYY-MM-DD date
+function localSunday(dateStr) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const base = new Date(Date.UTC(y, m - 1, d));
+  const idx = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(
+    weekdayFormatter.format(base),
+  );
+  return new Date(Date.UTC(y, m - 1, d - idx));
 }
 
 function mergeMax(existing, incoming) {
@@ -112,7 +141,9 @@ function buildOutput(history, startDate) {
   const byDate = {};
   const commitsByDate = {};
 
-  for (const days of Object.values(history)) {
+  for (const [name, days] of Object.entries(history)) {
+    if (name === SCHEMA_META) continue;
+
     const contributions = days.contributions ?? days;
     const commits = days.commits ?? {};
     for (const [date, count] of Object.entries(contributions)) {
@@ -134,12 +165,8 @@ function buildOutput(history, startDate) {
   const weeks = [];
 
   if (Object.keys(byDate).length > 0) {
-    const cursor = new Date(`${startDate}T00:00:00Z`);
-    cursor.setUTCDate(cursor.getUTCDate() - cursor.getUTCDay());
-
-    const last = new Date();
-    const lastSunday = new Date(last);
-    lastSunday.setUTCDate(lastSunday.getUTCDate() - lastSunday.getUTCDay());
+    const cursor = localSunday(startDate);
+    const lastSunday = localSunday(localDateOf(new Date().toISOString()));
 
     while (cursor <= lastSunday) {
       const contributionDays = [];
@@ -170,9 +197,13 @@ export const handler = async () => {
 
   const history = await readHistory(bucket);
 
-  const startDate = new Date(Date.now() - WINDOW_DAYS * 86400000)
-    .toISOString()
-    .slice(0, 10);
+  const startDate = localDateOf(
+    new Date(Date.now() - WINDOW_DAYS * 86400000).toISOString(),
+  );
+
+  const meta = history[SCHEMA_META];
+  const rebucket = !meta || meta.timezone !== timeZone;
+  history[SCHEMA_META] = { timezone: timeZone };
 
   for (const instance of instances) {
     const { name, baseUrl, username, token } = instance;
@@ -180,11 +211,12 @@ export const handler = async () => {
     try {
       const user = await resolveUser(baseUrl, username, token);
       const events = await fetchEvents(baseUrl, user.id, token, startDate);
+      if (rebucket) delete history[name];
 
       const dayCounts = {};
       const commitCounts = {};
       for (const event of events) {
-        const date = dateOf(event.created_at);
+        const date = localDateOf(event.created_at);
         dayCounts[date] = (dayCounts[date] || 0) + 1;
         const pushCommits = event.push_data?.commit_count;
         if (Number.isInteger(pushCommits) && pushCommits > 0) {
@@ -225,12 +257,12 @@ export const handler = async () => {
     }),
   );
 
-  const hasData = Object.values(history).some(
-    (days) => Object.keys(days).length > 0,
+  const hasData = Object.entries(history).some(
+    ([name, days]) => name !== SCHEMA_META && Object.keys(days).length > 0,
   );
   if (hasData) {
     const output = buildOutput(history, startDate);
-    await s3.send(
+  await s3.send(
       new PutObjectCommand({
         Bucket: bucket,
         Key: OUTPUT_KEY,

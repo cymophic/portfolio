@@ -25,7 +25,7 @@ import type { ContributionDay, Week } from "@/lib/services/github";
 import { timezone, country, profileInfo } from "@/lib/site";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { getAge, getDaysUntilBirthday } from "@/lib/utils/profile";
-import { getLocalTime } from "@/lib/utils/locale";
+import { getLocalTime, getLocalDate } from "@/lib/utils/locale";
 import { SlotText } from "@/components/ui/AnimatedText";
 import Skeleton from "@/components/ui/Skeleton";
 import useTextMarquee from "@/hooks/animations/useTextMarquee";
@@ -50,7 +50,10 @@ type NowOrLast = NonNullable<
   SpotifyStats["nowPlaying"] | SpotifyStats["lastPlayed"]
 >;
 
-function mergeContributionWeeks(weeksList: Week[][]): {
+function mergeContributionWeeks(
+  weeksList: Week[][],
+  today?: string,
+): {
   weeks: Week[];
   totalContributions: number;
 } {
@@ -73,6 +76,9 @@ function mergeContributionWeeks(weeksList: Week[][]): {
 
   if (byDate.size === 0) return { weeks: [], totalContributions: 0 };
 
+  const todayTime = today ? Date.parse(today) : Infinity;
+  if (todayTime < maxTime) maxTime = todayTime;
+
   const cursor = new Date(minTime);
   cursor.setUTCHours(0, 0, 0, 0);
   cursor.setUTCDate(cursor.getUTCDate() - cursor.getUTCDay());
@@ -85,15 +91,22 @@ function mergeContributionWeeks(weeksList: Week[][]): {
   const weeks: Week[] = [];
   while (cursor <= lastSunday) {
     const contributionDays: ContributionDay[] = [];
+    let remaining = true;
     for (let i = 0; i < 7; i++) {
       const date = cursor.toISOString().slice(0, 10);
+      if (Date.parse(`${date}T00:00:00Z`) > todayTime) {
+        remaining = false;
+        break;
+      }
       contributionDays.push({
         date,
         contributionCount: byDate.get(date) ?? 0,
       });
       cursor.setUTCDate(cursor.getUTCDate() + 1);
     }
+    if (contributionDays.length === 0) break;
     weeks.push({ contributionDays });
+    if (!remaining) break;
   }
 
   return { weeks, totalContributions };
@@ -189,10 +202,10 @@ export default function Stats() {
     monkeytypeStat(monkeytypeStats),
   ];
 
-  const merged = mergeContributionWeeks([
-    githubStats?.weeks ?? [],
-    gitlabStats?.weeks ?? [],
-  ]);
+  const merged = mergeContributionWeeks(
+    [githubStats?.weeks ?? [], gitlabStats?.weeks ?? []],
+    getLocalDate(timezone),
+  );
 
   // Render
   return (
