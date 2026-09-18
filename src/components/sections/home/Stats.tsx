@@ -386,7 +386,7 @@ function commitStat(
         commits
       </>
     ),
-    sublabel: "Across GitHub and GitLab",
+    sublabel: "Across all projects & platforms",
     ready: githubStats !== null,
   };
 }
