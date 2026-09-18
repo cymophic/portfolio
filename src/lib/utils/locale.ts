@@ -14,6 +14,11 @@ export function getTimezoneOffset(
   return offset.replace("GMT", `${prefix} `);
 }
 
+// Returns the current local date (YYYY-MM-DD) for a given timezone
+export function getLocalDate(timeZone: string): string {
+  return new Date().toLocaleDateString("en-CA", { timeZone });
+}
+
 // Returns the current local time and UTC offset for a given timezone
 export function getLocalTime(timeZone: string): {
   time: string;
