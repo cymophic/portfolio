@@ -109,6 +109,7 @@ export const profileInfo = {
       type: "Freelance",
       start: "Jul 2026",
       end: "Present",
+      visible: false,
       about:
         "PGX Group is a technology ideas company that builds tech-driven solutions and businesses.",
       scope:
