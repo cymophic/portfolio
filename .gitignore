@@ -53,3 +53,7 @@ lambda/**/*.zip
 .terraform.tfstate.lock.info
 *.tfstate
 *.tfstate.backup
+
+# Agent files
+.claude
+AGENTS.md
