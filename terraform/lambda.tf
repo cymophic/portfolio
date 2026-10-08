@@ -89,6 +89,7 @@ resource "aws_lambda_permission" "github_eventbridge" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.github.function_name
   principal     = "scheduler.amazonaws.com"
+  source_arn    = aws_scheduler_schedule.github.arn
 }
 
 # GitLab Lambda
@@ -119,6 +120,7 @@ resource "aws_lambda_permission" "gitlab_eventbridge" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.gitlab.function_name
   principal     = "scheduler.amazonaws.com"
+  source_arn    = aws_scheduler_schedule.gitlab.arn
 }
 
 # WakaTime Lambda
@@ -149,6 +151,7 @@ resource "aws_lambda_permission" "wakatime_eventbridge" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.wakatime.function_name
   principal     = "scheduler.amazonaws.com"
+  source_arn    = aws_scheduler_schedule.wakatime.arn
 }
 
 # Monkeytype Lambda
@@ -179,6 +182,7 @@ resource "aws_lambda_permission" "monkeytype_eventbridge" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.monkeytype.function_name
   principal     = "scheduler.amazonaws.com"
+  source_arn    = aws_scheduler_schedule.monkeytype.arn
 }
 
 # Spotify Now Playing Lambda
@@ -256,4 +260,5 @@ resource "aws_lambda_permission" "spotify_stats_eventbridge" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.spotify_stats.function_name
   principal     = "scheduler.amazonaws.com"
+  source_arn    = aws_scheduler_schedule.spotify_stats.arn
 }
