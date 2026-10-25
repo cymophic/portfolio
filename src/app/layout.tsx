@@ -77,11 +77,6 @@ const personJsonLd = {
   image: `${websiteURL}/avatar.png`,
   sameAs: profileInfo.socials.map((s) => s.link),
   email: profileInfo.emails[0],
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Pasig City",
-    addressCountry: "PH",
-  },
 };
 
 const websiteJsonLd = {
