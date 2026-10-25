@@ -47,9 +47,11 @@ next-env.d.ts
 *.tfvars
 !terraform/terraform.tfvars
 terraform/.terraform/
-terraform/.terraform.lock.hcl
 lambda/**/*.zip
-.terraform.lock.hcl
 .terraform.tfstate.lock.info
 *.tfstate
 *.tfstate.backup
+
+# Agent files
+.claude
+AGENTS.md

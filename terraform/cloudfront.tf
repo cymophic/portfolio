@@ -5,6 +5,11 @@ resource "aws_cloudfront_origin_access_control" "portfolio" {
   signing_protocol                  = "sigv4"
 }
 
+data "aws_cloudfront_cache_policy" "caching_optimized" {
+  # AWS-managed policy ID: 658327ea-f89d-4fab-a63d-7e88639e58f6
+  name = "Managed-CachingOptimized"
+}
+
 resource "aws_cloudfront_distribution" "portfolio" {
   depends_on          = [aws_acm_certificate_validation.portfolio]
   enabled             = true
@@ -24,12 +29,7 @@ resource "aws_cloudfront_distribution" "portfolio" {
     viewer_protocol_policy     = "redirect-to-https"
     response_headers_policy_id = aws_cloudfront_response_headers_policy.cors.id
 
-    forwarded_values {
-      query_string = false
-      cookies {
-        forward = "none"
-      }
-    }
+    cache_policy_id = data.aws_cloudfront_cache_policy.caching_optimized.id
 
     function_association {
       event_type   = "viewer-request"
@@ -45,12 +45,7 @@ resource "aws_cloudfront_distribution" "portfolio" {
     viewer_protocol_policy     = "redirect-to-https"
     response_headers_policy_id = aws_cloudfront_response_headers_policy.cors.id
 
-    forwarded_values {
-      query_string = false
-      cookies {
-        forward = "none"
-      }
-    }
+    cache_policy_id = data.aws_cloudfront_cache_policy.caching_optimized.id
 
     min_ttl     = 31536000
     default_ttl = 31536000

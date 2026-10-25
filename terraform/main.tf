@@ -1,4 +1,6 @@
 terraform {
+  required_version = ">= 1.15.0"
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -11,9 +13,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "cymo-tfstate-storage"
-    key    = "portfolio/terraform.tfstate"
-    region = "ap-southeast-1"
+    bucket       = "cymo-tfstate-storage"
+    key          = "portfolio/terraform.tfstate"
+    region       = "ap-southeast-1"
+    use_lockfile = true
   }
 }
 
