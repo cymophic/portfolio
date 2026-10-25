@@ -6,7 +6,8 @@ resource "aws_cloudfront_origin_access_control" "portfolio" {
 }
 
 data "aws_cloudfront_cache_policy" "caching_optimized" {
-  name = "CachingOptimized"
+  # AWS-managed policy ID: 658327ea-f89d-4fab-a63d-7e88639e58f6
+  name = "Managed-CachingOptimized"
 }
 
 resource "aws_cloudfront_distribution" "portfolio" {
