@@ -34,7 +34,20 @@ export const metadata: Metadata = {
     description,
     url: websiteURL,
     type: "website",
-    images: [{ url: "/avatar.png" }],
+    images: [
+      {
+        url: "/avatar.png",
+        width: 512,
+        height: 512,
+        alt: `${profileInfo.name} avatar`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: `${profileInfo.name} | ${profileInfo.title}`,
+    description,
+    images: [{ url: "/avatar.png", alt: `${profileInfo.name} avatar` }],
   },
   keywords: [
     "Luis Abhram",
@@ -55,6 +68,30 @@ export const metadata: Metadata = {
   ],
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profileInfo.name,
+  jobTitle: profileInfo.title,
+  url: websiteURL,
+  image: `${websiteURL}/avatar.png`,
+  sameAs: profileInfo.socials.map((s) => s.link),
+  email: profileInfo.emails[0],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Pasig City",
+    addressCountry: "PH",
+  },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: profileInfo.name,
+  url: websiteURL,
+  description,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -64,6 +101,16 @@ export default function RootLayout({
       className={`${inter.variable} ${geistMono.variable} ${splineSansMono.variable} h-full antialiased font-sans`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+      </head>
       <body
         className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950"
         suppressHydrationWarning
