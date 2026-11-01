@@ -62,7 +62,7 @@ export default function Education() {
                             href={edu.website}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="underline sm:hover:text-zinc-900 sm:dark:hover:text-zinc-100"
+                            className="underline sm:hover:text-zinc-900 sm:dark:hover:text-zinc-300"
                           >
                             {edu.school}
                             <IconArrowUpRight
