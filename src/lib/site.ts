@@ -222,7 +222,7 @@ export const projects: Project[] = [
     pinned: true,
     page: false,
     description: "The website where you're currently reading this right now.",
-    tags: ["AWS", "Terraform", "Cloudflare", "Next.js", "Tailwind CSS"],
+    tags: ["AWS", "Terraform", "Next.js", "Cloudflare", "Tailwind CSS"],
     url: "https://luisabhram.dev",
     repo: "https://github.com/cymophic/portfolio",
     cover: "/projects/digital-portfolio/cover.webp",
@@ -233,7 +233,7 @@ export const projects: Project[] = [
     pinned: true,
     description:
       "Website migration of a Virtual Assistant Provider website from Wordpress to Next.js.",
-    tags: ["AWS", "Terraform", "Cloudflare", "Next.js", "Tailwind CSS"],
+    tags: ["AWS", "Terraform", "Next.js", "Cloudflare", "Tailwind CSS"],
     url: "https://jennyannvalenciano.com",
     cover: "/projects/vap-site/cover.webp",
     page: false,
@@ -256,7 +256,7 @@ export const projects: Project[] = [
     pinned: true,
     description:
       "A Lead-to-Cash (L2C) platform built to digitize retail lead and post-sale service tracking.",
-    tags: ["Docker", "Ansible", "Monitoring", "Django"],
+    tags: ["Docker", "Django", "Ansible", "Monitoring"],
     url: "https://rsoconnect.powermaccenter.com",
     repo: null,
     cover: "/projects/l2c-portal/cover.webp",
