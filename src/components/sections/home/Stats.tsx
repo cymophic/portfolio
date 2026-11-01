@@ -160,8 +160,6 @@ export default function Stats() {
       ),
     );
     fetchGitlabData().then(setGitlabStats);
-
-    // Poll Spotify every SONG_REFRESH_INTERVAL minutes while a song is playing
     fetchSpotifyStats().then((data) => {
       setSpotifyStats(data);
       if (data?.nowPlaying) {
@@ -354,7 +352,7 @@ function spotifyStat(
           href={nowOrLast.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline"
+          className="underline sm:hover:text-zinc-800 sm:dark:hover:text-zinc-100"
         >
           {nowOrLast.song}
         </a>{" "}
